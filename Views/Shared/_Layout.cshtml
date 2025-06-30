@@ -1,0 +1,694 @@
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>LifeSure - Life Insurance Website Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    @*<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@"0,9..40,100..1000;1,9..40,100..1000&family=Inter:slnt,wght@-10..0,100..900&display=swap" rel="stylesheet">*@
+
+    <!-- Icon Font Stylesheet -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/Client/lib/animate/animate.min.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/Client/lib/lightbox/css/lightbox.min.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/Client/lib/owlcarousel/assets/owl.carousel.min.css")" />
+
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="@Url.Content("~/Content/Client")/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="@Url.Content("~/Content/Client")/css/style.css" rel="stylesheet">
+
+    <!-- Kendo UI CSS -->
+    <link href="https://kendo.cdn.telerik.com/2024.1.319/styles/kendo.default-v2.min.css" rel="stylesheet" />
+
+    <!-- jQuery (phải load trước Kendo) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Kendo UI JS -->
+    <script src="https://kendo.cdn.telerik.com/2024.1.319/js/kendo.all.min.js"></script>
+
+
+    <style>
+        /* Custom styles for multi-level dropdown */
+        .dropdown-submenu {
+            position: relative;
+        }
+
+            .dropdown-submenu .dropdown-menu {
+                top: 0;
+                left: 100%;
+                margin-top: -1px;
+                border-radius: 0 6px 6px 6px;
+            }
+
+            .dropdown-submenu:hover .dropdown-menu {
+                display: block;
+                top: -30px; /* Đẩy menu con lên cao hơn */
+                transition: all 0.2s ease-in-out;
+            }
+
+            .dropdown-submenu > .dropdown-item:after {
+                display: block;
+                content: " ";
+                float: right;
+                width: 0;
+                height: 0;
+                border-color: transparent;
+                border-style: solid;
+                border-width: 5px 0 5px 5px;
+                border-left-color: #cccccc;
+                margin-top: 5px;
+                margin-right: -10px;
+            }
+
+            .dropdown-submenu:hover > .dropdown-item:after {
+                border-left-color: #999;
+            }
+
+            .dropdown-submenu.pull-left {
+                float: none;
+            }
+
+                .dropdown-submenu.pull-left > .dropdown-menu {
+                    left: -100%;
+                    margin-left: 10px;
+                    border-radius: 6px 0 6px 6px;
+                }
+
+        /* Additional styling for better appearance */
+        .topbar {
+            background-color: #f8f9fa;
+        }
+
+        .navbar-brand h1 {
+            color: #007bff !important;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .bg-primary {
+            background-color: #007bff !important;
+        }
+
+        .text-primary {
+            color: #007bff !important;
+        }
+
+        .border-primary {
+            border-color: #007bff !important;
+        }
+
+        .header-carousel {
+            height: 600px;
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-caption {
+            position: static;
+            padding: 0;
+        }
+
+        .footer {
+            background-color: #343a40;
+            color: white;
+        }
+
+        .copyright {
+            background-color: #212529;
+            color: white;
+        }
+
+        /* Responsive adjustments */
+        @@media (max-width: 768px) {
+            .dropdown-submenu .dropdown-menu {
+                position: static;
+                box-shadow: none;
+                border: none;
+                padding-left: 1rem;
+            }
+
+            .dropdown-submenu > .dropdown-item:after {
+                display: none;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Spinner Start -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+    <!-- Topbar Start -->
+    <div class="container-fluid topbar px-0 px-lg-4 bg-light py-2 d-none d-lg-block">
+        <div class="container">
+            <div class="row gx-0 align-items-center">
+                <div class="col-lg-8 text-center text-lg-start mb-lg-0">
+                    <div class="d-flex flex-wrap">
+                        <div class="border-end border-primary pe-3">
+                            <a href="#" class="text-muted small"><i class="fas fa-map-marker-alt text-primary me-2"></i>Find A Location</a>
+                        </div>
+                        <div class="ps-3">
+                            <a href="mailto:example@gmail.com" class="text-muted small"><i class="fas fa-envelope text-primary me-2"></i>example@gmail.com</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 text-center text-lg-end">
+                    <div class="d-flex justify-content-end">
+                        <div class="d-flex border-end border-primary pe-3">
+                            <a class="btn p-0 text-primary me-3" href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn p-0 text-primary me-3" href="#"><i class="fab fa-twitter"></i></a>
+                            <a class="btn p-0 text-primary me-3" href="#"><i class="fab fa-instagram"></i></a>
+                            <a class="btn p-0 text-primary me-0" href="#"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                        <div class="dropdown ms-3">
+                            <a href="#" class="dropdown-toggle text-dark" data-bs-toggle="dropdown"><small><i class="fas fa-globe-europe text-primary me-2"></i> English</small></a>
+                            <div class="dropdown-menu rounded">
+                                <a href="#" class="dropdown-item">English</a>
+                                <a href="#" class="dropdown-item">Bangla</a>
+                                <a href="#" class="dropdown-item">French</a>
+                                <a href="#" class="dropdown-item">Spanish</a>
+                                <a href="#" class="dropdown-item">Arabic</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Topbar End -->
+    <!-- Navbar & Hero Start -->
+    <div class="container-fluid nav-bar px-0 px-lg-4 py-lg-0">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <a href="#" class="navbar-brand p-0">
+                    <h1 class="text-primary mb-0"><i class="fab fa-slack me-2"></i> LifeSure</h1>
+                    <!-- <img src="img/logo.png" alt="Logo"> -->
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                    <span class="fa fa-bars"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav mx-0 mx-lg-auto">
+                        <a href="/home" class="nav-item nav-link active">Home</a>
+                        <a href="/home/about" class="nav-item nav-link">About</a>
+                        <a href="/home/services" class="nav-item nav-link">Services</a>
+                        <a href="/home/blog" class="nav-item nav-link">Blog</a>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link" data-bs-toggle="dropdown">
+                                <span class="dropdown-toggle">Pages</span>
+                            </a>
+                            <div class="dropdown-menu">
+                                <a href="/home/feature" class="dropdown-item">Our Features</a>
+                                <a href="/home/team" class="dropdown-item">Our team</a>
+                                <a href="/home/testimonial" class="dropdown-item">Testimonial</a>
+                                <a href="FAQ.html" class="dropdown-item">FAQs</a>
+                                <a href="404.html" class="dropdown-item">404 Page</a>
+                            </div>
+                        </div>
+                        <div class="nav-item dropdown">
+                            <a href="/home/insurance" class="nav-link" data-bs-toggle="dropdown">
+                                <span class="dropdown-toggle">Insurance</span>
+                            </a>
+                            <div class="dropdown-menu">
+                                <!-- Bảo hiểm nhân thọ with sub-dropdown -->
+                                <div class="dropdown-submenu">
+                                    <a class="dropdown-item" href="/home/life-insurance">Bảo hiểm nhân thọ</a>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="/home/term-life">Bảo hiểm nhân thọ xã hội</a>
+                                        <a class="dropdown-item" href="/home/whole-life">Bảo hiểm nhân thọ trọn đời</a>
+                                        <a class="dropdown-item" href="/home/universal-life">Bảo hiểm nhân thọ linh hoạt</a>
+                                        <a class="dropdown-item" href="/home/investment-life">Bảo hiểm nhân thọ đầu tư</a>
+                                    </div>
+                                </div>
+
+                                <!-- Bảo hiểm y tế with sub-dropdown -->
+                                <div class="dropdown-submenu">
+                                    <a class="dropdown-item" href="/home/health-insurance">Bảo hiểm y tế</a>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="/home/individual-health">Bảo hiểm y tế cá nhân</a>
+                                        <a class="dropdown-item" href="/home/family-health">Bảo hiểm y tế gia đình</a>
+                                        <a class="dropdown-item" href="/home/group-health">Bảo hiểm y tế nhóm</a>
+                                        <a class="dropdown-item" href="/home/critical-illness">Bảo hiểm bệnh hiểm nghèo</a>
+                                        <a class="dropdown-item" href="/home/dental-health">Bảo hiểm nha khoa</a>
+                                    </div>
+                                </div>
+
+                                <!-- Bảo hiểm xe cơ giới with sub-dropdown -->
+                                <div class="dropdown-submenu">
+                                    <a class="dropdown-item" href="/home/vehicle-insurance">Bảo hiểm xe cơ giới</a>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="/home/car-insurance">Bảo hiểm ô tô</a>
+                                        <a class="dropdown-item" href="/home/motorcycle-insurance">Bảo hiểm xe máy</a>
+                                        <a class="dropdown-item" href="/home/insurance">Bảo hiểm xe tải</a>
+                                        <a class="dropdown-item" href="/home/comprehensive-auto">Bảo hiểm toàn diện</a>
+                                        <a class="dropdown-item" href="/home/third-party-auto">Bảo hiểm trách nhiệm dân sự</a>
+                                    </div>
+                                </div>
+
+                                <!-- Bảo hiểm nhà cửa with sub-dropdown -->
+                                <div class="dropdown-submenu">
+                                    <a class="dropdown-item" href="/home/property-insurance">Bảo hiểm nhà cửa</a>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="/home/home-insurance">Bảo hiểm nhà ở</a>
+                                        <a class="dropdown-item" href="/home/apartment-insurance">Bảo hiểm chung cư</a>
+                                        <a class="dropdown-item" href="/home/fire-insurance">Bảo hiểm cháy nổ</a>
+                                        <a class="dropdown-item" href="/home/flood-insurance">Bảo hiểm thiên tai</a>
+                                        <a class="dropdown-item" href="/home/content-insurance">Bảo hiểm tài sản trong nhà</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="/home/contact" class="nav-item nav-link">More</a>
+
+                        <div class="nav-btn px-3">
+                            <button class="btn-search btn btn-primary btn-md-square rounded-circle flex-shrink-0" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search"></i></button>
+                            <a href="#" class="btn btn-primary rounded-pill py-2 px-4 ms-3 flex-shrink-0"> Get a Quote</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-none d-xl-flex flex-shrink-0 ps-4">
+                    <a href="#" class="btn btn-light btn-lg-square rounded-circle position-relative wow tada" data-wow-delay=".9s">
+                        <i class="fa fa-phone-alt fa-2x"></i>
+                        <div class="position-absolute" style="top: 7px; right: 12px;">
+                            <span><i class="fa fa-comment-dots text-secondary"></i></span>
+                        </div>
+                    </a>
+                    <div class="d-flex flex-column ms-3">
+                        <span>Call to Our Experts</span>
+                        <a href="tel:+ 0123 456 7890"><span class="text-dark">Free: + 0123 456 7890</span></a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar & Hero End -->
+    <!-- Modal Search Start -->
+    <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content rounded-0">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Search by keyword</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center bg-primary">
+                    <div class="input-group w-75 mx-auto d-flex">
+                        <input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1">
+                        <span id="search-icon-1" class="btn bg-light border nput-group-text p-3"><i class="fa fa-search"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    @{
+        var allBanner = HttpContextAccessor.HttpContext?.Session.GetInt32("allbanner") ?? 0;
+        var display = HttpContextAccessor.HttpContext?.Session.GetInt32("display") ?? 0;
+        var displayStyle = display == 1 ? "block" : "none";
+        var renderedDisplay = display == 1 ? "none" : "block";
+    }
+
+    @if (allBanner == 1)
+    {
+        <div class="header-carousel owl-carousel" style="display:@displayStyle">
+            <!-- Nội dung carousel ở đây -->
+
+            <div class="header-carousel-item bg-primary">
+                <div class="carousel-caption">
+                    <div class="container">
+                        <div class="row g-4 align-items-center">
+                            <div class="col-lg-7 animated fadeInLeft">
+                                <div class="text-sm-center text-md-start">
+                                    <h4 class="text-white text-uppercase fw-bold mb-4">Welcome To LifeSure</h4>
+                                    <h1 class="display-1 text-white mb-4">Life Insurance Makes You Happy</h1>
+                                    <p class="mb-5 fs-5">
+                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy...
+                                    </p>
+                                    <div class="d-flex justify-content-center justify-content-md-start flex-shrink-0 mb-4">
+                                        <a class="btn btn-light rounded-pill py-3 px-4 px-md-5 me-2" href="#"><i class="fas fa-play-circle me-2"></i> Watch Video</a>
+                                        <a class="btn btn-dark rounded-pill py-3 px-4 px-md-5 ms-2" href="#">Learn More</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-5 animated fadeInRight">
+                                <div class="calrousel-img" style="object-fit: cover;">
+                                    <img src="@Url.Content("~/Content/Client")/img/carousel-2.png" class="img-fluid w-100" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+          
+            <div class="header-carousel-item bg-primary" style="display:@displayStyle">
+                <div class="carousel-caption">
+                    <div class="container">
+                        <div class="row gy-4 gy-lg-0 gx-0 gx-lg-5 align-items-center">
+                            <div class="col-lg-5 animated fadeInLeft">
+                                <div class="calrousel-img">
+                                    <img src="@Url.Content("~/Content/Client")/img/carousel-2.png" class="img-fluid w-100" alt="">
+                                </div>
+                            </div>
+                            <div class="col-lg-7 animated fadeInRight">
+                                <div class="text-sm-center text-md-end">
+                                    <h4 class="text-white text-uppercase fw-bold mb-4">Welcome To LifeSure</h4>
+                                    <h1 class="display-1 text-white mb-4">Life Insurance Makes You Happy</h1>
+                                    <p class="mb-5 fs-5">
+                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy...
+                                    </p>
+                                    <div class="d-flex justify-content-center justify-content-md-end flex-shrink-0 mb-4">
+                                        <a class="btn btn-light rounded-pill py-3 px-4 px-md-5 me-2" href="#"><i class="fas fa-play-circle me-2"></i> Watch Video</a>
+                                        <a class="btn btn-dark rounded-pill py-3 px-4 px-md-5 ms-2" href="#">Learn More</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid bg-breadcrumb" style="display:@renderedDisplay">
+            @*<div class="col-3" style="background-color: white; margin-left: 30px; padding: 20px; border-top: 8px solid #007BFF; ">
+                    <p><strong>Đảm bảo cho những chuyến vận chuyển luôn suôn sẻ cho doanh nghiệp của bạn</strong></p>
+                    <h3><strong>Bảo hiểm xe tải</strong></h3>
+                    <p><strong><h5 style="color:black">Đảm bảo cho những chuyến vận chuyển luôn suôn sẻ cho doanh nghiệp của bạn</h5></strong></p>
+                    <div class="text-end mt-5" style="margin-right:30px">
+                        <a class="btn btn-primary rounded-pill py-2 px-4" href="#">Read More</a>
+                    </div>
+                </div>*@
+            <div class="container text-center py-5" style="max-width: 900px">
+                <h4 class="text-white display-4 mb-4 wow fadeInDown"
+                    data-wow-delay="0.1s">
+                    About Us
+                </h4>
+                <ol class="breadcrumb d-flex justify-content-center mb-0 wow fadeInDown"
+                    data-wow-delay="0.3s">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                    <li class="breadcrumb-item active text-primary">About</li>
+                </ol>
+            </div>
+        </div>
+    }
+
+    <!-- Modal Search End -->
+    <!-- Carousel Start -->
+    @RenderBody()
+
+    <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s">
+        <div class="container py-5">
+            <div class="row g-5">
+                <div class="col-xl-9">
+                    <div class="mb-5">
+                        <div class="row g-4">
+                            <div class="col-md-6 col-lg-6 col-xl-5">
+                                <div class="footer-item">
+                                    <a href="index.html" class="p-0">
+                                        <h3 class="text-white"><i class="fab fa-slack me-3"></i> LifeSure</h3>
+                                        <!-- <img src="img/logo.png" alt="Logo"> -->
+                                    </a>
+                                    <p class="text-white mb-4">Dolor amet sit justo amet elitr clita ipsum elitr est.Lorem ipsum dolor sit amet, consectetur adipiscing...</p>
+                                    <div class="footer-btn d-flex">
+                                        <a class="btn btn-md-square rounded-circle me-3" href="#"><i class="fab fa-facebook-f"></i></a>
+                                        <a class="btn btn-md-square rounded-circle me-3" href="#"><i class="fab fa-twitter"></i></a>
+                                        <a class="btn btn-md-square rounded-circle me-3" href="#"><i class="fab fa-instagram"></i></a>
+                                        <a class="btn btn-md-square rounded-circle me-0" href="#"><i class="fab fa-linkedin-in"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-xl-3">
+                                <div class="footer-item">
+                                    <h4 class="text-white mb-4">Useful Links</h4>
+                                    <a href="#"><i class="fas fa-angle-right me-2"></i> About Us</a>
+                                    <a href="#"><i class="fas fa-angle-right me-2"></i> Features</a>
+                                    <a href="#"><i class="fas fa-angle-right me-2"></i> Services</a>
+                                    <a href="#"><i class="fas fa-angle-right me-2"></i> FAQ's</a>
+                                    <a href="#"><i class="fas fa-angle-right me-2"></i> Blogs</a>
+                                    <a href="#"><i class="fas fa-angle-right me-2"></i> Contact</a>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-xl-4">
+                                <div class="footer-item">
+                                    <h4 class="mb-4 text-white">Instagram</h4>
+                                    <div class="row g-3">
+                                        <div class="col-4">
+                                            <div class="footer-instagram rounded">
+                                                <img src="@Url.Content("~/Content/Client")/img/instagram-footer-1.jpg" class="img-fluid w-100" alt="">
+                                                <div class="footer-search-icon">
+                                                    <a href="@Url.Content("~/Content/Client")/img/instagram-footer-1.jpg" data-lightbox="footerInstagram-1" class="my-auto"><i class="fas fa-link text-white"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="footer-instagram rounded">
+                                                <img src="@Url.Content("~/Content/Client")/img/instagram-footer-2.jpg" class="img-fluid w-100" alt="">
+                                                <div class="footer-search-icon">
+                                                    <a href="@Url.Content("~/Content/Client")/img/instagram-footer-2.jpg" data-lightbox="footerInstagram-2" class="my-auto"><i class="fas fa-link text-white"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="footer-instagram rounded">
+                                                <img src="@Url.Content("~/Content/Client")/img/instagram-footer-3.jpg" class="img-fluid w-100" alt="">
+                                                <div class="footer-search-icon">
+                                                    <a href=@Url.Content("~/Content/Client")/img/instagram-footer-3.jpg" data-lightbox="footerInstagram-3" class="my-auto"><i class="fas fa-link text-white"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="footer-instagram rounded">
+                                                <img src="@Url.Content("~/Content/Client")/img/instagram-footer-4.jpg" class="img-fluid w-100" alt="">
+                                                <div class="footer-search-icon">
+                                                    <a href="@Url.Content("~/Content/Client")/img/instagram-footer-4.jpg" data-lightbox="footerInstagram-4" class="my-auto"><i class="fas fa-link text-white"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="footer-instagram rounded">
+                                                <img src="@Url.Content("~/Content/Client")/img/instagram-footer-5.jpg" class="img-fluid w-100" alt="">
+                                                <div class="footer-search-icon">
+                                                    <a href="@Url.Content("~/Content/Client")/img/instagram-footer-5.jpg" data-lightbox="footerInstagram-5" class="my-auto"><i class="fas fa-link text-white"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="footer-instagram rounded">
+                                                <img src="@Url.Content("~/Content/Client")/img/instagram-footer-6.jpg" class="img-fluid w-100" alt="">
+                                                <div class="footer-search-icon">
+                                                    <a href="@Url.Content("~/Content/Client")/img/instagram-footer-6.jpg" data-lightbox="footerInstagram-6" class="my-auto"><i class="fas fa-link text-white"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pt-5" style="border-top: 1px solid rgba(255, 255, 255, 0.08);">
+                            <div class="row g-0">
+                                <div class="col-12">
+                                    <div class="row g-4">
+                                        <div class="col-lg-6 col-xl-4">
+                                            <div class="d-flex">
+                                                <div class="btn-xl-square bg-primary text-white rounded p-4 me-4">
+                                                    <i class="fas fa-map-marker-alt fa-2x"></i>
+                                                </div>
+                                                <div>
+                                                    <h4 class="text-white">Address</h4>
+                                                    <p class="mb-0">123 Street New York.USA</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-xl-4">
+                                            <div class="d-flex">
+                                                <div class="btn-xl-square bg-primary text-white rounded p-4 me-4">
+                                                    <i class="fas fa-envelope fa-2x"></i>
+                                                </div>
+                                                <div>
+                                                    <h4 class="text-white">Mail Us</h4>
+                                                    <p class="mb-0">info@example.com</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-xl-4">
+                                            <div class="d-flex">
+                                                <div class="btn-xl-square bg-primary text-white rounded p-4 me-4">
+                                                    <i class="fa fa-phone-alt fa-2x"></i>
+                                                </div>
+                                                <div>
+                                                    <h4 class="text-white">Telephone</h4>
+                                                    <p class="mb-0">(+012) 3456 7890</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3">
+                        <div class="footer-item">
+                            <h4 class="text-white mb-4">Newsletter</h4>
+                            <p class="text-white mb-3">Dolor amet sit justo amet elitr clita ipsum elitr est.Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                            <div class="position-relative rounded-pill mb-4">
+                                <input class="form-control rounded-pill w-100 py-3 ps-4 pe-5" type="text" placeholder="Enter your email">
+                                <button type="button" class="btn btn-primary rounded-pill position-absolute top-0 end-0 py-2 mt-2 me-2">SignUp</button>
+                            </div>
+                            <div class="d-flex flex-shrink-0">
+                                <div class="footer-btn">
+                                    <a href="#" class="btn btn-lg-square rounded-circle position-relative wow tada" data-wow-delay=".9s">
+                                        <i class="fa fa-phone-alt fa-2x"></i>
+                                        <div class="position-absolute" style="top: 2px; right: 12px;">
+                                            <span><i class="fa fa-comment-dots text-secondary"></i></span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="d-flex flex-column ms-3 flex-shrink-0">
+                                    <span>Call to Our Experts</span>
+                                    <a href="tel:+ 0123 456 7890"><span class="text-white">Free: + 0123 456 7890</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+    <!-- Copyright Start -->
+    <div class="container-fluid copyright py-4">
+        <div class="container">
+            <div class="row g-4 align-items-center">
+                <div class="col-md-6 text-center text-md-end mb-md-0">
+                    <span class="text-body"><a href="#" class="border-bottom text-white"><i class="fas fa-copyright text-light me-2"></i>Your Site Name</a>, All right reserved.</span>
+                </div>
+                <div class="col-md-6 text-center text-md-start text-body">
+                    <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
+                    <!--/*** If you'd like to use the template without the below author’s credit link/attribution link/backlink, ***/-->
+                    <!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
+                    Designed By <a class="border-bottom text-white" href="https://htmlcodex.com">HTML Codex</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Copyright End -->
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-primary btn-lg-square rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="@Url.Content("~/Content/Client")/lib/wow/wow.min.js"></script>
+    <script src="@Url.Content("~/Content/Client")/lib/easing/easing.min.js"></script>
+    <script src="@Url.Content("~/Content/Client")/lib/waypoints/waypoints.min.js"></script>
+    <script src="@Url.Content("~/Content/Client")/lib/counterup/counterup.min.js"></script>
+    <script src="@Url.Content("~/Content/Client")/lib/lightbox/js/lightbox.min.js"></script>
+    <script src="@Url.Content("~/Content/Client")/lib/owlcarousel/owl.carousel.min.js"></script>
+
+
+    <!-- Template Javascript -->
+    <script src="@Url.Content("~/Content/Client")/js/main.js"></script>
+    <script>
+        // Hide spinner when page loads
+        window.addEventListener('load', function () {
+            document.getElementById('spinner').classList.remove('show');
+        });
+
+        // Multi-level dropdown functionality
+        document.addEventListener('DOMContentLoaded', function () {
+            // Handle dropdown submenu on hover for desktop
+            const dropdownSubmenus = document.querySelectorAll('.dropdown-submenu');
+
+            dropdownSubmenus.forEach(function (submenu) {
+                submenu.addEventListener('mouseenter', function () {
+                    if (window.innerWidth > 768) {
+                        const submenuDropdown = this.querySelector('.dropdown-menu');
+                        if (submenuDropdown) {
+                            submenuDropdown.style.display = 'block';
+                        }
+                    }
+                });
+
+                submenu.addEventListener('mouseleave', function () {
+                    if (window.innerWidth > 768) {
+                        const submenuDropdown = this.querySelector('.dropdown-menu');
+                        if (submenuDropdown) {
+                            submenuDropdown.style.display = 'none';
+                        }
+                    }
+                });
+
+                // Handle click for mobile
+                const submenuLink = submenu.querySelector('.dropdown-item');
+                submenuLink.addEventListener('click', function (e) {
+                    if (window.innerWidth <= 768) {
+                        e.preventDefault();
+                        const submenuDropdown = submenu.querySelector('.dropdown-menu');
+                        if (submenuDropdown) {
+                            if (submenuDropdown.style.display === 'block') {
+                                submenuDropdown.style.display = 'none';
+                            } else {
+                                submenuDropdown.style.display = 'block';
+                            }
+                        }
+                    }
+                });
+            });
+
+            // Back to top button functionality
+            const backToTopButton = document.querySelector('.back-to-top');
+
+            window.addEventListener('scroll', function () {
+                if (window.pageYOffset > 300) {
+                    backToTopButton.style.display = 'block';
+                } else {
+                    backToTopButton.style.display = 'none';
+                }
+            });
+
+            backToTopButton.addEventListener('click', function (e) {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+
+    <script src="https://cdn.tiny.cloud/1/opbl478qvvrtoorhvqc4f7zei61txljv0gkj67k1ogzky57n/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: '#mytextarea'
+        });
+    </script>
+</body>
+
+</html>
