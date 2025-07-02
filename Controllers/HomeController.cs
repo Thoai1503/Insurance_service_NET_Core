@@ -1,5 +1,7 @@
 using System.Diagnostics;
 using Insurance_agency.Models;
+using Insurance_agency.Models.Entities;
+using Insurance_agency.Models.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Insurance_agency.Controllers
@@ -7,15 +9,23 @@ namespace Insurance_agency.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private InsuranceContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        // Constructor injection for ILogger4
+        // and InsuranceContext
+        // to enable logging and database access
+        public HomeController(InsuranceContext context, ILogger<HomeController> logger)
         {
+            _context = context;
             _logger = logger;
         }
 
+
         public IActionResult Index()
         {
-           
+            
+            var insurList = InsuranceTypeRepository.Instance.GetAll();
+
             return View();
         }
 
@@ -75,6 +85,7 @@ namespace Insurance_agency.Controllers
         {
             HttpContext.Session.SetInt32("allbanner", 0); // Assuming you want to use session state
             //   Session["display"] = 0;
+            var id = Request.Query["id"].ToString();
             ViewBag.Message = "Your insurance page.";
             return View();
         }

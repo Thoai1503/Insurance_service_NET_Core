@@ -150,6 +150,31 @@
                 display: none;
             }
         }
+
+
+        .custom-select-wrapper {
+            position: relative;
+        }
+
+        .custom-select-wrapper::after {
+            content: "\25BC"; /* ký hiệu caret ▼ */
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+            pointer-events: none;
+            font-size: 14px;
+            color: #000;
+        }
+
+        .custom-select-wrapper select {
+            appearance: none; /* ẩn caret mặc định */
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            padding-right: 30px; /* chừa chỗ cho icon */
+        }
+ 
+
     </style>
 
 </head>
@@ -234,7 +259,8 @@
                             <a href="/home/insurance" class="nav-link" data-bs-toggle="dropdown">
                                 <span class="dropdown-toggle">Insurance</span>
                             </a>
-                            <div class="dropdown-menu">
+                            @await Component.InvokeAsync("InsuranceTypeList")
+                       @*      <div class="dropdown-menu">
                                 <!-- Bảo hiểm nhân thọ with sub-dropdown -->
                                 <div class="dropdown-submenu">
                                     <a class="dropdown-item" href="/home/life-insurance">Bảo hiểm nhân thọ</a>
@@ -281,7 +307,7 @@
                                         <a class="dropdown-item" href="/home/content-insurance">Bảo hiểm tài sản trong nhà</a>
                                     </div>
                                 </div>
-                            </div>
+                            </div> *@
                         </div>
                         <a href="/home/contact" class="nav-item nav-link">More</a>
 

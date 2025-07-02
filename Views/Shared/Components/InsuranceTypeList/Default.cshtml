@@ -1,0 +1,73 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    @model HashSet<Insurance_agency.Models.Entities.InsuranceTypeView>
+}
+<div class="dropdown-menu">
+    <!-- Bảo hiểm nhân thọ with sub-dropdown -->
+    @if (Model != null)
+    {
+
+
+        foreach (var insuranceType in Model)
+        {
+            <div class="dropdown-submenu">
+                <a class="dropdown-item" href="/home/insurance?id=@insuranceType.id">@insuranceType.name</a>
+                <div class="dropdown-menu">
+                    @foreach (var subType in insuranceType.children)
+                    {
+                        <a class="dropdown-item" href="/home/insurance?id=@subType.id">@subType.name</a>
+                    }
+                </div>
+            </div>
+        }
+
+    }
+
+    @*  <div class="dropdown-submenu">
+        <a class="dropdown-item" href="/home/life-insurance">Bảo hiểm nhân thọ</a>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="/home/term-life">Bảo hiểm nhân thọ xã hội</a>
+            <a class="dropdown-item" href="/home/whole-life">Bảo hiểm nhân thọ trọn đời</a>
+            <a class="dropdown-item" href="/home/universal-life">Bảo hiểm nhân thọ linh hoạt</a>
+            <a class="dropdown-item" href="/home/investment-life">Bảo hiểm nhân thọ đầu tư</a>
+        </div>
+    </div>
+
+    <!-- Bảo hiểm y tế with sub-dropdown -->
+    <div class="dropdown-submenu">
+        <a class="dropdown-item" href="/home/health-insurance">Bảo hiểm y tế</a>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="/home/individual-health">Bảo hiểm y tế cá nhân</a>
+            <a class="dropdown-item" href="/home/family-health">Bảo hiểm y tế gia đình</a>
+            <a class="dropdown-item" href="/home/group-health">Bảo hiểm y tế nhóm</a>
+            <a class="dropdown-item" href="/home/critical-illness">Bảo hiểm bệnh hiểm nghèo</a>
+            <a class="dropdown-item" href="/home/dental-health">Bảo hiểm nha khoa</a>
+        </div>
+    </div>
+
+    <!-- Bảo hiểm xe cơ giới with sub-dropdown -->
+    <div class="dropdown-submenu">
+        <a class="dropdown-item" href="/home/vehicle-insurance">Bảo hiểm xe cơ giới</a>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="/home/car-insurance">Bảo hiểm ô tô</a>
+            <a class="dropdown-item" href="/home/motorcycle-insurance">Bảo hiểm xe máy</a>
+            <a class="dropdown-item" href="/home/insurance">Bảo hiểm xe tải</a>
+            <a class="dropdown-item" href="/home/comprehensive-auto">Bảo hiểm toàn diện</a>
+            <a class="dropdown-item" href="/home/third-party-auto">Bảo hiểm trách nhiệm dân sự</a>
+        </div>
+    </div>
+
+    <!-- Bảo hiểm nhà cửa with sub-dropdown -->
+    <div class="dropdown-submenu">
+        <a class="dropdown-item" href="/home/property-insurance">Bảo hiểm nhà cửa</a>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="/home/home-insurance">Bảo hiểm nhà ở</a>
+            <a class="dropdown-item" href="/home/apartment-insurance">Bảo hiểm chung cư</a>
+            <a class="dropdown-item" href="/home/fire-insurance">Bảo hiểm cháy nổ</a>
+            <a class="dropdown-item" href="/home/flood-insurance">Bảo hiểm thiên tai</a>
+            <a class="dropdown-item" href="/home/content-insurance">Bảo hiểm tài sản trong nhà</a>
+        </div>
+    </div> *@
+</div>
