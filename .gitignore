@@ -1,6 +1,6 @@
-﻿namespace Insurance_agency
-{
-    public class _
-    {
-    }
-}
+﻿.vs/
+bin/
+obj/
+*.user
+*.suo
+*.cache
