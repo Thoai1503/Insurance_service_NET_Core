@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "tmh8XsSrbZfDQCuy7WSTvFNmXO0dAfD7dqTg355rTfc=",
+  "Hash": "xK6EYiXs1rZWR8QJcPjFVp5+0Hi8Zg/evOjT+qYHxhA=",
   "Source": "Insurance_agency",
   "BasePath": "_content/Insurance_agency",
   "Mode": "Default",
@@ -94,8 +94,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "uuija7lgo6",
-      "Integrity": "ygO3w6DMYD3fza0cOOVSozuaXcIDvtE/EchHUW4TWO8=",
+      "Fingerprint": "12dh1k4wiz",
+      "Integrity": "WQ0Nkqdo+CBiE5gYheHgigIcEsOJwLvkNpM7R+uie5E=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Content\\Client\\css\\style.css"
@@ -435,6 +435,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Content\\Client\\img\\instagram-footer-6.jpg"
+    },
+    {
+      "Identity": "C:\\project_NET\\Insurance_agency\\Insurance_agency\\wwwroot\\Content\\Client\\img\\insure_img\\Allianz-Motorcylce-plus-1024x534.jpg",
+      "SourceId": "Insurance_agency",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\project_NET\\Insurance_agency\\Insurance_agency\\wwwroot\\",
+      "BasePath": "_content/Insurance_agency",
+      "RelativePath": "Content/Client/img/insure_img/Allianz-Motorcylce-plus-1024x534#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "yr3vssdq6f",
+      "Integrity": "Iv+5XRMWu7q0jSAWOa23cYEttdtJ38Jh7QmPZXlMg3I=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Content\\Client\\img\\insure_img\\Allianz-Motorcylce-plus-1024x534.jpg"
     },
     {
       "Identity": "C:\\project_NET\\Insurance_agency\\Insurance_agency\\wwwroot\\Content\\Client\\img\\team-1.jpg",
@@ -4238,6 +4259,51 @@
       ]
     },
     {
+      "Route": "Content/Client/css/style.12dh1k4wiz.css",
+      "AssetFile": "C:\\project_NET\\Insurance_agency\\Insurance_agency\\wwwroot\\Content\\Client\\css\\style.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "19319"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"WQ0Nkqdo+CBiE5gYheHgigIcEsOJwLvkNpM7R+uie5E=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 02 Jul 2025 09:36:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "12dh1k4wiz"
+        },
+        {
+          "Name": "label",
+          "Value": "Content/Client/css/style.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-WQ0Nkqdo+CBiE5gYheHgigIcEsOJwLvkNpM7R+uie5E="
+        }
+      ]
+    },
+    {
       "Route": "Content/Client/css/style.css",
       "AssetFile": "C:\\project_NET\\Insurance_agency\\Insurance_agency\\wwwroot\\Content\\Client\\css\\style.css",
       "Selectors": [],
@@ -4248,7 +4314,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "19006"
+          "Value": "19319"
         },
         {
           "Name": "Content-Type",
@@ -4256,11 +4322,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"ygO3w6DMYD3fza0cOOVSozuaXcIDvtE/EchHUW4TWO8=\""
+          "Value": "\"WQ0Nkqdo+CBiE5gYheHgigIcEsOJwLvkNpM7R+uie5E=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 29 Jun 2025 03:37:36 GMT"
+          "Value": "Wed, 02 Jul 2025 09:36:16 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4270,52 +4336,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-ygO3w6DMYD3fza0cOOVSozuaXcIDvtE/EchHUW4TWO8="
-        }
-      ]
-    },
-    {
-      "Route": "Content/Client/css/style.uuija7lgo6.css",
-      "AssetFile": "C:\\project_NET\\Insurance_agency\\Insurance_agency\\wwwroot\\Content\\Client\\css\\style.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "19006"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"ygO3w6DMYD3fza0cOOVSozuaXcIDvtE/EchHUW4TWO8=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Sun, 29 Jun 2025 03:37:36 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "uuija7lgo6"
-        },
-        {
-          "Name": "label",
-          "Value": "Content/Client/css/style.css"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-ygO3w6DMYD3fza0cOOVSozuaXcIDvtE/EchHUW4TWO8="
+          "Value": "sha256-WQ0Nkqdo+CBiE5gYheHgigIcEsOJwLvkNpM7R+uie5E="
         }
       ]
     },
@@ -5628,6 +5649,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-mkLqT7UhRtjbKOeLrdQD1Izrsk4QArHES9pJPUgZ5xo="
+        }
+      ]
+    },
+    {
+      "Route": "Content/Client/img/insure_img/Allianz-Motorcylce-plus-1024x534.jpg",
+      "AssetFile": "C:\\project_NET\\Insurance_agency\\Insurance_agency\\wwwroot\\Content\\Client\\img\\insure_img\\Allianz-Motorcylce-plus-1024x534.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "99892"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Iv+5XRMWu7q0jSAWOa23cYEttdtJ38Jh7QmPZXlMg3I=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 02 Jul 2025 09:03:01 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Iv+5XRMWu7q0jSAWOa23cYEttdtJ38Jh7QmPZXlMg3I="
+        }
+      ]
+    },
+    {
+      "Route": "Content/Client/img/insure_img/Allianz-Motorcylce-plus-1024x534.yr3vssdq6f.jpg",
+      "AssetFile": "C:\\project_NET\\Insurance_agency\\Insurance_agency\\wwwroot\\Content\\Client\\img\\insure_img\\Allianz-Motorcylce-plus-1024x534.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "99892"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Iv+5XRMWu7q0jSAWOa23cYEttdtJ38Jh7QmPZXlMg3I=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 02 Jul 2025 09:03:01 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "yr3vssdq6f"
+        },
+        {
+          "Name": "label",
+          "Value": "Content/Client/img/insure_img/Allianz-Motorcylce-plus-1024x534.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Iv+5XRMWu7q0jSAWOa23cYEttdtJ38Jh7QmPZXlMg3I="
         }
       ]
     },

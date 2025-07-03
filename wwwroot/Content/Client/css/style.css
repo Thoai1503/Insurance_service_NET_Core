@@ -362,6 +362,16 @@
     padding: 60px 0 60px 0;
     transition: 0.5s;
 }
+.bg-breadcrumb-motobike {
+    position: relative;
+    overflow: hidden;
+    background: url(../img/insure_img/Allianz-Motorcylce-plus-1024x534.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 60px 0 60px 0;
+    transition: 0.5s;
+}
 
 .bg-breadcrumb .breadcrumb {
     position: relative;

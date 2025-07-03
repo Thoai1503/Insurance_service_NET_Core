@@ -89,6 +89,13 @@ namespace Insurance_agency.Controllers
             ViewBag.Message = "Your insurance page.";
             return View();
         }
+        public IActionResult InsuranceOverview()
+        {
+
+            HttpContext.Session.SetInt32("allbanner", 0);
+            ViewBag.BannerCss = "motobike";
+            return View();
+        }
     }
 }
     

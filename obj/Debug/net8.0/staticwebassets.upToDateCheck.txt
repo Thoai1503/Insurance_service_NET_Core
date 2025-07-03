@@ -16,6 +16,7 @@ wwwroot\Content\Client\img\instagram-footer-3.jpg
 wwwroot\Content\Client\img\instagram-footer-4.jpg
 wwwroot\Content\Client\img\instagram-footer-5.jpg
 wwwroot\Content\Client\img\instagram-footer-6.jpg
+wwwroot\Content\Client\img\insure_img\Allianz-Motorcylce-plus-1024x534.jpg
 wwwroot\Content\Client\img\team-1.jpg
 wwwroot\Content\Client\img\team-2.jpg
 wwwroot\Content\Client\img\team-3.jpg
