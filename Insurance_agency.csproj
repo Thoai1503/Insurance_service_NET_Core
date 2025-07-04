@@ -165,10 +165,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\AdminArea\Controllers\" />
     <Folder Include="Areas\AdminArea\Data\" />
     <Folder Include="Areas\AdminArea\Models\" />
-    <Folder Include="Areas\AdminArea\Views\" />
     <Folder Include="Areas\UserArea\Data\" />
     <Folder Include="Areas\UserArea\Models\" />
   </ItemGroup>

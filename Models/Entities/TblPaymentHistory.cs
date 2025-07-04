@@ -13,6 +13,8 @@ public partial class TblPaymentHistory
 
     public long? Amount { get; set; }
 
+    public int? TermTypeId { get; set; }
+
     public int? Status { get; set; }
 
     public virtual TblContract? Contract { get; set; }

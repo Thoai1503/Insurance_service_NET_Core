@@ -15,5 +15,7 @@ public partial class TblInsuranceType
 
     public int Active { get; set; }
 
-    public virtual ICollection<TblPolicy> TblPolicies { get; set; } = new List<TblPolicy>();
+    public string? ImageClassCss { get; set; }
+
+    public virtual ICollection<Insurance> Insurances { get; set; } = new List<Insurance>();
 }

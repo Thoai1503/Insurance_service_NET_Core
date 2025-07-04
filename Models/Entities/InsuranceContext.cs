@@ -15,11 +15,11 @@ public partial class InsuranceContext : DbContext
     {
     }
 
+    public virtual DbSet<Insurance> Insurances { get; set; }
+
     public virtual DbSet<TblActivityLog> TblActivityLogs { get; set; }
 
     public virtual DbSet<TblContract> TblContracts { get; set; }
-
-    public virtual DbSet<TblContractStatus> TblContractStatuses { get; set; }
 
     public virtual DbSet<TblInsuranceType> TblInsuranceTypes { get; set; }
 
@@ -27,32 +27,46 @@ public partial class InsuranceContext : DbContext
 
     public virtual DbSet<TblNotification> TblNotifications { get; set; }
 
-    public virtual DbSet<TblNotificationType> TblNotificationTypes { get; set; }
-
     public virtual DbSet<TblPaymentHistory> TblPaymentHistories { get; set; }
 
     public virtual DbSet<TblPolicy> TblPolicies { get; set; }
 
-    public virtual DbSet<TblPolicyBenifit> TblPolicyBenifits { get; set; }
+    public virtual DbSet<TblSubsidiary> TblSubsidiaries { get; set; }
 
     public virtual DbSet<TblUser> TblUsers { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=localhost;Database=insurance;User ID=sa;Password=123;TrustServerCertificate=True;");
+        => optionsBuilder.UseSqlServer("Server=localhost;Database=Insurance3;User ID=sa;Password=123;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Insurance>(entity =>
+        {
+            entity.ToTable("insurance");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Description)
+                .HasColumnType("ntext")
+                .HasColumnName("description");
+            entity.Property(e => e.InsuranceTypeId).HasColumnName("insurance_type_id");
+            entity.Property(e => e.Name)
+                .HasMaxLength(50)
+                .HasColumnName("name");
+            entity.Property(e => e.TargetId).HasColumnName("target_id");
+
+            entity.HasOne(d => d.InsuranceType).WithMany(p => p.Insurances)
+                .HasForeignKey(d => d.InsuranceTypeId)
+                .HasConstraintName("FK_insurance_tbl_insurance_type");
+        });
+
         modelBuilder.Entity<TblActivityLog>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK_ActivityLog");
 
-            entity.ToTable("tbl_ActivityLog");
+            entity.ToTable("tbl_activity_log");
 
-            entity.Property(e => e.Id)
-                .HasMaxLength(10)
-                .IsFixedLength()
-                .HasColumnName("id");
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Action)
                 .HasMaxLength(50)
                 .HasColumnName("action");
@@ -75,63 +89,55 @@ public partial class InsuranceContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PK_Contract");
 
-            entity.ToTable("tbl_Contract");
+            entity.ToTable("tbl_contract");
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.EndDate)
                 .HasColumnType("datetime")
                 .HasColumnName("end_date");
-            entity.Property(e => e.PolicyId).HasColumnName("policy_id");
+            entity.Property(e => e.InsuranceId).HasColumnName("insurance_id");
+            entity.Property(e => e.NumberYearPaid).HasColumnName("number_year_paid");
             entity.Property(e => e.StartDate)
                 .HasColumnType("datetime")
                 .HasColumnName("start_date");
             entity.Property(e => e.Status).HasColumnName("status");
+            entity.Property(e => e.TotalPaid)
+                .HasColumnType("decimal(18, 0)")
+                .HasColumnName("total_paid");
             entity.Property(e => e.UserId).HasColumnName("user_id");
+            entity.Property(e => e.ValueContract)
+                .HasColumnType("decimal(18, 0)")
+                .HasColumnName("value_contract");
+            entity.Property(e => e.YearPaid)
+                .HasColumnType("decimal(18, 0)")
+                .HasColumnName("year_paid");
 
-            entity.HasOne(d => d.Policy).WithMany(p => p.TblContracts)
-                .HasForeignKey(d => d.PolicyId)
-                .HasConstraintName("FK_Contract_Policy");
-
-            entity.HasOne(d => d.StatusNavigation).WithMany(p => p.TblContracts)
-                .HasForeignKey(d => d.Status)
-                .HasConstraintName("FK_Contract_ContractStatus");
+            entity.HasOne(d => d.Insurance).WithMany(p => p.TblContracts)
+                .HasForeignKey(d => d.InsuranceId)
+                .HasConstraintName("FK_tbl_contract_insurance");
 
             entity.HasOne(d => d.User).WithMany(p => p.TblContracts)
                 .HasForeignKey(d => d.UserId)
                 .HasConstraintName("FK_Contract_User");
         });
 
-        modelBuilder.Entity<TblContractStatus>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK_ContractStatus");
-
-            entity.ToTable("tbl_ContractStatus");
-
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
-            entity.Property(e => e.Name)
-                .HasMaxLength(50)
-                .HasColumnName("name");
-        });
-
         modelBuilder.Entity<TblInsuranceType>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK_InsuranceType");
 
-            entity.ToTable("tbl_InsuranceType");
+            entity.ToTable("tbl_insurance_type");
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Active)
                 .HasDefaultValue(1)
                 .HasColumnName("active");
             entity.Property(e => e.Description)
                 .HasMaxLength(200)
                 .HasColumnName("description");
+            entity.Property(e => e.ImageClassCss)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("image_class_css");
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
                 .HasColumnName("name");
@@ -142,11 +148,9 @@ public partial class InsuranceContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PK_Loan");
 
-            entity.ToTable("tbl_Loan");
+            entity.ToTable("tbl_loan");
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.ContractId).HasColumnName("contract_id");
             entity.Property(e => e.LoanAmount).HasColumnName("loan_amount");
             entity.Property(e => e.RequestDate)
@@ -163,11 +167,10 @@ public partial class InsuranceContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PK_Notification");
 
-            entity.ToTable("tbl_Notification");
+            entity.ToTable("tbl_notification");
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.ContractId).HasColumnName("contract_id");
             entity.Property(e => e.Detail)
                 .HasMaxLength(10)
                 .IsFixedLength()
@@ -175,48 +178,27 @@ public partial class InsuranceContext : DbContext
             entity.Property(e => e.IsRead).HasColumnName("is_read");
             entity.Property(e => e.NotificationTypeId).HasColumnName("notification_type_id");
             entity.Property(e => e.Status).HasColumnName("status");
-            entity.Property(e => e.UserId).HasColumnName("user_id");
 
-            entity.HasOne(d => d.NotificationType).WithMany(p => p.TblNotifications)
-                .HasForeignKey(d => d.NotificationTypeId)
-                .HasConstraintName("FK_Notification_NotificationType");
-
-            entity.HasOne(d => d.User).WithMany(p => p.TblNotifications)
-                .HasForeignKey(d => d.UserId)
+            entity.HasOne(d => d.Contract).WithMany(p => p.TblNotifications)
+                .HasForeignKey(d => d.ContractId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Notification_User");
-        });
-
-        modelBuilder.Entity<TblNotificationType>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK_NotificationType");
-
-            entity.ToTable("tbl_NotificationType");
-
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
-            entity.Property(e => e.Name)
-                .HasMaxLength(50)
-                .HasColumnName("name");
-            entity.Property(e => e.Status).HasColumnName("status");
+                .HasConstraintName("FK_tbl_notification_tbl_contract");
         });
 
         modelBuilder.Entity<TblPaymentHistory>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK_PaymentHistory");
 
-            entity.ToTable("tbl_PaymentHistory");
+            entity.ToTable("tbl_payment_history");
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Amount).HasColumnName("amount");
             entity.Property(e => e.ContractId).HasColumnName("contract_id");
             entity.Property(e => e.PaymentDay)
                 .HasColumnType("datetime")
                 .HasColumnName("payment_day");
             entity.Property(e => e.Status).HasColumnName("status");
+            entity.Property(e => e.TermTypeId).HasColumnName("term_type_id");
 
             entity.HasOne(d => d.Contract).WithMany(p => p.TblPaymentHistories)
                 .HasForeignKey(d => d.ContractId)
@@ -227,61 +209,61 @@ public partial class InsuranceContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PK_Policy");
 
-            entity.ToTable("tbl_Policy");
+            entity.ToTable("tbl_policy");
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Active)
                 .HasDefaultValue(1)
                 .HasColumnName("active");
-            entity.Property(e => e.InsuranceTypeId).HasColumnName("insurance_type_id");
+            entity.Property(e => e.Description)
+                .HasMaxLength(1000)
+                .HasColumnName("description");
+            entity.Property(e => e.InsuranceId).HasColumnName("insurance_id");
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("name");
-            entity.Property(e => e.SumAssured).HasColumnName("sum_assured");
             entity.Property(e => e.TermMax).HasColumnName("term_max");
             entity.Property(e => e.TermMin).HasColumnName("term_min");
 
-            entity.HasOne(d => d.InsuranceType).WithMany(p => p.TblPolicies)
-                .HasForeignKey(d => d.InsuranceTypeId)
-                .HasConstraintName("FK_Policy_InsuranceType");
+            entity.HasOne(d => d.Insurance).WithMany(p => p.TblPolicies)
+                .HasForeignKey(d => d.InsuranceId)
+                .HasConstraintName("FK_tbl_policy_insurance");
         });
 
-        modelBuilder.Entity<TblPolicyBenifit>(entity =>
+        modelBuilder.Entity<TblSubsidiary>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK_PolicyBenifit");
+            entity.ToTable("tbl_subsidiary");
 
-            entity.ToTable("tbl_PolicyBenifit");
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Description)
+                .HasColumnType("ntext")
+                .HasColumnName("description");
+            entity.Property(e => e.InsuranceId).HasColumnName("insurance_id");
+            entity.Property(e => e.Name)
+                .HasMaxLength(50)
+                .HasColumnName("name");
+            entity.Property(e => e.PromotionPercentage)
+                .HasMaxLength(10)
+                .IsFixedLength()
+                .HasColumnName("promotion_percentage");
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
-            entity.Property(e => e.Active)
-                .HasDefaultValue(1)
-                .HasColumnName("active");
-            entity.Property(e => e.BenifitAmount).HasColumnName("benifit_amount");
-            entity.Property(e => e.Detail)
-                .HasMaxLength(500)
-                .HasColumnName("detail");
-            entity.Property(e => e.PolicyId).HasColumnName("policy_id");
-
-            entity.HasOne(d => d.Policy).WithMany(p => p.TblPolicyBenifits)
-                .HasForeignKey(d => d.PolicyId)
-                .HasConstraintName("FK_PolicyBenifit_Policy");
+            entity.HasOne(d => d.Insurance).WithMany(p => p.TblSubsidiaries)
+                .HasForeignKey(d => d.InsuranceId)
+                .HasConstraintName("FK_tbl_subsidiary_insurance");
         });
 
         modelBuilder.Entity<TblUser>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK_User");
 
-            entity.ToTable("tbl_User");
+            entity.ToTable("tbl_user");
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Active).HasColumnName("active");
+            entity.Property(e => e.Address)
+                .HasMaxLength(100)
+                .HasColumnName("address");
             entity.Property(e => e.AuthId).HasColumnName("auth_id");
             entity.Property(e => e.Email)
                 .HasMaxLength(50)
@@ -295,6 +277,10 @@ public partial class InsuranceContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("password");
+            entity.Property(e => e.Phone)
+                .HasMaxLength(10)
+                .IsFixedLength()
+                .HasColumnName("phone");
         });
 
         OnModelCreatingPartial(modelBuilder);

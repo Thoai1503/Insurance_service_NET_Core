@@ -17,7 +17,9 @@ public partial class TblUser
 
     public int? Active { get; set; }
 
-    public virtual ICollection<TblContract> TblContracts { get; set; } = new List<TblContract>();
+    public string? Phone { get; set; }
 
-    public virtual ICollection<TblNotification> TblNotifications { get; set; } = new List<TblNotification>();
+    public string? Address { get; set; }
+
+    public virtual ICollection<TblContract> TblContracts { get; set; } = new List<TblContract>();
 }

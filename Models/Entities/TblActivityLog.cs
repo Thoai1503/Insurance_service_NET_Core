@@ -5,7 +5,7 @@ namespace Insurance_agency.Models.Entities;
 
 public partial class TblActivityLog
 {
-    public string Id { get; set; } = null!;
+    public int Id { get; set; }
 
     public int? AdminId { get; set; }
 
