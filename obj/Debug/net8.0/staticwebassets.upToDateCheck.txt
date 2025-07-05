@@ -35,9 +35,13 @@ wwwroot\Content\Admin\scss\utilities\_display.scss
 wwwroot\Content\Admin\scss\utilities\_progress.scss
 wwwroot\Content\Admin\scss\utilities\_rotate.scss
 wwwroot\Content\Admin\scss\utilities\_text.scss
+wwwroot\Content\Admin\vendor\bootstrap\js\bootstrap.bundle.js
 wwwroot\Content\Admin\vendor\bootstrap\js\bootstrap.bundle.js.map
+wwwroot\Content\Admin\vendor\bootstrap\js\bootstrap.bundle.min.js
 wwwroot\Content\Admin\vendor\bootstrap\js\bootstrap.bundle.min.js.map
+wwwroot\Content\Admin\vendor\bootstrap\js\bootstrap.js
 wwwroot\Content\Admin\vendor\bootstrap\js\bootstrap.js.map
+wwwroot\Content\Admin\vendor\bootstrap\js\bootstrap.min.js
 wwwroot\Content\Admin\vendor\bootstrap\js\bootstrap.min.js.map
 wwwroot\Content\Admin\vendor\bootstrap\scss\_alert.scss
 wwwroot\Content\Admin\vendor\bootstrap\scss\_badge.scss
@@ -1837,7 +1841,11 @@ wwwroot\Content\Admin\vendor\fontawesome-free\webfonts\fa-solid-900.svg
 wwwroot\Content\Admin\vendor\fontawesome-free\webfonts\fa-solid-900.ttf
 wwwroot\Content\Admin\vendor\fontawesome-free\webfonts\fa-solid-900.woff
 wwwroot\Content\Admin\vendor\fontawesome-free\webfonts\fa-solid-900.woff2
+wwwroot\Content\Admin\vendor\jquery\jquery.js
+wwwroot\Content\Admin\vendor\jquery\jquery.min.js
 wwwroot\Content\Admin\vendor\jquery\jquery.min.map
+wwwroot\Content\Admin\vendor\jquery\jquery.slim.js
+wwwroot\Content\Admin\vendor\jquery\jquery.slim.min.js
 wwwroot\Content\Admin\vendor\jquery\jquery.slim.min.map
 wwwroot\Content\Admin\vendor\jquery-easing\jquery.easing.compatibility.js
 wwwroot\Content\Admin\vendor\jquery-easing\jquery.easing.js

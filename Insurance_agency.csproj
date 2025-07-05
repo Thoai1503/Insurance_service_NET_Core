@@ -169,6 +169,7 @@
     <Folder Include="Areas\AdminArea\Models\" />
     <Folder Include="Areas\UserArea\Data\" />
     <Folder Include="Areas\UserArea\Models\" />
+    <Folder Include="wwwroot\Content\Admin\vendor\bootstrap\js\" />
   </ItemGroup>
 
 </Project>
