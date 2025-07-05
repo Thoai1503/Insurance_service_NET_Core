@@ -9,7 +9,7 @@ public partial class InsuranceTypeView
 
     public string name { get; set; } = null!;
 
-    public string description { get; set; }
+    public string? description { get; set; }
 
     public int parent_id { get; set; }
 

@@ -1,0 +1,31 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+	Layout = "~/Areas/AdminArea/Views/Shared/_AdminLayout.cshtml";
+	HashSet<Insurance_agency.Models.ModelView.InsuranceView> insurance = new HashSet<Insurance_agency.Models.ModelView.InsuranceView>();
+	if(ViewBag.item!=null){
+		insurance = (HashSet<Insurance_agency.Models.ModelView.InsuranceView>)ViewBag.item;
+	}
+}
+<a href="insurancemanagement/Create" class="btn btn-success">Create</a>
+<table class="table table-hover">
+	<tr>
+		<th>Id</th>
+		<th>Name</th>
+		<th>Description</th>
+		<th>InsuranceTypeId</th>
+		<th>TargetId</th>
+		<th>ExImage</th>
+	</tr>
+	@foreach(var item in insurance){
+		<tr>
+			<td>@item.Id</td>
+			<td>@item.Name</td>
+			<td>@item.Description</td>
+			<td>@item.InsuranceTypeId</td>
+			<td>@item.TargetId</td>
+			<td><img src="@Url.Content("~/Content")/Image/Ex/@item.ExImage" height="50" alt="Alternate Text" /></td>
+		</tr>
+	}
+</table>

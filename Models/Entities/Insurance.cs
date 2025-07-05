@@ -14,6 +14,7 @@ public partial class Insurance
     public int? TargetId { get; set; }
 
     public int? InsuranceTypeId { get; set; }
+    public string? Ex_Image {  get; set; }
 
     public virtual TblInsuranceType? InsuranceType { get; set; }
 

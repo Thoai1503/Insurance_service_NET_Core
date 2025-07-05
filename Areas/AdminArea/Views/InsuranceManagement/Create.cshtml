@@ -1,0 +1,72 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+	Layout = "~/Areas/AdminArea/Views/Shared/_AdminLayout.cshtml";
+	HashSet<Insurance_agency.Models.Entities.InsuranceTypeView> insuranceType = new HashSet<Insurance_agency.Models.Entities.InsuranceTypeView>();
+	if (ViewBag.insurancetype != null)
+	{
+		insuranceType = (HashSet<Insurance_agency.Models.Entities.InsuranceTypeView>)ViewBag.insurancetype;
+	}
+}
+<form action="@Url.Action("CreateConfirm")" method="post" enctype="multipart/form-data">
+	<div class="row">
+		<div class="col-2">
+			<label for="name">Name</label>
+
+		</div>
+		<div class="col-3">
+			<input id="name" name="Name" type="text" />
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-2">
+			<label for="description">Description</label>
+
+		</div>
+		<div class="col-3">
+			<input id="description" name="Description" type="text" />
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-2">
+			<label for="target_id">Target Id</label>
+
+		</div>
+		<div class="col-3">
+			<input id="target_id" name="TargetId" type="text" />
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-2">
+			<label for="eximage">ExImage</label>
+
+		</div>
+		<div class="col-3">
+			<input id="eximage" name="Img" type="file" />
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-2">
+			<label for="name">Insurance Type</label>
+
+		</div>
+		<div class="col-3">
+			<select name="InsuranceTypeId">
+				<option value="0" >Select Insurance Type</option>
+				@foreach (var item in insuranceType)
+				{
+					<option value="@item.id">@item.name</option>
+				}
+			</select>
+		</div>
+	</div>
+	<div class="row">
+		<div class="rol-3">
+			<button type="submit" class="btn btn-success">Add</button>
+		</div>
+		<div>
+			<button type="reset" class="btn btn-secondary">Reset</button>
+		</div>
+	</div>
+</form>
