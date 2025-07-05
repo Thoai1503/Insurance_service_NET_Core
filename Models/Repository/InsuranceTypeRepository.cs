@@ -44,38 +44,21 @@ namespace Insurance_agency.Models.Repository
         public HashSet<InsuranceTypeView> GetAll()
         {
             var allTypes = _context.TblInsuranceTypes
-                .Where(x => x.Active == 1)
-                .ToList();
+                 .Where(x => x.Active == 1)
+                 .Select(c=> new InsuranceTypeView
+                 {
+                         id =c.Id,
+                         name = c.Name,
+                     description = c.Description,
+                     parent_id = c.ParentId,
+                     active = c.Active,
+                     
+                 }).ToHashSet();
 
-            var childrenLookup = allTypes
-                .Where(x => x.ParentId != 0)
-                .GroupBy(x => x.ParentId)
-                .ToDictionary(g => g.Key, g => g.ToList());
+            return allTypes;
+           
 
-            var result = allTypes
-                .Where(x => x.ParentId == 0)
-                .Select(x => new InsuranceTypeView
-                {
-                    id = x.Id,
-                    name = x.Name,
-                    description = x.Description,
-                    parent_id = x.ParentId,
-                    active = x.Active,
-                    children = childrenLookup.ContainsKey(x.Id)
-                        ? childrenLookup[x.Id].Select(c => new InsuranceTypeView
-                        {
-                            id = c.Id,
-                            name = c.Name,
-                            description = c.Description,
-                            parent_id = c.ParentId,
-                            active = c.Active,
-                            children = new HashSet<InsuranceTypeView>()
-                        }).ToHashSet()
-                        : new HashSet<InsuranceTypeView>()
-                })
-                .ToHashSet();
 
-            return result;
         }
 
 
