@@ -1,4 +1,4 @@
-﻿using Insurance_agency.Models.Entities;
+﻿using Insurance_agency.Models.Entity;
 using Insurance_agency.Models.ModelView;
 
 namespace Insurance_agency.Models.Repository
@@ -32,7 +32,7 @@ namespace Insurance_agency.Models.Repository
                         Description = entity.Description,
                         InsuranceTypeId = entity.InsuranceTypeId,
                         TargetId = entity.TargetId,
-                        Ex_Image = entity.ExImage,
+                        ExImage = entity.ExImage,
                     };
                     var q = _context.Add(Insurance);
                     _context.SaveChanges();
@@ -52,7 +52,28 @@ namespace Insurance_agency.Models.Repository
 
         public InsuranceView FindById(int id)
         {
-            throw new NotImplementedException();
+
+            try
+            {
+                var item = _context.Insurances.Where(d => d.Id == id).Select(d => new InsuranceView
+                {
+                    Id = d.Id,
+                    Name = d.Name,
+                    Description = d.Description,
+                    InsuranceTypeId = (int)d.InsuranceTypeId,
+                    TargetId = (int)d.TargetId,
+                    ExImage = d.ExImage
+                }).FirstOrDefault();
+                if (item != null)
+                {
+                    return item;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return null;
         }
 
         public HashSet<InsuranceView> FindByKeywork(string keywork)
@@ -71,7 +92,7 @@ namespace Insurance_agency.Models.Repository
                     Description = d.Description,
                     InsuranceTypeId = (int)d.InsuranceTypeId,
                     TargetId = (int)d.TargetId,
-                    ExImage = d.Ex_Image
+                    ExImage = d.ExImage
                 }).ToHashSet();
                 if (item != null)
                 {

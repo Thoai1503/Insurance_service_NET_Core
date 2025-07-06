@@ -13,6 +13,10 @@
       "PackagePath": "staticwebassets\\Content\\Admin\\css\\sb-admin-2.min.css"
     },
     {
+      "Id": "C:\\project_NET\\Insurance_agency\\Insurance_agency\\wwwroot\\Content\\Admin\\css\\tiny.css",
+      "PackagePath": "staticwebassets\\Content\\Admin\\css\\tiny.css"
+    },
+    {
       "Id": "C:\\project_NET\\Insurance_agency\\Insurance_agency\\wwwroot\\Content\\Admin\\img\\undraw_posting_photo.svg",
       "PackagePath": "staticwebassets\\Content\\Admin\\img\\undraw_posting_photo.svg"
     },
@@ -7983,6 +7987,10 @@
     {
       "Id": "C:\\project_NET\\Insurance_agency\\Insurance_agency\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
+      "Id": "C:\\project_NET\\Insurance_agency\\Insurance_agency\\wwwroot\\js\\tiny.js",
+      "PackagePath": "staticwebassets\\js\\tiny.js"
     },
     {
       "Id": "C:\\project_NET\\Insurance_agency\\Insurance_agency\\wwwroot\\lib\\bootstrap\\LICENSE",

@@ -1,6 +1,6 @@
 ﻿using Insurance_agency;
 using Microsoft.EntityFrameworkCore;
-using Insurance_agency.Models.Entities;
+using Insurance_agency.Models.Entity;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<InsuranceContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));

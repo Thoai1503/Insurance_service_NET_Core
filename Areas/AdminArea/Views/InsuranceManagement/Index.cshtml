@@ -17,6 +17,7 @@
 		<th>InsuranceTypeId</th>
 		<th>TargetId</th>
 		<th>ExImage</th>
+		<th>Function</th>
 	</tr>
 	@foreach(var item in insurance){
 		<tr>
@@ -26,6 +27,10 @@
 			<td>@item.InsuranceTypeId</td>
 			<td>@item.TargetId</td>
 			<td><img src="@Url.Content("~/Content")/Image/Ex/@item.ExImage" height="50" alt="Alternate Text" /></td>
+            <td>
+                <a href="@Url.Action("Edit", new { id = item.Id })" class="btn btn-primary">Edit</a>
+                <a href="@Url.Action("Detail", new { id = item.Id })" class="btn btn-info">Detail</a>
+            </td>
 		</tr>
 	}
 </table>
