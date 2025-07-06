@@ -7957,6 +7957,22 @@
       "PackagePath": "staticwebassets\\Content\\Client\\scss\\bootstrap\\scss\\vendor\\_rfs.scss"
     },
     {
+      "Id": "C:\\project_NET\\Insurance_agency\\Insurance_agency\\wwwroot\\Content\\Image\\Ex\\Burg_Hohenzollern_ak.jpg",
+      "PackagePath": "staticwebassets\\Content\\Image\\Ex\\Burg_Hohenzollern_ak.jpg"
+    },
+    {
+      "Id": "C:\\project_NET\\Insurance_agency\\Insurance_agency\\wwwroot\\Content\\Image\\Ex\\Castle_Neuschwanstein_horizontal.jpg",
+      "PackagePath": "staticwebassets\\Content\\Image\\Ex\\Castle_Neuschwanstein_horizontal.jpg"
+    },
+    {
+      "Id": "C:\\project_NET\\Insurance_agency\\Insurance_agency\\wwwroot\\Content\\Image\\Ex\\Neuschwanstein_Herbst_Schnepfling__37_-ti-schwangau.jpg",
+      "PackagePath": "staticwebassets\\Content\\Image\\Ex\\Neuschwanstein_Herbst_Schnepfling__37_-ti-schwangau.jpg"
+    },
+    {
+      "Id": "C:\\project_NET\\Insurance_agency\\Insurance_agency\\wwwroot\\Content\\Image\\Ex\\victormanuelrodriguezfondo3dvictormrodriguez.jpg",
+      "PackagePath": "staticwebassets\\Content\\Image\\Ex\\victormanuelrodriguezfondo3dvictormrodriguez.jpg"
+    },
+    {
       "Id": "C:\\project_NET\\Insurance_agency\\Insurance_agency\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },

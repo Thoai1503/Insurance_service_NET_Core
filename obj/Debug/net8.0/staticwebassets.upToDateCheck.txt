@@ -1986,6 +1986,10 @@ wwwroot\Content\Client\scss\bootstrap\scss\mixins\_utilities.scss
 wwwroot\Content\Client\scss\bootstrap\scss\mixins\_visually-hidden.scss
 wwwroot\Content\Client\scss\bootstrap\scss\utilities\_api.scss
 wwwroot\Content\Client\scss\bootstrap\scss\vendor\_rfs.scss
+wwwroot\Content\Image\Ex\Burg_Hohenzollern_ak.jpg
+wwwroot\Content\Image\Ex\Castle_Neuschwanstein_horizontal.jpg
+wwwroot\Content\Image\Ex\Neuschwanstein_Herbst_Schnepfling__37_-ti-schwangau.jpg
+wwwroot\Content\Image\Ex\victormanuelrodriguezfondo3dvictormrodriguez.jpg
 wwwroot\css\site.css
 wwwroot\favicon.ico
 wwwroot\js\site.js
