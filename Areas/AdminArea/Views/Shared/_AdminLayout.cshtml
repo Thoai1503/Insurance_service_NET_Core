@@ -13,12 +13,20 @@
 
     <!-- Custom fonts for this template-->
     <link href="@Url.Content("~/Content/Admin/")vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="@Url.Content("~/Content/Admin/")css/tiny.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
           rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="@Url.Content("~/Content/Admin/")css/sb-admin-2.min.css" rel="stylesheet">
-@*     <script src="https://kendo.cdn.telerik.com/2024.1.319/js/kendo.all.min.js"></script> *@
+    <!-- Kendo UI styles -->
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2024.2.606/styles/kendo.default-v2.min.css" />
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- Kendo UI scripts -->
+    <script src="https://kendo.cdn.telerik.com/2024.2.606/js/kendo.all.min.js"></script>
     <style>
         .accordionn {
             background-color: #eee;
@@ -442,6 +450,7 @@
         </div>
 
         <!-- Bootstrap core JavaScript-->
+  
         <script src="@Url.Content("~/Content/Admin/")vendor/jquery/jquery.min.js"></script>
         <script src="@Url.Content("~/Content/Admin/")vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
@@ -457,12 +466,19 @@
         <!-- Page level custom scripts -->
         <script src="@Url.Content("~/Content/Admin/")js/demo/chart-area-demo.js"></script>
         <script src="@Url.Content("~/Content/Admin/")js/demo/chart-pie-demo.js"></script>
+        <script src="@Url.Content("~/Content/")js/tiny.js"></script>
         <script src="https://cdn.tiny.cloud/1/opbl478qvvrtoorhvqc4f7zei61txljv0gkj67k1ogzky57n/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
         <script>
             tinymce.init({
-                selector: '#mytextarea'
+                selector: 'textarea#default-editor',
+                plugins: 'advlist anchor autolink charmap code codesample directionality emoticons fullscreen help image insertdatetime link lists media preview print quickbars save searchreplace table template visualblocks visualchars wordcount', // Kích hoạt plugin bảng
+                toolbar: 'undo redo | formatselect | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | table', // Thêm nút table vào thanh công cụ
+                menubar: 'file edit view insert format tools table help', // (Tùy chọn) Thêm menu Table
+                height: 400
             });
         </script>
+
+      
 
 </body>
 

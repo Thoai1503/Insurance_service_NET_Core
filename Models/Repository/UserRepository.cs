@@ -1,4 +1,5 @@
-﻿using Insurance_agency.Models.Entities;
+﻿using Insurance_agency.Models.Entity;
+using Insurance_agency.Models.ModelView;
 
 namespace Insurance_agency.Models.Repository
 {

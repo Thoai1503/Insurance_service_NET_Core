@@ -1,4 +1,5 @@
-﻿using Insurance_agency.Models.Entities;
+﻿using Insurance_agency.Models.Entity;
+using Insurance_agency.Models.ModelView;
 
 namespace Insurance_agency.Models.Repository
 {
@@ -47,6 +48,28 @@ namespace Insurance_agency.Models.Repository
         public bool Update(Policy entity)
         {
             throw new NotImplementedException();
+        }
+        public HashSet<Policy> GetAllByInsuranceId(int insuranceId)
+        {
+            try
+            {
+                 return _context.TblPolicies.Where(p => p.InsuranceId == insuranceId).Select(p => new Policy
+                 {
+                     id = p.Id,
+                     name = p.Name,
+                     description = p.Description ?? string.Empty,
+                     age_min = p.AgeMin ?? 0,
+                     age_max = p.AgeMax ?? 0,
+                     active = p.Active ?? 0,
+                     insurance_id = (int)p.InsuranceId ,
+
+                 }).ToHashSet();
+            }
+            catch (Exception ex)
+            {
+                // Handle exception (log it, rethrow it, etc.)
+                return new HashSet<Policy>();
+            }
         }
     }
 

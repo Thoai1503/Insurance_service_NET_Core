@@ -1,8 +1,8 @@
-﻿using Insurance_agency.Models.ModelView;
+﻿using Insurance_agency.Models;
 using System;
 using System.Collections.Generic;
 
-namespace Insurance_agency.Models.Entities;
+namespace Insurance_agency.Models.ModelView;
 
 public partial class User
 {

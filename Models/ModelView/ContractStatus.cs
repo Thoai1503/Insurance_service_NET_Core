@@ -1,6 +1,6 @@
 ﻿
 
-namespace insurance_agency.models.entities;
+namespace Insurance_agency.Models.ModelView;
 
 public partial class ContractStatus
 {

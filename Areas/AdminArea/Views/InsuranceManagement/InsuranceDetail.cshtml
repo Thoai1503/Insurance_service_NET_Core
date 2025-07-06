@@ -1,0 +1,61 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "~/Areas/AdminArea/Views/Shared/_AdminLayout.cshtml";
+}
+<h2> Danh sách các chính sách của gói bảo hiểm</h2>
+
+
+
+<h1>TinyMCE Quick Start Guide</h1>
+
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">STT</th>
+            <th scope="col">Mô tả chính sách</th>
+            <th scope="col">Last</th>
+            <th scope="col">Active</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row">1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>mdo</td>
+        </tr>
+        <tr>
+            <th scope="row">2</th>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>fat</td>
+        </tr>
+        <tr>
+            <th scope="row">3</th>
+            <td colspan="2">Larry the Bird</td>
+            <td>twitter</td>
+        </tr>
+    </tbody>
+</table>
+
+<form method="post" action="/adminarea/dashboard">
+    <textarea id="default-editor" onchange="handleChange(event)">
+    <p><em>Hello</em>, <span style="text-decoration: underline;"><strong>World!</strong></span></p>
+</textarea>
+
+   
+</form>
+<button type="button" class="btn btn-primary" onclick="submitContent()">Submit</button>
+
+
+
+        <script>
+    function submitContent() {
+        const content = tinymce.get('default-editor').getContent();
+
+        console.log("Nội dung"+content);
+    }
+        </script>

@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Insurance_agency.Models.Entities;
+namespace Insurance_agency.Models.ModelView;
 
 public partial class PaymentHistory
 {

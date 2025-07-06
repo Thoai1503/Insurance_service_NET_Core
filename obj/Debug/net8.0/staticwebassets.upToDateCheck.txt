@@ -1,5 +1,6 @@
 wwwroot\Content\Admin\css\sb-admin-2.css
 wwwroot\Content\Admin\css\sb-admin-2.min.css
+wwwroot\Content\Admin\css\tiny.css
 wwwroot\Content\Admin\img\undraw_posting_photo.svg
 wwwroot\Content\Admin\img\undraw_profile.svg
 wwwroot\Content\Admin\img\undraw_profile_1.svg
@@ -1993,6 +1994,7 @@ wwwroot\Content\Image\Ex\victormanuelrodriguezfondo3dvictormrodriguez.jpg
 wwwroot\css\site.css
 wwwroot\favicon.ico
 wwwroot\js\site.js
+wwwroot\js\tiny.js
 wwwroot\lib\bootstrap\dist\css\bootstrap.css
 wwwroot\lib\bootstrap\dist\css\bootstrap.css.map
 wwwroot\lib\bootstrap\dist\css\bootstrap.min.css

@@ -36,6 +36,7 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
                     folder += name;
                     string fullPathSave = Path.Combine("wwwroot/Content",folder);
                     item.ExImage = name;
+                    item.Description = item.Description ?? string.Empty;
                     using (var fileStream = new FileStream(fullPathSave, FileMode.Create))
                     {
                         Img.CopyTo(fileStream);
@@ -52,6 +53,16 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
             {
             }
             return RedirectToAction("Index");
+        }
+        public ActionResult InsuranceDetail(int id)
+        {
+            var item = PolicyRepository.Instance.GetAllByInsuranceId(id);
+   
+                ViewBag.item = item;
+          
+                return View();
+          
+         
         }
     }
 }

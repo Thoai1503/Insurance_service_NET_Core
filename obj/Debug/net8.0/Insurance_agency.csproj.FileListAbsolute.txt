@@ -280,10 +280,12 @@ C:\project_NET\Insurance_agency\Insurance_agency\obj\Debug\net8.0\staticwebasset
 C:\project_NET\Insurance_agency\Insurance_agency\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.Insurance_agency.props
 C:\project_NET\Insurance_agency\Insurance_agency\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.Insurance_agency.props
 C:\project_NET\Insurance_agency\Insurance_agency\obj\Debug\net8.0\staticwebassets.pack.json
-C:\project_NET\Insurance_agency\Insurance_agency\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\project_NET\Insurance_agency\Insurance_agency\obj\Debug\net8.0\Insuranc.11D17CCC.Up2Date
 C:\project_NET\Insurance_agency\Insurance_agency\obj\Debug\net8.0\Insurance_agency.dll
 C:\project_NET\Insurance_agency\Insurance_agency\obj\Debug\net8.0\refint\Insurance_agency.dll
 C:\project_NET\Insurance_agency\Insurance_agency\obj\Debug\net8.0\Insurance_agency.pdb
 C:\project_NET\Insurance_agency\Insurance_agency\obj\Debug\net8.0\Insurance_agency.genruntimeconfig.cache
 C:\project_NET\Insurance_agency\Insurance_agency\obj\Debug\net8.0\ref\Insurance_agency.dll
+C:\project_NET\Insurance_agency\Insurance_agency\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+C:\project_NET\Insurance_agency\Insurance_agency\bin\Debug\net8.0\package-lock.json
+C:\project_NET\Insurance_agency\Insurance_agency\bin\Debug\net8.0\package.json

@@ -3,10 +3,10 @@
 *@
 @{
 	Layout = "~/Areas/AdminArea/Views/Shared/_AdminLayout.cshtml";
-	HashSet<Insurance_agency.Models.Entities.InsuranceTypeView> insuranceType = new HashSet<Insurance_agency.Models.Entities.InsuranceTypeView>();
+	HashSet<Insurance_agency.Models.ModelView.InsuranceTypeView> insuranceType = new HashSet<Insurance_agency.Models.ModelView.InsuranceTypeView>();
 	if (ViewBag.insurancetype != null)
 	{
-		insuranceType = (HashSet<Insurance_agency.Models.Entities.InsuranceTypeView>)ViewBag.insurancetype;
+		insuranceType = (HashSet<Insurance_agency.Models.ModelView.InsuranceTypeView>)ViewBag.insurancetype;
 	}
 }
 <form action="@Url.Action("CreateConfirm")" method="post" enctype="multipart/form-data">
