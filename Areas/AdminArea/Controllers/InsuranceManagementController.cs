@@ -12,6 +12,7 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
         {
             var item = InsuranceRepository.Instance.GetAll();
             ViewBag.item = item;
+            ViewBag.insurancetype = InsuranceTypeRepository.Instance.GetAll();
             return View();
         }
         public ActionResult Create()
