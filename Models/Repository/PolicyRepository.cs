@@ -26,7 +26,28 @@ namespace Insurance_agency.Models.Repository
 
         public bool Create(Policy entity)
         {
-            throw new NotImplementedException();
+
+            try
+            {
+                var policy = new TblPolicy
+                {
+                    Name = entity.name,
+                    AgeMin = entity.age_min,
+                    AgeMax = entity.age_max,
+                    Description = entity.description,
+                    Active = entity.active,
+                    InsuranceId = entity.insurance_id
+                };
+                _context.TblPolicies.Add(policy);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                // Handle exception (log it, rethrow it, etc.)
+                return false;
+            }
+
         }
         public bool Delete(Policy entity)
         {

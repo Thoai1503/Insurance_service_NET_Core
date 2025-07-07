@@ -133,15 +133,53 @@
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePage"
+                   aria-expanded="true" aria-controls="collapsePages">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Quản lý tài khoản</span>
+                </a>
+                <div id="collapsePage" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Login Screens:</h6>
+                        <a class="collapse-item" href="@Url.Content("~/Content/Admin/")login.html">Login</a>
+                        <a class="collapse-item" href="@Url.Content("~/Content/Admin/")register.html">Register</a>
+                        <a class="collapse-item" href="@Url.Content("~/Content/Admin/")forgot-password.html">Forgot Password</a>
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">Other Pages:</h6>
+                        <a class="collapse-item" href="@Url.Content("~/Content/Admin/")404.html">404 Page</a>
+                        <a class="collapse-item" href="@Url.Content("~/Content/Admin/")blank.html">Blank Page</a>
+                    </div>
+                </div>
+            </li>
+
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePage"
+                   aria-expanded="true" aria-controls="collapsePages">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Quản lý hợp đồng</span>
+                </a>
+                <div id="collapsePage" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        
+                        <a class="collapse-item" href="@Url.Content("~/Content/Admin/")login.html">Danh sách hợp đồng</a>
+                        <a class="collapse-item" href="@Url.Content("~/Content/Admin/")register.html">Danh sách hợp đồng đáo hạn</a>
+                        <a class="collapse-item" href="@Url.Content("~/Content/Admin/")forgot-password.html">Forgot Password</a>
+
+                    </div>
+                </div>
+            </li>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                    aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-folder"></i>
-                    <span>Pages</span>
+                    <span>Quản lý Bảo Hiểm</span>
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Login Screens:</h6>
+                        
                         <a class="collapse-item" href="@Url.Content("~/Content/Admin/")login.html">Login</a>
                         <a class="collapse-item" href="@Url.Content("~/Content/Admin/")register.html">Register</a>
                         <a class="collapse-item" href="@Url.Content("~/Content/Admin/")forgot-password.html">Forgot Password</a>

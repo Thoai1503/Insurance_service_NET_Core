@@ -2,15 +2,37 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    @model HashSet<Insurance_agency.Models.ModelView.Policy>
     Layout = "~/Areas/AdminArea/Views/Shared/_AdminLayout.cshtml";
 }
-<h2> Danh sách các chính sách của gói bảo hiểm</h2>
+
+<style>
+    .policy-item {
+        background-color: white;
+        color: black;
+        transition: background-color 0.3s ease;
+    }
+
+        .policy-item:hover {
+            background-color: #eef6ff;
+        }
+
+            .policy-item:hover .policy-actions {
+                display: flex !important;
+            }
+
+    .policy-actions {
+        gap: 5px;
+    }
+</style>
+
+<h2 style="color:black"><strong> Chi tiết các chính sách của gói bảo hiểm :</strong>Bảo hiểm An Khang</h2>
 
 
-
-<h1>TinyMCE Quick Start Guide</h1>
-
-
+<br />
+<h3 class="align-content-center">Nội dung chính sách</h3>
+</br>
+@* 
 <table class="table table-hover">
     <thead>
         <tr>
@@ -39,7 +61,30 @@
             <td>twitter</td>
         </tr>
     </tbody>
-</table>
+</table> *@
+<div class="container" style="margin:20px;background-color:white" id="policy_content">
+    @if (Model != null && Model.Count > 0)
+    {
+        HashSet<Insurance_agency.Models.ModelView.Policy> policies = Model;
+        foreach (var policy in policies)
+        {
+            <div class="policy-item d-flex justify-content-between align-items-start p-3 mb-2">
+                <div class="policy-content flex-grow-1">
+                    @Html.Raw(policy.description)
+                </div>
+                <div class="policy-actions d-none align-items-start">
+                    <button class="btn btn-sm btn-warning me-1" title="Chỉnh sửa">
+                        <i class="bi bi-pencil-fill"></i>
+                    </button>
+                    <button class="btn btn-sm btn-danger" title="Xoá">
+                        <i class="bi bi-trash-fill"></i>
+                    </button>
+                </div>
+            </div>
+
+        }
+    }
+</div>
 
 <form method="post" action="/adminarea/dashboard">
     <textarea id="default-editor" onchange="handleChange(event)">
@@ -57,5 +102,35 @@
         const content = tinymce.get('default-editor').getContent();
 
         console.log("Nội dung"+content);
+
+        $.ajax({
+            type: "POST",
+            url: "/adminarea/policymanagement/create",
+            data: { insurance_id: 2,description: content, active:1 },
+            success: function (response) {
+                console.log("Nội dung đã được gửi thành công");
+                // Xử lý phản hồi từ máy chủ nếu cần
+                $("#policy_content").append(`
+                    <div class="policy-item d-flex justify-content-between align-items-start p-3 mb-2">
+                        <div class="policy-content flex-grow-1">
+                           ${content}
+                        </div>
+                        <div class="policy-actions d-none align-items-start">
+                            <button class="btn btn-sm btn-warning me-1" title="Chỉnh sửa">
+                                <i class="bi bi-pencil-fill"></i>
+                            </button>
+                            <button class="btn btn-sm btn-danger" title="Xoá">
+                                <i class="bi bi-trash-fill"></i>
+                            </button>
+                        </div>
+                    </div>
+                `);
+
+                $("#default-editor").empty();
+            },
+            error: function (error) {
+                console.error("Lỗi khi gửi nội dung:", error);
+            }
+        });
     }
         </script>

@@ -60,7 +60,7 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
    
                 ViewBag.item = item;
           
-                return View();
+                return View(item);
           
          
         }
