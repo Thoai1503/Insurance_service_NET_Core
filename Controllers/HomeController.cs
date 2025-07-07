@@ -97,13 +97,13 @@ namespace Insurance_agency.Controllers
             ViewBag.BannerCss = "motobike";
             return View(insuranceList);
         }
-        public IActionResult InsuranceDetail()
+        public IActionResult InsuranceDetail(int id)
         {
-
+            var item = PolicyRepository.Instance.GetAllByInsuranceId(id);
             HttpContext.Session.SetInt32("allbanner", 0);
 
            ViewBag.BannerCss = "motobike";
-            return View();
+            return View(item);
         }
     }
 }

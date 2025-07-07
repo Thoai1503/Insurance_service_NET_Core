@@ -2,6 +2,7 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    @model HashSet<Insurance_agency.Models.ModelView.Policy>
 }
 <div class="container-fluid bg-breadcrumb-@(ViewBag.BannerCss??"")" id="insurance_banner" style="height:600px">
     <div class="col-3" style="background-color: white; margin-left: 30px; padding: 20px; border-top: 8px solid #007BFF; ">
@@ -24,4 +25,28 @@
                 <li class="breadcrumb-item active text-primary">About</li>
             </ol>
         </div>*@
+</div>
+
+<div class="container" style="margin:20px;background-color:white" id="policy_content">
+    @if (Model != null && Model.Count > 0)
+    {
+        HashSet<Insurance_agency.Models.ModelView.Policy> policies = Model;
+        foreach (var policy in policies)
+        {
+            <div class="policy-item d-flex justify-content-between align-items-start p-3 mb-2">
+                <div class="policy-content flex-grow-1" style="color:black">
+                    @Html.Raw(policy.description)
+                </div>
+                <div class="policy-actions d-none align-items-start">
+                    <button class="btn btn-sm btn-warning me-1" title="Chỉnh sửa">
+                        <i class="bi bi-pencil-fill"></i>
+                    </button>
+                    <button class="btn btn-sm btn-danger" title="Xoá">
+                        <i class="bi bi-trash-fill"></i>
+                    </button>
+                </div>
+            </div>
+
+        }
+    }
 </div>
