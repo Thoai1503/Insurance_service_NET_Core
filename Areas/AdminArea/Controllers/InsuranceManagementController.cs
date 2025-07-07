@@ -59,8 +59,8 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
             var item = PolicyRepository.Instance.GetAllByInsuranceId(id);
    
                 ViewBag.item = item;
-          
-                return View(item);
+                ViewBag.insuranceId = id;
+            return View(item);
           
          
         }

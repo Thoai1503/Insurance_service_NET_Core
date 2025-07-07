@@ -26,12 +26,13 @@
     }
 </style>
 
-<h2 style="color:black"><strong> Chi tiết các chính sách của gói bảo hiểm :</strong>Bảo hiểm An Khang</h2>
+<h2 class="text-primary"><strong> Chi tiết các chính sách của gói bảo hiểm :</strong>Bảo hiểm An Khang</h2>
+<h5 class="text-primary">Mã bảo hiểm: #BHNT02483</h5>
 
-
+<br/>
 <br />
-<h3 class="align-content-center">Nội dung chính sách</h3>
-</br>
+<h3 class="text-primary align-content-center">Bản xem trước nội dung chính sách:</h3>
+<br/>
 @* 
 <table class="table table-hover">
     <thead>
@@ -62,7 +63,7 @@
         </tr>
     </tbody>
 </table> *@
-<div class="container" style="margin:20px;background-color:white" id="policy_content">
+<div class="container" style="margin:20px;background-color:white;height:500px;width:1000px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);overflow-y:scroll" id="policy_content">
     @if (Model != null && Model.Count > 0)
     {
         HashSet<Insurance_agency.Models.ModelView.Policy> policies = Model;
@@ -74,10 +75,10 @@
                 </div>
                 <div class="policy-actions d-none align-items-start">
                     <button class="btn btn-sm btn-warning me-1" title="Chỉnh sửa">
-                        <i class="bi bi-pencil-fill"></i>
+                       Sửa
                     </button>
                     <button class="btn btn-sm btn-danger" title="Xoá">
-                        <i class="bi bi-trash-fill"></i>
+                       Xoá
                     </button>
                 </div>
             </div>
@@ -85,9 +86,14 @@
         }
     }
 </div>
+<br/>
+<br/>
+<br />
+<br />
+<h4 class="text-primary">Trình soạn thảo chính sách</h4>
 
 <form method="post" action="/adminarea/dashboard">
-    <textarea id="default-editor" onchange="handleChange(event)">
+    <textarea id="default-editor" style="width:1000px" onchange="handleChange(event)">
     <p><em>Hello</em>, <span style="text-decoration: underline;"><strong>World!</strong></span></p>
 </textarea>
 
@@ -106,7 +112,7 @@
         $.ajax({
             type: "POST",
             url: "/adminarea/policymanagement/create",
-            data: { insurance_id: 2,description: content, active:1 },
+            data: { insurance_id: @(ViewBag.insuranceId),description: content, active:1 },
             success: function (response) {
                 console.log("Nội dung đã được gửi thành công");
                 // Xử lý phản hồi từ máy chủ nếu cần
