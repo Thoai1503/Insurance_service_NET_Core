@@ -36198,24 +36198,6 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Content\Image\Ex\1goiactionairshipcitieswallpaperpreview.jpg'))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Content\Image\Ex\Burg_Hohenzollern_ak.jpg'))">
-      <SourceType>Package</SourceType>
-      <SourceId>Insurance_agency</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Insurance_agency</BasePath>
-      <RelativePath>Content/Image/Ex/Burg_Hohenzollern_ak.jpg</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>9mx72g9ob2</Fingerprint>
-      <Integrity>D0jsYooD5U7pCU/ypJVaFYP5csrmFqQOdVdsRMrzyPg=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Content\Image\Ex\Burg_Hohenzollern_ak.jpg'))</OriginalItemSpec>
-    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Content\Image\Ex\Castle_Neuschwanstein_horizontal.jpg'))">
       <SourceType>Package</SourceType>
       <SourceId>Insurance_agency</SourceId>

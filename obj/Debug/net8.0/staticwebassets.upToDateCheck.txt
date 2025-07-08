@@ -2009,7 +2009,6 @@ wwwroot\Content\Client\scss\bootstrap\scss\utilities\_api.scss
 wwwroot\Content\Client\scss\bootstrap\scss\vendor\_rfs.scss
 wwwroot\Content\Image\Ex\1693888378947.png
 wwwroot\Content\Image\Ex\1goiactionairshipcitieswallpaperpreview.jpg
-wwwroot\Content\Image\Ex\Burg_Hohenzollern_ak.jpg
 wwwroot\Content\Image\Ex\Castle_Neuschwanstein_horizontal.jpg
 wwwroot\Content\Image\Ex\Neuschwanstein_Herbst_Schnepfling__37_-ti-schwangau.jpg
 wwwroot\Content\Image\Ex\reseuro201215224677164861664971189.png

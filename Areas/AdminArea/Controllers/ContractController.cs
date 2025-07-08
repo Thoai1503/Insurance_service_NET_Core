@@ -42,7 +42,7 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
         public ActionResult Detail(int id)
         {
             var contract = ContractRepository.Instance.FindById(id);
-            return View();
+            return View(contract);
         }
 
         // POST: ContractController/Edit/5
