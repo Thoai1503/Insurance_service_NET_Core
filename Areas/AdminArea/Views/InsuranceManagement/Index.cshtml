@@ -25,15 +25,15 @@
     <tbody>
 	@foreach(var item in insurance){
 		<tr>
-			<td>@item.Id</td>
-			<td>@item.Name</td>
-			<td>@item.Description</td>
-			<td>@item.InsuranceTypeId</td>
+			<td>@item.id</td>
+			<td>@item.name</td>
+			<td>@item.description</td>
+			<td>@item.insurance_type_id</td>
 		
-			<td><img src="@Url.Content("~/Content")/Image/Ex/@item.ExImage" height="50" alt="Alternate Text" /></td>
+			<td><img src="@Url.Content("~/Content")/Image/Ex/@item.ex_image" height="50" alt="Alternate Text" /></td>
             <td>
-                <a href="@Url.Action("Edit", new { id = item.Id })" class="btn btn-primary">Edit</a>
-                <a href="@Url.Action("InsuranceDetail", new { id = item.Id })" class="btn btn-info">Detail</a>
+                <a href="@Url.Action("Edit", new { id = item.id })" class="btn btn-primary">Edit</a>
+                <a href="@Url.Action("InsuranceDetail", new { id = item.id })" class="btn btn-info">Detail</a>
             </td>
 		</tr>
 	}

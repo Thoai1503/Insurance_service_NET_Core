@@ -37,7 +37,54 @@ namespace Insurance_agency.Models.Repository
 
         public ContractView FindById(int id)
         {
-            throw new NotImplementedException();
+
+            //var contract = _context.TblContracts
+            //    .Where(c => c.Id == id)
+            //    .Select(c => new ContractView
+            //    {
+            //        id = c.Id,
+            //        user_id = c.UserId,
+            //        insurance_id = c.InsuranceId,
+            //        StartDate = c.StartDate,
+            //        EndDate = c.EndDate,
+            //        value_contract = (long)c.ValueContract,
+            //        year_paid = (long)c.YearPaid,
+            //        number_year_paid = c.NumberYearPaid,
+            //        status = c.Status
+            //    }).FirstOrDefault();
+            var query = from c in _context.TblContracts
+                        join u in _context.TblUsers on c.UserId equals u.Id
+                        join i in _context.Insurances on c.InsuranceId equals i.Id
+                        where c.Id == id
+                        select new ContractView
+                        {
+                            id = c.Id,
+                            user_id = c.UserId,
+                            insurance_id = c.InsuranceId,
+                            StartDate = c.StartDate,
+                            EndDate = c.EndDate,
+                            value_contract = (long)c.ValueContract,
+                            year_paid = (long)c.YearPaid,
+                            user = new User
+                            {
+                                id = u.Id,
+                                full_name = u.Password,
+                                email = u.Email,
+                                phone = u.Phone
+                            },
+                            insurance = new InsuranceView
+                            {
+                                id = i.Id,
+                                name = i.Name,
+                                description = i.Description,
+                                ex_image = i.ExImage,
+                              
+                            },
+                            number_year_paid = c.NumberYearPaid,
+                            status = c.Status
+                        };
+            var contract = query.FirstOrDefault();
+            return contract;                
         }
 
         public HashSet<ContractView> FindByKeywork(string keywork)

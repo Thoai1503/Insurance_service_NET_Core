@@ -21,6 +21,8 @@ public class ContractView
     public int? number_year_paid { get; set; }
     public long? value_contract { get; set; }
 
+    public InsuranceView insurance { get; set; }
+    public User user { get; set; }
 
     public int? status { get; set; }
 

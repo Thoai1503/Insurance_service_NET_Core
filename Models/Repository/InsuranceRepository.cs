@@ -27,12 +27,12 @@ namespace Insurance_agency.Models.Repository
                 {
                     var Insurance = new Insurance
                     {
-                        Id = entity.Id,
-                        Name = entity.Name,
-                        Description = entity.Description,
-                        InsuranceTypeId = entity.InsuranceTypeId,
-                        TargetId = entity.TargetId,
-                        ExImage = entity.ExImage,
+                        Id = entity.id,
+                        Name = entity.name,
+                        Description = entity.description,
+                        InsuranceTypeId = entity.insurance_type_id,
+                   
+                        ExImage = entity.ex_image,
                     };
                     var q = _context.Add(Insurance);
                     _context.SaveChanges();
@@ -57,12 +57,12 @@ namespace Insurance_agency.Models.Repository
             {
                 var item = _context.Insurances.Where(d => d.Id == id).Select(d => new InsuranceView
                 {
-                    Id = d.Id,
-                    Name = d.Name,
-                    Description = d.Description,
-                    InsuranceTypeId = (int)d.InsuranceTypeId,
-                    TargetId = (int)d.TargetId,
-                    ExImage = d.ExImage
+                    id = d.Id,
+                    name = d.Name,
+                    description = d.Description,
+                    insurance_type_id = (int)d.InsuranceTypeId,
+                  
+                    ex_image = d.ExImage
                 }).FirstOrDefault();
                 if (item != null)
                 {
@@ -87,12 +87,12 @@ namespace Insurance_agency.Models.Repository
             {
                 var item = _context.Insurances.Select(d=>new InsuranceView
                 {
-                    Id = d.Id,
-                    Name =d.Name,
-                    Description = d.Description,
-                    InsuranceTypeId = (int)d.InsuranceTypeId,
-                    TargetId = (int)d.TargetId,
-                    ExImage = d.ExImage
+                    id = d.Id,
+                    name = d.Name,
+                    description = d.Description,
+                    insurance_type_id = (int)d.InsuranceTypeId,
+
+                    ex_image = d.ExImage
                 }).ToHashSet();
                 if (item != null)
                 {

@@ -16,11 +16,7 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
         }
 
         // GET: ContractController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }   
-
+   
         // GET: ContractController/Create
         public ActionResult Create()
         {
@@ -45,6 +41,7 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
         // GET: ContractController/Edit/5
         public ActionResult Detail(int id)
         {
+            var contract = ContractRepository.Instance.FindById(id);
             return View();
         }
 

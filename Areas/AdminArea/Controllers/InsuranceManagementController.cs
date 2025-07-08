@@ -35,8 +35,8 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
                     name = name.Replace("_", "");
                     folder += name;
                     string fullPathSave = Path.Combine("wwwroot/Content",folder);
-                    item.ExImage = name;
-                    item.Description = item.Description ?? string.Empty;
+                    item.ex_image = name;
+                    item.description = item.description ?? string.Empty;
                     using (var fileStream = new FileStream(fullPathSave, FileMode.Create))
                     {
                         Img.CopyTo(fileStream);
