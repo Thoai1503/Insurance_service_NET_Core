@@ -78,3 +78,8 @@ dotnet run
 ---
 
 **For contributions and feedback, please visit [github.com/Thoai1503/Insurance_agancy_NET_Core](https://github.com/Thoai1503/Insurance_agancy_NET_Core)**
+![Screenshot 2025-07-08 223536](https://github.com/user-attachments/assets/d877532c-f968-4738-8b38-7e098143d761)
+
+![Screenshot 2025-07-08 223641](https://github.com/user-attachments/assets/7f57020a-6a47-4dc8-96bd-f974210e4dc3)
+
+![Screenshot 2025-07-08 223658](https://github.com/user-attachments/assets/3c24cc59-66c6-4451-971e-ef16ce92b33c)
