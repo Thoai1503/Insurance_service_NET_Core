@@ -107,7 +107,27 @@ namespace Insurance_agency.Models.Repository
 
         public bool Update(InsuranceView entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (entity != null)
+                {
+                    var q =_context.Insurances.Where(d=>d.Id == entity.Id).FirstOrDefault();
+                    q.InsuranceTypeId = entity.InsuranceTypeId;
+                    q.TargetId = entity.TargetId;
+                    q.ExImage = entity.ExImage;
+                    q.Name = entity.Name;
+                    q.Description = entity.Description;
+                    if(entity.ExImage != null&&entity.ExImage!=string.Empty)
+                    {
+                        q.ExImage = entity.ExImage;
+                    }
+                    _context.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception ex) {
+            }
+            return false;
         }
     }
 }

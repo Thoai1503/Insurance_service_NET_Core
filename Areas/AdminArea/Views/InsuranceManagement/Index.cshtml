@@ -32,8 +32,8 @@
 		
 			<td><img src="@Url.Content("~/Content")/Image/Ex/@item.ex_image" height="50" alt="Alternate Text" /></td>
             <td>
-                <a href="@Url.Action("Edit", new { id = item.id })" class="btn btn-primary">Edit</a>
-                <a href="@Url.Action("InsuranceDetail", new { id = item.id })" class="btn btn-info">Detail</a>
+                <a href="@Url.Action("InsuranceEdit","InsuranceManagement", new { id = item.Id })" class="btn btn-primary">Edit</a>
+                <a href="@Url.Action("InsuranceDetail", new { id = item.Id })" class="btn btn-info">Detail</a>
             </td>
 		</tr>
 	}
