@@ -4,40 +4,43 @@
 @{
 	Layout = "~/Areas/AdminArea/Views/Shared/_AdminLayout.cshtml";
 	HashSet<Insurance_agency.Models.ModelView.InsuranceView> insurance = new HashSet<Insurance_agency.Models.ModelView.InsuranceView>();
-	if(ViewBag.item!=null){
+	if (ViewBag.item != null)
+	{
 		insurance = (HashSet<Insurance_agency.Models.ModelView.InsuranceView>)ViewBag.item;
 	}
 }
 <h3 class="mb-5">Danh sách bảo hiểm</h3>
- <a href="/adminarea/insurancemanagement/Create" class="btn btn-primary mb-5">Thêm bảo hiểm mới</a>
+<a href="/adminarea/insurancemanagement/Create" class="btn btn-primary mb-5">Thêm bảo hiểm mới</a>
 <table class="table table-hover">
-    <thead class="thead-dark">
-	<tr>
-		<th>Mã </th>
-		<th>Tên</th>
-		<th>Mô tả</th>
-		<th>Loại </th>
-
-		<th>ExImage</th>
-		<th>Function</th>
-	</tr>
-    </thead>
-    <tbody>
-	@foreach(var item in insurance){
+	<thead class="thead-dark">
 		<tr>
-			<td>@item.id</td>
-			<td>@item.name</td>
-			<td>@item.description</td>
-			<td>@item.insurance_type_id</td>
-		
-			<td><img src="@Url.Content("~/Content")/Image/Ex/@item.ex_image" height="50" alt="Alternate Text" /></td>
-            <td>
-                <a href="@Url.Action("InsuranceEdit","InsuranceManagement", new { id = item.Id })" class="btn btn-primary">Edit</a>
-                <a href="@Url.Action("InsuranceDetail", new { id = item.Id })" class="btn btn-info">Detail</a>
-            </td>
+			<th>Mã </th>
+			<th>Tên</th>
+			<th>Mô tả</th>
+			<th>Loại </th>
+
+			<th>ExImage</th>
+			<th>Function</th>
 		</tr>
-	}
-    </tbody>
+	</thead>
+	<tbody>
+		@foreach (var item in insurance)
+		{
+			<tr>
+				<td>@item.id</td>
+				<td>@item.name</td>
+				<td>@item.description</td>
+				<td>@item.insurance_type_id</td>
+
+				<td><img src="@Url.Content("~/Content")/Image/Ex/@item.ex_image" height="50" alt="Alternate Text" /></td>
+				<td>
+					<a href="@Url.Action("InsuranceEdit","InsuranceManagement", new { id = item.id })" class="btn btn-primary">Edit</a>
+					<a href="@Url.Action("InsuranceDetail", new { id = item.id })" class="btn btn-info">Detail</a>
+					<a href="@Url.Action("Delete", new { id = item.id })" class="btn btn-danger">Delete</a>
+				</td>
+			</tr>
+		}
+	</tbody>
 </table>
 
 

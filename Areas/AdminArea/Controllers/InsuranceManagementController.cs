@@ -80,7 +80,7 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
             {
                 if (item != null && Img != null)
                 {
-                    string OldImg = item.ExImage;
+                    string OldImg = item.ex_image;
                     string folder = "Image/Ex/";
                     string name = Img.FileName;
                     name = name.Replace("-", "");
@@ -92,8 +92,8 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
                     {
                        oldPathSave= Path.Combine("wwwroot/Content", folder + OldImg);
                     }
-                    item.ExImage = name;
-                    item.Description = item.Description ?? string.Empty;
+                    item.ex_image = name;
+                    item.description = item.description ?? string.Empty;
                     if (!Path.Exists(fullPathSave)) 
                     {
                         if (Img.FileName != OldImg)
@@ -116,6 +116,26 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
                     return RedirectToAction("Index");
                 };
 
+            }
+            catch (Exception ex)
+            {
+            }
+            return RedirectToAction("Index");
+        }
+        public ActionResult Delete(int id = 0)
+        {
+            try
+            {
+                if (id > 0)
+                {
+                    var item = InsuranceRepository.Instance.FindById(id);
+                    if (InsuranceRepository.Instance.Delete(id))
+                    {
+                        string folder = "Image/Ex/";
+                        string fullPathSave = Path.Combine("wwwroot/Content", folder + item.ex_image);
+                        System.IO.File.Delete(fullPathSave);
+                    }
+                }
             }
             catch (Exception ex)
             {

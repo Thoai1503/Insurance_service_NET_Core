@@ -20,7 +20,7 @@
 
 		</div>
 		<div class="col-3">
-			<input id="name" name="Name" type="text" value="@insurance.Name" />
+			<input id="name" name="name" type="text" value="@insurance.name" />
 		</div>
 	</div>
 	<div class="row">
@@ -29,7 +29,7 @@
 
 		</div>
 		<div class="col-3">
-			<input id="description" name="Description" type="text" value="@insurance.Description" />
+			<input id="description" name="description" type="text" value="@insurance.description" />
 		</div>
 	</div>
 	<div class="row">
@@ -38,7 +38,7 @@
 
 		</div>
 		<div class="col-3">
-			<input id="target_id" name="TargetId" type="text" value="@insurance.TargetId"/>
+			<input id="target_id" name="targetId" type="text" value="@insurance.targetId"/>
 		</div>
 	</div>
 	<div class="row">
@@ -56,11 +56,11 @@
 
 		</div>
 		<div class="col-3">
-			<select name="InsuranceTypeId">
+			<select name="insurance_type_id">
 				<option value="0">Select Insurance Type</option>
 				@foreach (var item in insuranceType)
 				{
-					if(item.id==insurance.InsuranceTypeId){
+					if(item.id==insurance.insurance_type_id){
 						<option value="@item.id" selected>@item.name</option>
 					}
 					else{
@@ -70,8 +70,8 @@
 			</select>
 		</div>
 	</div>
-	<input type="hidden" value="@insurance.Id" name="Id"/>
-	<input type="hidden" value="@insurance.ExImage" name="ExImage" />
+	<input type="hidden" value="@insurance.id" name="Id"/>
+	<input type="hidden" value="@insurance.ex_image" name="ex_image" />
 	<div class="row">
 		<div class="rol-3">
 			<button type="submit" class="btn btn-success">Confirm</button>
