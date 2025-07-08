@@ -111,15 +111,15 @@ namespace Insurance_agency.Models.Repository
             {
                 if (entity != null)
                 {
-                    var q =_context.Insurances.Where(d=>d.Id == entity.Id).FirstOrDefault();
-                    q.InsuranceTypeId = entity.InsuranceTypeId;
-                    q.TargetId = entity.TargetId;
-                    q.ExImage = entity.ExImage;
-                    q.Name = entity.Name;
-                    q.Description = entity.Description;
-                    if(entity.ExImage != null&&entity.ExImage!=string.Empty)
+                    var q =_context.Insurances.Where(d=>d.Id == entity.id).FirstOrDefault();
+                    q.InsuranceTypeId = entity.insurance_type_id;
+                    q.TargetId = entity.targetId;
+                    q.ExImage = entity.ex_image;
+                    q.Name = entity.name;
+                    q.Description = entity.description;
+                    if(entity.ex_image != null&&entity.ex_image !=string.Empty)
                     {
-                        q.ExImage = entity.ExImage;
+                        q.ExImage = entity.ex_image;
                     }
                     _context.SaveChanges();
                     return true;

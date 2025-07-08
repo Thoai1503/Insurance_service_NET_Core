@@ -76,11 +76,12 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
 
         public ActionResult EditConfirm(IFormFile Img, InsuranceView item)
         {
+            var data = InsuranceRepository.Instance.FindById(item.id);
             try
             {
                 if (item != null && Img != null)
                 {
-                    string OldImg = item.ExImage;
+                    string OldImg =data.ex_image;
                     string folder = "Image/Ex/";
                     string name = Img.FileName;
                     name = name.Replace("-", "");
@@ -92,8 +93,8 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
                     {
                        oldPathSave= Path.Combine("wwwroot/Content", folder + OldImg);
                     }
-                    item.ExImage = name;
-                    item.Description = item.Description ?? string.Empty;
+                    item.ex_image = name;
+                    item.description = item.description ?? string.Empty;
                     if (!Path.Exists(fullPathSave)) 
                     {
                         if (Img.FileName != OldImg)
