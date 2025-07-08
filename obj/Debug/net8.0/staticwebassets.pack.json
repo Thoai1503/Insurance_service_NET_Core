@@ -53,6 +53,10 @@
       "PackagePath": "staticwebassets\\Content\\Admin\\js\\demo\\chart-pie-demo.js"
     },
     {
+      "Id": "C:\\project_NET\\Insurance_agency\\Insurance_agency\\wwwroot\\Content\\Admin\\js\\demo\\dataTable.js",
+      "PackagePath": "staticwebassets\\Content\\Admin\\js\\demo\\dataTable.js"
+    },
+    {
       "Id": "C:\\project_NET\\Insurance_agency\\Insurance_agency\\wwwroot\\Content\\Admin\\js\\demo\\datatables-demo.js",
       "PackagePath": "staticwebassets\\Content\\Admin\\js\\demo\\datatables-demo.js"
     },

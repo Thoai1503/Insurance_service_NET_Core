@@ -10,6 +10,7 @@ wwwroot\Content\Admin\img\undraw_rocket.svg
 wwwroot\Content\Admin\js\demo\chart-area-demo.js
 wwwroot\Content\Admin\js\demo\chart-bar-demo.js
 wwwroot\Content\Admin\js\demo\chart-pie-demo.js
+wwwroot\Content\Admin\js\demo\dataTable.js
 wwwroot\Content\Admin\js\demo\datatables-demo.js
 wwwroot\Content\Admin\js\sb-admin-2.js
 wwwroot\Content\Admin\js\sb-admin-2.min.js

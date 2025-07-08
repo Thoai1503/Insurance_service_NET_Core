@@ -1,6 +1,6 @@
 using System.Diagnostics;
 using Insurance_agency.Models;
-using Insurance_agency.Models.Entity;
+using Insurance_agency.Models.Entities;
 using Insurance_agency.Models.Repository;
 using Microsoft.AspNetCore.Mvc;
 

@@ -286,6 +286,6 @@ C:\project_NET\Insurance_agency\Insurance_agency\obj\Debug\net8.0\refint\Insuran
 C:\project_NET\Insurance_agency\Insurance_agency\obj\Debug\net8.0\Insurance_agency.pdb
 C:\project_NET\Insurance_agency\Insurance_agency\obj\Debug\net8.0\Insurance_agency.genruntimeconfig.cache
 C:\project_NET\Insurance_agency\Insurance_agency\obj\Debug\net8.0\ref\Insurance_agency.dll
-C:\project_NET\Insurance_agency\Insurance_agency\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\project_NET\Insurance_agency\Insurance_agency\bin\Debug\net8.0\package-lock.json
 C:\project_NET\Insurance_agency\Insurance_agency\bin\Debug\net8.0\package.json
+C:\project_NET\Insurance_agency\Insurance_agency\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

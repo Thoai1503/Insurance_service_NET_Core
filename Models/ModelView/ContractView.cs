@@ -9,15 +9,20 @@ public class ContractView
 
     public int? user_id { get; set; }
 
-    public int? policy_id { get; set; }
+    public int? insurance_id { get; set; }
 
     public DateTime? StartDate { get; set; }
 
     public DateTime? EndDate { get; set; }
 
-    public long? TotalPaid { get; set; }
+    public long? total_paid { get; set; }
 
-    public int? Status { get; set; }
+    public long? year_paid { get; set; }
+    public int? number_year_paid { get; set; }
+    public long? value_contract { get; set; }
+
+
+    public int? status { get; set; }
 
 
 }
