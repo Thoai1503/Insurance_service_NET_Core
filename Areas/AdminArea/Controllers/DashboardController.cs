@@ -24,7 +24,7 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
         }
 
         // GET: DashboardController/Create
-        public ActionResult Create()
+        public ActionResult Chart()
         {
             return View();
         }

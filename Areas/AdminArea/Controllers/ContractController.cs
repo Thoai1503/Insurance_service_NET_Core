@@ -19,7 +19,7 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
         public ActionResult Details(int id)
         {
             return View();
-        }
+        }   
 
         // GET: ContractController/Create
         public ActionResult Create()

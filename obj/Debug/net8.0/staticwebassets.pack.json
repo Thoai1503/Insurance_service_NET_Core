@@ -5,6 +5,38 @@
       "PackagePath": "staticwebassets\\Insurance_agency.ngf69zt8es.bundle.scp.css"
     },
     {
+      "Id": "C:\\project_NET\\Insurance_agency\\Insurance_agency\\wwwroot\\Content\\Admin\\404.html",
+      "PackagePath": "staticwebassets\\Content\\Admin\\404.html"
+    },
+    {
+      "Id": "C:\\project_NET\\Insurance_agency\\Insurance_agency\\wwwroot\\Content\\Admin\\LICENSE",
+      "PackagePath": "staticwebassets\\Content\\Admin"
+    },
+    {
+      "Id": "C:\\project_NET\\Insurance_agency\\Insurance_agency\\wwwroot\\Content\\Admin\\PRO_UPGRADE.txt",
+      "PackagePath": "staticwebassets\\Content\\Admin\\PRO_UPGRADE.txt"
+    },
+    {
+      "Id": "C:\\project_NET\\Insurance_agency\\Insurance_agency\\wwwroot\\Content\\Admin\\README.md",
+      "PackagePath": "staticwebassets\\Content\\Admin\\README.md"
+    },
+    {
+      "Id": "C:\\project_NET\\Insurance_agency\\Insurance_agency\\wwwroot\\Content\\Admin\\blank.html",
+      "PackagePath": "staticwebassets\\Content\\Admin\\blank.html"
+    },
+    {
+      "Id": "C:\\project_NET\\Insurance_agency\\Insurance_agency\\wwwroot\\Content\\Admin\\buttons.html",
+      "PackagePath": "staticwebassets\\Content\\Admin\\buttons.html"
+    },
+    {
+      "Id": "C:\\project_NET\\Insurance_agency\\Insurance_agency\\wwwroot\\Content\\Admin\\cards.html",
+      "PackagePath": "staticwebassets\\Content\\Admin\\cards.html"
+    },
+    {
+      "Id": "C:\\project_NET\\Insurance_agency\\Insurance_agency\\wwwroot\\Content\\Admin\\charts.html",
+      "PackagePath": "staticwebassets\\Content\\Admin\\charts.html"
+    },
+    {
       "Id": "C:\\project_NET\\Insurance_agency\\Insurance_agency\\wwwroot\\Content\\Admin\\css\\sb-admin-2.css",
       "PackagePath": "staticwebassets\\Content\\Admin\\css\\sb-admin-2.css"
     },
@@ -15,6 +47,10 @@
     {
       "Id": "C:\\project_NET\\Insurance_agency\\Insurance_agency\\wwwroot\\Content\\Admin\\css\\tiny.css",
       "PackagePath": "staticwebassets\\Content\\Admin\\css\\tiny.css"
+    },
+    {
+      "Id": "C:\\project_NET\\Insurance_agency\\Insurance_agency\\wwwroot\\Content\\Admin\\forgot-password.html",
+      "PackagePath": "staticwebassets\\Content\\Admin\\forgot-password.html"
     },
     {
       "Id": "C:\\project_NET\\Insurance_agency\\Insurance_agency\\wwwroot\\Content\\Admin\\img\\undraw_posting_photo.svg",
@@ -39,6 +75,10 @@
     {
       "Id": "C:\\project_NET\\Insurance_agency\\Insurance_agency\\wwwroot\\Content\\Admin\\img\\undraw_rocket.svg",
       "PackagePath": "staticwebassets\\Content\\Admin\\img\\undraw_rocket.svg"
+    },
+    {
+      "Id": "C:\\project_NET\\Insurance_agency\\Insurance_agency\\wwwroot\\Content\\Admin\\index.html",
+      "PackagePath": "staticwebassets\\Content\\Admin\\index.html"
     },
     {
       "Id": "C:\\project_NET\\Insurance_agency\\Insurance_agency\\wwwroot\\Content\\Admin\\js\\demo\\chart-area-demo.js",
@@ -67,6 +107,22 @@
     {
       "Id": "C:\\project_NET\\Insurance_agency\\Insurance_agency\\wwwroot\\Content\\Admin\\js\\sb-admin-2.min.js",
       "PackagePath": "staticwebassets\\Content\\Admin\\js\\sb-admin-2.min.js"
+    },
+    {
+      "Id": "C:\\project_NET\\Insurance_agency\\Insurance_agency\\wwwroot\\Content\\Admin\\login.html",
+      "PackagePath": "staticwebassets\\Content\\Admin\\login.html"
+    },
+    {
+      "Id": "C:\\project_NET\\Insurance_agency\\Insurance_agency\\wwwroot\\Content\\Admin\\package-lock.json",
+      "PackagePath": "staticwebassets\\Content\\Admin\\package-lock.json"
+    },
+    {
+      "Id": "C:\\project_NET\\Insurance_agency\\Insurance_agency\\wwwroot\\Content\\Admin\\package.json",
+      "PackagePath": "staticwebassets\\Content\\Admin\\package.json"
+    },
+    {
+      "Id": "C:\\project_NET\\Insurance_agency\\Insurance_agency\\wwwroot\\Content\\Admin\\register.html",
+      "PackagePath": "staticwebassets\\Content\\Admin\\register.html"
     },
     {
       "Id": "C:\\project_NET\\Insurance_agency\\Insurance_agency\\wwwroot\\Content\\Admin\\scss\\_buttons.scss",
@@ -159,6 +215,26 @@
     {
       "Id": "C:\\project_NET\\Insurance_agency\\Insurance_agency\\wwwroot\\Content\\Admin\\scss\\utilities\\_text.scss",
       "PackagePath": "staticwebassets\\Content\\Admin\\scss\\utilities\\_text.scss"
+    },
+    {
+      "Id": "C:\\project_NET\\Insurance_agency\\Insurance_agency\\wwwroot\\Content\\Admin\\tables.html",
+      "PackagePath": "staticwebassets\\Content\\Admin\\tables.html"
+    },
+    {
+      "Id": "C:\\project_NET\\Insurance_agency\\Insurance_agency\\wwwroot\\Content\\Admin\\utilities-animation.html",
+      "PackagePath": "staticwebassets\\Content\\Admin\\utilities-animation.html"
+    },
+    {
+      "Id": "C:\\project_NET\\Insurance_agency\\Insurance_agency\\wwwroot\\Content\\Admin\\utilities-border.html",
+      "PackagePath": "staticwebassets\\Content\\Admin\\utilities-border.html"
+    },
+    {
+      "Id": "C:\\project_NET\\Insurance_agency\\Insurance_agency\\wwwroot\\Content\\Admin\\utilities-color.html",
+      "PackagePath": "staticwebassets\\Content\\Admin\\utilities-color.html"
+    },
+    {
+      "Id": "C:\\project_NET\\Insurance_agency\\Insurance_agency\\wwwroot\\Content\\Admin\\utilities-other.html",
+      "PackagePath": "staticwebassets\\Content\\Admin\\utilities-other.html"
     },
     {
       "Id": "C:\\project_NET\\Insurance_agency\\Insurance_agency\\wwwroot\\Content\\Admin\\vendor\\bootstrap\\js\\bootstrap.bundle.js",
