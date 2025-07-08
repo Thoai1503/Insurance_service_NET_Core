@@ -123,5 +123,25 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
             }
             return RedirectToAction("Index");
         }
+        public ActionResult Delete(int id = 0)
+        {
+            try
+            {
+                if (id > 0)
+                {
+                    var item = InsuranceRepository.Instance.FindById(id);
+                    if (InsuranceRepository.Instance.Delete(id))
+                    {
+                        string folder = "Image/Ex/";
+                        string fullPathSave = Path.Combine("wwwroot/Content", folder + item.ex_image);
+                        System.IO.File.Delete(fullPathSave);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return RedirectToAction("Index");
+        }
     }
 }

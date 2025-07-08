@@ -117,7 +117,7 @@ namespace Insurance_agency.Models.Repository
                     q.ExImage = entity.ex_image;
                     q.Name = entity.name;
                     q.Description = entity.description;
-                    if(entity.ex_image != null&&entity.ex_image !=string.Empty)
+                    if(entity.ex_image != null&&entity.ex_image!=string.Empty)
                     {
                         q.ExImage = entity.ex_image;
                     }
@@ -126,6 +126,42 @@ namespace Insurance_agency.Models.Repository
                 }
             }
             catch (Exception ex) {
+            }
+            return false;
+        }
+        public bool CheckInsurance(int id)
+        {
+            try
+            {
+                var q = _context.TblContracts.Any(d => d.InsuranceId == id);
+                return q;
+            }
+            catch (Exception ex)
+            {
+            }
+            return false;
+        }
+        public bool Delete(int id = 0)
+        {
+            try
+            {
+                if (!CheckInsurance(id))
+                {
+                    if (id > 0)
+                    {
+                        var q = _context.Insurances.Any(d => d.Id == id);
+                        if (q)
+                        {
+                            var item = _context.Insurances.Where((d) => d.Id == id).FirstOrDefault();
+                            _context.Insurances.Remove(item);
+                            _context.SaveChanges();
+                            return true;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
             }
             return false;
         }
