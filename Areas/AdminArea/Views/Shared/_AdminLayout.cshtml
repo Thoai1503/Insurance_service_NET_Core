@@ -525,18 +525,28 @@
         <script>
             tinymce.init({
                 selector: 'textarea#default-editor',
-                height: 400,
+                height: 600,
                 plugins: `
-                    advlist anchor autolink charmap code codesample directionality emoticons fullscreen help image
-                    insertdatetime link lists media preview print quickbars save searchreplace table template
-                    visualblocks visualchars wordcount textcolor colorpicker textpattern
+                    advlist anchor autolink autosave charmap code codesample directionality emoticons fullscreen help image
+                    insertdatetime link lists media nonbreaking pagebreak preview print save searchreplace table template
+                    visualblocks visualchars wordcount textcolor colorpicker textpattern hr toc paste importcss
                 `,
                 toolbar: `
-                    undo redo | formatselect fontselect fontsizeselect | bold italic underline forecolor backcolor |
-                    alignleft aligncenter alignright alignjustify | bullist numlist outdent indent |
-                    table image | preview
+                    undo redo | styleselect formatselect fontselect fontsizeselect | bold italic underline strikethrough
+                    forecolor backcolor | alignleft aligncenter alignright alignjustify |
+                    bullist numlist outdent indent | link image media codesample |
+                    table hr charmap emoticons | print preview fullscreen | code
                 `,
                 menubar: 'file edit view insert format tools table help',
+                font_size_formats: '8pt 10pt 12pt 14pt 18pt 24pt 36pt 48pt 72pt',
+                font_family_formats: `
+                    Arial=arial,helvetica,sans-serif;
+                    Courier New=courier new,courier;
+                    Georgia=georgia,palatino;
+                    Tahoma=tahoma,arial,helvetica,sans-serif;
+                    Times New Roman=times new roman,times;
+                    Verdana=verdana,geneva;
+                `,
                 image_title: true,
                 automatic_uploads: true,
                 file_picker_types: 'image',
@@ -545,29 +555,23 @@
                         const input = document.createElement('input');
                         input.setAttribute('type', 'file');
                         input.setAttribute('accept', 'image/*');
-
                         input.onchange = function () {
                             const file = this.files[0];
                             const reader = new FileReader();
-
                             reader.onload = function () {
                                 const id = 'blobid' + (new Date()).getTime();
                                 const blobCache = tinymce.activeEditor.editorUpload.blobCache;
                                 const base64 = reader.result.split(',')[1];
                                 const blobInfo = blobCache.create(id, file, base64);
                                 blobCache.add(blobInfo);
-
-                                // Gọi callback và chèn ảnh
                                 cb(blobInfo.blobUri(), { title: file.name });
                             };
                             reader.readAsDataURL(file);
                         };
-
                         input.click();
                     }
                 },
-                font_size_formats: '8pt 10pt 12pt 14pt 18pt 24pt 36pt',
-                font_family_formats: 'Arial=arial,helvetica,sans-serif; Courier New=courier new,courier; Times New Roman=times new roman,times; Verdana=verdana,geneva;',
+                content_style: "body { font-family:Arial,sans-serif; font-size:14px }"
             });
         </script>
 
