@@ -15,7 +15,7 @@ public partial class Insurance
 
     public int? InsuranceTypeId { get; set; }
 
-    public int? YearPaid { get; set; }
+    public int? Value { get; set; }
 
     public string? ExImage { get; set; }
 

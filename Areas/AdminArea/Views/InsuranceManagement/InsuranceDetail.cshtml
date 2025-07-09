@@ -222,7 +222,10 @@
                     </div>
                 `);
 
-                $("#default-editor").empty();
+                        $("#policy_content").scrollTop($("#policy_content")[0].scrollHeight);
+
+            // Xoá nội dung trình soạn thảo
+            tinymce.get('default-editor').setContent('');
             },
             error: function (error) {
                 console.error("Lỗi khi gửi nội dung:", error);

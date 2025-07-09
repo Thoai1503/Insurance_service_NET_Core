@@ -61,7 +61,7 @@ public partial class InsuranceContext : DbContext
                 .HasMaxLength(50)
                 .HasColumnName("name");
             entity.Property(e => e.TargetId).HasColumnName("target_id");
-            entity.Property(e => e.YearPaid).HasColumnName("year_paid");
+            entity.Property(e => e.Value).HasColumnName("value");
 
             entity.HasOne(d => d.InsuranceType).WithMany(p => p.Insurances)
                 .HasForeignKey(d => d.InsuranceTypeId)
