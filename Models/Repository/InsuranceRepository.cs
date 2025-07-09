@@ -60,6 +60,9 @@ namespace Insurance_agency.Models.Repository
                     id = d.Id,
                     name = d.Name,
                     description = d.Description,
+                    year_max = (int)d.YearMax,
+                    value = d.Value ?? 0,
+
                     insurance_type_id = (int)d.InsuranceTypeId,
                   
                     ex_image = d.ExImage
@@ -113,7 +116,7 @@ namespace Insurance_agency.Models.Repository
                 {
                     var q =_context.Insurances.Where(d=>d.Id == entity.id).FirstOrDefault();
                     q.InsuranceTypeId = entity.insurance_type_id;
-                    q.TargetId = entity.targetId;
+                    q.YearMax = entity.year_max;
                     q.ExImage = entity.ex_image;
                     q.Name = entity.name;
                     q.Description = entity.description;

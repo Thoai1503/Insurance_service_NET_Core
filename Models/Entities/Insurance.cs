@@ -11,7 +11,7 @@ public partial class Insurance
 
     public string? Description { get; set; }
 
-    public int? TargetId { get; set; }
+    public int? YearMax { get; set; }
 
     public int? InsuranceTypeId { get; set; }
 

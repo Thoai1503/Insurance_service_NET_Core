@@ -60,7 +60,7 @@ public partial class InsuranceContext : DbContext
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
                 .HasColumnName("name");
-            entity.Property(e => e.TargetId).HasColumnName("target_id");
+            entity.Property(e => e.YearMax).HasColumnName("year_max");
             entity.Property(e => e.Value).HasColumnName("value");
 
             entity.HasOne(d => d.InsuranceType).WithMany(p => p.Insurances)

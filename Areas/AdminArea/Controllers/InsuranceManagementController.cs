@@ -59,9 +59,11 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
         public ActionResult InsuranceDetail(int id)
         {
             var item = PolicyRepository.Instance.GetAllByInsuranceId(id);
-   
-                ViewBag.item = item;
+            var insurance = InsuranceRepository.Instance.FindById(id);
+
+          //  ViewBag.item = item;
                 ViewBag.insuranceId = id;
+            ViewBag.insurance = insurance;
             return View(item);
           
          
