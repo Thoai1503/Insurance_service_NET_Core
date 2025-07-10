@@ -52,6 +52,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5BcmVhXFZpZXdzXERhc2hib2FyZFxUZXh0RWRpdG9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/project_NET/Insurance_agency/Insurance_agency/Areas/AdminArea/Views/Employee/EmployeeDetail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5BcmVhXFZpZXdzXEVtcGxveWVlXEVtcGxveWVlRGV0YWlsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/project_NET/Insurance_agency/Insurance_agency/Areas/AdminArea/Views/Employee/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5BcmVhXFZpZXdzXEVtcGxveWVlXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
