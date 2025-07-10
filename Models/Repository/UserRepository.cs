@@ -41,7 +41,22 @@ namespace Insurance_agency.Models.Repository
         }
         public User FindById(int id)
         {
-            throw new NotImplementedException();
+           
+            var user = _context.TblUsers.Where(u => u.Id == id).Select(u => new User
+            {
+                id = u.Id,
+                full_name = u.FullName,
+                email = u.Email,
+                phone = u.Phone,
+                auth_id = (int)u.AuthId,
+                address = u.Address,
+                active = (int)u.Active
+            }).FirstOrDefault();
+            if (user == null)
+            {
+                throw new Exception("User not found.");
+            }
+            return user;
         }
         public HashSet<User> FindByKeywork(string keywork)
         {

@@ -20,6 +20,10 @@ public partial class User
 
     public int auth_id { get; set; }
 
+    public string avatar { get; set; } = "";
+
+    public DateTime? created_at { get; set; }
+
     public int active { get; set; }
 
     public virtual ICollection<ContractView> Contracts { get; set; } = new List<ContractView>();
