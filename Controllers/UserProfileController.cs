@@ -12,18 +12,6 @@ namespace Insurance_agency.Controllers
             ViewBag.data = PaymentHistoryRepository.Instance.GetByUserId(id);
             return View();
         }
-        public IActionResult PaymentHistory(int id = 0)
-        {
-            try
-            {
-                ViewBag.data = PaymentHistoryRepository.Instance.GetByUserId(id);
-
-            }
-            catch (Exception ex)
-            {
-            }
-            return View();
-        }
         public IActionResult DemoPayment(int id)
         {
             var item = ContractRepository.Instance.FindById(id);
