@@ -47,6 +47,43 @@ namespace Insurance_agency.Models.Repository
         {
             throw new NotImplementedException();
         }
+        public HashSet<User> GetCustomerUser()
+        {
+            var user = _context.TblUsers.Where(u => u.AuthId == 4).Select(u => new User
+            {
+                id = u.Id,
+                full_name = u.FullName,
+                email = u.Email,
+                phone = u.Phone,
+                auth_id = (int)u.AuthId,
+                address = u.Address,
+                active =(int) u.Active
+                
+            }).ToHashSet();
+            if (user == null)
+            {
+                throw new Exception("No customer user found.");
+            }
+            return user;
+        }
+        public HashSet<User> GetAllEmployeeUser()
+        {
+            var user = _context.TblUsers.Where(u => u.AuthId == 3).Select(u => new User
+            {
+                id = u.Id,
+                full_name = u.FullName,
+                email = u.Email,
+                phone = u.Phone,
+                auth_id = (int)u.AuthId,
+                address = u.Address,
+                active = (int)u.Active
+            }).ToHashSet();
+            if (user == null)
+            {
+                throw new Exception("No employee user found.");
+            }
+            return user;
+        }
     }
 
 }

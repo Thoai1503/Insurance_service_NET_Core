@@ -60,8 +60,8 @@ public partial class InsuranceContext : DbContext
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
                 .HasColumnName("name");
-            entity.Property(e => e.YearMax).HasColumnName("year_max");
             entity.Property(e => e.Value).HasColumnName("value");
+            entity.Property(e => e.YearMax).HasColumnName("year_max");
 
             entity.HasOne(d => d.InsuranceType).WithMany(p => p.Insurances)
                 .HasForeignKey(d => d.InsuranceTypeId)
@@ -261,7 +261,7 @@ public partial class InsuranceContext : DbContext
             entity.Property(e => e.AgeMax).HasColumnName("age_max");
             entity.Property(e => e.AgeMin).HasColumnName("age_min");
             entity.Property(e => e.Description)
-                .HasMaxLength(1000)
+                .HasMaxLength(4000)
                 .HasColumnName("description");
             entity.Property(e => e.InsuranceId).HasColumnName("insurance_id");
             entity.Property(e => e.Name)
@@ -308,6 +308,11 @@ public partial class InsuranceContext : DbContext
                 .HasMaxLength(100)
                 .HasColumnName("address");
             entity.Property(e => e.AuthId).HasColumnName("auth_id");
+            entity.Property(e => e.Avatar)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasDefaultValue("user.jpg")
+                .HasColumnName("avatar");
             entity.Property(e => e.Email)
                 .HasMaxLength(50)
                 .IsUnicode(false)
@@ -327,7 +332,7 @@ public partial class InsuranceContext : DbContext
 
             entity.HasOne(d => d.Auth).WithMany(p => p.TblUsers)
                 .HasForeignKey(d => d.AuthId)
-                .HasConstraintName("FK_tbl_user_tbl_authentication");
+                .HasConstraintName("FK_tbl_user_tbl_authentication1");
         });
 
         OnModelCreatingPartial(modelBuilder);

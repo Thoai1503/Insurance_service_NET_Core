@@ -16,6 +16,8 @@ public partial class User
 
     public string phone { get; set; }
 
+    public string address { get; set; } = "";
+
     public int auth_id { get; set; }
 
     public int active { get; set; }

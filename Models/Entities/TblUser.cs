@@ -21,6 +21,8 @@ public partial class TblUser
 
     public string? Address { get; set; }
 
+    public string? Avatar { get; set; }
+
     public virtual TblAuthentication? Auth { get; set; }
 
     public virtual ICollection<TblContract> TblContracts { get; set; } = new List<TblContract>();
