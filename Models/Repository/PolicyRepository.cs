@@ -49,9 +49,25 @@ namespace Insurance_agency.Models.Repository
             }
 
         }
-        public bool Delete(Policy entity)
+        public bool Delete(int id)
         {
-            throw new NotImplementedException();
+
+            try
+            {
+                var policy = _context.TblPolicies.Find(id);
+                if (policy != null)
+                {
+                    _context.TblPolicies.Remove(policy);
+                    _context.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                // Handle exception (log it, rethrow it, etc.)
+                return false;
+            }
         }
         public Policy FindById(int id)
         {

@@ -31,7 +31,7 @@ namespace Insurance_agency.Models.Repository
         {
             throw new NotImplementedException();
         }
-        public bool Delete(User entity)
+        public bool Delete(int id)
         {
             throw new NotImplementedException();
         }

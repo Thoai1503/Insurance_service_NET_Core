@@ -34,11 +34,21 @@
 	</div>
 	<div class="row">
 		<div class="col-2">
-			<label for="target_id">Target Id</label>
+			<label for="target_id">Year Max</label>
 
 		</div>
 		<div class="col-3">
-			<input id="target_id" name="year_max" type="text" value="@insurance.year_max"/>
+			<input id="year_max" name="year_max" type="text" value="@insurance.year_max" />
+		</div>
+		
+	</div>
+	<div class="row">
+		<div class="col-2">
+			<label for="target_id">Value</label>
+
+		</div>
+		<div class="col-3">
+			<input id="value" name="value" type="text" value="@insurance.value" />
 		</div>
 	</div>
 	<div class="row">
@@ -70,7 +80,7 @@
 			</select>
 		</div>
 	</div>
-	<input type="hidden" value="@insurance.id" name="Id"/>
+	<input type="hidden" value="@insurance.id" name="id"/>
 	<input type="hidden" value="@insurance.ex_image" name="ex_image" />
 	<div class="row">
 		<div class="rol-3">

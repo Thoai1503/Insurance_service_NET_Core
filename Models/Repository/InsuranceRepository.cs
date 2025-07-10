@@ -45,10 +45,7 @@ namespace Insurance_agency.Models.Repository
             return false;
         }
 
-        public bool Delete(InsuranceView entity)
-        {
-            throw new NotImplementedException();
-        }
+   
 
         public InsuranceView FindById(int id)
         {
@@ -118,6 +115,7 @@ namespace Insurance_agency.Models.Repository
                     q.InsuranceTypeId = entity.insurance_type_id;
                     q.YearMax = entity.year_max;
                     q.ExImage = entity.ex_image;
+                    q.Value = entity.value;
                     q.Name = entity.name;
                     q.Description = entity.description;
                     if(entity.ex_image != null&&entity.ex_image!=string.Empty)

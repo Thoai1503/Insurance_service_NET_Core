@@ -69,7 +69,7 @@
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                            Tổng giá trị bảo hiểm
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">50.000.000</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">@insurance.value.ToString("N0")</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -97,6 +97,8 @@
             </div>
         </div>
     </div>
+    
+
 
     <!-- Earnings (Monthly) Card Example -->
     <div class="col-xl-3 col-md-6 mb-4">
@@ -107,9 +109,10 @@
                         <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
                             <strong>Số tiền đóng tối thiểu mỗi năm</strong>
                         </div>
+                        
                         <div class="row no-gutters align-items-center">
                             <div class="col-auto">
-                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">5.000.000</div>
+                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"> @((insurance.value/insurance.year_max).ToString("N0"))</div>
                             </div>
                             <div class="col">
                                 <div class="progress progress-sm mr-2">
@@ -128,7 +131,7 @@
         </div>
     </div>
 
-    <!-- Pending Requests Card Example -->
+
    
 </div>
 
@@ -177,12 +180,12 @@
                     @Html.Raw(policy.description)
                 </div>
                 <div class="policy-actions d-none align-items-start">
-                    <button class="btn btn-sm btn-warning me-1" title="Chỉnh sửa">
+                    <a  class="btn btn-sm btn-warning me-1" title="Chỉnh sửa">
                        Sửa
-                    </button>
-                    <button class="btn btn-sm btn-danger" title="Xoá">
+                    </a>
+                    <a href="/adminarea/policymanagement/delete?id=@policy.id" class="btn btn-sm btn-danger" title="Xoá">
                        Xoá
-                    </button>
+                    </a>
                 </div>
             </div>
 

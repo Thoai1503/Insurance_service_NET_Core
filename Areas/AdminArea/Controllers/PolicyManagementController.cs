@@ -27,5 +27,18 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
             }
 
         }
+        public IActionResult Delete(int id)
+        {
+            var rs = PolicyRepository.Instance.Delete(id);
+            if (rs)
+            {
+                return Ok(rs);
+            }
+            else
+            {
+                // Handle the case where deletion failed, e.g., return an error message
+                return Ok(false);
+            }
+        }
     }
 }
