@@ -65,6 +65,7 @@ namespace Insurance_agency.Models.Repository
                             EndDate = c.EndDate,
                             value_contract = (long)c.ValueContract,
                             year_paid = (long)c.YearPaid,
+                            total_paid = (long)c.TotalPaid,
                             user = new User
                             {
                                 id = u.Id,
@@ -114,7 +115,25 @@ namespace Insurance_agency.Models.Repository
 
         public bool Update(ContractView entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var item = _context.TblContracts.Where(d=>d.Id == entity.id).FirstOrDefault();
+                if (entity != null)
+                {
+                    item.InsuranceId = entity.insurance_id;
+                    item.ValueContract =(long) entity.value_contract;
+                    item.YearPaid = entity.year_paid;
+                    item.NumberYearPaid = entity.number_year_paid;
+                    item.Status = entity.status;
+                    item.TotalPaid = entity.total_paid;
+                    _context.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return false;
         }
     }
 }

@@ -1,0 +1,31 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "~/Areas/AdminArea/Views/Shared/_AdminLayout.cshtml";
+    HashSet<Insurance_agency.Models.ModelView.PaymentHistory> history = new HashSet<Insurance_agency.Models.ModelView.PaymentHistory>();
+    if(ViewBag.data!=null){
+        history = (HashSet<Insurance_agency.Models.ModelView.PaymentHistory>)ViewBag.data;
+    }
+    <table class="table-responsive table-hover">
+        <tr>
+            <th>Id</th>
+            <th>User Id</th>
+            <th>Contract</th>
+            <th>Payment Day</th>
+            <th>Amount</th>
+            <th>Status</th>
+        </tr>
+        @foreach (var item in history)
+        {
+            <tr>
+                <td>@item.id</td>
+				<td>@item.Contract.user_id</td>
+                <td>@item.contract_id</td>
+                <td>@item.payment_day</td>
+                <td>@item.amount</td>
+                <td>@item.Status</td>
+            </tr>
+        }
+    </table>
+}

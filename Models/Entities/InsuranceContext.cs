@@ -241,7 +241,7 @@ public partial class InsuranceContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("payment_day");
             entity.Property(e => e.Status).HasColumnName("status");
-            entity.Property(e => e.TermTypeId).HasColumnName("term_type_id");
+            //entity.Property(e => e.TermTypeId).HasColumnName("term_type_id");
 
             entity.HasOne(d => d.Contract).WithMany(p => p.TblPaymentHistories)
                 .HasForeignKey(d => d.ContractId)

@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Insurance_agancy_NET_Core\\Insurance_agency.csproj": {}
+    "C:\\Users\\minhp\\Desktop\\Gitclone\\Insurance_agancy_NET_Core\\Insurance_agency.csproj": {}
   },
   "projects": {
-    "E:\\Insurance_agancy_NET_Core\\Insurance_agency.csproj": {
+    "C:\\Users\\minhp\\Desktop\\Gitclone\\Insurance_agancy_NET_Core\\Insurance_agency.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Insurance_agancy_NET_Core\\Insurance_agency.csproj",
+        "projectUniqueName": "C:\\Users\\minhp\\Desktop\\Gitclone\\Insurance_agancy_NET_Core\\Insurance_agency.csproj",
         "projectName": "Insurance_agency",
-        "projectPath": "E:\\Insurance_agancy_NET_Core\\Insurance_agency.csproj",
-        "packagesPath": "C:\\Users\\Thinkpad P15\\.nuget\\packages\\",
-        "outputPath": "E:\\Insurance_agancy_NET_Core\\obj\\",
+        "projectPath": "C:\\Users\\minhp\\Desktop\\Gitclone\\Insurance_agancy_NET_Core\\Insurance_agency.csproj",
+        "packagesPath": "C:\\Users\\minhp\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\minhp\\Desktop\\Gitclone\\Insurance_agancy_NET_Core\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Thinkpad P15\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\minhp\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,7 +26,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
