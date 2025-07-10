@@ -1,5 +1,6 @@
 ﻿using Insurance_agency.Models.Entities;
 using Insurance_agency.Models.ModelView;
+using Microsoft.EntityFrameworkCore;
 
 namespace Insurance_agency.Models.Repository
 {
@@ -69,45 +70,139 @@ namespace Insurance_agency.Models.Repository
                 return false;
             }
         }
-        public Policy FindById(int id)
+        public Policy? FindById(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var poli = _context.TblPolicies.Include(p => p.Insurance).FirstOrDefault(p => p.Id == id);
+                if (poli == null) return null;
+                return new Policy
+                {
+                    id = poli.Id,
+                    name = poli.Name ?? string.Empty,
+                    description = poli.Description ?? string.Empty,
+                    age_min = poli.AgeMin ?? 0,
+                    age_max = poli.AgeMax ?? 0,
+                    active = poli.Active ?? 0,
+                    insurance_id = poli.InsuranceId ?? 0,
+                };
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
         public HashSet<Policy> FindByKeywork(string keywork)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return _context.TblPolicies.Where(p => p.Name != null && p.Name.Contains(keywork))
+                .Select(p => new Policy
+                {
+                    id = p.Id,
+                    name = p.Name ?? string.Empty,
+                    description = p.Description ?? string.Empty,
+                    active = p.Active ?? 0,
+                    age_max = p.AgeMax ?? 0,
+                    age_min = p.AgeMin ?? 0,
+                    insurance_id = p.InsuranceId ?? 0,
+
+                }).ToHashSet();
+            }
+            catch
+            {
+                return new HashSet<Policy>();
+            }
         }
         public HashSet<Policy> GetAll()
         {
-            throw new NotImplementedException();
+            try
+            {
+                return _context.TblPolicies.Include(p => p.Insurance).Select(p => new Policy
+                {
+                    id = p.Id,
+                    name = p.Name ?? string.Empty,
+                    description = p.Description ?? string.Empty,
+                    active = p.Active ?? 0,
+                    age_min = p.AgeMin ?? 0,
+                    age_max = p.AgeMax ?? 0,
+                    insurance_id = p.InsuranceId ?? 0,
+                }).ToHashSet();
+            }
+            catch
+            {
+                return new HashSet<Policy>();
+            }
         }
 
         public bool Update(Policy entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var poli = _context.TblPolicies.Find(entity.id);
+                if (poli == null) return false;
+                poli.Name = entity.name;
+                poli.Description = entity.description;
+                poli.Active = entity.active;
+                poli.AgeMin = entity.age_min;
+                poli.AgeMax = entity.age_max;
+                poli.InsuranceId = entity.insurance_id;
+                _context.SaveChanges();
+                return false;
+            }
+            catch
+            {
+                return false;
+            }
         }
         public HashSet<Policy> GetAllByInsuranceId(int insuranceId)
         {
             try
             {
-                 return _context.TblPolicies.Where(p => p.InsuranceId == insuranceId).Select(p => new Policy
-                 {
-                     id = p.Id,
-                     name = p.Name,
-                     description = p.Description ?? string.Empty,
-                     age_min = p.AgeMin ?? 0,
-                     age_max = p.AgeMax ?? 0,
-                     active = p.Active ?? 0,
-                     insurance_id = (int)p.InsuranceId ,
+                return _context.TblPolicies.Where(p => p.InsuranceId == insuranceId).Select(p => new Policy
+                {
+                    id = p.Id,
+                    name = p.Name ?? string.Empty,
+                    description = p.Description ?? string.Empty,
+                    age_min = p.AgeMin ?? 0,
+                    age_max = p.AgeMax ?? 0,
+                    active = p.Active ?? 0,
+                    insurance_id = p.InsuranceId ?? 0,
 
-                 }).ToHashSet();
+                }).ToHashSet();
             }
-            catch (Exception ex)
+            catch
             {
                 // Handle exception (log it, rethrow it, etc.)
                 return new HashSet<Policy>();
             }
         }
-    }
+        public HashSet<Policy> FindByNameInsurance(string keyword)
+        {
+            try
+            {
+                return _context.TblPolicies
+                    .Include(p => p.Insurance)
+                    .Where(p => p.Insurance != null && p.Insurance.Name.Contains(keyword))
+                    .Select(p => new Policy
+                    {
+                        id = p.Id,
+                        name = p.Name ?? string.Empty,
+                        description = p.Description ?? string.Empty,
+                        active = p.Active ?? 0,
+                        age_max = p.AgeMax ?? 0,
+                        age_min = p.AgeMin ?? 0,
+                    }).ToHashSet();
+                ;
 
+            }
+            catch
+            {
+                return new HashSet<Policy>();
+            }
+
+        }
+    }
 }
+
+
