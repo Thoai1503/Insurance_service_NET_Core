@@ -18,7 +18,9 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
             var poli = PolicyRepository.Instance.GetAll();
             var poliWithInsurance = poli.Select(p =>
             {
-                var insurance = _context.Insurances.FirstOrDefault(i => i.Id == p.insurance_id);
+                var insurance = _context.Insurances
+                .Where(i => i.Id == p.insurance_id).Select(i => i.Name)
+                .FirstOrDefault() ?? "";
                 return new
                 {
                     p.id,
@@ -27,42 +29,25 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
                     p.age_max,
                     p.age_min,
                     p.active,
-                    insurance_name = insurance?.Name ?? ""
+                    insurance_name = insurance
                 };
             }).ToList();
             ViewBag.Policies = poliWithInsurance;
+            ViewBag.Insurance = _context.Insurances.ToList();
             return View();
         }
         [HttpPost]
-        public IActionResult Create(Policy en)
+        public IActionResult Create([FromBody] Policy en)
         {
 
             var rs = PolicyRepository.Instance.Create(en);
-
-            if (rs)
-            {
-                return Ok(true);
-            }
-            else
-            {
-                // Handle the case where creation failed, e.g., return an error message
-                return Ok(false);
-            }
-
+            return Json(rs);
         }
    
         public IActionResult Delete(int id)
         {
             var rs = PolicyRepository.Instance.Delete(id);
-            if (rs)
-            {
-                return Ok(rs);
-            }
-            else
-            {
-                // Handle the case where deletion failed, e.g., return an error message
-                return Ok(false);
-            }
+            return Json(rs);
         }
         public IActionResult Details(int id)
         {
@@ -71,6 +56,19 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
             var insu = _context.Insurances.FirstOrDefault(i => i.Id == poli.insurance_id);
             ViewBag.InsuranceName = insu?.Name ?? "";
             return View(poli);
+        }
+        [HttpPost]
+        public IActionResult Update([FromBody] Policy en)
+        {
+            var poli = PolicyRepository.Instance.Update(en);
+            return Json(poli);
+        }
+        [HttpGet]
+        public IActionResult GetById(int id)
+        {
+            var poli = PolicyRepository.Instance.FindById(id);
+            if (poli == null) return NotFound();
+            return Json(poli);
         }
     }
 }

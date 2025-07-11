@@ -43,7 +43,7 @@ namespace Insurance_agency.Models.Repository
                 _context.SaveChanges();
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception )
             {
                 // Handle exception (log it, rethrow it, etc.)
                 return false;
@@ -64,7 +64,7 @@ namespace Insurance_agency.Models.Repository
                 }
                 return false;
             }
-            catch (Exception ex)
+            catch (Exception )
             {
                 // Handle exception (log it, rethrow it, etc.)
                 return false;
@@ -148,7 +148,7 @@ namespace Insurance_agency.Models.Repository
                 poli.AgeMax = entity.age_max;
                 poli.InsuranceId = entity.insurance_id;
                 _context.SaveChanges();
-                return false;
+                return true;
             }
             catch
             {
