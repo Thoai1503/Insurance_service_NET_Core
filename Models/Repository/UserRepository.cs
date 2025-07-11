@@ -23,6 +23,31 @@ namespace Insurance_agency.Models.Repository
         {
             _context = new InsuranceContext();
         }
+        public User Login(string email, string password)
+        {
+            try
+            {
+                if (email == null && email != string.Empty && password != null && password != string.Empty)
+                {
+                    var item = _context.TblUsers.Where(d => d.Email == email && d.Password == password)
+                        .Select(d=>new User
+                    {
+                         email = email,
+                         password = password,
+                         full_name = d.FullName,
+                         auth_id = (int)d.AuthId,
+                         address = d.Address,
+                    }).FirstOrDefault();
+                    return item;
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+            }
+            return new User();
+        }
         public bool Create(User entity)
         {
             throw new NotImplementedException();
@@ -41,7 +66,7 @@ namespace Insurance_agency.Models.Repository
         }
         public User FindById(int id)
         {
-           // throw new NotImplementedException();
+            // throw new NotImplementedException();
 
             var user = _context.TblUsers.Where(u => u.Id == id).Select(u => new User
             {
@@ -73,8 +98,8 @@ namespace Insurance_agency.Models.Repository
                 phone = u.Phone,
                 auth_id = (int)u.AuthId,
                 address = u.Address,
-                active =(int) u.Active
-                
+                active = (int)u.Active
+
             }).ToHashSet();
             if (user == null)
             {

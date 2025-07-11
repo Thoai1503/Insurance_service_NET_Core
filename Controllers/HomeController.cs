@@ -105,6 +105,10 @@ namespace Insurance_agency.Controllers
            ViewBag.BannerCss = "motobike";
             return View(item);
         }
+        public IActionResult Login()
+        {
+            return View();
+        }
     }
 }
     
