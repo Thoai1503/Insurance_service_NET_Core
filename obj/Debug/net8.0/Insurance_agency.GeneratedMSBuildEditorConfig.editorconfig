@@ -28,6 +28,10 @@ build_property._RazorSourceGeneratorDebug =
 build_property.EffectiveAnalysisLevelStyle = 8.0
 build_property.EnableCodeStyleSeverity = 
 
+[C:/Users/minhp/Desktop/Gitclone/Insurance_agancy_NET_Core/Areas/AdminArea/Views/Contract/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5BcmVhXFZpZXdzXENvbnRyYWN0XENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/minhp/Desktop/Gitclone/Insurance_agancy_NET_Core/Areas/AdminArea/Views/Contract/Detail.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5BcmVhXFZpZXdzXENvbnRyYWN0XERldGFpbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

@@ -1,0 +1,89 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+	Layout = "~/Areas/AdminArea/Views/Shared/_AdminLayout.cshtml";
+	HashSet<Insurance_agency.Models.ModelView.InsuranceView> insurance = new HashSet<Insurance_agency.Models.ModelView.InsuranceView>();
+	if (ViewBag.data != null)
+	{
+		insurance = (HashSet<Insurance_agency.Models.ModelView.InsuranceView>)ViewBag.data;
+	}
+	HashSet<Insurance_agency.Models.ModelView.User> user = new HashSet<Insurance_agency.Models.ModelView.User>();
+	if (ViewBag.customer != null)
+	{
+		user = (HashSet<Insurance_agency.Models.ModelView.User>)ViewBag.customer;
+	}
+	int employeeId = 0;
+	if(ViewBag.id!=null){
+		employeeId = (int)ViewBag.id;
+	}
+}
+<form action="@Url.Action("CreateConfirm")" method="post">
+	<div class="row">
+		<div class="col-2">
+			<label for="Insurance">Insurance</label>
+		</div>
+		<div class="col-3">
+			<select name="insurance_id">
+				<option value="">Select Insurance</option>
+				@foreach (var item in insurance)
+				{
+					<option value="@item.id">@item.name</option>
+				}
+			</select>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-2">
+			<label for="member">User</label>
+		</div>
+		<div class="col-3">
+			<select id="member" name="user_id">
+				<option value="">Select User</option>
+				@foreach (var item in user)
+				{
+					<option value="@item.id">@item.full_name</option>
+				}
+			</select>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-2">
+			<label for="value">Contract Value</label>
+		</div>
+		<div class="col-3">
+			<input id="value" name="value_contract" type="text" />
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-2">
+			<label for="start_date">Start Date</label>
+		</div>
+		<div class="col-3">
+			<input id="start_date" name="StartDate" type="datetime-local"/>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-2">
+			<label for="numyear">Number Year Paid</label>
+		</div>
+		<div class="col-3">
+			<input id="numyear" name="number_year_paid" type="text" />
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-2">
+			<label for="yearpaid">Year Paid</label>
+		</div>
+		<div class="col-3">
+			<input id="yearpaid" name="year_paid" type="text" />
+		</div>
+	</div>
+	<input type="hidden" name="employee_id" value="@employeeId" />
+	<div class="row"> 
+		<div class="col-2">
+			<button class="btn btn-primary" type="submit">Confirm</button>
+		</div>
+		<div class="col-3"><button class="btn btn-secondary" type="reset"></button></div>
+	</div>
+</form>

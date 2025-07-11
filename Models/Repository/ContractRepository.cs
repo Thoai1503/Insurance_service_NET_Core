@@ -27,7 +27,31 @@ namespace Insurance_agency.Models.Repository
         }
         public bool Create(ContractView entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (entity != null)
+                {
+                    TblContract contract = new TblContract { 
+                        EmployeeId = entity.employee_id,
+                        InsuranceId = entity.insurance_id,
+                        StartDate = DateTime.Now,
+                        EndDate = entity.EndDate,
+                        NumberYearPaid = entity.number_year_paid,
+                        YearPaid = entity.year_paid,
+                        TotalPaid = 0,
+                        Status = entity.status,
+                        ValueContract = entity.value_contract,
+                        UserId = entity.user_id, 
+                    };
+                    _context.Add(contract);
+                    _context.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return false;
         }
 
         public bool Delete(int id)
