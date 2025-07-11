@@ -129,6 +129,7 @@ namespace Insurance_agency.Models.Repository
                     StartDate = c.StartDate,
                     EndDate = c.EndDate,
                     value_contract = (long)c.ValueContract,
+                    employee_id= c.EmployeeId ?? 0,
                     year_paid = (long)c.YearPaid,
                     number_year_paid = c.NumberYearPaid,
                     status = c.Status

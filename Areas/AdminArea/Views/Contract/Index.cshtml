@@ -90,7 +90,7 @@
     </div>
     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
         <div class="container-fluid">
-            <table id="myTable" class="display">
+            <table id="myTable2" class="display">
                 <thead>
                     <tr>
                         <th>Id</th>
@@ -138,11 +138,66 @@
             </table>
         </div>
     </div>
-    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">.b.</div>
+    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            <div class="container-fluid">
+                <table id="myTable3" class="display">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Người mua</th>
+
+                            <th>Mã bảo hiểm</th>
+                            <th>Tổng giá trị bảo hiểm</th>
+                            <th>Tiền trả trên năm</th>
+                            <th>Số năm trả</th>
+                            <th>Trạng thái</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="order_list">
+                        <tr>
+                            <td>1</td>
+                            <td>Thoai Vip</td>
+
+                            <th>#BHNT32032</th>
+                            <td>500.000.000</td>
+                            <td>5.000.000</td>
+                            <td>10</td>
+                            <td>In process</td>
+                            <td><a class="btn btn-info">Xem chi tiết</a></td>
+                        </tr>
+                        @if (ViewBag.UnassignedContracts != null)
+                        {
+                            var list = ViewBag.UnassignedContracts as HashSet<Insurance_agency.Models.ModelView.ContractView>;
+                            foreach (var item in list)
+                            {
+                                <tr>
+                                    <td>@item.id</td>
+                                    <td>User @(item.user_id)</td>
+
+                                    <td>#BHNT3423@(item.insurance_id)</td>
+                                    <td>@item.value_contract</td>
+                                    <td>@item.year_paid</td>
+                                    <td>@item.number_year_paid</td>
+                                    <td>@item.status</td>
+                                    <td><a class="btn btn-info" href="/adminarea/contract/detail?id=@item.id">Xem chi tiết</a></td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
        document.addEventListener("DOMContentLoaded", function () {
         new DataTable('#myTable');
+        new DataTable('#myTable2');
+
+        new DataTable('#myTable3');
+
     });
 </script>
