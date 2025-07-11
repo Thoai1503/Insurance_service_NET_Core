@@ -135,5 +135,23 @@ namespace Insurance_agency.Models.Repository
                 }).ToHashSet();
             return contracts;
         }
+        public HashSet<ContractView> GetInassignContracts()
+        {
+            var contracts = _context.TblContracts
+    .Where(c => c.EmployeeId == 0)
+    .Select(c => new ContractView
+    {
+        id = c.Id,
+        user_id = c.UserId,
+        insurance_id = c.InsuranceId,
+        StartDate = c.StartDate,
+        EndDate = c.EndDate,
+        value_contract = (long)c.ValueContract,
+        year_paid = (long)c.YearPaid,
+        number_year_paid = c.NumberYearPaid,
+        status = c.Status
+    }).ToHashSet();
+            return contracts;
+        }
     }
 }
