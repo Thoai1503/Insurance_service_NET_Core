@@ -79,13 +79,13 @@ namespace Insurance_agency.Models.Repository
                                 name = i.Name,
                                 description = i.Description,
                                 ex_image = i.ExImage,
-                              
+
                             },
                             number_year_paid = c.NumberYearPaid,
                             status = c.Status
                         };
             var contract = query.FirstOrDefault();
-            return contract;                
+            return contract;
         }
 
         public HashSet<ContractView> FindByKeywork(string keywork)
@@ -104,7 +104,7 @@ namespace Insurance_agency.Models.Repository
                     insurance_id = c.InsuranceId,
                     StartDate = c.StartDate,
                     EndDate = c.EndDate,
-                    value_contract =(long) c.ValueContract,
+                    value_contract = (long)c.ValueContract,
                     year_paid = (long)c.YearPaid,
                     number_year_paid = c.NumberYearPaid,
                     status = c.Status
@@ -134,6 +134,25 @@ namespace Insurance_agency.Models.Repository
             {
             }
             return false;
+        }
+        public HashSet<ContractView> FindByEmployeeId(int employeeId)
+        {
+            var contracts = _context.TblContracts
+                .Where(c => c.EmployeeId == employeeId)
+                .Select(c => new ContractView
+                {
+                    id = c.Id,
+                    user_id = c.UserId,
+                    insurance_id = c.InsuranceId,
+                    StartDate = c.StartDate,
+                    EndDate = c.EndDate,
+                    value_contract = (long)c.ValueContract,
+                    year_paid = (long)c.YearPaid,
+                    employee_id = c.EmployeeId ?? 0,
+                    number_year_paid = c.NumberYearPaid,
+                    status = c.Status
+                }).ToHashSet();
+            return contracts;
         }
     }
 }

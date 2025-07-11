@@ -135,6 +135,9 @@ public partial class InsuranceContext : DbContext
             entity.ToTable("tbl_contract");
 
             entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.EmployeeId)
+                .HasDefaultValue(0)
+                .HasColumnName("employee_id");
             entity.Property(e => e.EndDate)
                 .HasColumnType("datetime")
                 .HasColumnName("end_date");
@@ -241,7 +244,6 @@ public partial class InsuranceContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("payment_day");
             entity.Property(e => e.Status).HasColumnName("status");
-            //entity.Property(e => e.TermTypeId).HasColumnName("term_type_id");
 
             entity.HasOne(d => d.Contract).WithMany(p => p.TblPaymentHistories)
                 .HasForeignKey(d => d.ContractId)

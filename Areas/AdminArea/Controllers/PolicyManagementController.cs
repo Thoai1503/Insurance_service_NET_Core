@@ -50,7 +50,7 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
             }
 
         }
-        [HttpPost]
+   
         public IActionResult Delete(int id)
         {
             var rs = PolicyRepository.Instance.Delete(id);

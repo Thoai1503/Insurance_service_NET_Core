@@ -21,6 +21,8 @@ public partial class TblContract
 
     public decimal? YearPaid { get; set; }
 
+    public int? EmployeeId { get; set; }
+
     public int? NumberYearPaid { get; set; }
 
     public int? Status { get; set; }
