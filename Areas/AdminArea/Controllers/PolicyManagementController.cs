@@ -43,7 +43,7 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
             var rs = PolicyRepository.Instance.Create(en);
             return Json(rs);
         }
-        [HttpPost]
+   
         public IActionResult Delete(int id)
         {
             var rs = PolicyRepository.Instance.Delete(id);

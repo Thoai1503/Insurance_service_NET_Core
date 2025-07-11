@@ -18,6 +18,8 @@ public class ContractView
     public long? total_paid { get; set; }
 
     public long? year_paid { get; set; }
+
+   public int employee_id { get; set; }
     public int? number_year_paid { get; set; }
     public long? value_contract { get; set; }
 
