@@ -216,8 +216,9 @@
         console.log("Nội dung"+content);
 
         $.ajax({
-            type: "POST",
+            method: "POST",
             url: "/adminarea/policymanagement/create",
+             contentType: "application/json",
             data: { insurance_id: @(ViewBag.insuranceId),description: content, active:1 },
             success: function (response) {
                 console.log("Nội dung đã được gửi thành công");
