@@ -1,5 +1,185 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+	Layout = "~/Areas/AdminArea/Views/Shared/_AdminLayout.cshtml";
+	var poli = ViewBag.Policies;
+	var insu = ViewBag.Insurance;
+}
+
+<h1 class="h3 mb4 text-gray-800">Danh Sachs Chinhs Sachs</h1>
+
+<button type="button" class="btn btn-primary mb-3" id="btnAdd">Add Pipolicy</button>
+
+<table class="table table-bordered" id="policyTable">
+	<thead>
+		<tr>
+			<th>#</th>
+			<th>Policy</th>
+			<th>Description</th>
+			<th>Age(Min-Max)</th>
+			<th>Active</th>
+			<th>Insurance</th>
+			<th>Function</th>
+		</tr>
+	</thead>
+	<tbody>
+		@if (poli != null)
+		{
+			int stt = 1;
+			foreach (var item in poli)
+			{
+				<tr data-id="@item.id">
+					<td>@stt</td>
+					<td>@item.name</td>
+					<td>@item.description</td>
+					<td>@item.age_min - @item.age_max</td>
+					<td>@(item.active == 1 ? "Hoạt động" : "Không hoạt động")</td>
+					<td>@item.insurance_name</td>
+					<td>
+						<button class="btn btn-sm btn-warning btn-edit">Edit</button>
+						<button class="btn btn-sm btn-danger btn-delete">Delete</button>
+					</td>
+				</tr>
+				stt++;
+			}
+		}
+	</tbody>
+</table>
+
+<!--Form Add bằng Modal-->
+<div class="modal fade" id="policyModal" tabindex="-1" role="dialog" aria-labelledby="policyModalLabel" aria-hidden="true">
+	<div class="modal-content">
+		<form id="policyForm">
+			<div class="modal-header">
+				<h5 class="modal-title" id="policyModalLabel">Add Policy</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Cancel">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+
+			<div class="modal-body">
+				<input type="hidden" value="" id="id" name="id" />
+				<div class="form-group">
+					<label>Add Policy</label>
+					<input type="text" class="form-control" id="name" name="name" required />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label>Description</label>
+				<textarea class="form-control" id="description" name="description"></textarea>
+			</div>
+
+			<div class="form-group">
+				<label>Age Min</label>
+				<input type="number" value="" class="form-control" id="age_min" name="age_min" required />
+			</div>
+
+			<div class="form-group">
+				<label>Age Max</label>
+				<input type="number" value="" class="form-control" id="age_max" name="age_max" required />
+			</div>
+			<div class="form-group">
+				<label>Action</label>
+				<select class="form-control" id="active" name="active">
+					<option value="1">Hoạt Động</option>
+					<option value="0">Không Hoạt Động</option>
+				</select>
+			</div>
+
+			<div class="form-group">
+				<label>Insurance</label>
+				<select class="form-control" id="insurance_id" name="insurance_id">
+					@foreach (var ins in insu)
+					{
+						<option value="@ins.Id">@ins.Name</option>
+					}
+				</select>
+			</div>
+
+			<div class="modal-footer">
+				<button type="submit" class="btn btn-primary">Save</button>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+			</div>
+		</form>
+	</div>
+</div>
+@section Scripts {
+	<script>
+		$(document).ready(function(){
+			$('#policyTable').DataTable();
+			let isEdit = false;
+
+			// Mowr form add bawng Modal
+			$('#btnAdd').click(function(){
+				isEdit = false;
+				$('#policyForm')[0].reset();
+				$('#id').val(0);
+				$('#policyModalLabel').text('Add Policy');
+				$('#policyModal').modal('show');
+			});
+			//
+			$('#policyForm').submit(function(e){
+				e.preventDefault();
+				const data = {
+					id: parseInt($('#id').val()) || 0,
+					name: $('#name').val(),
+					description: $('#description').val(),
+					age_min: parseInt($('#age_min').val()),
+					age_max: parseInt($('#age_max').val()),
+					active: parseInt($('#active').val()),
+					insurance_id: parseInt($('#insurance_id').val())
+				};
+
+				const url = data.id === 0 ? '/adminarea/policymanagement/create' : '/adminarea/policymanagement/update';
+				$.ajax({
+					url: url;
+					type: 'POST',
+					contentType:'application/json',
+					data: JSON.stringify(data),
+					success: function(res){
+						if(res){
+							alert('Thanhf Cong');
+							location.reload();
+						}
+						else{
+							alert('That Bai');
+						}
+					}
+				});
+			});
+
+			// Lấy data form Update
+			$('.btn-edit').click(function(){
+				const id = $(this).closest('tr').data('id');
+				isEdit = true;
+				$.get('/adminarea/policymanagement/getbyid/' + id,function(res){
+					$('#policyForm')[0].reset();
+					$('#id').val(res.id);
+					$('#name').val(res.name);
+					$('#description').val(res.description);
+					$('#age_min').val(res.age_min);
+					$('#age_max').val(res.age_max);
+					$('#active').val(res.active);
+					$('#insurance_id').val(res.insurance_id);
+					$('#policyModalLabel').text('Update Policy');
+					$('#policyModal').modal('Show');
+				});
+			});
+
+			// Delete
+
+			$('.btn-delete').click(function(){
+				if(!confirm('Bajn chac muon xoa')) return;
+				const id = $(this).closest('tr').data('id');
+				$.post('/adminarea/policymanagement/delete',{id:id},function(res){
+					if(res){
+						alert('xoas thanh cong');
+						location.reload();
+					}
+					else{
+						alert('that bai');
+					}
+				});
+			});
+		}
+	</script>
 }

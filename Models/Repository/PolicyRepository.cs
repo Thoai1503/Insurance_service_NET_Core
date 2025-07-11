@@ -148,7 +148,7 @@ namespace Insurance_agency.Models.Repository
                 poli.AgeMax = entity.age_max;
                 poli.InsuranceId = entity.insurance_id;
                 _context.SaveChanges();
-                return false;
+                return true;
             }
             catch
             {
