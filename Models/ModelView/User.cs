@@ -19,6 +19,9 @@ public partial class User
     public string address { get; set; } = "";
 
     public int auth_id { get; set; }
+    public string avatar { get; set; } = "";
+
+    public DateTime? created_at { get; set; }
 
     public int active { get; set; }
 
