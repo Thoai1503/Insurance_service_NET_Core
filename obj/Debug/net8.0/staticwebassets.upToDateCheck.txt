@@ -2009,16 +2009,11 @@ wwwroot\Content\Client\scss\bootstrap\scss\_type.scss
 wwwroot\Content\Client\scss\bootstrap\scss\_utilities.scss
 wwwroot\Content\Client\scss\bootstrap\scss\_variables.scss
 wwwroot\Content\Image\Ex\1goiactionairshipcitieswallpaperpreview.jpg
-wwwroot\Content\Image\Ex\AllianzMotorcylceplus1024x534.jpg
-wwwroot\Content\Image\Ex\baohiemtreem.jpg
-wwwroot\Content\Image\Ex\baohiemtrondoicuabaoviet2.jpg
-wwwroot\Content\Image\Ex\baohiemtuky.jpg
-wwwroot\Content\Image\Ex\baohiemtukylagi1png65673a35371fa.jpg
 wwwroot\Content\Image\Ex\baohiemxemay1735895898.328.jpg
 wwwroot\Content\Image\Ex\Castle_Neuschwanstein_horizontal.jpg
-wwwroot\Content\Image\Ex\dieukienhuongchedohuutribaohiemxahoi01.jpg
 wwwroot\Content\Image\Ex\Neuschwanstein_Herbst_Schnepfling__37_-ti-schwangau.jpg
 wwwroot\Content\Image\Ex\reseuro201215224677164861664971189.png
+wwwroot\Content\Image\Ex\AllianzMotorcylceplus1024x534.jpg
 wwwroot\css\site.css
 wwwroot\favicon.ico
 wwwroot\js\site.js
@@ -2080,3 +2075,8 @@ wwwroot\lib\jquery\dist\jquery.js
 wwwroot\lib\jquery\dist\jquery.min.js
 wwwroot\lib\jquery\dist\jquery.min.map
 wwwroot\lib\jquery\LICENSE.txt
+wwwroot\Content\Image\Ex\baohiemtukylagi1png65673a35371fa.jpg
+wwwroot\Content\Image\Ex\baohiemtuky.jpg
+wwwroot\Content\Image\Ex\baohiemtrondoicuabaoviet2.jpg
+wwwroot\Content\Image\Ex\baohiemtreem.jpg
+wwwroot\Content\Image\Ex\dieukienhuongchedohuutribaohiemxahoi01.jpg
