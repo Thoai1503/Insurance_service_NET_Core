@@ -20,14 +20,6 @@ namespace Insurance_agency.Controllers
 
             return Redirect(url);
         }
-        [HttpGet]
-        public IActionResult PaymentCallbackVnpay()
-        {
-            var response = _vnPayService.PaymentExecute(Request.Query);
-
-            return Json(response);
-        }
-
 
     }
 }
