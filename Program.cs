@@ -13,6 +13,8 @@ builder.Services.AddControllersWithViews();
 
 
 builder.Services.AddHttpContextAccessor();
+
+// Add payment gateway service
 builder.Services.AddScoped<IVnPayService, VnPayService>();
 var app = builder.Build();
 
@@ -26,7 +28,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseSession(); // ✅ Đặt trước Middleware custom
+app.UseSession(); 
 app.UseMiddleware<DisplayAndAuthorizationMiddleware>();
 
 app.UseAuthorization();
