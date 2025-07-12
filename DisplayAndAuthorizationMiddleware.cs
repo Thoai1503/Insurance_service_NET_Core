@@ -28,6 +28,7 @@
             // Nếu URL là admin hoặc home
             if (path.Contains("admin") || path.Contains("home"))
             {
+                
                 //var acc = context.Session.GetObject<MemberView>("acc"); // Xem bên dưới phần Extension
 
                 //if (acc != null)
@@ -48,7 +49,7 @@
                 //}
                 //else if (path.Contains("admin"))
                 //{
-                //    context.Response.Redirect("/Home/Index");
+                   context.Response.Redirect("/Home/Insurance");
                 //    return;
                 //}
             }

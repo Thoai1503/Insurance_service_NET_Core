@@ -6,17 +6,20 @@ namespace Insurance_agency.Models.Repository
     public class InsuranceRepository : IRepository<InsuranceView>
     {
         private static InsuranceRepository _instance = null;
-        private InsuranceRepository() {
+        private InsuranceRepository()
+        {
             _context = new InsuranceContext();
         }
-        public static InsuranceRepository Instance {  
-            get {
-                if(_instance==null)
+        public static InsuranceRepository Instance
+        {
+            get
+            {
+                if (_instance == null)
                 {
                     _instance = new InsuranceRepository();
                 }
-                return _instance; 
-            } 
+                return _instance;
+            }
         }
         public InsuranceContext _context;
         public bool Create(InsuranceView entity)
@@ -31,7 +34,7 @@ namespace Insurance_agency.Models.Repository
                         Name = entity.name,
                         Description = entity.description,
                         InsuranceTypeId = entity.insurance_type_id,
-                   
+
                         ExImage = entity.ex_image,
                     };
                     var q = _context.Add(Insurance);
@@ -45,7 +48,7 @@ namespace Insurance_agency.Models.Repository
             return false;
         }
 
-   
+
 
         public InsuranceView FindById(int id)
         {
@@ -60,8 +63,10 @@ namespace Insurance_agency.Models.Repository
                     year_max = (int)d.YearMax,
                     value = d.Value ?? 0,
 
+
+
                     insurance_type_id = (int)d.InsuranceTypeId,
-                  
+
                     ex_image = d.ExImage
                 }).FirstOrDefault();
                 if (item != null)
@@ -85,7 +90,7 @@ namespace Insurance_agency.Models.Repository
         {
             try
             {
-                var item = _context.Insurances.Select(d=>new InsuranceView
+                var item = _context.Insurances.Select(d => new InsuranceView
                 {
                     id = d.Id,
                     name = d.Name,
@@ -111,14 +116,14 @@ namespace Insurance_agency.Models.Repository
             {
                 if (entity != null)
                 {
-                    var q =_context.Insurances.Where(d=>d.Id == entity.id).FirstOrDefault();
+                    var q = _context.Insurances.Where(d => d.Id == entity.id).FirstOrDefault();
                     q.InsuranceTypeId = entity.insurance_type_id;
                     q.YearMax = entity.year_max;
                     q.ExImage = entity.ex_image;
                     q.Value = entity.value;
                     q.Name = entity.name;
                     q.Description = entity.description;
-                    if(entity.ex_image != null&&entity.ex_image!=string.Empty)
+                    if (entity.ex_image != null && entity.ex_image != string.Empty)
                     {
                         q.ExImage = entity.ex_image;
                     }
@@ -126,7 +131,8 @@ namespace Insurance_agency.Models.Repository
                     return true;
                 }
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
             }
             return false;
         }
@@ -165,6 +171,31 @@ namespace Insurance_agency.Models.Repository
             {
             }
             return false;
+        }
+        public HashSet<InsuranceView> FindByInsuranceTypeId(int id)
+        {
+
+            try
+            {
+                var item = _context.Insurances.Where(d => d.InsuranceTypeId == id).Select(d => new InsuranceView
+                {
+                    id = d.Id,
+                    name = d.Name,
+                    description = d.Description,
+                    year_max =d.YearMax?? 0,
+                    value = d.Value ?? 0,
+                    insurance_type_id = (int)d.InsuranceTypeId,
+                    ex_image = d.ExImage
+                }).ToHashSet();
+                if (item != null)
+                {
+                    return item;
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return new HashSet<InsuranceView>();
         }
     }
 }
