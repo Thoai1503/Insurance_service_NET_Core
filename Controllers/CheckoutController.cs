@@ -1,4 +1,5 @@
 ﻿using Insurance_agency.Models.ModelView;
+using Insurance_agency.Models.Repository;
 using Insurance_agency.Services.VnPay;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,9 +15,22 @@ namespace Insurance_agency.Controllers
         }
         public IActionResult Index(int id)
         {
-        
-            // Convert insurance variable to InsuranceView model or any other model you need
+            var insurance = InsuranceRepository.Instance.FindById(id);
+            var user = HttpContext.Session.GetObject<User>("user");
           
+
+
+            ContractView contractView = new ContractView();
+            contractView.insurance_id = insurance.id;
+            contractView.user_id = user?.id ?? 0;
+            contractView.StartDate = DateTime.Now;
+            contractView.EndDate = DateTime.Now.AddYears(insurance.year_max);
+            contractView.value_contract = insurance.value;
+            contractView.year_paid  = insurance.year_max;
+
+            HttpContext.Session.SetObject("contract", contractView);
+
+
 
             return View();
         }
