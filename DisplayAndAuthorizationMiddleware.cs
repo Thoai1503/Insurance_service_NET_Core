@@ -31,12 +31,13 @@ namespace Insurance_agency
             // Nếu URL là admin hoặc home
             if (path.Contains("admin") || path.Contains("home"))
             {
-                var user = new User { full_name = "Thoại",auth_id=1 };
-                context.Session.SetObject("user", user);
+                //var user = new User { full_name = "Thoại",auth_id=4 };
+                //context.Session.SetObject("user", user);
 
                 var acc = context.Session.GetObject<User>("user");
 
                 if (acc != null)
+                
                 {
                     var roleId = acc.auth_id;
 

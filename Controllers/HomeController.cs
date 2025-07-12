@@ -24,8 +24,7 @@ namespace Insurance_agency.Controllers
 
         public IActionResult Index()
         {
-            var user = new User { full_name = "Thoại" };
-            HttpContext.Session.SetObject("user", user); // Assuming you have an extension method to set objects in session
+         // Assuming you have an extension method to set objects in session
 
             return View();
         }
