@@ -34,6 +34,8 @@ namespace Insurance_agency.Models.Repository
                         Name = entity.name,
                         Description = entity.description,
                         InsuranceTypeId = entity.insurance_type_id,
+                        Value = entity.value,
+                        YearMax = entity.year_max,
 
                         ExImage = entity.ex_image,
                     };
@@ -96,6 +98,8 @@ namespace Insurance_agency.Models.Repository
                     name = d.Name,
                     description = d.Description,
                     insurance_type_id = (int)d.InsuranceTypeId,
+                    value = d.Value ?? 0,
+                    year_max = (int)d.YearMax,
 
                     ex_image = d.ExImage
                 }).ToHashSet();

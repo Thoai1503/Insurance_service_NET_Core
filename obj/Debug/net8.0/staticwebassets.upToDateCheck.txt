@@ -2023,6 +2023,7 @@ wwwroot\css\site.css
 wwwroot\css\textbox.css
 wwwroot\favicon.ico
 wwwroot\js\site.js
+wwwroot\js\text.js
 wwwroot\js\tiny.js
 wwwroot\lib\bootstrap\dist\css\bootstrap.css
 wwwroot\lib\bootstrap\dist\css\bootstrap.css.map

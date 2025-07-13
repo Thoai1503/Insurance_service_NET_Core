@@ -21,19 +21,13 @@ body {
     background: #4671EA;
 }
 
-.wrapper {
+/*.wrapper {
     width: 470px;
     background: #fff;
     border-radius: 5px;
     padding: 25px 25px 30px;
     box-shadow: 8px 8px 10px rgba(0,0,0,0.06);
-}
-
-    .wrapper h2 {
-        color: #4671EA;
-        font-size: 28px;
-        text-align: center;
-    }
+}*/
 
     .wrapper textarea {
         width: 100%;

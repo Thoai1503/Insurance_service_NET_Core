@@ -27,9 +27,49 @@ namespace Insurance_agency.Models.Repository
         {
             throw new NotImplementedException();
         }
+        public bool ChangeStatus(User entity)
+        {
+            try
+            {
+                if (entity != null)
+                {
+                    var item = _context.TblUsers.Where(d=>d.Id==entity.id).FirstOrDefault();
+                    if (item != null)
+                    {
+                        item.Active =entity.active;
+                        _context.SaveChanges();
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return false;
+        }
         public bool Update(User entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (entity != null)
+                {
+                    var item = _context.TblUsers.Where(d=>d.Id==entity.id).FirstOrDefault();
+                    if (item != null)
+                    {
+                        item.FullName = entity.full_name;
+                        item.Address = entity.address;
+                        item.Email = entity.email;
+                        item.Phone = entity.phone;
+                        item.Active = entity.active;
+                        _context.SaveChanges();
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return false;
         }
         public bool Delete(int id)
         {

@@ -81,7 +81,7 @@ namespace Insurance_agency.Controllers
             ViewBag.Message = "Your text editor page.";
             return View();
         }
-        public IActionResult Insurance(int typeId)
+        public IActionResult Insurance(int typeId=1)
         {
             HttpContext.Session.SetInt32("allbanner", 0); // Assuming you want to use session state
             //   Session["display"] = 0;
