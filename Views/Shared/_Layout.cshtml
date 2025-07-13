@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 @{
+    var user = Context.Session.GetObject<Insurance_agency.Models.ModelView.User>("user");
 }
 <head>
     <meta charset="utf-8">
@@ -318,7 +319,14 @@
                             @{
                             }
                             <button class="btn-search btn btn-primary btn-md-square rounded-circle flex-shrink-0" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search"></i></button>
-                            <a href="#" class="btn btn-primary rounded-pill py-2 px-4 ms-3 flex-shrink-0"> LOGIN</a>
+                            @{
+                                if(user!=null){
+                                    <a href="@Url.Action("index","userprofile")" class="btn btn-primary rounded-pill py-2 px-4 ms-3 flex-shrink-0"> @user.full_name</a>
+                                }
+                                else{
+                                    <a href="@Url.Action("index","Login")" class="btn btn-primary rounded-pill py-2 px-4 ms-3 flex-shrink-0"> LOGIN</a>
+                                }
+                            }
                         </div>
                     </div>
                 </div>

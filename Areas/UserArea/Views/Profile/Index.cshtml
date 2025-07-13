@@ -2,6 +2,10 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/UserArea/Views/Shared/_Layout.cshtml";
+    var user = new Insurance_agency.Models.ModelView.User();
+    if(ViewBag.user!=null){
+        user = (Insurance_agency.Models.ModelView.User)ViewBag.user;
+    }
 }
 <div class="col-md-8">
     <div class="card mb-3">
@@ -11,7 +15,7 @@
                     <h6 class="mb-0">Full Name</h6>
                 </div>
                 <div class="col-sm-9 text-secondary">
-                    Kenneth Valdez
+                    @user.full_name
                 </div>
             </div>
             <hr>
@@ -20,7 +24,7 @@
                     <h6 class="mb-0">Email</h6>
                 </div>
                 <div class="col-sm-9 text-secondary">
-                    fip@jukmuh.al
+                    @user.email
                 </div>
             </div>
             <hr>
@@ -29,7 +33,7 @@
                     <h6 class="mb-0">Phone</h6>
                 </div>
                 <div class="col-sm-9 text-secondary">
-                    (239) 816-9029
+                    @user.phone
                 </div>
             </div>
             <hr>
@@ -47,7 +51,7 @@
                     <h6 class="mb-0">Address</h6>
                 </div>
                 <div class="col-sm-9 text-secondary">
-                    Bay Area, San Francisco, CA
+                    @user.address
                 </div>
             </div>
             <hr>
