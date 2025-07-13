@@ -1899,6 +1899,7 @@ wwwroot\Content\Client\img\testimonial-1.jpg
 wwwroot\Content\Client\img\testimonial-2.jpg
 wwwroot\Content\Client\img\testimonial-3.jpg
 wwwroot\Content\Client\img\Thumbs.db
+wwwroot\Content\Client\img\vnpay\VNPAY_id-sVSMjm2_0.png
 wwwroot\Content\Client\js\main.js
 wwwroot\Content\Client\lib\animate\animate.css
 wwwroot\Content\Client\lib\animate\animate.min.css
