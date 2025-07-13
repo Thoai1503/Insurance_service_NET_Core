@@ -37,7 +37,7 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Create([FromBody] Policy en)
+        public IActionResult Create(Policy en)
         {
 
             var rs = PolicyRepository.Instance.Create(en);

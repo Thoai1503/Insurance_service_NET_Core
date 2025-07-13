@@ -1,4 +1,7 @@
-﻿namespace Insurance_agency
+﻿using Insurance_agency.Models.ModelView;
+using Insurance_agency.Models.Repository;
+
+namespace Insurance_agency
 {
     public class DisplayAndAuthorizationMiddleware
     {
@@ -17,40 +20,39 @@
 
             var path = context.Request.Path.Value.ToLower();
 
-            // Nếu URL thuộc nhóm ẩn display
-            if (path.Contains("cart") || path.Contains("blog") || path.Contains("contact")
-                || path.Contains("checkoutpage") || path.Contains("shop")
-                || path.Contains("orderhistory") || path.Contains("orderdetail"))
-            {
-                context.Session.SetInt32("display", 0);
-            }
+           
+      
 
             // Nếu URL là admin hoặc home
             if (path.Contains("admin") || path.Contains("home"))
             {
-                //var acc = context.Session.GetObject<MemberView>("acc"); // Xem bên dưới phần Extension
+                //var user = new User { full_name = "Thoại",auth_id=4 };
+                //context.Session.SetObject("user", user);
 
-                //if (acc != null)
-                //{
-                //    var roleId = acc.RoleId;
+                var acc = context.Session.GetObject<User>("user");
 
-                //    if (!MiddleWareRepository.Instance.CheckAuthorization(roleId, path))
-                //    {
-                //        if (roleId == 2)
-                //        {
-                //            context.Response.Redirect("/Home/Index");
-                //            return;
-                //        }
+                if (acc != null)
+                
+                {
+                    var roleId = acc.auth_id;
 
-                //        context.Response.Redirect("/Admin/Index");
-                //        return;
-                //    }
-                //}
-                //else if (path.Contains("admin"))
-                //{
-                //    context.Response.Redirect("/Home/Index");
-                //    return;
-                //}
+                    if (!MiddleWareRepository.Instance.CheckAuthorization(roleId, path))
+                    {
+                        if (roleId == 4)
+                        {
+                            context.Response.Redirect("/Home/Index");
+                            return;
+                        }
+
+                        context.Response.Redirect("/AdminArea/Dashboard");
+                        return;
+                    }
+                }
+                else if (path.Contains("admin"))
+                {
+                    context.Response.Redirect("/Home/Insurance");
+                    return;
+                }
             }
 
             // Tiếp tục pipeline

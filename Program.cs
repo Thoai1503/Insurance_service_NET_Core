@@ -1,6 +1,7 @@
 ﻿using Insurance_agency;
 using Microsoft.EntityFrameworkCore;
 using Insurance_agency.Models.Entities;
+using Insurance_agency.Services.VnPay;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<InsuranceContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -12,6 +13,9 @@ builder.Services.AddControllersWithViews();
 
 
 builder.Services.AddHttpContextAccessor();
+
+// Add payment gateway service
+builder.Services.AddScoped<IVnPayService, VnPayService>();
 var app = builder.Build();
 
 app.UseSession();
@@ -24,7 +28,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseSession(); // ✅ Đặt trước Middleware custom
+app.UseSession(); 
 app.UseMiddleware<DisplayAndAuthorizationMiddleware>();
 
 app.UseAuthorization();

@@ -185,7 +185,7 @@
                     </button>
                     <button href="/adminarea/policymanagement/delete?id=@policy.id" class="btn btn-sm btn-danger" onclick="deleteContent(@policy.id)" title="Xoá">
                        Xoá
-                    </button>
+                    </button>  
                 </div>
             </div>
 
@@ -216,8 +216,9 @@
         console.log("Nội dung"+content);
 
         $.ajax({
-            type: "POST",
+            method: "POST",
             url: "/adminarea/policymanagement/create",
+            
             data: { insurance_id: @(ViewBag.insuranceId),description: content, active:1 },
             success: function (response) {
                 console.log("Nội dung đã được gửi thành công");

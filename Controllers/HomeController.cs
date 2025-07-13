@@ -1,8 +1,9 @@
-using System.Diagnostics;
-using Insurance_agency.Models;
+﻿using Insurance_agency.Models;
 using Insurance_agency.Models.Entities;
+using Insurance_agency.Models.ModelView;
 using Insurance_agency.Models.Repository;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace Insurance_agency.Controllers
 {
@@ -23,8 +24,7 @@ namespace Insurance_agency.Controllers
 
         public IActionResult Index()
         {
-            
-            var insurList = InsuranceTypeRepository.Instance.GetAll();
+         // Assuming you have an extension method to set objects in session
 
             return View();
         }
@@ -93,16 +93,23 @@ namespace Insurance_agency.Controllers
         {
 
             HttpContext.Session.SetInt32("allbanner", 0);
-            var insuranceList = InsuranceRepository.Instance.GetAll().Take(3).ToHashSet();
+            var insuranceList = InsuranceRepository.Instance.GetAll().ToHashSet();
             ViewBag.BannerCss = "motobike";
             return View(insuranceList);
         }
         public IActionResult InsuranceDetail(int id)
         {
+            var insurance = InsuranceRepository.Instance.FindById(id);
+            
+            
+            var relatedinsurance = InsuranceRepository.Instance.FindByInsuranceTypeId(insurance.insurance_type_id).Take(3).ToHashSet();
             var item = PolicyRepository.Instance.GetAllByInsuranceId(id);
+
             HttpContext.Session.SetInt32("allbanner", 0);
 
            ViewBag.BannerCss = "motobike";
+            ViewBag.Insurance = insurance;
+            ViewBag.RelatedInsurance = relatedinsurance;
             return View(item);
         }
     }
