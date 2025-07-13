@@ -13,7 +13,7 @@
         foreach (var insuranceType in Model)
         {
             <div class="dropdown-submenu">
-                <a class="dropdown-item" href="/home/insurance?id=@insuranceType.id">@insuranceType.name</a>
+                <a class="dropdown-item" href="/home/insurance?typeId=@insuranceType.id">@insuranceType.name</a>
                 <div class="dropdown-menu">
                     @foreach (var subType in insuranceType.children)
                     {

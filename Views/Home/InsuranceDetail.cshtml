@@ -47,7 +47,14 @@
 
 
     <div class="text-end mb-4">
-        <a class="btn btn-primary rounded-pill py-2 px-4" href="@Url.Action("Index", "Checkout", new { id = insurance.id })">Mua bảo hiểm</a>
+        @{
+            if(ViewBag.user!=null){
+                <a class="btn btn-primary rounded-pill py-2 px-4" href="@Url.Action("Index", "Checkout", new { id = insurance.id })">Mua bảo hiểm</a>
+            }
+            else{
+                <a class="btn btn-primary rounded-pill py-2 px-4" href="@Url.Action("index","Login")">Mua bảo hiểm</a>
+            }
+        }
     </div>
     <h2 class="text-center text-primary mb-4">Các chính sách bảo hiểm</h2>
 
@@ -91,9 +98,7 @@
         @if (ViewBag.RelatedInsurance != null)
         {
             var relatedInsurance = ViewBag.RelatedInsurance as IEnumerable<Insurance_agency.Models.ModelView.InsuranceView>;
-            foreach (var ins in relatedInsurance)
-            {
-
+            foreach (var ins in relatedInsurance){
                 <div class="col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.4s" style="visibility: hidden; animation-delay: 0.4s; animation-name: none;">
                     <div class="blog-item">
                         <div class="blog-img">
@@ -120,13 +125,12 @@
                             <p class="mb-3">
                                 @ins.description
                             </p>
-                            <a href="/home/insurancedetail?id=" @ins.id" class="btn p-0">
+                            <a href="/home/insurancedetail?id=@ins.id" class="btn p-0">
                                 Read More <i class="fa fa-arrow-right"></i>
                             </a>
                         </div>
                     </div>
                 </div>
-       
             }
         }
 

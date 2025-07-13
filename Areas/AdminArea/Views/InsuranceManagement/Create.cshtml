@@ -24,8 +24,20 @@
 			<label for="description">Description</label>
 
 		</div>
+		
+
 		<div class="col-3">
-			<input id="description" name="description" type="text" />
+			<div class="wrapper">
+				<textarea spellcheck="false" id="description" name="description" placeholder="Type something here..." required></textarea>
+			</div>
+			<script>
+				const textarea = document.querySelector("textarea");
+				textarea.addEventListener("keyup", e =>{
+				  textarea.style.height = "63px";
+				  let scHeight = e.target.scrollHeight;
+				  textarea.style.height = `${scHeight}px`;
+				});
+			</script>
 		</div>
 	</div>
 	<div class="row">
