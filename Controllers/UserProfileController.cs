@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Insurance_agency.Models.ModelView;
+using Insurance_agency.Models.Repository;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Insurance_agency.Controllers
 {
@@ -6,11 +8,30 @@ namespace Insurance_agency.Controllers
     {
         public IActionResult Index()
         {
+            var user = HttpContext.Session.GetObject<User>("user");
+            if (user == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             HttpContext.Session.SetInt32("allbanner", 0);
-            return View();
+            return View(user);
         }
-        public IActionResult PaymentHistory()
+        public IActionResult ContractHistory()
         {
+            var user = HttpContext.Session.GetObject<User>("user");
+            if (user == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            var contracts = ContractRepository.Instance.GetContractsByUserId(user.id);
+            ViewBag.Contracts = contracts;
+            HttpContext.Session.SetInt32("allbanner", 0);
+            return View(contracts);
+        }
+        public IActionResult PaymentHistory(int contractId)
+        {
+         
             HttpContext.Session.SetInt32("allbanner", 0);
             return View();
         }
