@@ -87,7 +87,12 @@ namespace Insurance_agency.Controllers
             ViewBag.Message = "Payment was successful!";
             return View();
         }
+        public IActionResult Test()
 
+        {
+            HttpContext.Session.SetInt32("allbanner", 0);
+            return View();
+        }
 
 
     }
