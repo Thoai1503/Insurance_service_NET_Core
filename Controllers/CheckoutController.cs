@@ -18,7 +18,11 @@ namespace Insurance_agency.Controllers
             var insurance = InsuranceRepository.Instance.FindById(id);
             var user = HttpContext.Session.GetObject<User>("user");
           
-
+            if (user == null)
+            {
+                // Redirect to login page if user is not logged in
+                return RedirectToAction("Index", "Login");
+            }
 
             ContractView contractView = new ContractView();
             contractView.insurance_id = insurance.id;
