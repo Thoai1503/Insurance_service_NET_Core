@@ -9,5 +9,10 @@ namespace Insurance_agency.Controllers
             HttpContext.Session.SetInt32("allbanner", 0);
             return View();
         }
+        public IActionResult PaymentHistory()
+        {
+            HttpContext.Session.SetInt32("allbanner", 0);
+            return View();
+        }
     }
 }

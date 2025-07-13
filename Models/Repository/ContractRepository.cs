@@ -27,7 +27,22 @@ namespace Insurance_agency.Models.Repository
         }
         public bool Create(ContractView entity)
         {
-            throw new NotImplementedException();
+          
+            var contract = new TblContract
+            {
+                UserId = entity.user_id,
+                InsuranceId = entity.insurance_id,
+                StartDate = entity.StartDate,
+                EndDate = entity.EndDate,
+                ValueContract = entity.value_contract,
+                YearPaid = entity.year_paid,
+                NumberYearPaid = entity.number_year_paid,
+                TotalPaid = entity.total_paid,
+                Status = entity.status,
+                EmployeeId = entity.employee_id
+            };
+            _context.TblContracts.Add(contract);
+            return _context.SaveChanges() > 0;
         }
 
         public bool Delete(int id)
@@ -59,7 +74,7 @@ namespace Insurance_agency.Models.Repository
                         select new ContractView
                         {
                             id = c.Id,
-                            user_id = c.UserId,
+                            user_id = (int)c.UserId,
                             insurance_id = c.InsuranceId,
                             StartDate = c.StartDate,
                             EndDate = c.EndDate,
@@ -99,7 +114,7 @@ namespace Insurance_agency.Models.Repository
                 .Select(c => new ContractView
                 {
                     id = c.Id,
-                    user_id = c.UserId,
+                    user_id = (int)c.UserId,
                     insurance_id = c.InsuranceId,
                     StartDate = c.StartDate,
                     EndDate = c.EndDate,
@@ -124,7 +139,7 @@ namespace Insurance_agency.Models.Repository
                 .Select(c => new ContractView
                 {
                     id = c.Id,
-                    user_id = c.UserId,
+                    user_id = (int)c.UserId,
                     insurance_id = c.InsuranceId,
                     StartDate = c.StartDate,
                     EndDate = c.EndDate,
@@ -143,7 +158,7 @@ namespace Insurance_agency.Models.Repository
     .Select(c => new ContractView
     {
         id = c.Id,
-        user_id = c.UserId,
+        user_id = (int)c.UserId,
         insurance_id = c.InsuranceId,
         StartDate = c.StartDate,
         EndDate = c.EndDate,
