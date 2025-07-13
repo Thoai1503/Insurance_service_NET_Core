@@ -31,9 +31,10 @@ namespace Insurance_agency.Controllers
         }
         public IActionResult PaymentHistory(int contractId)
         {
-         
+            var payment = PaymentRepository.Instance.FindByContractId(contractId);
+
             HttpContext.Session.SetInt32("allbanner", 0);
-            return View();
+            return View(payment);
         }
     }
 }

@@ -107,27 +107,7 @@ namespace Insurance_agency.Models.Repository
             throw new NotImplementedException();
         }
 
-        public HashSet<ContractView> GetAll()
-        {
-
-            var contracts = _context.TblContracts
-                .Select(c => new ContractView
-                {
-                    id = c.Id,
-                    user_id = (int)c.UserId,
-                    insurance_id = c.InsuranceId,
-                    StartDate = c.StartDate,
-                    EndDate = c.EndDate,
-                    value_contract = (long)c.ValueContract,
-                    employee_id= c.EmployeeId ?? 0,
-                    year_paid = (long)c.YearPaid,
-                    number_year_paid = c.NumberYearPaid,
-                    status = c.Status
-                }).ToHashSet();
-            return contracts;
-
-        }
-
+       
         public bool Update(ContractView entity)
         {
             throw new NotImplementedException();
@@ -181,11 +161,33 @@ namespace Insurance_agency.Models.Repository
                     StartDate = c.StartDate,
                     EndDate = c.EndDate,
                     value_contract = (long)c.ValueContract,
+                    employee_id = c.EmployeeId ?? 0,
                     year_paid = (long)c.YearPaid,
                     number_year_paid = c.NumberYearPaid,
                     status = c.Status
                 }).ToHashSet();
             return contracts;
-        }   
+        }
+        public HashSet<ContractView> GetAll()
+        {
+
+            var contracts = _context.TblContracts
+                .Select(c => new ContractView
+                {
+                    id = c.Id,
+                    user_id = (int)c.UserId,
+                    insurance_id = c.InsuranceId,
+                    StartDate = c.StartDate,
+                    EndDate = c.EndDate,
+                    value_contract = (long)c.ValueContract,
+                    employee_id = c.EmployeeId ?? 0,
+                    year_paid = (long)c.YearPaid,
+                    number_year_paid = c.NumberYearPaid,
+                    status = c.Status
+                }).ToHashSet();
+            return contracts;
+
+        }
+
     }
 }

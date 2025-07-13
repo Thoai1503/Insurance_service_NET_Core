@@ -7,7 +7,7 @@ public class ContractView
 {
     public int id { get; set; }
 
-    public int user_id { get; set; } = 0;
+    public int? user_id { get; set; }
 
     public int? insurance_id { get; set; }
 
