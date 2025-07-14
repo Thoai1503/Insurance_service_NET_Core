@@ -15,10 +15,16 @@ namespace Insurance_agency.Controllers
         }
         public IActionResult Index(int id)
        {
+
+            HttpContext.Session.SetInt32("allbanner", 0);
             var insurance = InsuranceRepository.Instance.FindById(id);
             var user = HttpContext.Session.GetObject<User>("user");
           
-
+            if (user == null)
+            {
+                // Redirect to login page if user is not logged in
+                return RedirectToAction("Index", "Login");
+            }
 
             ContractView contractView = new ContractView();
             contractView.insurance_id = insurance.id;
@@ -33,7 +39,7 @@ namespace Insurance_agency.Controllers
 
 
 
-            return View();
+            return View(insurance);
         }
         [HttpGet]
         public IActionResult PaymentCallbackVnpay()
@@ -42,28 +48,77 @@ namespace Insurance_agency.Controllers
             if(response.Success)
             {
                 var contract = HttpContext.Session.GetObject<ContractView>("contract");
-                contract.total_paid = contract.year_paid / contract.number_year_paid;
-                // Save the contract to the database or perform any necessary actions
-       //         contract.total_paid = response.
-                
-                var success= ContractRepository.Instance.Create(contract);
-                // Handle successful payment
-             
-                if (success)
+                if (contract != null)
                 {
-                    HttpContext.Session.Remove("contract");
-                    // Redirect to a success page or display a success message
-                    return  RedirectToAction("Successful", "Checkout");
-                    
-              
+                    contract.total_paid = contract.year_paid / contract.number_year_paid;
+                    // Save the contract to the database or perform any necessary actions
+                    //         contract.total_paid = response.
+
+                    var success = ContractRepository.Instance.CreateReturnId(contract);
+                    // Handle successful payment
+
+                    if (success>0)
+                    {
+                        var paymentHistory = new PaymentHistory
+                        {
+                            contract_id = success,
+                            amount = (long)contract.year_paid,
+                            payment_day = DateTime.Now,
+                            status = 1 // Assuming 1 means successful
+                        };
+                        var paymentSuccess = PaymentRepository.Instance.Create(paymentHistory);
+                        if (!paymentSuccess)
+                        {
+                            // Handle the case where saving the payment history failed
+                            ViewBag.Message = "Payment successful but failed to save the payment history!";
+                            // You can redirect to an error page or display an error message
+                            Content("Payment successful but failed to save the payment history!");
+                        }
+                        HttpContext.Session.Remove("contract");
+                        // Redirect to a success page or display a success message
+                        return RedirectToAction("Successful", "Checkout");
+
+
+                    }
+                    else
+                    {
+
+                       
+                        // You can redirect to an error page or display an error message
+                        Content("Payment successful but failed to save the contract!");
+                    }
                 }
                 else
                 {
-                  
-                    // Handle the case where saving the contract failed
-                    ViewBag.Message = "Payment successful but failed to save the contract!";
-                    // You can redirect to an error page or display an error message
-                    Content("Payment successful but failed to save the contract!");
+
+                    var contractNextPayment = HttpContext.Session.GetObject<ContractView>("contractNextPayment");
+                    var amount = HttpContext.Session.GetInt32("amount");
+                    // Update total paid amount in the contract
+                    contractNextPayment.total_paid = contractNextPayment.total_paid + amount;
+                    var success = ContractRepository.Instance.Update(contractNextPayment);
+                    // Save the payment history (payment_histoy table)
+                    
+                    PaymentHistory paymentHistory = new PaymentHistory
+                    {
+                        contract_id = contractNextPayment.id,
+                        amount = amount.Value,
+                        payment_day = DateTime.Now,
+                        status = 1 // Assuming 1 means successful
+                    };
+                    var paymentSuccess = PaymentRepository.Instance.Create(paymentHistory);
+                    if (!paymentSuccess)
+                    {
+                        // Handle the case where saving the payment history failed
+                        ViewBag.Message = "Payment successful but failed to save the payment history!";
+                        // You can redirect to an error page or display an error message
+                        Content("Payment successful but failed to save the payment history!");
+                    }
+                    HttpContext.Session.Remove("contractNextPayment");
+                    HttpContext.Session.Remove("amount");
+                
+
+
+                    return RedirectToAction("Successful", "Checkout");
                 }
             }
             else
@@ -83,7 +138,23 @@ namespace Insurance_agency.Controllers
             ViewBag.Message = "Payment was successful!";
             return View();
         }
+        public IActionResult Test(int amount, int contractId)
+        {
+            var contract = ContractRepository.Instance.FindById(contractId);
 
+            if (contract == null)
+            {
+                return NotFound("Contract not found.");
+            }
+
+            HttpContext.Session.SetObject("contractNextPayment", contract);
+            HttpContext.Session.SetInt32("amount", amount);
+
+            HttpContext.Session.SetInt32("allbanner", 0);
+            ViewBag.Amount = amount;
+            ViewBag.ContractId = contractId;
+            return View();
+        }
 
 
     }

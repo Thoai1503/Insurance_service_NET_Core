@@ -27,7 +27,7 @@ namespace Insurance_agency.Models.Repository
         }
         public bool Create(ContractView entity)
         {
-          
+
             var contract = new TblContract
             {
                 UserId = entity.user_id,
@@ -79,6 +79,7 @@ namespace Insurance_agency.Models.Repository
                             StartDate = c.StartDate,
                             EndDate = c.EndDate,
                             value_contract = (long)c.ValueContract,
+                            total_paid = (long)c.TotalPaid,
                             year_paid = (long)c.YearPaid,
                             user = new User
                             {
@@ -107,30 +108,27 @@ namespace Insurance_agency.Models.Repository
             throw new NotImplementedException();
         }
 
-        public HashSet<ContractView> GetAll()
-        {
-
-            var contracts = _context.TblContracts
-                .Select(c => new ContractView
-                {
-                    id = c.Id,
-                    user_id = (int)c.UserId,
-                    insurance_id = c.InsuranceId,
-                    StartDate = c.StartDate,
-                    EndDate = c.EndDate,
-                    value_contract = (long)c.ValueContract,
-                    employee_id= c.EmployeeId ?? 0,
-                    year_paid = (long)c.YearPaid,
-                    number_year_paid = c.NumberYearPaid,
-                    status = c.Status
-                }).ToHashSet();
-            return contracts;
-
-        }
 
         public bool Update(ContractView entity)
         {
-            throw new NotImplementedException();
+
+            var contract = _context.TblContracts.FirstOrDefault(c => c.Id == entity.id);
+            if (contract == null)
+            {
+                return false; // Contract not found
+            }
+            contract.UserId = entity.user_id;
+            contract.InsuranceId = entity.insurance_id;
+            contract.StartDate = entity.StartDate;
+            contract.EndDate = entity.EndDate;
+            contract.ValueContract = entity.value_contract;
+            contract.YearPaid = entity.year_paid;
+            contract.NumberYearPaid = entity.number_year_paid;
+            contract.TotalPaid = entity.total_paid;
+
+            contract.Status = entity.status;
+            contract.EmployeeId = entity.employee_id;
+            return _context.SaveChanges() > 0;
         }
         public HashSet<ContractView> FindByEmployeeId(int employeeId)
         {
@@ -181,11 +179,52 @@ namespace Insurance_agency.Models.Repository
                     StartDate = c.StartDate,
                     EndDate = c.EndDate,
                     value_contract = (long)c.ValueContract,
+                    employee_id = c.EmployeeId ?? 0,
                     year_paid = (long)c.YearPaid,
                     number_year_paid = c.NumberYearPaid,
                     status = c.Status
                 }).ToHashSet();
             return contracts;
-        }   
+        }
+        public HashSet<ContractView> GetAll()
+        {
+
+            var contracts = _context.TblContracts
+                .Select(c => new ContractView
+                {
+                    id = c.Id,
+                    user_id = (int)c.UserId,
+                    insurance_id = c.InsuranceId,
+                    StartDate = c.StartDate,
+                    EndDate = c.EndDate,
+                    value_contract = (long)c.ValueContract,
+                    employee_id = c.EmployeeId ?? 0,
+                    year_paid = (long)c.YearPaid,
+                    number_year_paid = c.NumberYearPaid,
+                    status = c.Status
+                }).ToHashSet();
+            return contracts;
+
+        }
+
+        public int CreateReturnId(ContractView entity)
+        {
+            var contract = new TblContract
+            {
+                UserId = entity.user_id,
+                InsuranceId = entity.insurance_id,
+                StartDate = entity.StartDate,
+                EndDate = entity.EndDate,
+                ValueContract = entity.value_contract,
+                YearPaid = entity.year_paid,
+                NumberYearPaid = entity.number_year_paid,
+                TotalPaid = (entity.value_contract/entity.number_year_paid),
+                Status = entity.status,
+                EmployeeId = entity.employee_id
+            };
+            _context.TblContracts.Add(contract);
+            _context.SaveChanges();
+            return contract.Id; // Return the newly created contract ID
+        }
     }
 }

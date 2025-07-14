@@ -10,7 +10,7 @@ namespace Insurance_agency.Controllers
         {
             if (HttpContext.Session.GetObject<User>("user") == null)
             {
-                return RedirectToAction("Index","Login");
+                return RedirectToAction("Index", "Login");
             }
             var user = HttpContext.Session.GetObject<User>("user");
             if (user == null)
@@ -43,8 +43,15 @@ namespace Insurance_agency.Controllers
             {
                 return RedirectToAction("Index", "Login");
             }
+            var payment = PaymentRepository.Instance.FindByContractId(contractId).OrderByDescending(c => c.id).ToHashSet();
+            var contract = ContractRepository.Instance.FindById(contractId);
+
+
+
             HttpContext.Session.SetInt32("allbanner", 0);
-            return View();
+            ViewBag.Id = contractId;
+            ViewBag.Contract = contract;
+            return View(payment);
         }
     }
 }

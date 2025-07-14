@@ -14,7 +14,7 @@ public partial class PaymentHistory
 
     public long amount { get; set; } = 0;
 
-    public int Status { get; set; } = 0;
+    public int status { get; set; } = 0;
 
     public  ContractView Contract { get; set; } 
 
