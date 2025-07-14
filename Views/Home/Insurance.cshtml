@@ -123,16 +123,16 @@
 	@{
 		int page = pageNum + 3;
 		int type = ViewBag.type;
-		<li class="page-item"><a class="page-link" href="@Url.Action("Insurance",new{typeId=type,page=pageNum-1,pageSize=size})">Previous</a></li>
+		<li class="page-item"><a class="page-link" href="@Url.Action("Insurance",new{typeId=type,pageNum=pageNum-1,pageSize=size})">Previous</a></li>
 		for (int i = pageNum; i < page; i++)
 		{
 			if (i <= pageMax)
 			{
-				<li class="page-item"><a class="page-link" href="@Url.Action("Insurance",new{typeId=type,page=i,pageSize=size})">@i</a></li>
+				<li class="page-item"><a class="page-link" href="@Url.Action("Insurance",new{typeId=type,pageNum=i,pageSize=size})">@i</a></li>
 			}
 
 		}
-		<li class="page-item"><a class="page-link" href="@Url.Action("Insurance",new{typeId=type,page=pageNum+1,pageSize=size})">Next</a></li>
+		<li class="page-item"><a class="page-link" href="@Url.Action("Insurance",new{typeId=type,pageNum=pageNum+1,pageSize=size})">Next</a></li>
 	}
 
 </ul>
