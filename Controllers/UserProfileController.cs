@@ -31,7 +31,7 @@ namespace Insurance_agency.Controllers
         }
         public IActionResult PaymentHistory(int contractId)
         {
-            var payment = PaymentRepository.Instance.FindByContractId(contractId);
+            var payment = PaymentRepository.Instance.FindByContractId(contractId).OrderByDescending(c=>c.id).ToHashSet();
             var contract = ContractRepository.Instance.FindById(contractId);
 
 

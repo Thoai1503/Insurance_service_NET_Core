@@ -218,7 +218,7 @@ namespace Insurance_agency.Models.Repository
                 ValueContract = entity.value_contract,
                 YearPaid = entity.year_paid,
                 NumberYearPaid = entity.number_year_paid,
-                TotalPaid = entity.total_paid,
+                TotalPaid = (entity.value_contract/entity.number_year_paid),
                 Status = entity.status,
                 EmployeeId = entity.employee_id
             };
