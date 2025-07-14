@@ -53,5 +53,20 @@ namespace Insurance_agency.Controllers
             ViewBag.Contract = contract;
             return View(payment);
         }
+        public IActionResult LogOut()
+        {
+            try
+            {
+                if (HttpContext.Session.GetObject<User>("user") != null)
+                {
+                    HttpContext.Session.Remove("user");
+                }
+
+            }
+            catch (Exception ex)
+            {
+            }
+            return RedirectToAction("index", "Login");
+        }
     }
 }
