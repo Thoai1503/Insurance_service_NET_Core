@@ -8,13 +8,26 @@
 	{
 		insurance = (HashSet<Insurance_agency.Models.ModelView.InsuranceView>)ViewBag.item;
 	}
+	HashSet<Insurance_agency.Models.ModelView.InsuranceView> all = new HashSet<Insurance_agency.Models.ModelView.InsuranceView>();
+	if (ViewBag.all != null)
+	{
+		all = (HashSet<Insurance_agency.Models.ModelView.InsuranceView>)ViewBag.all;
+	}
+	var pageNum = (int)ViewBag.pageNum;
+	var pageSize = (int)ViewBag.pageSize;
+	var totalPage = all.Count / pageSize;
+	float totalPageFloat = (float)all.Count / pageSize;
+	if (totalPage < totalPageFloat)
+	{
+		totalPage++;
+	}
 }
 <h3 class="mb-5">Insurance List</h3>
 <a href="/adminarea/insurancemanagement/Create" class="btn btn-primary mb-5">Create New Insurance</a>
 <table class="table table-hover">
 	<thead class="thead-dark">
 		<tr>
-		
+
 			<th>Id </th>
 			<th>Name</th>
 			<th>Description</th>
@@ -57,6 +70,28 @@
 			</tr>
 		}
 	</tbody>
+	<div class="row">
+		<ul class="pagination">
+			
+			@{
+				if(pageNum>1){
+					<li class="page-item"><a class="page-link" href="@Url.Action("index",new{pageNum=pageNum-1,pageSize=pageSize})">Previous</a></li>
+				}
+				int u = pageNum + 3;
+				for (int i = pageNum; i < u; i++)
+				{
+					if(i<=totalPage){
+						<li class="page-item"><a class="page-link" href="@Url.Action("index",new{pageNum=i,pageSize=pageSize})">@i</a></li>
+					}
+					
+				}
+			    if(pageNum<totalPage){
+					<li class="page-item"><a class="page-link" href="@Url.Action("index",new{pageNum=pageNum+4,pageSize=pageSize})">Next</a></li>
+				}
+			}
+
+		</ul>
+	</div>
 </table>
 
 

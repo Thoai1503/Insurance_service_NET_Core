@@ -9,13 +9,16 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
     public class InsuranceManagementController : Controller
     {
         
-        public IActionResult Index()
+        public IActionResult Index(int pageNum=1,int pageSize=10)
         {
-            var item = InsuranceRepository.Instance.GetAll();
+            var item = InsuranceRepository.Instance.Paging(pageNum,pageSize);
+            var all = InsuranceRepository.Instance.GetAll();
+            ViewBag.all = all;
             ViewBag.item = item;
-          
+            ViewBag.pageNum = pageNum;
+            ViewBag.pageSize = pageSize;
             return View();
-        }
+            }
         public ActionResult Create()
         {
             var insurancetype = InsuranceTypeRepository.Instance.GetAll();

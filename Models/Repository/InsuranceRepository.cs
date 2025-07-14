@@ -99,7 +99,7 @@ namespace Insurance_agency.Models.Repository
                     description = d.Description,
                     insurance_type_id = (int)d.InsuranceTypeId,
                     value = d.Value ?? 0,
-                    year_max = (int)d.YearMax,
+                    year_max = d.YearMax??0,
 
                     ex_image = d.ExImage
                 }).ToHashSet();
@@ -139,6 +139,28 @@ namespace Insurance_agency.Models.Repository
             {
             }
             return false;
+        }
+        public HashSet<InsuranceView> Paging(int  page=1, int pageSize=10)
+        {
+            try
+            {
+                var item = _context.Insurances.Skip((page-1)*pageSize).Take(pageSize).Select(d=> new InsuranceView
+                {
+                    id = d.Id,
+                    name = d.Name,
+                    description = d.Description,
+                    insurance_type_id = (int)d.InsuranceTypeId,
+                    value = d.Value ?? 0,
+                    year_max = d.YearMax ?? 0,
+
+                    ex_image = d.ExImage
+                }).ToHashSet();
+                return item;
+            }
+            catch (Exception ex)
+            {
+            }
+            return new HashSet<InsuranceView>();
         }
         public bool CheckInsurance(int id)
         {
