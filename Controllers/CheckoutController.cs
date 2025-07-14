@@ -50,7 +50,7 @@ namespace Insurance_agency.Controllers
                 var contract = HttpContext.Session.GetObject<ContractView>("contract");
                 if (contract != null)
                 {
-                    contract.total_paid = contract.year_paid / contract.number_year_paid;
+                    contract.total_paid = (long)contract.year_paid / (long)contract.number_year_paid;
                     // Save the contract to the database or perform any necessary actions
                     //         contract.total_paid = response.
 
@@ -94,7 +94,7 @@ namespace Insurance_agency.Controllers
                     var contractNextPayment = HttpContext.Session.GetObject<ContractView>("contractNextPayment");
                     var amount = HttpContext.Session.GetInt32("amount");
                     // Update total paid amount in the contract
-                    contractNextPayment.total_paid = contractNextPayment.total_paid + amount;
+                    contractNextPayment.total_paid = (long)(contractNextPayment.total_paid + amount);
                     var success = ContractRepository.Instance.Update(contractNextPayment);
                     // Save the payment history (payment_histoy table)
                     

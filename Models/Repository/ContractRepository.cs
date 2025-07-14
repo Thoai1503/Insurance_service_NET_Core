@@ -75,7 +75,7 @@ namespace Insurance_agency.Models.Repository
                         {
                             id = c.Id,
                             user_id = (int)c.UserId,
-                            insurance_id = c.InsuranceId,
+                            insurance_id = (int)c.InsuranceId,
                             StartDate = c.StartDate,
                             EndDate = c.EndDate,
                             value_contract = (long)c.ValueContract,
@@ -97,7 +97,7 @@ namespace Insurance_agency.Models.Repository
 
                             },
                             number_year_paid = c.NumberYearPaid,
-                            status = c.Status
+                            status = (int)c.Status
                         };
             var contract = query.FirstOrDefault();
             return contract;
@@ -138,14 +138,14 @@ namespace Insurance_agency.Models.Repository
                 {
                     id = c.Id,
                     user_id = (int)c.UserId,
-                    insurance_id = c.InsuranceId,
+                    insurance_id = (int)c.InsuranceId,
                     StartDate = c.StartDate,
                     EndDate = c.EndDate,
                     value_contract = (long)c.ValueContract,
                     year_paid = (long)c.YearPaid,
                     employee_id = c.EmployeeId ?? 0,
                     number_year_paid = c.NumberYearPaid,
-                    status = c.Status
+                    status = (int)c.Status
                 }).ToHashSet();
             return contracts;
         }
@@ -157,13 +157,13 @@ namespace Insurance_agency.Models.Repository
     {
         id = c.Id,
         user_id = (int)c.UserId,
-        insurance_id = c.InsuranceId,
+        insurance_id = (int)c.InsuranceId,
         StartDate = c.StartDate,
         EndDate = c.EndDate,
         value_contract = (long)c.ValueContract,
         year_paid = (long)c.YearPaid,
         number_year_paid = c.NumberYearPaid,
-        status = c.Status
+        status = (int)c.Status
     }).ToHashSet();
             return contracts;
         }
@@ -175,14 +175,14 @@ namespace Insurance_agency.Models.Repository
                 {
                     id = c.Id,
                     user_id = (int)c.UserId,
-                    insurance_id = c.InsuranceId,
+                    insurance_id = (int)c.InsuranceId,
                     StartDate = c.StartDate,
                     EndDate = c.EndDate,
                     value_contract = (long)c.ValueContract,
-                    employee_id = c.EmployeeId ?? 0,
+                    employee_id = (int)c.EmployeeId,
                     year_paid = (long)c.YearPaid,
                     number_year_paid = c.NumberYearPaid,
-                    status = c.Status
+                    status = (int)c.Status
                 }).ToHashSet();
             return contracts;
         }
@@ -194,14 +194,14 @@ namespace Insurance_agency.Models.Repository
                 {
                     id = c.Id,
                     user_id = (int)c.UserId,
-                    insurance_id = c.InsuranceId,
+                    insurance_id = (int) c.InsuranceId,
                     StartDate = c.StartDate,
                     EndDate = c.EndDate,
                     value_contract = (long)c.ValueContract,
                     employee_id = c.EmployeeId ?? 0,
                     year_paid = (long)c.YearPaid,
                     number_year_paid = c.NumberYearPaid,
-                    status = c.Status
+                    status = (int)c.Status
                 }).ToHashSet();
             return contracts;
 

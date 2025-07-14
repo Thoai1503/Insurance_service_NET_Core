@@ -19,12 +19,15 @@ namespace Insurance_agency.Controllers
         }
         public IActionResult ContractHistory()
         {
+
             var user = HttpContext.Session.GetObject<User>("user");
             if (user == null)
             {
                 return RedirectToAction("Index", "Login");
             }
+            var totalAmount = 0;
             var contracts = ContractRepository.Instance.GetContractsByUserId(user.id);
+          
             ViewBag.Contracts = contracts;
             HttpContext.Session.SetInt32("allbanner", 0);
             return View(contracts);
