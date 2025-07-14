@@ -32,11 +32,13 @@ namespace Insurance_agency.Controllers
         public IActionResult PaymentHistory(int contractId)
         {
             var payment = PaymentRepository.Instance.FindByContractId(contractId);
+            var contract = ContractRepository.Instance.FindById(contractId);
 
 
 
             HttpContext.Session.SetInt32("allbanner", 0);
             ViewBag.Id = contractId;
+            ViewBag.Contract = contract;
             return View(payment);
         }
     }
