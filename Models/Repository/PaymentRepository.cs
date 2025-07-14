@@ -26,7 +26,25 @@ namespace Insurance_agency.Models.Repository
         }
         public bool Create(PaymentHistory entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var payment = new TblPaymentHistory
+                {
+                    ContractId = entity.contract_id,
+                    Amount = entity.amount,
+                    PaymentDay = entity.payment_day,
+                    Status = entity.status
+                };
+                _context.TblPaymentHistories.Add(payment);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (ex) as needed
+                return false;
+            }
+
         }
 
         public bool Delete(int id)

@@ -79,6 +79,7 @@ namespace Insurance_agency.Models.Repository
                             StartDate = c.StartDate,
                             EndDate = c.EndDate,
                             value_contract = (long)c.ValueContract,
+                            total_paid = (long)c.TotalPaid,
                             year_paid = (long)c.YearPaid,
                             user = new User
                             {
@@ -110,7 +111,24 @@ namespace Insurance_agency.Models.Repository
        
         public bool Update(ContractView entity)
         {
-            throw new NotImplementedException();
+            
+            var contract = _context.TblContracts.FirstOrDefault(c => c.Id == entity.id);
+            if (contract == null)
+            {
+                return false; // Contract not found
+            }
+            contract.UserId = entity.user_id;
+            contract.InsuranceId = entity.insurance_id;
+            contract.StartDate = entity.StartDate;
+            contract.EndDate = entity.EndDate;
+            contract.ValueContract = entity.value_contract;
+            contract.YearPaid = entity.year_paid;
+            contract.NumberYearPaid = entity.number_year_paid;
+            contract.TotalPaid = entity.total_paid;
+
+            contract.Status = entity.status;
+            contract.EmployeeId = entity.employee_id;
+            return _context.SaveChanges() > 0;
         }
         public HashSet<ContractView> FindByEmployeeId(int employeeId)
         {

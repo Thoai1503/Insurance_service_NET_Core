@@ -231,9 +231,16 @@
                         <div class="text-xs text-muted">Expires 04/2024</div>
                     </div>
                 </div>
+                <div class="ms-4">
+                <div class="form-outline" data-mdb-input-init>
+                    <p>Choose your amount</p>
+                    <input type="text" id="form12" class="form-control" onkeyup="updateAmount(event)" />
+                    <label class="form-label" for="form12">VND</label>
+                </div>
+                </div>
                 <div class="ms-4 small">
                     <div class="badge bg-light text-dark me-3">Default</div>
-                    <a href="#!">Continue to pay</a>
+                    <a id="payment_navigate" href="@Url.Action("Test", "Checkout", new { amount=0, contractId =1 })">Continue to pay</a>
                 </div>
             </div>
             @*          <hr> *@
@@ -340,4 +347,22 @@
             </div>
         </div>
     </div>
+
 </div>
+<script>
+ 
+    function updateAmount(event) {
+        const input = event.target;
+        const amount = parseInt(input.value);
+     
+   
+        // Update the href of the payment_navigate link
+        const paymentLink = document.getElementById("payment_navigate");
+
+        if (paymentLink) {
+            // Assuming you want to set the amount as a query parameter
+            const contractId = 1; // Replace with the actual contract ID if needed
+            paymentLink.href = `/Checkout/Test?amount=${amount}&contractId=${@ViewBag.Id}`;
+        }
+    }
+</script>

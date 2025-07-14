@@ -33,7 +33,10 @@ namespace Insurance_agency.Controllers
         {
             var payment = PaymentRepository.Instance.FindByContractId(contractId);
 
+
+
             HttpContext.Session.SetInt32("allbanner", 0);
+            ViewBag.Id = contractId;
             return View(payment);
         }
     }

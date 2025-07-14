@@ -206,11 +206,18 @@
                         </div>
                     </div>
                 </div>
+    <form action="/payment/CreatePaymentUrlVnpay" method="POST" >
 
-                <!-- Proceed Button -->
+
+    <input type="hidden" name="Amount" value="@(ViewBag.Amount)"/ >
+    <input type="hidden" name="Name" value="ThoaiVipPro" / >
+   
+    <input type="hidden" name="OrderDescription" value="Thanh toán tiếp cho hợp đồng @(ViewBag.Id)" / >
+    <input type="hidden" name="OrderType" value="other" / >
                 <button class="btn btn-success proceed-btn w-100">
                     PROCEED TO PAYMENT
                 </button>
+            </form>
             </div>
 
             <!-- Right Column - Order Recap -->
@@ -279,6 +286,6 @@
 
     // Add click handler for proceed button
     document.querySelector('.proceed-btn').addEventListener('click', function() {
-        alert('Processing payment...');
+        
     });
 </script>
