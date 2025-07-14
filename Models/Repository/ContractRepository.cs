@@ -27,7 +27,7 @@ namespace Insurance_agency.Models.Repository
         }
         public bool Create(ContractView entity)
         {
-          
+
             var contract = new TblContract
             {
                 UserId = entity.user_id,
@@ -108,10 +108,10 @@ namespace Insurance_agency.Models.Repository
             throw new NotImplementedException();
         }
 
-       
+
         public bool Update(ContractView entity)
         {
-            
+
             var contract = _context.TblContracts.FirstOrDefault(c => c.Id == entity.id);
             if (contract == null)
             {
@@ -207,5 +207,24 @@ namespace Insurance_agency.Models.Repository
 
         }
 
+        public int CreateReturnId(ContractView entity)
+        {
+            var contract = new TblContract
+            {
+                UserId = entity.user_id,
+                InsuranceId = entity.insurance_id,
+                StartDate = entity.StartDate,
+                EndDate = entity.EndDate,
+                ValueContract = entity.value_contract,
+                YearPaid = entity.year_paid,
+                NumberYearPaid = entity.number_year_paid,
+                TotalPaid = entity.total_paid,
+                Status = entity.status,
+                EmployeeId = entity.employee_id
+            };
+            _context.TblContracts.Add(contract);
+            _context.SaveChanges();
+            return contract.Id; // Return the newly created contract ID
+        }
     }
 }

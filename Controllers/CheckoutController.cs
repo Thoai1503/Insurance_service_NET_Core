@@ -15,6 +15,8 @@ namespace Insurance_agency.Controllers
         }
         public IActionResult Index(int id)
        {
+
+            HttpContext.Session.SetInt32("allbanner", 0);
             var insurance = InsuranceRepository.Instance.FindById(id);
             var user = HttpContext.Session.GetObject<User>("user");
           
@@ -37,7 +39,7 @@ namespace Insurance_agency.Controllers
 
 
 
-            return View();
+            return View(insurance);
         }
         [HttpGet]
         public IActionResult PaymentCallbackVnpay()
@@ -52,11 +54,26 @@ namespace Insurance_agency.Controllers
                     // Save the contract to the database or perform any necessary actions
                     //         contract.total_paid = response.
 
-                    var success = ContractRepository.Instance.Create(contract);
+                    var success = ContractRepository.Instance.CreateReturnId(contract);
                     // Handle successful payment
 
-                    if (success)
+                    if (success>0)
                     {
+                        var paymentHistory = new PaymentHistory
+                        {
+                            contract_id = success,
+                            amount = (long)contract.year_paid,
+                            payment_day = DateTime.Now,
+                            status = 1 // Assuming 1 means successful
+                        };
+                        var paymentSuccess = PaymentRepository.Instance.Create(paymentHistory);
+                        if (!paymentSuccess)
+                        {
+                            // Handle the case where saving the payment history failed
+                            ViewBag.Message = "Payment successful but failed to save the payment history!";
+                            // You can redirect to an error page or display an error message
+                            Content("Payment successful but failed to save the payment history!");
+                        }
                         HttpContext.Session.Remove("contract");
                         // Redirect to a success page or display a success message
                         return RedirectToAction("Successful", "Checkout");
@@ -66,8 +83,7 @@ namespace Insurance_agency.Controllers
                     else
                     {
 
-                        // Handle the case where saving the contract failed
-                        ViewBag.Message = "Payment successful but failed to save the contract!";
+                       
                         // You can redirect to an error page or display an error message
                         Content("Payment successful but failed to save the contract!");
                     }
