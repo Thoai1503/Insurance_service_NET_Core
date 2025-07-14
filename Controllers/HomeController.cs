@@ -81,13 +81,28 @@ namespace Insurance_agency.Controllers
             ViewBag.Message = "Your text editor page.";
             return View();
         }
-        public IActionResult Insurance(int typeId=1)
+        public IActionResult Insurance(int typeId=0,int pageNum=1, int pageSize=8)
         {
             HttpContext.Session.SetInt32("allbanner", 0); // Assuming you want to use session state
             //   Session["display"] = 0;
             var id = Request.Query["id"].ToString();
-            ViewBag.data = InsuranceRepository.Instance.FindByInsuranceTypeId(typeId);
-            ViewBag.name = InsuranceTypeRepository.Instance.FindById(typeId).name;
+            
+            if (typeId == 0)
+            {
+                ViewBag.all = InsuranceRepository.Instance.GetAll();
+                ViewBag.data = InsuranceRepository.Instance.Paging(pageNum,pageSize);
+               
+            }
+            else
+            {
+                ViewBag.all = InsuranceRepository.Instance.FindByInsuranceTypeId(typeId);
+                ViewBag.data = InsuranceRepository.Instance.PagingType(typeId,pageNum,pageSize);
+                ViewBag.name = InsuranceTypeRepository.Instance.FindById(typeId).name;
+
+            }
+            ViewBag.type = typeId;
+            ViewBag.pageNum=pageNum;
+            ViewBag.PageSize=pageSize;
             ViewBag.Message = "Your insurance page.";
 
             return View();

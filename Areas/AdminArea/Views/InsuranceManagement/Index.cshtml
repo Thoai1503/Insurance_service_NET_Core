@@ -70,28 +70,32 @@
 			</tr>
 		}
 	</tbody>
-	<div class="row">
-		<ul class="pagination">
-			
-			@{
-				if(pageNum>1){
-					<li class="page-item"><a class="page-link" href="@Url.Action("index",new{pageNum=pageNum-1,pageSize=pageSize})">Previous</a></li>
-				}
-				int u = pageNum + 3;
-				for (int i = pageNum; i < u; i++)
-				{
-					if(i<=totalPage){
-						<li class="page-item"><a class="page-link" href="@Url.Action("index",new{pageNum=i,pageSize=pageSize})">@i</a></li>
-					}
-					
-				}
-			    if(pageNum<totalPage){
-					<li class="page-item"><a class="page-link" href="@Url.Action("index",new{pageNum=pageNum+4,pageSize=pageSize})">Next</a></li>
-				}
-			}
-
-		</ul>
-	</div>
+	
 </table>
+<div class="row">
+	<ul class="pagination">
+
+		@{
+			if (pageNum > 1)
+			{
+				<li class="page-item"><a class="page-link" href="@Url.Action("index",new{pageNum=pageNum-1,pageSize=pageSize})">Previous</a></li>
+			}
+			int u = pageNum + 3;
+			for (int i = pageNum; i < u; i++)
+			{
+				if (i <= totalPage)
+				{
+					<li class="page-item"><a class="page-link" href="@Url.Action("index",new{pageNum=i,pageSize=pageSize})">@i</a></li>
+				}
+
+			}
+			if (pageNum < totalPage)
+			{
+				<li class="page-item"><a class="page-link" href="@Url.Action("index",new{pageNum=pageNum+1,pageSize=pageSize})">Next</a></li>
+			}
+		}
+
+	</ul>
+</div>
 
 

@@ -99,7 +99,7 @@ namespace Insurance_agency.Models.Repository
                     description = d.Description,
                     insurance_type_id = (int)d.InsuranceTypeId,
                     value = d.Value ?? 0,
-                    year_max = d.YearMax??0,
+                    year_max = d.YearMax ?? 0,
 
                     ex_image = d.ExImage
                 }).ToHashSet();
@@ -140,11 +140,11 @@ namespace Insurance_agency.Models.Repository
             }
             return false;
         }
-        public HashSet<InsuranceView> Paging(int  page=1, int pageSize=10)
+        public HashSet<InsuranceView> Paging(int page = 1, int pageSize = 10)
         {
             try
             {
-                var item = _context.Insurances.Skip((page-1)*pageSize).Take(pageSize).Select(d=> new InsuranceView
+                var item = _context.Insurances.Skip((page - 1) * pageSize).Take(pageSize).Select(d => new InsuranceView
                 {
                     id = d.Id,
                     name = d.Name,
@@ -159,6 +159,37 @@ namespace Insurance_agency.Models.Repository
             }
             catch (Exception ex)
             {
+            }
+            return new HashSet<InsuranceView>();
+        }
+        public HashSet<InsuranceView> PagingType(int type, int page = 1, int pageSize = 10)
+        {
+            try
+            {
+                var item = _context.Insurances
+                    .Where(d => d.InsuranceTypeId == type)
+                    .Skip((page - 1) * pageSize).Take(pageSize)
+                    .Select(d => new InsuranceView
+                    {
+                        id = d.Id,
+                        name = d.Name,
+                        description = d.Description,
+                        insurance_type_id = (int)d.InsuranceTypeId,
+                        value = d.Value ?? 0,
+                        year_max = d.YearMax ?? 0,
+
+                        ex_image = d.ExImage
+                    }).ToHashSet();
+                if (item != null)
+                {
+                    return item;
+
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
             return new HashSet<InsuranceView>();
         }
@@ -208,7 +239,7 @@ namespace Insurance_agency.Models.Repository
                     id = d.Id,
                     name = d.Name,
                     description = d.Description,
-                    year_max =d.YearMax?? 0,
+                    year_max = d.YearMax ?? 0,
                     value = d.Value ?? 0,
                     insurance_type_id = (int)d.InsuranceTypeId,
                     ex_image = d.ExImage
