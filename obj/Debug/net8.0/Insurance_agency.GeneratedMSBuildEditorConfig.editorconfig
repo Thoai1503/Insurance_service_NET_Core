@@ -56,6 +56,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5BcmVhXFZpZXdzXERhc2hib2FyZFxUZXh0RWRpdG9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/minhp/Desktop/Gitclone/Insurance_agancy_NET_Core/Areas/AdminArea/Views/Employee/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5BcmVhXFZpZXdzXEVtcGxveWVlXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/minhp/Desktop/Gitclone/Insurance_agancy_NET_Core/Areas/AdminArea/Views/Employee/EmployeeDetail.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5BcmVhXFZpZXdzXEVtcGxveWVlXEVtcGxveWVlRGV0YWlsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -164,6 +168,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/minhp/Desktop/Gitclone/Insurance_agancy_NET_Core/Views/Register/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVnaXN0ZXJcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/minhp/Desktop/Gitclone/Insurance_agancy_NET_Core/Views/Shared/Components/InsuranceTypeList/Default.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcSW5zdXJhbmNlVHlwZUxpc3RcRGVmYXVsdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -184,8 +192,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/minhp/Desktop/Gitclone/Insurance_agancy_NET_Core/Views/UserProfile/AllPaymentHistory.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclByb2ZpbGVcQWxsUGF5bWVudEhpc3RvcnkuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/minhp/Desktop/Gitclone/Insurance_agancy_NET_Core/Views/UserProfile/ContractHistory.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclByb2ZpbGVcQ29udHJhY3RIaXN0b3J5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/minhp/Desktop/Gitclone/Insurance_agancy_NET_Core/Views/UserProfile/contractInfo.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclByb2ZpbGVcY29udHJhY3RJbmZvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/minhp/Desktop/Gitclone/Insurance_agancy_NET_Core/Views/UserProfile/Index.cshtml]

@@ -25,7 +25,61 @@ namespace Insurance_agency.Models.Repository
         }
         public bool Create(User entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (entity != null)
+                {
+                    var item = new TblUser
+                    {
+                        Email = entity.email,
+                        FullName = entity.full_name,
+                        Active = 1,
+                        Address = entity.address,
+                        Password = entity.password,
+                        Phone = entity.phone,
+                        AuthId = 4,
+                        Avatar = entity.avatar,
+                    };
+                    _context.Add(item);
+                    _context.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return false;
+        }
+        public bool CreateEmployee(User entity)
+        {
+            try
+            {
+                if (entity != null)
+                {
+                    var item = new TblUser
+                    {
+                        Email = entity.email,
+                        FullName = entity.full_name,
+                        Active = 1,
+                        Address = entity.address,
+                        Password = entity.password,
+                        Phone = entity.phone,
+                        AuthId = 3,
+                        Avatar = entity.avatar,
+                    };
+                    _context.Add(item);
+                    _context.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return false;
         }
         public bool ChangeStatus(User entity)
         {
@@ -91,7 +145,8 @@ namespace Insurance_agency.Models.Repository
                 phone = u.Phone,
                 auth_id = (int)u.AuthId,
                 address = u.Address,
-                active = (int)u.Active
+                active = (int)u.Active,
+                avatar= u.Avatar
             }).FirstOrDefault();
             if (user == null)
             {
@@ -113,7 +168,8 @@ namespace Insurance_agency.Models.Repository
                 phone = u.Phone,
                 auth_id = (int)u.AuthId,
                 address = u.Address,
-                active =(int) u.Active
+                active =(int) u.Active,
+                avatar = u.Avatar
                 
             }).ToHashSet();
             if (user == null)
@@ -132,7 +188,8 @@ namespace Insurance_agency.Models.Repository
                 phone = u.Phone,
                 auth_id = (int)u.AuthId,
                 address = u.Address,
-                active = (int)u.Active
+                active = (int)u.Active,
+                avatar = u.Avatar
             }).ToHashSet();
             if (user == null)
             {

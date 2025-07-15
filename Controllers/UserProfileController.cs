@@ -53,6 +53,22 @@ namespace Insurance_agency.Controllers
             ViewBag.Contract = contract;
             return View(payment);
         }
+        public IActionResult AllPaymentHistory()
+        {
+            if (HttpContext.Session.GetObject<User>("user") == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            var user = HttpContext.Session.GetObject<User>("user");
+            if (user == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            var contracts = ContractRepository.Instance.GetContractsByUserId(user.id);
+            ViewBag.Contracts = contracts;
+            HttpContext.Session.SetInt32("allbanner", 0);
+            return View(contracts);
+        }
         public IActionResult LogOut()
         {
             try
@@ -67,6 +83,26 @@ namespace Insurance_agency.Controllers
             {
             }
             return RedirectToAction("index", "Login");
+        }
+        public IActionResult contractInfo(int contractId = 0)
+        {
+            try
+            {
+                if (HttpContext.Session.GetObject<User>("user") != null)
+                {
+                    if (contractId == 0)
+                    {
+                        return RedirectToAction("index");
+                    }
+                    var contract = ContractRepository.Instance.FindById(contractId);
+                    ViewBag.contract = contract;
+                }
+                HttpContext.Session.SetInt32("allbanner", 0);
+            }
+            catch (Exception ex)
+            {
+            }
+            return View();
         }
     }
 }
