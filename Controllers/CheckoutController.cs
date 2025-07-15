@@ -27,7 +27,7 @@ namespace Insurance_agency.Controllers
             }
 
             ContractView contractView = new ContractView();
-            contractView.insurance_id = insurance.id;
+            contractView.insurance_id = insurance.id; 
             contractView.user_id = user.id ;
             contractView.StartDate = DateTime.Now;
             contractView.EndDate = DateTime.Now.AddYears(insurance.year_max);

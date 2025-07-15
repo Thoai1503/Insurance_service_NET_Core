@@ -93,6 +93,9 @@ namespace Insurance_agency.Models.Repository
                                 id = i.Id,
                                 name = i.Name,
                                 description = i.Description,
+                                value = (int)i.Value,
+                                year_max = (int)i.YearMax,
+
                                 ex_image = i.ExImage,
 
                             },
