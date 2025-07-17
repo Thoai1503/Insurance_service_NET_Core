@@ -20,6 +20,7 @@ namespace Insurance_agency.Controllers
         {
             string to = email;
             string code = Function.GenerateCode();
+            HttpContext.Session.SetObject("code",code);
             string from = "minhphat1612@gmail.com";
             MailMessage message = new MailMessage(from, to);
             message.Subject = "Verification Code";
@@ -43,38 +44,45 @@ namespace Insurance_agency.Controllers
                     ex.ToString());
             }
         }
-        public IActionResult Register(IFormFile Img,User item)
+        public IActionResult Register(IFormFile Img,User item,int code=0)
         {
             try
             {
-                if (item != null)
+                if (code != 0)
                 {
-                    if (Img != null)
+                    if (item != null)
                     {
-                        string folder = "Image/Avatar/Customer/";
-                        string name = Img.FileName;
-                        name = name.Replace("-", "");
-                        name = name.Replace(" ", "");
-                        name = name.Replace("_", "");
-                        folder += name;
-                        string fullPathSave = Path.Combine("wwwroot/Content", folder);
-                        item.avatar = name;
-                        using (var fileStream = new FileStream(fullPathSave, FileMode.Create))
+                        if (Img != null)
+                            if (HttpContext.Session.GetObject<int>("code") == code)
+                            {
+                                {
+                                    string folder = "Image/Avatar/Customer/";
+                                    string name = Img.FileName;
+                                    name = name.Replace("-", "");
+                                    name = name.Replace(" ", "");
+                                    name = name.Replace("_", "");
+                                    folder += name;
+                                    string fullPathSave = Path.Combine("wwwroot/Content", folder);
+                                    item.avatar = name;
+                                    using (var fileStream = new FileStream(fullPathSave, FileMode.Create))
+                                    {
+                                        Img.CopyTo(fileStream);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                item.avatar = "no avatar";
+                            }
+                        item.password = Function.MD5Hash(item.password);
+                        var a = UserRepository.Instance.Create(item);
+                        if (a == false)
                         {
-                            Img.CopyTo(fileStream);
+                            return RedirectToAction("Create");
                         }
                     }
-                    else
-                    {
-                        item.avatar = "no avatar";
-                    }
-                    item.password = Function.MD5Hash(item.password);
-                    var a = UserRepository.Instance.Create(item);
-                    if (a == false)
-                    {
-                        return RedirectToAction("Create");
-                    }
                 }
+                    
             }
             catch (Exception){ }
             return RedirectToAction("Index","Login");
