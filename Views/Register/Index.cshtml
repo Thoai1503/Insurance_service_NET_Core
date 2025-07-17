@@ -7,7 +7,7 @@
 	<div class="row">
 		<div class="col-2">Email</div>
 		<div class="col-3">
-			<input type="email" name="email" value="" required />
+			<input type="email" id="email" name="email" value="" required />
 		</div>
 	</div>
 	<div class="row">
@@ -46,5 +46,30 @@
 			<input type="file" name="Img" value="" />
 		</div>
 	</div>
+	<div class="row">
+		<div class="col-2">Verifitication Code</div>
+		<div class="col-3">
+			<input type="text" name="Img" value="" />
+		</div>
+		<div class="col-3">
+			<button onclick="SendMail()">Send</button>
+		</div>
+	</div>
 	<button class="btn btn-success">Confirm</button>
 </form>
+<script type="text/javascript">
+	function SendMail(){
+		var email = $("#email").val();
+		$.ajax({
+		url:"@Url.Action("SendMail")",
+		type : "POST",
+		contentType:'application/x-www-form-urlencoded',
+		data:{"email":email},
+		success:function (response){
+			if(response.success){
+				alert("success")
+			}
+		}
+	})
+	}
+</script>
