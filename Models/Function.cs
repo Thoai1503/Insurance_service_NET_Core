@@ -29,16 +29,16 @@ namespace Insurance_agency.Models
             return result;
         }
 
-        public static string GenerateCode(int length = 6)
+        public static string GenerateCode()
         {
             var random = new Random();
             int a = 9;
-            int max = limitnum(9, length);
-            int min = limitnum(1, length);
-            random.Next(min, max);
+            int max = 999999;
+            int min = 1;
+            string b= random.Next(min, max).ToString();
 
 
-            return random.ToString();
+            return b;
         }
     }
 }

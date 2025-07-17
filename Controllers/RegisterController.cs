@@ -19,7 +19,7 @@ namespace Insurance_agency.Controllers
         public void sendmail(string email)
         {
             string to = email;
-            string code = Function.GenerateCode(6);
+            string code = Function.GenerateCode();
             string from = "minhphat1612@gmail.com";
             MailMessage message = new MailMessage(from, to);
             message.Subject = "Verification Code";
@@ -31,7 +31,7 @@ namespace Insurance_agency.Controllers
                     smtp.Host = "smtp.gmail.com";
                     smtp.EnableSsl = true;
                     smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-                    NetworkCredential NetworkCred = new NetworkCredential(from, "msvm rjrs vuro bkfd");
+                    NetworkCredential NetworkCred = new NetworkCredential(from, "xhhe ikpv aazx osjq");
                     smtp.Credentials = NetworkCred;
                     smtp.Port = 587;
                     smtp.Send(message);
