@@ -2,6 +2,7 @@
 using Insurance_agency.Models.Repository;
 using Insurance_agency.Services.VnPay;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.Scripting;
 
 namespace Insurance_agency.Controllers
 {
@@ -106,6 +107,7 @@ namespace Insurance_agency.Controllers
                         status = 1 // Assuming 1 means successful
                     };
                     var paymentSuccess = PaymentRepository.Instance.Create(paymentHistory);
+                 
                     if (!paymentSuccess)
                     {
                         // Handle the case where saving the payment history failed

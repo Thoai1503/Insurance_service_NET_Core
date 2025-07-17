@@ -579,3 +579,4 @@ C:\project_NET\Insurance_agency\Insurance_agency\obj\Debug\net8.0\rjsmrazor.dswa
 C:\project_NET\Insurance_agency\Insurance_agency\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
 C:\project_NET\Insurance_agency\Insurance_agency\obj\Debug\net8.0\staticwebassets.build.json.cache
 C:\project_NET\Insurance_agency\Insurance_agency\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+C:\project_NET\Insurance_agency\Insurance_agency\bin\Debug\net8.0\BCrypt.Net-Core.dll
