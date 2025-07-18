@@ -11,10 +11,11 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
         
         public IActionResult Index()
         {
+            var insurancetype = InsuranceTypeRepository.Instance.GetAll();
             var item = InsuranceRepository.Instance.GetAll();
             ViewBag.item = item;
           
-            return View();
+            return View(insurancetype);
         }
         public ActionResult Create()
         {

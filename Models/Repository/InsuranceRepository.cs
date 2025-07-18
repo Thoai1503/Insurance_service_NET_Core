@@ -97,6 +97,9 @@ namespace Insurance_agency.Models.Repository
                     description = d.Description,
                     insurance_type_id = (int)d.InsuranceTypeId,
 
+                    year_max = d.YearMax??0,
+                    value = d.Value ??0,
+
                     ex_image = d.ExImage
                 }).ToHashSet();
                 if (item != null)
