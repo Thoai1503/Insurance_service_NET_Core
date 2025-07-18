@@ -870,3 +870,4 @@ C:\Users\minhp\Desktop\Gitclone\Insurance_agancy_NET_Core\obj\Debug\net8.0\stati
 C:\Users\minhp\Desktop\Gitclone\Insurance_agancy_NET_Core\obj\Debug\net8.0\Insuranc.11D17CCC.Up2Date
 C:\Users\minhp\Desktop\Gitclone\Insurance_agancy_NET_Core\obj\Debug\net8.0\Insurance_agency.genruntimeconfig.cache
 C:\Users\minhp\Desktop\Gitclone\Insurance_agancy_NET_Core\obj\Debug\net8.0\ref\Insurance_agency.dll
+C:\Users\minhp\Desktop\Gitclone\Insurance_agancy_NET_Core\bin\Debug\net8.0\BCrypt.Net-Core.dll
