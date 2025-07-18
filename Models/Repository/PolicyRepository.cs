@@ -1,5 +1,6 @@
 ﻿using Insurance_agency.Models.Entities;
 using Insurance_agency.Models.ModelView;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
 namespace Insurance_agency.Models.Repository
@@ -27,7 +28,6 @@ namespace Insurance_agency.Models.Repository
 
         public bool Create(Policy entity)
         {
-
             try
             {
                 var policy = new TblPolicy
@@ -43,7 +43,7 @@ namespace Insurance_agency.Models.Repository
                 _context.SaveChanges();
                 return true;
             }
-            catch (Exception )
+            catch (Exception)
             {
                 // Handle exception (log it, rethrow it, etc.)
                 return false;
@@ -64,7 +64,7 @@ namespace Insurance_agency.Models.Repository
                 }
                 return false;
             }
-            catch (Exception )
+            catch (Exception)
             {
                 // Handle exception (log it, rethrow it, etc.)
                 return false;
@@ -201,6 +201,58 @@ namespace Insurance_agency.Models.Repository
                 return new HashSet<Policy>();
             }
 
+        }
+        public bool ToggleActive(int id, int active)
+        {
+            try
+            {
+                var poli = _context.TblPolicies.FirstOrDefault(p => p.Id == id);
+                if (poli == null) return false;
+                poli.Active = active;
+                _context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public PaginationSearch<Policy> PaginationSearch(string? keyword, bool searchInsurance, int pageNumber, int pageSize)
+        {
+            try
+            {
+                var query = _context.TblPolicies.Include(p => p.Insurance).AsQueryable();
+                if (!string.IsNullOrWhiteSpace(keyword))
+                {
+                    string lower = keyword.ToLower();
+                    query = searchInsurance ? query.Where(p => p.Insurance != null && p.Insurance.Name.ToLower().Contains(lower)) :
+                        query.Where(p => p.Name != null && p.Name.ToLower().Contains(keyword));
+                }
+                int totalItem = query.Count();
+                var policy = query.OrderBy(p => p.Id)
+                    .Skip((pageNumber - 1) * pageSize).Take(pageSize).Select(p => new Policy
+                    {
+                        id = p.Id,
+                        name = p.Name ?? string.Empty,
+                        description = p.Description ?? string.Empty,
+                        active = p.Active ?? 0,
+                        age_max = p.AgeMax ?? 0,
+                        age_min = p.AgeMin ?? 0,
+                        insurance_id = p.InsuranceId ?? 0,
+                    }).ToList();
+                return new PaginationSearch<Policy>
+                {
+                    TotalItem = totalItem,
+                    PageNumber = pageNumber,
+                    PageSize = pageSize,
+                    SearchKeyword = keyword,
+                    Items = policy
+                };
+            }
+            catch
+            {
+                return new PaginationSearch<Policy>();
+            }
         }
     }
 }
