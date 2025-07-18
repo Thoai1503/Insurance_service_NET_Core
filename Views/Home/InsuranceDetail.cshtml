@@ -2,7 +2,7 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-@model HashSet<Insurance_agency.Models.ModelView.Policy>
+    @model HashSet<Insurance_agency.Models.ModelView.Policy>
     var insurance = (Insurance_agency.Models.ModelView.InsuranceView)ViewBag.Insurance;
 }
 @* <!-- Font Awesome -->
@@ -38,12 +38,12 @@
 </div>
 
 <div class="container">
-<div class="container mt-5">
-    <h1 class="text-center text-primary mb-4">Chi tiết bảo hiểm: @insurance.name</h1>
-    <h3 class="text-center text-primary mb-4">@insurance.description</h3>
-</div>
- 
-  
+    <div class="container mt-5">
+        <h1 class="text-center text-primary mb-4">Chi tiết bảo hiểm: @insurance.name</h1>
+        <h3 class="text-center text-primary mb-4">@insurance.description</h3>
+    </div>
+
+
 
 
     <div class="text-end mb-4">
@@ -61,39 +61,39 @@
 
 
 
-  
-    
- 
 
-<div class="container" style="margin:20px;background-color:white" id="policy_content">
-    @if (Model != null && Model.Count > 0)
-    {
-        HashSet<Insurance_agency.Models.ModelView.Policy> policies = Model;
-        foreach (var policy in policies)
+
+
+
+    <div class="container" style="margin:20px;background-color:white" id="policy_content">
+        @if (Model != null && Model.Count > 0)
         {
-            <div class="policy-item d-flex justify-content-between align-items-start p-3 mb-2">
-                <div class="policy-content flex-grow-1" style="color:black">
-                    @Html.Raw(policy.description)
+            HashSet<Insurance_agency.Models.ModelView.Policy> policies = Model;
+            foreach (var policy in policies)
+            {
+                <div class="policy-item d-flex justify-content-between align-items-start p-3 mb-2">
+                    <div class="policy-content flex-grow-1" style="color:black">
+                        @Html.Raw(policy.description)
+                    </div>
+                    <div class="policy-actions d-none align-items-start">
+                        <button class="btn btn-sm btn-warning me-1" title="Chỉnh sửa">
+                            <i class="bi bi-pencil-fill"></i>
+                        </button>
+                        <button class="btn btn-sm btn-danger" title="Xoá">
+                            <i class="bi bi-trash-fill"></i>
+                        </button>
+                    </div>
                 </div>
-                <div class="policy-actions d-none align-items-start">
-                    <button class="btn btn-sm btn-warning me-1" title="Chỉnh sửa">
-                        <i class="bi bi-pencil-fill"></i>
-                    </button>
-                    <button class="btn btn-sm btn-danger" title="Xoá">
-                        <i class="bi bi-trash-fill"></i>
-                    </button>
-                </div>
-            </div>
 
+            }
         }
-    }
-</div>
+    </div>
 
 
-    <h2 class="text-primary" accesskey="" action="" >Related products</h2>
+    <h2 class="text-primary" accesskey="" action="">Related products</h2>
 
 
-    <div class="row g-4 justify-content-center my-5" >
+    <div class="row g-4 justify-content-center my-5">
 
         @if (ViewBag.RelatedInsurance != null)
         {
@@ -234,5 +234,5 @@
                 </div>
             </div>
         </div>
-</div>
+    </div>
 </div>

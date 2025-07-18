@@ -2,6 +2,7 @@
 using Insurance_agency.Models.Repository;
 using Insurance_agency.Services.VnPay;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.Scripting;
 
 namespace Insurance_agency.Controllers
 {
@@ -27,7 +28,7 @@ namespace Insurance_agency.Controllers
             }
 
             ContractView contractView = new ContractView();
-            contractView.insurance_id = insurance.id;
+            contractView.insurance_id = insurance.id; 
             contractView.user_id = user.id ;
             contractView.StartDate = DateTime.Now;
             contractView.EndDate = DateTime.Now.AddYears(insurance.year_max);
@@ -50,7 +51,7 @@ namespace Insurance_agency.Controllers
                 var contract = HttpContext.Session.GetObject<ContractView>("contract");
                 if (contract != null)
                 {
-                    contract.total_paid = contract.year_paid / contract.number_year_paid;
+                    contract.total_paid = (long)contract.year_paid / (long)contract.number_year_paid;
                     // Save the contract to the database or perform any necessary actions
                     //         contract.total_paid = response.
 
@@ -94,7 +95,7 @@ namespace Insurance_agency.Controllers
                     var contractNextPayment = HttpContext.Session.GetObject<ContractView>("contractNextPayment");
                     var amount = HttpContext.Session.GetInt32("amount");
                     // Update total paid amount in the contract
-                    contractNextPayment.total_paid = contractNextPayment.total_paid + amount;
+                    contractNextPayment.total_paid = (long)(contractNextPayment.total_paid + amount);
                     var success = ContractRepository.Instance.Update(contractNextPayment);
                     // Save the payment history (payment_histoy table)
                     
@@ -106,6 +107,7 @@ namespace Insurance_agency.Controllers
                         status = 1 // Assuming 1 means successful
                     };
                     var paymentSuccess = PaymentRepository.Instance.Create(paymentHistory);
+                 
                     if (!paymentSuccess)
                     {
                         // Handle the case where saving the payment history failed

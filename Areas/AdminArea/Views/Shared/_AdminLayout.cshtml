@@ -29,6 +29,7 @@
 
 	<!-- Kendo UI scripts -->
 	<script src="https://kendo.cdn.telerik.com/2024.2.606/js/kendo.all.min.js"></script>
+	@RenderSection("Styles", required: false)
 	<style>
 		.accordionn {
 			background-color: #eee;
@@ -183,7 +184,7 @@
 					</div>
 				</div>
 			</li>
-			<li class="nav-item">
+		@* 	<li class="nav-item">
 				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePagesPoli"
 				   aria-expanded="true" aria-controls="collapsePages">
 					<i class="fas fa-fw fa-folder"></i>
@@ -196,7 +197,7 @@
 
 					</div>
 				</div>
-			</li>
+			</li> *@
 
 			<!-- Nav Item - Charts -->
 			<li class="nav-item">
@@ -524,6 +525,9 @@
 		<!-- DataTables JS -->
 		<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 		<script src="https://cdn.tiny.cloud/1/opbl478qvvrtoorhvqc4f7zei61txljv0gkj67k1ogzky57n/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 		<script>
 			tinymce.init({
 				selector: 'textarea#default-editor',

@@ -3,6 +3,7 @@
 *@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var amount = (long)ViewBag.Amount;
 }
 @section Styles {
     <style>
@@ -123,7 +124,7 @@
                 </div>
 
                 <div class="mb-4">
-                    <h4 class="text-success">$85.00</h4>
+                    <h4 class="text-success">@amount.ToString("N0") VND</h4>
                     <h5 class="text-muted">Diabites Pump & Supplies</h5>
                 </div>
 

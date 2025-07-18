@@ -18,13 +18,13 @@ namespace Insurance_agency.Controllers
         {
             _context = context;
             _logger = logger;
-            
+
         }
 
 
         public IActionResult Index()
         {
-         // Assuming you have an extension method to set objects in session
+            // Assuming you have an extension method to set objects in session
 
             return View();
         }
@@ -81,28 +81,28 @@ namespace Insurance_agency.Controllers
             ViewBag.Message = "Your text editor page.";
             return View();
         }
-        public IActionResult Insurance(int typeId=0,int pageNum=1, int pageSize=8)
+        public IActionResult Insurance(int typeId = 0, int pageNum = 1, int pageSize = 8)
         {
             HttpContext.Session.SetInt32("allbanner", 0); // Assuming you want to use session state
             //   Session["display"] = 0;
             var id = Request.Query["id"].ToString();
-            
+
             if (typeId == 0)
             {
                 ViewBag.all = InsuranceRepository.Instance.GetAll();
-                ViewBag.data = InsuranceRepository.Instance.Paging(pageNum,pageSize);
-               
+                ViewBag.data = InsuranceRepository.Instance.Paging(pageNum, pageSize);
+
             }
             else
             {
                 ViewBag.all = InsuranceRepository.Instance.FindByInsuranceTypeId(typeId);
-                ViewBag.data = InsuranceRepository.Instance.PagingType(typeId,pageNum,pageSize);
+                ViewBag.data = InsuranceRepository.Instance.PagingType(typeId, pageNum, pageSize);
                 ViewBag.name = InsuranceTypeRepository.Instance.FindById(typeId).name;
 
             }
             ViewBag.type = typeId;
-            ViewBag.pageNum=pageNum;
-            ViewBag.PageSize=pageSize;
+            ViewBag.pageNum = pageNum;
+            ViewBag.PageSize = pageSize;
             ViewBag.Message = "Your insurance page.";
 
             return View();
@@ -126,11 +126,10 @@ namespace Insurance_agency.Controllers
 
             HttpContext.Session.SetInt32("allbanner", 0);
 
-           ViewBag.BannerCss = "motobike";
+            ViewBag.BannerCss = "motobike";
             ViewBag.Insurance = insurance;
             ViewBag.RelatedInsurance = relatedinsurance;
             return View(item);
         }
     }
 }
-    
