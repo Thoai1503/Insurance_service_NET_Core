@@ -223,8 +223,15 @@
                                 <div class="form-group mb-3">
                                     <label for="inputState">Insurance Type</label>
                                     <select id="inputState" class="form-control">
-                                        <option selected>Choose...</option>
-                                        <option>...</option>
+                                        <option value="-1" selected>Choose...</option>
+                                        @if (Model != null)
+                                        {
+                                            var insuranceType = (HashSet<Insurance_agency.Models.ModelView.InsuranceTypeView>)Model;
+                                            foreach (var item in insuranceType)
+                                            {
+                                                <option value="@item.id">@item.name</option>
+                                            }
+                                        }
                                     </select>
                                 </div>
                                 </div>
@@ -434,8 +441,8 @@
                                 <td class="align-middle">@item.name</td>
 
                                 <td class="align-middle">
-                           
-                                        <button type="button" class="btn btn-outline-info">Detail</button>
+
+                                    <a href="/adminarea/insurancemanagement/insurancedetail?id=@item.id" class="btn btn-outline-info">Detail</a>
                                       
                                      
                                  
