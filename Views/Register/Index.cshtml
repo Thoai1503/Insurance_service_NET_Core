@@ -57,6 +57,8 @@
 	</div>
 	<button class="btn btn-success">Confirm</button>
 </form>
+
+<p id="timer"></p>
 <script type="text/javascript">
 	function SendMail(){
 		var email = $("#email").val();
@@ -72,4 +74,14 @@
 		}
 	})
 	}
+</script>
+<script type="text/javascript">
+	var remSeconds =10;
+	function startCountDown(){
+		getElementById("timer").innerHTML=10;
+		var countdownInterval = setInterval(function(){
+			remSeconds = remSeconds-1;
+			getElementById("timer").innerHTML=10;
+		},1000)
+	}	
 </script>

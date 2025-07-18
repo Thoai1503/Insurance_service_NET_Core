@@ -1,4 +1,6 @@
-﻿using System.Security.Cryptography;
+﻿using System.Net.Mail;
+using System.Net;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace Insurance_agency.Models
@@ -27,6 +29,31 @@ namespace Insurance_agency.Models
             }
 
             return result;
+        }
+        public void sendmail(string email,MailMessage mail)
+        {
+            string from = "minhphat1612@gmail.com";
+            MailMessage message = new MailMessage(from, email);
+            message.Subject = mail.Subject;
+            message.Body = mail.Body;
+            try
+            {
+                using (SmtpClient smtp = new SmtpClient())
+                {
+                    smtp.Host = "smtp.gmail.com";
+                    smtp.EnableSsl = true;
+                    smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                    NetworkCredential NetworkCred = new NetworkCredential(from, "xhhe ikpv aazx osjq");
+                    smtp.Credentials = NetworkCred;
+                    smtp.Port = 587;
+                    smtp.Send(message);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception caught in CreateTestMessage2(): {0}",
+                    ex.ToString());
+            }
         }
 
         public static string GenerateCode()
