@@ -1,40 +1,234 @@
-﻿</p>
-<a href="#" class="btn p-0">
-	Read More <i class="fa fa-arrow-right"></i>
-</a>
-				</div>
-			</div>
-		</div>
-<div class="col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
-	<div class="blog-item">
-		<div class="blog-img">
-			<img src="/Content/Client/img/blog-1.png" class="img-fluid rounded-top w-100" alt="">
-			<div class="blog-categiry py-2 px-4">
-				<span>Business</span>
-			</div>
-		</div>
-		<div class="blog-content p-4">
-			<div class="blog-comment d-flex justify-content-between mb-3">
-				<div class="small">
-					<span class="fa fa-user text-primary"></span> Martin.C
-				</div>
-				<div class="small">
-					<span class="fa fa-calendar text-primary"></span> 30 Dec
-					2025
-				</div>
-				<div class="small">
-					<span class="fa fa-comment-alt text-primary"></span> 6
-					Comments
-				</div>
-			</div>
-			<a href="#" class="h4 d-inline-block mb-3">Which allows you to pay down insurance bills</a>
-			<p class="mb-3">
-				Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eius
-				libero soluta impedit eligendi? Quibusdam, laudantium.
-			</p>
-			<a href="#" class="btn p-0">
-				Read More <i class="fa fa-arrow-right"></i>
-			</a>
-		</div>
-	</div>
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    @model HashSet<Insurance_agency.Models.ModelView.Policy>
+    var insurance = (Insurance_agency.Models.ModelView.InsuranceView)ViewBag.Insurance;
+}
+@* <!-- Font Awesome -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet" />
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+      rel="stylesheet" />
+<!-- MDB -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/9.1.0/mdb.min.css"
+      rel="stylesheet" /> *@
+<div class="container-fluid bg-breadcrumb-@(ViewBag.BannerCss ?? "")" id="insurance_banner" style="height:600px">
+    <div class="col-3" style="background-color: white; margin-left: 30px; padding: 20px; border-top: 8px solid #007BFF; ">
+        <p><strong>Đảm bảo cho những chuyến vận chuyển luôn suôn sẻ cho doanh nghiệp của bạn</strong></p>
+        <h3><strong>Bảo hiểm xe máy</strong></h3>
+        <p><strong><h5 style="color:black">Đảm bảo cho những chuyến vận chuyển luôn suôn sẻ cho doanh nghiệp của bạn</h5></strong></p>
+        <div class="text-end mt-5" style="margin-right:30px">
+            <a class="btn btn-primary rounded-pill py-2 px-4" href="#">Read More</a>
+        </div>
+    </div>
+    @*<div class="container text-center py-5" style="max-width: 900px">
+            <h4 class="text-white display-4 mb-4 wow fadeInDown"
+                data-wow-delay="0.1s">
+                About Us
+            </h4>
+            <ol class="breadcrumb d-flex justify-content-center mb-0 wow fadeInDown"
+                data-wow-delay="0.3s">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                <li class="breadcrumb-item active text-primary">About</li>
+            </ol>
+        </div>*@
+</div>
+
+<div class="container">
+    <div class="container mt-5">
+        <h1 class="text-center text-primary mb-4">Chi tiết bảo hiểm: @insurance.name</h1>
+        <h3 class="text-center text-primary mb-4">@insurance.description</h3>
+    </div>
+
+
+
+
+    <div class="text-end mb-4">
+        <a class="btn btn-primary rounded-pill py-2 px-4" href="@Url.Action("Index", "Checkout", new { id = insurance.id })">Mua bảo hiểm</a>
+    </div>
+    <h2 class="text-center text-primary mb-4">Các chính sách bảo hiểm</h2>
+
+
+
+
+
+
+
+
+    <div class="container" style="margin:20px;background-color:white" id="policy_content">
+        @if (Model != null && Model.Count > 0)
+        {
+            HashSet<Insurance_agency.Models.ModelView.Policy> policies = Model;
+            foreach (var policy in policies)
+            {
+                <div class="policy-item d-flex justify-content-between align-items-start p-3 mb-2">
+                    <div class="policy-content flex-grow-1" style="color:black">
+                        @Html.Raw(policy.description)
+                    </div>
+                    <div class="policy-actions d-none align-items-start">
+                        <button class="btn btn-sm btn-warning me-1" title="Chỉnh sửa">
+                            <i class="bi bi-pencil-fill"></i>
+                        </button>
+                        <button class="btn btn-sm btn-danger" title="Xoá">
+                            <i class="bi bi-trash-fill"></i>
+                        </button>
+                    </div>
+                </div>
+
+            }
+        }
+    </div>
+
+
+    <h2 class="text-primary" accesskey="" action="">Related products</h2>
+
+
+    <div class="row g-4 justify-content-center my-5">
+
+        @if (ViewBag.RelatedInsurance != null)
+        {
+            var relatedInsurance = ViewBag.RelatedInsurance as IEnumerable<Insurance_agency.Models.ModelView.InsuranceView>;
+            foreach (var ins in relatedInsurance)
+            {
+
+                <div class="col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.4s" style="visibility: hidden; animation-delay: 0.4s; animation-name: none;">
+                    <div class="blog-item">
+                        <div class="blog-img">
+                            <img src="/Content/Image/Ex/@ins.ex_image" style="height:200px" class="img-fluid rounded-top w-100" alt="">
+                            <div class="blog-categiry py-2 px-4">
+                                <span>Business</span>
+                            </div>
+                        </div>
+                        <div class="blog-content p-4">
+                            <div class="blog-comment d-flex justify-content-between mb-3">
+                                <div class="small">
+                                    <span class="fa fa-user text-primary"></span> Martin.C
+                                </div>
+                                <div class="small">
+                                    <span class="fa fa-calendar text-primary"></span> 30 Dec
+                                    2025
+                                </div>
+                                <div class="small">
+                                    <span class="fa fa-comment-alt text-primary"></span> 6
+                                    Comments
+                                </div>
+                            </div>
+                            <a href="#" class="h4 d-inline-block mb-3">@ins.name</a>
+                            <p class="mb-3">
+                                @ins.description
+                            </p>
+                            <a href="/home/insurancedetail?id=" @ins.id" class="btn p-0">
+                                Read More <i class="fa fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            }
+        }
+
+
+        <div class="col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
+            <div class="blog-item">
+                <div class="blog-img">
+                    <img src="/Content/Client/img/blog-1.png" class="img-fluid rounded-top w-100" alt="">
+                    <div class="blog-categiry py-2 px-4">
+                        <span>Business</span>
+                    </div>
+                </div>
+                <div class="blog-content p-4">
+                    <div class="blog-comment d-flex justify-content-between mb-3">
+                        <div class="small">
+                            <span class="fa fa-user text-primary"></span> Martin.C
+                        </div>
+                        <div class="small">
+                            <span class="fa fa-calendar text-primary"></span> 30 Dec
+                            2025
+                        </div>
+                        <div class="small">
+                            <span class="fa fa-comment-alt text-primary"></span> 6
+                            Comments
+                        </div>
+                    </div>
+                    <a href="#" class="h4 d-inline-block mb-3">Which allows you to pay down insurance bills</a>
+                    <p class="mb-3">
+                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eius
+                        libero soluta impedit eligendi? Quibusdam, laudantium.
+                    </p>
+                    <a href="#" class="btn p-0">
+                        Read More <i class="fa fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
+            <div class="blog-item">
+                <div class="blog-img">
+                    <img src="/Content/Client/img/blog-1.png" class="img-fluid rounded-top w-100" alt="">
+                    <div class="blog-categiry py-2 px-4">
+                        <span>Business</span>
+                    </div>
+                </div>
+                <div class="blog-content p-4">
+                    <div class="blog-comment d-flex justify-content-between mb-3">
+                        <div class="small">
+                            <span class="fa fa-user text-primary"></span> Martin.C
+                        </div>
+                        <div class="small">
+                            <span class="fa fa-calendar text-primary"></span> 30 Dec
+                            2025
+                        </div>
+                        <div class="small">
+                            <span class="fa fa-comment-alt text-primary"></span> 6
+                            Comments
+                        </div>
+                    </div>
+                    <a href="#" class="h4 d-inline-block mb-3">Which allows you to pay down insurance bills</a>
+                    <p class="mb-3">
+                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eius
+                        libero soluta impedit eligendi? Quibusdam, laudantium.
+                    </p>
+                    <a href="#" class="btn p-0">
+                        Read More <i class="fa fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
+            <div class="blog-item">
+                <div class="blog-img">
+                    <img src="/Content/Client/img/blog-1.png" class="img-fluid rounded-top w-100" alt="">
+                    <div class="blog-categiry py-2 px-4">
+                        <span>Business</span>
+                    </div>
+                </div>
+                <div class="blog-content p-4">
+                    <div class="blog-comment d-flex justify-content-between mb-3">
+                        <div class="small">
+                            <span class="fa fa-user text-primary"></span> Martin.C
+                        </div>
+                        <div class="small">
+                            <span class="fa fa-calendar text-primary"></span> 30 Dec
+                            2025
+                        </div>
+                        <div class="small">
+                            <span class="fa fa-comment-alt text-primary"></span> 6
+                            Comments
+                        </div>
+                    </div>
+                    <a href="#" class="h4 d-inline-block mb-3">Which allows you to pay down insurance bills</a>
+                    <p class="mb-3">
+                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eius
+                        libero soluta impedit eligendi? Quibusdam, laudantium.
+                    </p>
+                    <a href="#" class="btn p-0">
+                        Read More <i class="fa fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

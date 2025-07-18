@@ -100,14 +100,14 @@ namespace Insurance_agency.Controllers
         public IActionResult InsuranceDetail(int id)
         {
             var insurance = InsuranceRepository.Instance.FindById(id);
-            
-            
+
+
             var relatedinsurance = InsuranceRepository.Instance.FindByInsuranceTypeId(insurance.insurance_type_id).Take(3).ToHashSet();
             var item = PolicyRepository.Instance.GetAllByInsuranceId(id);
 
             HttpContext.Session.SetInt32("allbanner", 0);
 
-           ViewBag.BannerCss = "motobike";
+            ViewBag.BannerCss = "motobike";
             ViewBag.Insurance = insurance;
             ViewBag.RelatedInsurance = relatedinsurance;
             return View(item);
