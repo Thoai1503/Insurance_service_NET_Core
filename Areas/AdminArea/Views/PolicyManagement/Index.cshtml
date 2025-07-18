@@ -3,15 +3,69 @@
 	var poli = ViewBag.Policies;
 	var insu = ViewBag.Insurance;
 }
+@section Styles {
+	<style>
+		/* Ẩn checkbox mặc định */
+		.checkactive-policy input[type="checkbox"] {
+			display: none;
+		}
 
-<h1 class="h3 mb4 text-gray-800">Danh Sachs Chinhs Sachs</h1>
+		/* Giao diện thay thế */
+		.checkactive-policy span {
+			display: inline-block;
+			width: 18px;
+			height: 18px;
+			border: 2px solid #007bff;
+			border-radius: 4px;
+			position: relative;
+			cursor: not-allowed; /* vì đang disabled */
+		}
 
-<button type="button" class="btn btn-primary mb-3" id="btnAdd">Add Pipolicy</button>
+		/* Tích khi checked */
+		.checkactive-policy input[type="checkbox"]:checked + span::before {
+			content: '';
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			background-color: #007bff;
+			clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+			transform: scale(0.9);
+			transform-origin: bottom left;
+		}
 
-<table class="table table-bordered" id="policyTable">
-	<thead>
+		.text-description {
+			min-height: 120px;
+			resize: vertical;
+		}
+
+		.btn-group-policy {
+			gap: 4px;
+		}
+
+		.input-search {
+			margin-left: 10px
+		}
+
+		.text-search {
+			margin-left: 30px
+		}
+	</style>
+}
+
+<h1 class="h3 mb4 text-gray-800">Danh Sách Chính Sách</h1>
+
+<button type="button" class="btn btn-primary mb-3" id="btnAdd">Add Policy</button>
+<form method="get" action="/AdminArea/PolicyManagement" id="searchForm" class="d-flex align-items-center gap-2 mb-3">
+	<input type="text" name="search" value="@ViewBag.Search" placeholder="Search..." class="form-control w-auto" id="searchInput" />
+	<label class="form-check-label d-flex align-items-center">
+		<input type="checkbox" name="searchInsurance" value="true" class="form-check-input input-search"
+		@(ViewBag.SearchInsurance == true ? "checked" : "") onchange="document.getElementById('searchForm').submit()" /><span class="text-search">Search Insurance</span>
+	</label>
+</form>
+<table class="table table-hover" id="">
+	<thead class="thead-dark">
 		<tr>
-			<th>#</th>
+			<th>STT</th>
 			<th>Policy</th>
 			<th>Description</th>
 			<th>Age(Min-Max)</th>
@@ -23,7 +77,7 @@
 	<tbody>
 		@if (poli != null)
 		{
-			int stt = 1;
+			int stt = ((int)ViewBag.PageNumber - 1) * (int)ViewBag.PageSize + 1;
 			foreach (var item in poli)
 			{
 				<tr data-id="@item.id">
@@ -31,18 +85,53 @@
 					<td>@item.name</td>
 					<td>@item.description</td>
 					<td>@item.age_min - @item.age_max</td>
-					<td>@(item.active == 1 ? "Hoạt động" : "Không hoạt động")</td>
+					<td>
+						<label class="checkactive-policy">
+							<input type="checkbox" class="form-check-input checkbox-toggle-active" data-id="@item.id" @(item.active == 1 ? "checked" : "") />
+							<span></span>
+						</label>
+					</td>
 					<td>@item.insurance_name</td>
 					<td>
-						<button class="btn btn-sm btn-warning btn-edit">Edit</button>
-						<button class="btn btn-sm btn-danger btn-delete">Delete</button>
+						<div class="btn-group-policy d-flex gap-1">
+							<button class="btn btn-sm bi bi-pencil-square btn-warning btn-edit">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+									<path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+									<path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+								</svg>
+							</button>
+							<button class="btn btn-sm btn-danger btn-delete bi bi-trash">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+									<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
+									<path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
+								</svg>
+							</button>
+						</div>
 					</td>
+
 				</tr>
 				stt++;
 			}
 		}
 	</tbody>
 </table>
+@if (ViewBag.TotalItem > ViewBag.PageSize)
+{
+	int current = ViewBag.PageNumber ?? 1;
+	int totalPages = (int)Math.Ceiling((double)(ViewBag.TotalItem ?? 0) / (ViewBag.PageSize ?? 10));
+	string search = ViewBag.Search as string ?? "";
+	bool searchInsurance = ViewBag.SearchInsurance ?? false;
+	<nav aria-label="Page navigation">
+		<ul class="pagination">
+			@for (int i = 1; i <= totalPages; i++)
+			{
+				<li class="page-item @(i==current? "active" : "")">
+					<a href="?page=@i&search=@search&searchInsurance=@searchInsurance" class="page-link">@i</a>
+				</li>
+			}
+		</ul>
+	</nav>
+}
 
 <!--Form Add bằng Modal-->
 <div class="modal fade" id="policyModal" tabindex="-1" role="dialog" aria-labelledby="policyModalLabel" aria-hidden="true">
@@ -51,54 +140,54 @@
 			<form id="policyForm">
 				<div class="modal-header">
 					<h5 class="modal-title" id="policyModalLabel">Add Policy</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Cancel">
+					<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
 
-				<div class="modal-body">
+				<div class="modal-body px-3">
 					<input type="hidden" value="" id="id" name="id" />
-					<div class="form-group">
+					<div class="form-group mb-3">
 						<label>Add Policy</label>
 						<input type="text" class="form-control" id="name" name="name" required />
 					</div>
-				</div>
+					<div class="form-group">
+						<label for="description">Description</label>
+						<textarea class="form-control text-description" id="description" name="description" rows="5"></textarea>
+					</div>
+					<div class="form-row mb-3">
+						<div class="form-group col-md-6">
+							<label>Age Min</label>
+							<input type="number" value="" class="form-control" id="age_min" name="age_min" required />
+						</div>
 
-				<div class="form-group">
-					<label>Description</label>
-					<textarea class="form-control" id="description" name="description"></textarea>
-				</div>
+						<div class="form-group col-md-6">
+							<label>Age Max</label>
+							<input type="number" value="" class="form-control" id="age_max" name="age_max" required />
+						</div>
+					</div>
+					<div class="form-group mb-3">
+						<label>Action</label>
+						<select class="form-control" id="active" name="active">
+							<option value="1">Hoạt Động</option>
+							<option value="0">Không Hoạt Động</option>
+						</select>
+					</div>
 
-				<div class="form-group">
-					<label>Age Min</label>
-					<input type="number" value="" class="form-control" id="age_min" name="age_min" required />
-				</div>
-
-				<div class="form-group">
-					<label>Age Max</label>
-					<input type="number" value="" class="form-control" id="age_max" name="age_max" required />
-				</div>
-				<div class="form-group">
-					<label>Action</label>
-					<select class="form-control" id="active" name="active">
-						<option value="1">Hoạt Động</option>
-						<option value="0">Không Hoạt Động</option>
-					</select>
-				</div>
-
-				<div class="form-group">
-					<label>Insurance</label>
-					<select class="form-control" id="insurance_id" name="insurance_id">
-						@foreach (var ins in insu)
-						{
-							<option value="@ins.Id">@ins.Name</option>
-						}
-					</select>
+					<div class="form-group mb-1">
+						<label>Insurance</label>
+						<select class="form-control" id="insurance_id" name="insurance_id">
+							@foreach (var ins in insu)
+							{
+								<option value="@ins.Id">@ins.Name</option>
+							}
+						</select>
+					</div>
 				</div>
 
 				<div class="modal-footer">
 					<button type="submit" class="btn btn-primary">Save</button>
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
 				</div>
 			</form>
 		</div>
@@ -108,7 +197,7 @@
 @section Scripts {
 	<script>
 		$(document).ready(function () {
-			$('#policyTable').DataTable();
+
 			let isEdit = false;
 
 			// Mở form Add bằng Modal
@@ -118,7 +207,7 @@
 				$('#id').val(0);
 				$('#policyModalLabel').text('Add Policy');
 				$('#policyModal').modal('show');
-				console.log('Add clicked');
+
 			});
 
 			// Submit form Add / Update
@@ -138,14 +227,14 @@
 				$.ajax({
 					url: url,
 					type: 'POST',
-					contentType: 'application/json',
-					data: JSON.stringify(data),
+					// contentType: 'application/json',
+					data: $('#policyForm').serialize(),
 					success: function (res) {
-						if (res) {
-							alert('Thành công');
+						if (res.success) {
+							alert(res.message);
 							location.reload();
 						} else {
-							alert('Thất bại');
+							alert(res.message);
 						}
 					}
 				});
@@ -184,7 +273,47 @@
 					}
 				});
 			});
-		}); 
+		});
+
+		$('.checkbox-toggle-active').change(function(){
+			const checkbox = $(this);
+			const id =checkbox.data('id');
+			const isChecked = checkbox.is('checked')?1:0;
+			$.ajax({
+				url:'/adminarea/policymanagement/toggleactive',
+				type: 'POST',
+				contentType:'application/json',
+				data: JSON.stringify({
+					id: id,
+					active: isChecked
+				}),
+				success:function(res){
+					if(res.success) console.log("Cập nhật thành công");
+					else{alert("Thai bai")
+					checkbox.prop('checked',!isChecked);
+					}
+				},
+				error:function(){
+					alert("Loi ket noi");
+					checkbox.prop('checked',!isChecked);
+				}
+			});
+		});
+		$('#description').on('input',function(){
+			this.style.height ='auto';
+			this.style.height = (this.scrollHeight)+'px';
+		});
+		document.addEventListener("DOMContentLoaded",function(){
+			const input = document.getElementById("searchInput");
+			const form =document.getElementById("searchForm");
+			let timeout = null;
+			input.addEventListener("input",function(){
+				clearTimeout(timeout);
+				timeout = setTimeout(()=>{
+					form.submit();
+				},300);
+			});
+		});
 	</script>
 }
 
