@@ -49,10 +49,10 @@
 	<div class="row">
 		<div class="col-2">Verifitication Code</div>
 		<div class="col-3">
-			<input type="text" name="code" value="" />
+			<input type="text" name="code" required value="" />
 		</div>
 		<div class="col-3">
-			<button onclick="SendMail()">Send</button>
+			<button id="myButton">Send</button>
 		</div>
 	</div>
 	<button class="btn btn-success">Confirm</button>
@@ -60,7 +60,9 @@
 
 <p id="timer"></p>
 <script type="text/javascript">
-	function SendMail(){
+	document.addEventListener("DOMContentLoaded",function(){
+		 document.getElementById("myButton").addEventListener("click", function () {
+			button.disabled= true;
 		var email = $("#email").val();
 		$.ajax({
 		url:"@Url.Action("SendMail")",
@@ -73,15 +75,22 @@
 			}
 		}
 	})
+	updateCountdown();
+	const timer = setInterval(updateCountdown, 1000);
+		});
+	})
+	let countdown = 10;
+	const countdownText = document.getElementById("timer");
+	const button = document.getElementById("myButton");
+	 function updateCountdown() {
+		if (countdown > 0) {
+			button.innerText = `Please wait ${countdown} second(s)...`;
+			countdown--;
+		} else {
+			clearInterval(timer);
+			button.innerText = "Send";
+			button.disabled = false;
+		}
 	}
-</script>
-<script type="text/javascript">
-	var remSeconds =10;
-	function startCountDown(){
-		getElementById("timer").innerHTML=10;
-		var countdownInterval = setInterval(function(){
-			remSeconds = remSeconds-1;
-			getElementById("timer").innerHTML=10;
-		},1000)
-	}	
+
 </script>

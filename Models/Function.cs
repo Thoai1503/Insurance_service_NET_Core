@@ -30,6 +30,7 @@ namespace Insurance_agency.Models
 
             return result;
         }
+
         public void sendmail(string email,MailMessage mail)
         {
             string from = "minhphat1612@gmail.com";
