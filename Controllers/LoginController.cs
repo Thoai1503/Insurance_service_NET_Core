@@ -28,7 +28,7 @@ namespace Insurance_agency.Controllers
                 switch (member.auth_id)
                 {
                     case 1:
-                        return RedirectToAction("Dashboard", "AdminArea", new { member });
+                        return RedirectToAction("Dashboard", "AdminArea");
                     case 4:
                         return RedirectToAction("Index", "Home", new { member });
 

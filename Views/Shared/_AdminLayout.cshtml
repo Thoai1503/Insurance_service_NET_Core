@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 @{
+	var user = Context.Session.GetObject<Insurance_agency.Models.ModelView.User>("user");
 }
 <head>
 
@@ -225,12 +226,12 @@
 				<button class="rounded-circle border-0" id="sidebarToggle"></button>
 			</div>
 
-			<!-- Sidebar Message -->
+			@* 			<!-- Sidebar Message -->
 			<div class="sidebar-card d-none d-lg-flex">
 				<img class="sidebar-card-illustration mb-2" src="@Url.Content("~/Content/Admin/")img/undraw_rocket.svg" alt="...">
 				<p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p>
 				<a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a>
-			</div>
+			</div> *@
 
 		</ul>
 		<!-- End of Sidebar -->
@@ -420,10 +421,27 @@
 						}
 						<li class="nav-item dropdown no-arrow">
 							<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-							   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<span class="mr-2 d-none d-lg-inline text-gray-600 small"></span>
+							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<span class="mr-2 d-none d-lg-inline text-gray-600 small">@user.full_name</span>
+								@{
+									var img = string.Empty;
+									if(user.avatar!=null&&user.avatar!=string.Empty&&user.avatar!="no avatar"){
+
+										if ( user.auth_id == 1)
+										{
+											img = "~/Content/Image/Avatar/@user.avatar";
+										}
+										else{
+											img = "~/Content/Image/Avatar/Employee/@user.avatar";
+										}
+										
+									}
+									else{
+										img = "~/Content/Image/Avatar/avatar2.png";
+									}
 								<img class="img-profile rounded-circle"
-									 src="img/undraw_profile.svg">
+									 src=@img>
+								 }
 							</a>
 							<!-- Dropdown - User Information -->
 							<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"

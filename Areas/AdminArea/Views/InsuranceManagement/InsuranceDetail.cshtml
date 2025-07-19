@@ -3,7 +3,7 @@
 *@
 @{
     @model HashSet<Insurance_agency.Models.ModelView.Policy>
-    Layout = "~/Areas/AdminArea/Views/Shared/_AdminLayout.cshtml";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
     Insurance_agency.Models.ModelView.InsuranceTypeView type = new Insurance_agency.Models.ModelView.InsuranceTypeView();
     if (ViewBag.type != null){
         type = (Insurance_agency.Models.ModelView.InsuranceTypeView)ViewBag.type;

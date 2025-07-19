@@ -152,8 +152,6 @@ namespace Insurance_agency.Models.Repository
                     value = d.Value ?? 0,
                     year_max = d.YearMax ?? 0,
 
-                    year_max = d.YearMax ?? 0,
-                    value = d.Value ?? 0,
                     status = (int)d.Status,
 
                     ex_image = d.ExImage
