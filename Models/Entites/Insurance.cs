@@ -17,6 +17,8 @@ public partial class Insurance
 
     public int? Value { get; set; }
 
+    public int? Status { get; set; }
+
     public string? ExImage { get; set; }
 
     public virtual TblInsuranceType? InsuranceType { get; set; }
@@ -24,6 +26,4 @@ public partial class Insurance
     public virtual ICollection<TblContract> TblContracts { get; set; } = new List<TblContract>();
 
     public virtual ICollection<TblPolicy> TblPolicies { get; set; } = new List<TblPolicy>();
-
-    public virtual ICollection<TblSubsidiary> TblSubsidiaries { get; set; } = new List<TblSubsidiary>();
 }

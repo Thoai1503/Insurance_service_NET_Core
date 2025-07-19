@@ -14,6 +14,4 @@ public partial class TblSubsidiary
     public int? InsuranceId { get; set; }
 
     public string? PromotionPercentage { get; set; }
-
-    public virtual Insurance? Insurance { get; set; }
 }

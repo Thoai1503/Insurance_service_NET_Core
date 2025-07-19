@@ -60,6 +60,9 @@ public partial class InsuranceContext : DbContext
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
                 .HasColumnName("name");
+            entity.Property(e => e.Status)
+                .HasDefaultValue(1)
+                .HasColumnName("status");
             entity.Property(e => e.Value).HasColumnName("value");
             entity.Property(e => e.YearMax).HasColumnName("year_max");
 
@@ -268,7 +271,6 @@ public partial class InsuranceContext : DbContext
             entity.Property(e => e.InsuranceId).HasColumnName("insurance_id");
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
-                .IsUnicode(false)
                 .HasColumnName("name");
 
             entity.HasOne(d => d.Insurance).WithMany(p => p.TblPolicies)
@@ -292,10 +294,6 @@ public partial class InsuranceContext : DbContext
                 .HasMaxLength(10)
                 .IsFixedLength()
                 .HasColumnName("promotion_percentage");
-
-            entity.HasOne(d => d.Insurance).WithMany(p => p.TblSubsidiaries)
-                .HasForeignKey(d => d.InsuranceId)
-                .HasConstraintName("FK_tbl_subsidiary_insurance");
         });
 
         modelBuilder.Entity<TblUser>(entity =>

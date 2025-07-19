@@ -45,23 +45,23 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
         [HttpPost]
         public IActionResult Create(Policy en)
         {
-            if (string.IsNullOrWhiteSpace(en.name))
-                return Json(new { success = false, message = "Policy name can't be blank" });
-            if (string.IsNullOrEmpty(en.description)) return Json(new { success = false, message = "Description can't be blank" });
-            if (en.age_min == 0 || en.age_max == 0) return Json(new { success = false, message = "Age can't be blank" });
-            var nameRegex = new Regex(@"^[a-zA-Z0-9\s_-]+$");
-            if (!nameRegex.IsMatch(en.name))
-                return Json(new { success = false, message = "Plicy name can't contain special characters" });
-            if (en.age_min < 0 || en.age_max < 0)
-                return Json(new { success = false, message = "Age isn't negative" });
-            if (en.age_max < en.age_min)
-                return Json(new { success = false, message = "maximum age mustn't be less than minimum age" });
-            if (en.age_min == en.age_max)
-                return Json(new { success = false, message = "minimum age can't be equal to maximum age" });
-            var duplicate = PolicyRepository.Instance.GetAll()
-                .Any(p => p.id != en.id && (p.name.Equals(en.name, StringComparison.OrdinalIgnoreCase)
-                || p.description.Equals(en.description, StringComparison.OrdinalIgnoreCase)));
-            if (duplicate) return Json(new { success = false, message = "policy name or description already exitst" });
+            //if (string.IsNullOrWhiteSpace(en.name))
+            //    return Json(new { success = false, message = "Policy name can't be blank" });
+            //if (string.IsNullOrEmpty(en.description)) return Json(new { success = false, message = "Description can't be blank" });
+            //if (en.age_min == 0 || en.age_max == 0) return Json(new { success = false, message = "Age can't be blank" });
+            //var nameRegex = new Regex(@"^[a-zA-Z0-9\s_-]+$");
+            //if (!nameRegex.IsMatch(en.name))
+            //    return Json(new { success = false, message = "Plicy name can't contain special characters" });
+            //if (en.age_min < 0 || en.age_max < 0)
+            //    return Json(new { success = false, message = "Age isn't negative" });
+            //if (en.age_max < en.age_min)
+            //    return Json(new { success = false, message = "maximum age mustn't be less than minimum age" });
+            //if (en.age_min == en.age_max)
+            //    return Json(new { success = false, message = "minimum age can't be equal to maximum age" });
+            //var duplicate = PolicyRepository.Instance.GetAll()
+            //    .Any(p => p.id != en.id && (p.name.Equals(en.name, StringComparison.OrdinalIgnoreCase)
+            //    || p.description.Equals(en.description, StringComparison.OrdinalIgnoreCase)));
+            //if (duplicate) return Json(new { success = false, message = "policy name or description already exitst" });
             var rs = PolicyRepository.Instance.Create(en);
             return Json(new { success = rs, message = rs ? "Create success" : "Create Fail" });
         }

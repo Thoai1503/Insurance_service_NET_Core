@@ -1,5 +1,6 @@
 ﻿using Insurance_agency.Models.Entities;
 using Insurance_agency.Models.ModelView;
+using Microsoft.EntityFrameworkCore;
 
 namespace Insurance_agency.Models.Repository
 {
@@ -60,28 +61,30 @@ namespace Insurance_agency.Models.Repository
         {
             throw new NotImplementedException();
         }
-        public HashSet<InsuranceTypeView> GetAll()
+        public async Task<HashSet<InsuranceTypeView>> GetAll()
         {
-            var allTypes = _context.TblInsuranceTypes
-                 .Where(x => x.Active == 1)
-                 .Select(c=> new InsuranceTypeView
-                 {
-                         id =c.Id,
-                         name = c.Name,
-                     description = c.Description,
-                     parent_id = c.ParentId,
-                     active = c.Active,
-                     
-                 }).ToHashSet();
+            var allTypes = await _context.TblInsuranceTypes
+                .Where(x => x.Active == 1)
+                .Select(c => new InsuranceTypeView
+                {
+                    id = c.Id,
+                    name = c.Name,
+                    description = c.Description,
+                    parent_id = c.ParentId,
+                    active = c.Active
+                })
+                .ToListAsync(); // Bất đồng bộ
 
-            return allTypes;
-           
-
-
+            return allTypes.ToHashSet();
         }
 
 
         public bool Update(InsuranceTypeView entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        HashSet<InsuranceTypeView> IRepository<InsuranceTypeView>.GetAll()
         {
             throw new NotImplementedException();
         }

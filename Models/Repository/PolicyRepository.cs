@@ -32,10 +32,11 @@ namespace Insurance_agency.Models.Repository
             {
                 var policy = new TblPolicy
                 {
-                    Name = entity.name,
+                    Name = "",
                     AgeMin = entity.age_min,
                     AgeMax = entity.age_max,
                     Description = entity.description,
+                    
                     Active = entity.active,
                     InsuranceId = entity.insurance_id
                 };

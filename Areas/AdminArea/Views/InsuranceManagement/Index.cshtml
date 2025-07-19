@@ -8,95 +8,22 @@
 	{
 		insurance = (HashSet<Insurance_agency.Models.ModelView.InsuranceView>)ViewBag.item;
 	}
-	HashSet<Insurance_agency.Models.ModelView.InsuranceView> all = new HashSet<Insurance_agency.Models.ModelView.InsuranceView>();
-	if (ViewBag.all != null)
-	{
-		all = (HashSet<Insurance_agency.Models.ModelView.InsuranceView>)ViewBag.all;
-	}
-	var pageNum = (int)ViewBag.pageNum;
-	var pageSize = (int)ViewBag.pageSize;
-	var totalPage = all.Count / pageSize;
-	float totalPageFloat = (float)all.Count / pageSize;
-	if (totalPage < totalPageFloat)
-	{
-		totalPage++;
-	}
+    @model HashSet<Insurance_agency.Models.ModelView.InsuranceTypeView>;
 }
+<style>
+    .table {
+        border-collapse: collapse;
+    }
+
+        .table th,
+        .table td {
+            border-top: 1px solid #dee2e6;
+            border-bottom: 1px solid #dee2e6;
+            border-left: none !important;
+            border-right: none !important;
+        }
+</style>
 <h3 class="mb-5">Insurance List</h3>
-<a href="/adminarea/insurancemanagement/Create" class="btn btn-primary mb-5">Create New Insurance</a>
-<table class="table table-hover">
-	<thead class="thead-dark">
-		<tr>
-
-			<th>Id </th>
-			<th>Name</th>
-			<th>Description</th>
-			<th>Type </th>
-
-			<th>ExImage</th>
-			<th>Function</th>
-		</tr>
-	</thead>
-	<tbody>
-		@foreach (var item in insurance)
-		{
-			<tr>
-				<td>@item.id</td>
-				<td>@item.name</td>
-				<td>@item.description</td>
-				<td>@item.insurance_type_id</td>
-
-				<td><img src="@Url.Content("~/Content")/Image/Ex/@item.ex_image" height="50" alt="Alternate Text" /></td>
-				<td>
-					<a href="@Url.Action("InsuranceEdit", "InsuranceManagement", new { id = item.id })" class="btn btn-primary">
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
-							<path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
-						</svg>
-					</a>
-					<a href="@Url.Action("InsuranceDetail", new { id = item.id })" class="btn btn-info">
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journal-richtext" viewBox="0 0 16 16">
-							<path d="M7.5 3.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0m-.861 1.542 1.33.886 1.854-1.855a.25.25 0 0 1 .289-.047L11 4.75V7a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 7v-.5s1.54-1.274 1.639-1.208M5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5" />
-							<path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2" />
-							<path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1z" />
-						</svg>
-					</a>
-					<a href="@Url.Action("Delete", new { id = item.id })" class="btn btn-danger">
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-							<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
-							<path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
-						</svg>
-					</a>
-				</td>
-			</tr>
-		}
-	</tbody>
-	
-</table>
-<div class="row">
-	<ul class="pagination">
-
-		@{
-			if (pageNum > 1)
-			{
-				<li class="page-item"><a class="page-link" href="@Url.Action("index",new{pageNum=pageNum-1,pageSize=pageSize})">Previous</a></li>
-			}
-			int u = pageNum + 3;
-			for (int i = pageNum; i < u; i++)
-			{
-				if (i <= totalPage)
-				{
-					<li class="page-item"><a class="page-link" href="@Url.Action("index",new{pageNum=i,pageSize=pageSize})">@i</a></li>
-				}
-
-			}
-			if (pageNum < totalPage)
-			{
-				<li class="page-item"><a class="page-link" href="@Url.Action("index",new{pageNum=pageNum+1,pageSize=pageSize})">Next</a></li>
-			}
-		}
-
-	</ul>
-</div>
 
 
 
@@ -217,32 +144,56 @@
                         </h6>
                     </button>
                 </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link text-primary" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">
-                        <h6 class="m-0 font-weight-bold text-primary">Make duty</h6>
-                    </button>
-                </li>
+                
             </ul>
 
-            <div class="tab-content mb-5" id="myTabContent">
+            <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <div class="container-fluid py-2">
-                        <form class="">
+                        <div class="row">
+                        <div class="col-md-12">
+                            <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                                </svg>
+                            </span>
+                            <input type="text" class="form-control" placeholder="Search..." aria-label="Username"  aria-describedby="basic-addon1" onkeyup="handleSearch(event)">
+                            </div>
+                           
+                        </div>
+                        </div>
+                        <form class="" action="/adminarea/insurancemanagement">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <div class="form-group mb-3">
-                                        <label for="inputEmail4">Email</label>
-                                        <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
-                                    </div>
+                                <div class="form-group mb-3">
+                                    <label for="inputState">Insurance Type</label>
+                                    <select id="inputState" class="form-control" name="insurance_type_id">
+                                        <option value="-1" selected>Choose...</option>
+                                        @if (Model != null)
+                                        {
+                                            var insuranceType = (HashSet<Insurance_agency.Models.ModelView.InsuranceTypeView>)Model;
+                                            foreach (var item in insuranceType)
+                                            {
+                                                <option value="@item.id">@item.name</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="form-group mb-3">
-                                        <label for="inputPassword4">Password</label>
-                                        <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
-                                    </div>
+                                <div class="form-group mb-3">
+                                    <label for="inputState">Sort By</label>
+                                    <select id="inputState" class="form-control" name="sort_by" >
+                                        <option value="-1" selected>Choose...</option>
+                                        <option value="1" >Name (A-Z)</option>
+
+                                        <option value="2">Name (Z-A)</option>
+                                    </select>
+                                </div>
                                 </div>
                             </div>
-                            <div class="row">
+                        @*     <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group mb-3">
                                         <label for="inputCity">City</label>
@@ -264,81 +215,95 @@
                                         <input type="text" class="form-control" id="inputZip">
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-group mb-3">
+                            </div> *@
+                          @*   <div class="form-group mb-3">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" id="gridCheck">
                                     <label class="form-check-label" for="gridCheck">
                                         Check me out
                                     </label>
                                 </div>
-                            </div>
-                            <button type="submit" class="btn btn-success">Sign in</button>
+                            </div> *@
+                            <button type="submit" class="btn btn-success">Filter</button>
                         </form>
                     </div>
                 </div>
 
                 <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                     <div class="container-fluid">
-                        <table id="myTable2" class="table table-striped table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Id</th>
-                                    <th>Người mua</th>
-                                    <th>Mã bảo hiểm</th>
-                                    <th>Tổng giá trị bảo hiểm</th>
-                                    <th>Tiền trả trên năm</th>
-                                    <th>Số năm trả</th>
-                                    <th>Trạng thái</th>
-                                    <th>Hành động</th>
-                                </tr>
-                            </thead>
-                            <tbody id="order_list">
-                                <tr>
-                                    <td>1</td>
-                                    <td>Thoai Vip</td>
-                                    <td>#BHNT32032</td>
-                                    <td>500.000.000</td>
-                                    <td>5.000.000</td>
-                                    <td>10</td>
-                                    <td>In process</td>
-                                    <td><a class="btn btn-info btn-sm">Xem chi tiết</a></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="container-fluid py-2">
+                        <h4 class="text-primary">New insurance</h4>
+                        <form class="" action="@Url.Action("CreateConfirm")" method="post" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label for="inputEmail4">Name</label>
+                                        <input type="text" class="form-control" id="inputEmail4" placeholder="name" name="name">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label for="inputPassword4">Value (VND)</label>
+                                        <input type="number" class="form-control" id="inputPassword4" name="value" placeholder="Type the value (VND)">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label for="inputCity">Description</label>
+                                 
+                                        <textarea class="form-control" name="decription" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group mb-3">
+                                        <label for="inputState">Insurance Type</label>
+                                        <select id="inputState" class="form-control" name="insurance_type_id">
+                                            <option selected>Choose...</option>
+                                      
+                                            @if (Model != null)
+                                            {
+                                                var insuranceType = (HashSet<Insurance_agency.Models.ModelView.InsuranceTypeView>)Model;
+                                                foreach (var item in insuranceType)
+                                                {
+                                                    <option value="@item.id">@item.name</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group mb-3">
+                                        <label for="inputZip">Year max</label>
+                                        <input type="number" class="form-control" max="50" name="year_max" id="inputZip">
+                                    </div>
+                                </div>
+                            </div>
+                           @*  <div class="form-group mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="gridCheck">
+                                    <label class="form-check-label" for="gridCheck">
+                                        Check me out
+                                    </label>
+                                </div>
+                            </div> *@
+                            <div class="row">
+                                <div class="col-md-12 mb-3">
+                                    <label for="formFile" class="form-label">Default file input example</label>
+                                    <input class="form-control" type="file" name="Img" id="eximage"/>
+                                </div>
+                              </div>
+                            <div class="row">
+
+                            </div>
+                            <button type="submit" class="btn btn-success">Add new item</button>
+                        </form>
+                    </div>
                     </div>
                 </div>
 
-                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                    <div class="container-fluid">
-                        <table id="myTable3" class="table table-striped table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Id</th>
-                                    <th>Người mua</th>
-                                    <th>Mã bảo hiểm</th>
-                                    <th>Tổng giá trị bảo hiểm</th>
-                                    <th>Tiền trả trên năm</th>
-                                    <th>Số năm trả</th>
-                                    <th>Trạng thái</th>
-                                    <th>Hành động</th>
-                                </tr>
-                            </thead>
-                            <tbody id="order_list">
-                                <tr>
-                                    <td>1</td>
-                                    <td>Thoai Vip</td>
-                                    <td>#BHNT32032</td>
-                                    <td>500.000.000</td>
-                                    <td>5.000.000</td>
-                                    <td>10</td>
-                                    <td>In process</td>
-                                    <td><a class="btn btn-info btn-sm">Xem chi tiết</a></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                
             </div>
         </div>
     </div>
@@ -363,490 +328,187 @@
     </script>
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Insurance List - All services</h6>
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
+            <table class="table">
+                <thead class="thead-light">
                     <tr>
-                        <th>Name</th>
-                        <th>Position</th>
-                        <th>Office</th>
-                        <th>Age</th>
-                        <th>Start date</th>
-                        <th>Salary</th>
+                        <th class="text-center align-middle" scope="col">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-image" viewBox="0 0 16 16">
+                                <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
+                                <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1z" />
+                            </svg>
+                        </th>
+                        <th scope="col">No .</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Action</th>
+
                     </tr>
                 </thead>
-                <tfoot>
-                    <tr>
-                        <th>Name</th>
-                        <th>Position</th>
-                        <th>Office</th>
-                        <th>Age</th>
-                        <th>Start date</th>
-                        <th>Salary</th>
-                    </tr>
-                </tfoot>
-                <tbody>
-                    <tr>
-                        <td>Tiger Nixon</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>61</td>
-                        <td>2011/04/25</td>
-                        <td>$320,800</td>
-                    </tr>
-                    <tr>
-                        <td>Garrett Winters</td>
-                        <td>Accountant</td>
-                        <td>Tokyo</td>
-                        <td>63</td>
-                        <td>2011/07/25</td>
-                        <td>$170,750</td>
-                    </tr>
-                    <tr>
-                        <td>Ashton Cox</td>
-                        <td>Junior Technical Author</td>
-                        <td>San Francisco</td>
-                        <td>66</td>
-                        <td>2009/01/12</td>
-                        <td>$86,000</td>
-                    </tr>
-                    <tr>
-                        <td>Cedric Kelly</td>
-                        <td>Senior Javascript Developer</td>
-                        <td>Edinburgh</td>
-                        <td>22</td>
-                        <td>2012/03/29</td>
-                        <td>$433,060</td>
+                <tbody id="insurance_list">
+                    @if (ViewBag.item != null)
+                    {
+                        var list = (HashSet<Insurance_agency.Models.ModelView.InsuranceView>)ViewBag.item;
+                        foreach (var item in list)
+                        {
+                            <tr>
+                                <th class="text-center align-middle"><img width="120" height="70" src="/Content/Image/Ex/@item.ex_image" /></th>
+                                <td class="align-middle">@item.id</td>
+                                <td class="align-middle">@item.name</td>
+                                <td class="align-middle">
+                                    @if (item.status==1)
+                                    {
+                                        <input class="form-check-input checkbox-toggle-active" type="checkbox" checked value="" data-id="@item.id" onchange="updateStatus(event)" />
+                                    }
+                                    else
+                                    {
+
+                                        <input class="form-check-input checkbox-toggle-active" type="checkbox" value="" data-id="@item.id" onchange="updateStatus(event)" />
+                                    }
+
+                                </td>
+          
+                                <td class="align-middle">
+
+                                    <a href="/adminarea/insurancemanagement/insurancedetail?id=@item.id" class="btn btn-outline-info">Detail</a>
+                                      
+                                     
+                                 
+                                </td>
+                            </tr>
+                        }
+                    }
+
+      @*               <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                    
+                        <td><span class="badge text-bg-success">Success</span></td>
                     </tr>
                     <tr>
-                        <td>Airi Satou</td>
-                        <td>Accountant</td>
-                        <td>Tokyo</td>
-                        <td>33</td>
-                        <td>2008/11/28</td>
-                        <td>$162,700</td>
+                        <th scope="row">2</th>
+                        <td>Jacob</td>
+                   
+                        <td><span class="badge text-bg-success">Success</span></td>
                     </tr>
                     <tr>
-                        <td>Brielle Williamson</td>
-                        <td>Integration Specialist</td>
-                        <td>New York</td>
-                        <td>61</td>
-                        <td>2012/12/02</td>
-                        <td>$372,000</td>
-                    </tr>
-                    <tr>
-                        <td>Herrod Chandler</td>
-                        <td>Sales Assistant</td>
-                        <td>San Francisco</td>
-                        <td>59</td>
-                        <td>2012/08/06</td>
-                        <td>$137,500</td>
-                    </tr>
-                    <tr>
-                        <td>Rhona Davidson</td>
-                        <td>Integration Specialist</td>
-                        <td>Tokyo</td>
-                        <td>55</td>
-                        <td>2010/10/14</td>
-                        <td>$327,900</td>
-                    </tr>
-                    <tr>
-                        <td>Colleen Hurst</td>
-                        <td>Javascript Developer</td>
-                        <td>San Francisco</td>
-                        <td>39</td>
-                        <td>2009/09/15</td>
-                        <td>$205,500</td>
-                    </tr>
-                    <tr>
-                        <td>Sonya Frost</td>
-                        <td>Software Engineer</td>
-                        <td>Edinburgh</td>
-                        <td>23</td>
-                        <td>2008/12/13</td>
-                        <td>$103,600</td>
-                    </tr>
-                    <tr>
-                        <td>Jena Gaines</td>
-                        <td>Office Manager</td>
-                        <td>London</td>
-                        <td>30</td>
-                        <td>2008/12/19</td>
-                        <td>$90,560</td>
-                    </tr>
-                    <tr>
-                        <td>Quinn Flynn</td>
-                        <td>Support Lead</td>
-                        <td>Edinburgh</td>
-                        <td>22</td>
-                        <td>2013/03/03</td>
-                        <td>$342,000</td>
-                    </tr>
-                    <tr>
-                        <td>Charde Marshall</td>
-                        <td>Regional Director</td>
-                        <td>San Francisco</td>
-                        <td>36</td>
-                        <td>2008/10/16</td>
-                        <td>$470,600</td>
-                    </tr>
-                    <tr>
-                        <td>Haley Kennedy</td>
-                        <td>Senior Marketing Designer</td>
-                        <td>London</td>
-                        <td>43</td>
-                        <td>2012/12/18</td>
-                        <td>$313,500</td>
-                    </tr>
-                    <tr>
-                        <td>Tatyana Fitzpatrick</td>
-                        <td>Regional Director</td>
-                        <td>London</td>
-                        <td>19</td>
-                        <td>2010/03/17</td>
-                        <td>$385,750</td>
-                    </tr>
-                    <tr>
-                        <td>Michael Silva</td>
-                        <td>Marketing Designer</td>
-                        <td>London</td>
-                        <td>66</td>
-                        <td>2012/11/27</td>
-                        <td>$198,500</td>
-                    </tr>
-                    <tr>
-                        <td>Paul Byrd</td>
-                        <td>Chief Financial Officer (CFO)</td>
-                        <td>New York</td>
-                        <td>64</td>
-                        <td>2010/06/09</td>
-                        <td>$725,000</td>
-                    </tr>
-                    <tr>
-                        <td>Gloria Little</td>
-                        <td>Systems Administrator</td>
-                        <td>New York</td>
-                        <td>59</td>
-                        <td>2009/04/10</td>
-                        <td>$237,500</td>
-                    </tr>
-                    <tr>
-                        <td>Bradley Greer</td>
-                        <td>Software Engineer</td>
-                        <td>London</td>
-                        <td>41</td>
-                        <td>2012/10/13</td>
-                        <td>$132,000</td>
-                    </tr>
-                    <tr>
-                        <td>Dai Rios</td>
-                        <td>Personnel Lead</td>
-                        <td>Edinburgh</td>
-                        <td>35</td>
-                        <td>2012/09/26</td>
-                        <td>$217,500</td>
-                    </tr>
-                    <tr>
-                        <td>Jenette Caldwell</td>
-                        <td>Development Lead</td>
-                        <td>New York</td>
-                        <td>30</td>
-                        <td>2011/09/03</td>
-                        <td>$345,000</td>
-                    </tr>
-                    <tr>
-                        <td>Yuri Berry</td>
-                        <td>Chief Marketing Officer (CMO)</td>
-                        <td>New York</td>
-                        <td>40</td>
-                        <td>2009/06/25</td>
-                        <td>$675,000</td>
-                    </tr>
-                    <tr>
-                        <td>Caesar Vance</td>
-                        <td>Pre-Sales Support</td>
-                        <td>New York</td>
-                        <td>21</td>
-                        <td>2011/12/12</td>
-                        <td>$106,450</td>
-                    </tr>
-                    <tr>
-                        <td>Doris Wilder</td>
-                        <td>Sales Assistant</td>
-                        <td>Sidney</td>
-                        <td>23</td>
-                        <td>2010/09/20</td>
-                        <td>$85,600</td>
-                    </tr>
-                    <tr>
-                        <td>Angelica Ramos</td>
-                        <td>Chief Executive Officer (CEO)</td>
-                        <td>London</td>
-                        <td>47</td>
-                        <td>2009/10/09</td>
-                        <td>$1,200,000</td>
-                    </tr>
-                    <tr>
-                        <td>Gavin Joyce</td>
-                        <td>Developer</td>
-                        <td>Edinburgh</td>
-                        <td>42</td>
-                        <td>2010/12/22</td>
-                        <td>$92,575</td>
-                    </tr>
-                    <tr>
-                        <td>Jennifer Chang</td>
-                        <td>Regional Director</td>
-                        <td>Singapore</td>
-                        <td>28</td>
-                        <td>2010/11/14</td>
-                        <td>$357,650</td>
-                    </tr>
-                    <tr>
-                        <td>Brenden Wagner</td>
-                        <td>Software Engineer</td>
-                        <td>San Francisco</td>
-                        <td>28</td>
-                        <td>2011/06/07</td>
-                        <td>$206,850</td>
-                    </tr>
-                    <tr>
-                        <td>Fiona Green</td>
-                        <td>Chief Operating Officer (COO)</td>
-                        <td>San Francisco</td>
-                        <td>48</td>
-                        <td>2010/03/11</td>
-                        <td>$850,000</td>
-                    </tr>
-                    <tr>
-                        <td>Shou Itou</td>
-                        <td>Regional Marketing</td>
-                        <td>Tokyo</td>
-                        <td>20</td>
-                        <td>2011/08/14</td>
-                        <td>$163,000</td>
-                    </tr>
-                    <tr>
-                        <td>Michelle House</td>
-                        <td>Integration Specialist</td>
-                        <td>Sidney</td>
-                        <td>37</td>
-                        <td>2011/06/02</td>
-                        <td>$95,400</td>
-                    </tr>
-                    <tr>
-                        <td>Suki Burks</td>
-                        <td>Developer</td>
-                        <td>London</td>
-                        <td>53</td>
-                        <td>2009/10/22</td>
-                        <td>$114,500</td>
-                    </tr>
-                    <tr>
-                        <td>Prescott Bartlett</td>
-                        <td>Technical Author</td>
-                        <td>London</td>
-                        <td>27</td>
-                        <td>2011/05/07</td>
-                        <td>$145,000</td>
-                    </tr>
-                    <tr>
-                        <td>Gavin Cortez</td>
-                        <td>Team Leader</td>
-                        <td>San Francisco</td>
-                        <td>22</td>
-                        <td>2008/10/26</td>
-                        <td>$235,500</td>
-                    </tr>
-                    <tr>
-                        <td>Martena Mccray</td>
-                        <td>Post-Sales support</td>
-                        <td>Edinburgh</td>
-                        <td>46</td>
-                        <td>2011/03/09</td>
-                        <td>$324,050</td>
-                    </tr>
-                    <tr>
-                        <td>Unity Butler</td>
-                        <td>Marketing Designer</td>
-                        <td>San Francisco</td>
-                        <td>47</td>
-                        <td>2009/12/09</td>
-                        <td>$85,675</td>
-                    </tr>
-                    <tr>
-                        <td>Howard Hatfield</td>
-                        <td>Office Manager</td>
-                        <td>San Francisco</td>
-                        <td>51</td>
-                        <td>2008/12/16</td>
-                        <td>$164,500</td>
-                    </tr>
-                    <tr>
-                        <td>Hope Fuentes</td>
-                        <td>Secretary</td>
-                        <td>San Francisco</td>
-                        <td>41</td>
-                        <td>2010/02/12</td>
-                        <td>$109,850</td>
-                    </tr>
-                    <tr>
-                        <td>Vivian Harrell</td>
-                        <td>Financial Controller</td>
-                        <td>San Francisco</td>
-                        <td>62</td>
-                        <td>2009/02/14</td>
-                        <td>$452,500</td>
-                    </tr>
-                    <tr>
-                        <td>Timothy Mooney</td>
-                        <td>Office Manager</td>
-                        <td>London</td>
-                        <td>37</td>
-                        <td>2008/12/11</td>
-                        <td>$136,200</td>
-                    </tr>
-                    <tr>
-                        <td>Jackson Bradshaw</td>
-                        <td>Director</td>
-                        <td>New York</td>
-                        <td>65</td>
-                        <td>2008/09/26</td>
-                        <td>$645,750</td>
-                    </tr>
-                    <tr>
-                        <td>Olivia Liang</td>
-                        <td>Support Engineer</td>
-                        <td>Singapore</td>
-                        <td>64</td>
-                        <td>2011/02/03</td>
-                        <td>$234,500</td>
-                    </tr>
-                    <tr>
-                        <td>Bruno Nash</td>
-                        <td>Software Engineer</td>
-                        <td>London</td>
-                        <td>38</td>
-                        <td>2011/05/03</td>
-                        <td>$163,500</td>
-                    </tr>
-                    <tr>
-                        <td>Sakura Yamamoto</td>
-                        <td>Support Engineer</td>
-                        <td>Tokyo</td>
-                        <td>37</td>
-                        <td>2009/08/19</td>
-                        <td>$139,575</td>
-                    </tr>
-                    <tr>
-                        <td>Thor Walton</td>
-                        <td>Developer</td>
-                        <td>New York</td>
-                        <td>61</td>
-                        <td>2013/08/11</td>
-                        <td>$98,540</td>
-                    </tr>
-                    <tr>
-                        <td>Finn Camacho</td>
-                        <td>Support Engineer</td>
-                        <td>San Francisco</td>
-                        <td>47</td>
-                        <td>2009/07/07</td>
-                        <td>$87,500</td>
-                    </tr>
-                    <tr>
-                        <td>Serge Baldwin</td>
-                        <td>Data Coordinator</td>
-                        <td>Singapore</td>
-                        <td>64</td>
-                        <td>2012/04/09</td>
-                        <td>$138,575</td>
-                    </tr>
-                    <tr>
-                        <td>Zenaida Frank</td>
-                        <td>Software Engineer</td>
-                        <td>New York</td>
-                        <td>63</td>
-                        <td>2010/01/04</td>
-                        <td>$125,250</td>
-                    </tr>
-                    <tr>
-                        <td>Zorita Serrano</td>
-                        <td>Software Engineer</td>
-                        <td>San Francisco</td>
-                        <td>56</td>
-                        <td>2012/06/01</td>
-                        <td>$115,000</td>
-                    </tr>
-                    <tr>
-                        <td>Jennifer Acosta</td>
-                        <td>Junior Javascript Developer</td>
-                        <td>Edinburgh</td>
-                        <td>43</td>
-                        <td>2013/02/01</td>
-                        <td>$75,650</td>
-                    </tr>
-                    <tr>
-                        <td>Cara Stevens</td>
-                        <td>Sales Assistant</td>
-                        <td>New York</td>
-                        <td>46</td>
-                        <td>2011/12/06</td>
-                        <td>$145,600</td>
-                    </tr>
-                    <tr>
-                        <td>Hermione Butler</td>
-                        <td>Regional Director</td>
-                        <td>London</td>
-                        <td>47</td>
-                        <td>2011/03/21</td>
-                        <td>$356,250</td>
-                    </tr>
-                    <tr>
-                        <td>Lael Greer</td>
-                        <td>Systems Administrator</td>
-                        <td>London</td>
-                        <td>21</td>
-                        <td>2009/02/27</td>
-                        <td>$103,500</td>
-                    </tr>
-                    <tr>
-                        <td>Jonas Alexander</td>
-                        <td>Developer</td>
-                        <td>San Francisco</td>
-                        <td>30</td>
-                        <td>2010/07/14</td>
-                        <td>$86,500</td>
-                    </tr>
-                    <tr>
-                        <td>Shad Decker</td>
-                        <td>Regional Director</td>
-                        <td>Edinburgh</td>
-                        <td>51</td>
-                        <td>2008/11/13</td>
-                        <td>$183,000</td>
-                    </tr>
-                    <tr>
-                        <td>Michael Bruce</td>
-                        <td>Javascript Developer</td>
-                        <td>Singapore</td>
-                        <td>29</td>
-                        <td>2011/06/27</td>
-                        <td>$183,000</td>
-                    </tr>
-                    <tr>
-                        <td>Donna Snider</td>
-                        <td>Customer Support</td>
-                        <td>New York</td>
-                        <td>27</td>
-                        <td>2011/01/25</td>
-                        <td>$112,000</td>
-                    </tr>
+                        <th scope="row">3</th>
+                        <td>Larry</td>
+                 
+                        <td><span class="badge text-bg-success">Success</span></td>
+                    </tr> *@
                 </tbody>
             </table>
         </div>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                </li>
+                @if(ViewBag.TotalPages != null && ViewBag.TotalPages > 0)
+                {
+                    for (int i = 1; i <= ViewBag.TotalPages; i++)
+                    {
+                        <li class="page-item @(i==ViewBag.CurrentPage?"active":"")"><a class="page-link" href="/adminarea/insurancemanagement/index?page=@i">@i</a></li>
+                    }
+                }
+
+
+             @*    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li> *@
+                <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                </li>
+            </ul>
+        </nav>
     </div>
 </div>
+<script>
+    // Render the original insurance list as a JS array
+    var originalInsuranceList = [];
+    @if (ViewBag.item != null)
+    {
+            var list = (HashSet<Insurance_agency.Models.ModelView.InsuranceView>)ViewBag.item;
+            foreach (var item in list)
+            {
+                    <text>
+                        originalInsuranceList.push({
+                            id: '@item.id',
+                            name: '@item.name',
+                            ex_image: '@item.ex_image'
+                        });
+                    </text>
+            }
+    }
+
+    function renderInsuranceList(list) {
+        var tbody = $('#insurance_list');
+        tbody.empty();
+        list.forEach(function(item) {
+          
+
+            var row = `<tr>
+                <th class="text-center align-middle"><img width="120" height="70" src="/Content/Image/Ex/${item.ex_image}" /></th>
+                <td class="align-middle">${item.id}</td>
+                <td class="align-middle">${item.name}</td>
+                <td class="align-middle">
+                    <input type="checkbox" ${item.status == 1 ? 'checked' : ''} value="" data-id="${item.id}" onchange="updateStatus(event)" />
+                </td>
+                <td class="align-middle">
+                    <a href="/adminarea/insurancemanagement/insurancedetail?id=${item.id}" class="btn btn-outline-info">Detail</a>
+                </td>
+            </tr>`;
+            tbody.append(row);
+
+
+        });
+    }
+
+    function handleSearch(event){
+        var value = event.target.value;
+        console.log("Value:" + value);
+        if(value.length > 0){
+            $.ajax({
+                url: '/adminarea/insurancemanagement',
+                type: 'GET',
+                data: { keyword: value },
+                success: function(data) {
+                    // data.insList is expected to be an array
+                    renderInsuranceList(data.insList);
+                },
+                error: function(error) {
+                    console.error("Error fetching search results:", error);
+                }
+            });
+        } else {
+            // Show the original list
+            renderInsuranceList(originalInsuranceList);
+        }
+    }
+          function updateStatus(event) {
+
+
+
+                    var item = event.target;
+                    var checked = $(item).is(":checked");
+                    var id = $(item).attr("data-id");
+                    $.ajax({
+                        method: 'POST',
+                        url: "@Url.Action("UpdateActiveStatus")",
+                        data: { _id: id, _checked: checked == true ? 1 : 0 }
+                    }).done(function (msg) {
+                        if (msg.success) {
+                            alert("Status updated successfully!");
+                        } else {
+                            alert("Failed to update status.");
+                        }
+                    }).fail(function () {
+                        alert("Error occurred while updating status.");
+                    });
+
+        };
+</script>
