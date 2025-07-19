@@ -10,16 +10,11 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
     public class InsuranceManagementController : Controller
     {
         
-        public async Task<IActionResult> Index(int page = 1, int pageSize = 6)
+        public async Task<IActionResult> Index(int page = 1, int pageSize = 6,int insurance_type_id = -1, int sort_by =-1)
         {
             var insurancetype = await InsuranceTypeRepository.Instance.GetAll();
             var item = InsuranceRepository.Instance.GetAll();
    
-            ViewBag.insurancetype = insurancetype;
-            ViewBag.insurance = item;
-            ViewBag.BannerCss = "motobike";
-            ViewBag.BannerTitle = "Insurance Management";
-
 
             if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
             {
@@ -32,7 +27,34 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
                 return Json(new { message = "AJAX request được xử lý",insList });
             }
 
-
+            if( insurance_type_id > 0)
+            {
+                item = item.Where(d => d.insurance_type_id == insurance_type_id).ToHashSet();
+            }
+            if (sort_by == 1)
+            {
+                item = item.OrderBy(d => d.name).ToHashSet();
+            }
+            else if (sort_by == 2)
+            {
+                item = item.OrderByDescending(d => d.name).ToHashSet();
+            }
+            //else if (sort_by == 3)
+            //{
+            //    item = item.OrderBy(d => d.value).ToHashSet();
+            //}
+            //else if (sort_by == 4)
+            //{
+            //    item = item.OrderByDescending(d => d.value).ToHashSet();
+            //}
+            //else if (sort_by == 5)
+            //{
+            //    item = item.OrderBy(d => d.year_max).ToHashSet();
+            //}
+            //else if (sort_by == 6)
+            //{
+            //    item = item.OrderByDescending(d => d.year_max).ToHashSet();
+            //}
             //Create pagination for item
 
             if (Request.Query.ContainsKey("page"))
