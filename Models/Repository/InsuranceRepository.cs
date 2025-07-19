@@ -1,4 +1,5 @@
-﻿using Insurance_agency.Models.Entities;
+﻿using Insurance_agency.Helper;
+using Insurance_agency.Models.Entities;
 using Insurance_agency.Models.ModelView;
 
 namespace Insurance_agency.Models.Repository
@@ -34,7 +35,7 @@ namespace Insurance_agency.Models.Repository
                         Name = entity.name,
                         Description = entity.description,
                         InsuranceTypeId = entity.insurance_type_id,
-
+                         Status = 1,
                         ExImage = entity.ex_image,
                     };
                     var q = _context.Add(Insurance);
@@ -55,7 +56,7 @@ namespace Insurance_agency.Models.Repository
 
             try
             {
-                var item = _context.Insurances.Where(d => d.Id == id).Select(d => new InsuranceView
+                var item = _context.Insurances.Where(d => d.Id == id && d.Status ==1).Select(d => new InsuranceView
                 {
                     id = d.Id,
                     name = d.Name,
@@ -80,10 +81,59 @@ namespace Insurance_agency.Models.Repository
             }
             return null;
         }
+        public bool Active(int id, int active_status = 0)
+        {
+           
+            try
+            {
+                if (id > 0)
+                {
+                    var q = _context.Insurances.Where(d => d.Id == id).FirstOrDefault();
+                    if (q != null)
+                    {
+                        q.Status = active_status;
+                        _context.SaveChanges();
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return false;
+
+
+        }
+
 
         public HashSet<InsuranceView> FindByKeywork(string keywork)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var item = _context.Insurances
+                    .AsEnumerable() // Switch to client-side evaluation
+                    .Where(d =>
+                        StringHelper.RemoveVietnameseDiacritics(d.Name).ToLower().Contains(keywork) ||
+                        StringHelper.RemoveVietnameseDiacritics(d.Description).ToLower().Contains(keywork) && d.Status==1)
+                    .Select(d => new InsuranceView
+                    {
+                        id = d.Id,
+                        name = d.Name,
+                        description = d.Description,
+                        year_max = d.YearMax ?? 0,
+                        value = d.Value ?? 0,
+                        insurance_type_id = (int)d.InsuranceTypeId,
+                        ex_image = d.ExImage
+                    }).ToHashSet();
+                if (item != null)
+                {
+                    return item;
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return new HashSet<InsuranceView>();
         }
 
         public HashSet<InsuranceView> GetAll()
@@ -99,6 +149,7 @@ namespace Insurance_agency.Models.Repository
 
                     year_max = d.YearMax??0,
                     value = d.Value ??0,
+                    status =(int) d.Status ,
 
                     ex_image = d.ExImage
                 }).ToHashSet();

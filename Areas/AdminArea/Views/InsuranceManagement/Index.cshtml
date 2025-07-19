@@ -202,7 +202,7 @@
                 </li>
             </ul>
 
-            <div class="tab-content mb-5" id="myTabContent">
+            <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <div class="container-fluid py-2">
                         <div class="row">
@@ -213,8 +213,9 @@
                                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
                                 </svg>
                             </span>
-                            <input type="text" class="form-control" placeholder="Search..." aria-label="Username"  aria-describedby="basic-addon1">
+                            <input type="text" class="form-control" placeholder="Search..." aria-label="Username"  aria-describedby="basic-addon1" onkeyup="handleSearch(event)">
                             </div>
+                           
                         </div>
                         </div>
                         <form class="">
@@ -424,12 +425,12 @@
                         </th>
                         <th scope="col">No .</th>
                         <th scope="col">Name</th>
-                   
+                        <th scope="col">Status</th>
                         <th scope="col">Action</th>
 
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="insurance_list">
                     @if (ViewBag.item != null)
                     {
                         var list = (HashSet<Insurance_agency.Models.ModelView.InsuranceView>)ViewBag.item;
@@ -439,7 +440,19 @@
                                 <th class="text-center align-middle"><img width="120" height="70" src="/Content/Image/Ex/@item.ex_image" /></th>
                                 <td class="align-middle">@item.id</td>
                                 <td class="align-middle">@item.name</td>
+                                <td class="align-middle">
+                                    @if (item.status==1)
+                                    {
+                                        <input type="checkbox" checked value="" data-id="@item.id" onchange="updateStatus(event)" />
+                                    }
+                                    else
+                                    {
 
+                                        <input type="checkbox" value="" data-id="@item.id" onchange="updateStatus(event)" />
+                                    }
+
+                                </td>
+          
                                 <td class="align-middle">
 
                                     <a href="/adminarea/insurancemanagement/insurancedetail?id=@item.id" class="btn btn-outline-info">Detail</a>
@@ -472,5 +485,112 @@
                 </tbody>
             </table>
         </div>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                </li>
+                @if(ViewBag.TotalPages != null && ViewBag.TotalPages > 0)
+                {
+                    for (int i = 1; i <= ViewBag.TotalPages; i++)
+                    {
+                        <li class="page-item @(i==ViewBag.CurrentPage?"active":"")"><a class="page-link" href="/adminarea/insurancemanagement/index?page=@i">@i</a></li>
+                    }
+                }
+
+
+             @*    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li> *@
+                <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                </li>
+            </ul>
+        </nav>
     </div>
 </div>
+<script>
+    // Render the original insurance list as a JS array
+    var originalInsuranceList = [];
+    @if (ViewBag.item != null)
+    {
+            var list = (HashSet<Insurance_agency.Models.ModelView.InsuranceView>)ViewBag.item;
+            foreach (var item in list)
+            {
+                    <text>
+                        originalInsuranceList.push({
+                            id: '@item.id',
+                            name: '@item.name',
+                            ex_image: '@item.ex_image'
+                        });
+                    </text>
+            }
+    }
+
+    function renderInsuranceList(list) {
+        var tbody = $('#insurance_list');
+        tbody.empty();
+        list.forEach(function(item) {
+          
+
+            var row = `<tr>
+                <th class="text-center align-middle"><img width="120" height="70" src="/Content/Image/Ex/${item.ex_image}" /></th>
+                <td class="align-middle">${item.id}</td>
+                <td class="align-middle">${item.name}</td>
+                <td class="align-middle">
+                    <input type="checkbox" ${item.status == 1 ? 'checked' : ''} value="" data-id="${item.id}" onchange="updateStatus(event)" />
+                </td>
+                <td class="align-middle">
+                    <a href="/adminarea/insurancemanagement/insurancedetail?id=${item.id}" class="btn btn-outline-info">Detail</a>
+                </td>
+            </tr>`;
+            tbody.append(row);
+
+
+        });
+    }
+
+    function handleSearch(event){
+        var value = event.target.value;
+        console.log("Value:" + value);
+        if(value.length > 0){
+            $.ajax({
+                url: '/adminarea/insurancemanagement',
+                type: 'GET',
+                data: { keyword: value },
+                success: function(data) {
+                    // data.insList is expected to be an array
+                    renderInsuranceList(data.insList);
+                },
+                error: function(error) {
+                    console.error("Error fetching search results:", error);
+                }
+            });
+        } else {
+            // Show the original list
+            renderInsuranceList(originalInsuranceList);
+        }
+    }
+          function updateStatus(event) {
+
+
+
+                    var item = event.target;
+                    var checked = $(item).is(":checked");
+                    var id = $(item).attr("data-id");
+                    $.ajax({
+                        method: 'POST',
+                        url: "@Url.Action("UpdateActiveStatus")",
+                        data: { _id: id, _checked: checked == true ? 1 : 0 }
+                    }).done(function (msg) {
+                        if (msg.success) {
+                            alert("Status updated successfully!");
+                        } else {
+                            alert("Failed to update status.");
+                        }
+                    }).fail(function () {
+                        alert("Error occurred while updating status.");
+                    });
+
+        };
+</script>

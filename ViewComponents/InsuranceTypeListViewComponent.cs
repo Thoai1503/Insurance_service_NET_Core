@@ -1,14 +1,14 @@
 ﻿using Insurance_agency.Models.Repository;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Insurance_agency.ViewComponents
 {
     public class InsuranceTypeListViewComponent : ViewComponent
     {
-        public IViewComponentResult Invoke()
+        public async Task<IViewComponentResult> InvokeAsync()
         {
-            // Call the controller's List method to get the insurance types list
-          var inList = InsuranceTypeRepository.Instance.GetAll();
+            var inList = await InsuranceTypeRepository.Instance.GetAll();
             return View(inList);
         }
     }

@@ -1,4 +1,5 @@
-﻿using Insurance_agency.Models.Entities;
+﻿using Azure.Core;
+using Insurance_agency.Models.Entities;
 using Insurance_agency.Models.ModelView;
 using Insurance_agency.Models.Repository;
 using Microsoft.AspNetCore.Mvc;
@@ -9,11 +10,46 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
     public class InsuranceManagementController : Controller
     {
         
-        public IActionResult Index()
+        public async Task<IActionResult> Index(int page = 1, int pageSize = 6)
         {
-            var insurancetype = InsuranceTypeRepository.Instance.GetAll();
+            var insurancetype = await InsuranceTypeRepository.Instance.GetAll();
             var item = InsuranceRepository.Instance.GetAll();
-            ViewBag.item = item;
+   
+            ViewBag.insurancetype = insurancetype;
+            ViewBag.insurance = item;
+            ViewBag.BannerCss = "motobike";
+            ViewBag.BannerTitle = "Insurance Management";
+
+
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                var insList = new HashSet<InsuranceView>();
+                var search = Request.Query["keyword"];
+               if(search.Count > 0)
+                {
+                    insList = InsuranceRepository.Instance.FindByKeywork(search);
+                }
+                return Json(new { message = "AJAX request được xử lý",insList });
+            }
+
+
+            //Create pagination for item
+
+            if (Request.Query.ContainsKey("page"))
+            {
+                int.TryParse(Request.Query["page"], out page);
+            }
+            int totalItems = item.Count;
+            int totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+            ViewBag.TotalPages = totalPages;
+            ViewBag.CurrentPage = page;
+            // Get the items for the current page
+            int skip = (page - 1) * pageSize;
+            ViewBag.item = item.Skip(skip).Take(pageSize).ToHashSet();
+
+
+
+
           
             return View(insurancetype);
         }
@@ -146,5 +182,14 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
             }
             return RedirectToAction("Index");
         }
+        public ActionResult UpdateActiveStatus(int _id , int _checked)
+        {
+
+         
+            var result = InsuranceRepository.Instance.Active(_id, _checked);
+         
+            return Json(new {success = result});
+        }
+
     }
 }
