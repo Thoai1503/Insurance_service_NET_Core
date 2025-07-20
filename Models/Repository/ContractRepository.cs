@@ -239,25 +239,25 @@ namespace Insurance_agency.Models.Repository
                         email = c.User.Email,
                         phone = c.User.Phone
                     },
-                    insurance_id = (int) c.InsuranceId,
+                    insurance_id = (int)c.InsuranceId,
                     insurance = new InsuranceView
                     {
                         id = c.Insurance.Id,
                         name = c.Insurance.Name,
                         description = c.Insurance.Description,
-                        value = c.Insurance.Value??0,
-                        year_max = c.Insurance.YearMax??0,
+                        value = c.Insurance.Value ?? 0,
+                        year_max = c.Insurance.YearMax ?? 0,
                         ex_image = c.Insurance.ExImage
                     },
                     StartDate = c.StartDate,
                     EndDate = c.EndDate,
                     value_contract = (long)c.ValueContract,
                     employee_id = c.EmployeeId ?? 0,
-                    
-                    
+
+
                     year_paid = (long)c.YearPaid,
                     number_year_paid = c.NumberYearPaid,
-                    status = c.Status??0
+                    status = c.Status ?? 0
                 }).ToHashSet();
             // retrive employee information if available
             foreach (var contract in contracts)
@@ -277,9 +277,9 @@ namespace Insurance_agency.Models.Repository
                     }
                 }
             }
-            // Return the set of contracts
-            //var contracts = _context.TblContracts
+
             return contracts;
+
 
         }
 

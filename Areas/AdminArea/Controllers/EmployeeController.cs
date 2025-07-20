@@ -12,7 +12,7 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
             var employees = UserRepository.Instance.GetAllEmployeeUser();
             return View(employees);
         }
-        public IActionResult Create(IFormFile Img,User usr)
+        public IActionResult Create(IFormFile Img, User usr)
         {
             if (usr != null)
             {
@@ -93,7 +93,7 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
                 }
                 var user = UserRepository.Instance.FindById(id);
                 user.avatar = fileName;
-               var re = UserRepository.Instance.Update(user);
+                var re = UserRepository.Instance.Update(user);
                 if (re)
                 {
                     return RedirectToAction("Index");
@@ -102,7 +102,7 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
                 {
                     ViewBag.Error = "Failed to update avatar.";
 
-                   
+
                 }
             }
             else
@@ -117,6 +117,29 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
             var contracts = ContractRepository.Instance.FindByEmployeeId(id);
             ViewBag.Contracts = contracts;
             return View(employee);
+        }
+        public IActionResult UpdateEmployeeToContract(int employee_id, int contract_id, int current_employee)
+        {
+            var contract = ContractRepository.Instance.FindById(contract_id);
+            if (contract != null)
+            {
+                contract.employee_id = employee_id;
+                var result = ContractRepository.Instance.Update(contract);
+                if (result)
+                {
+                
+                    return RedirectToAction("Index","Contract", new { id = employee_id });
+                }
+                else
+                {
+                    ViewBag.Error = "Failed to update employee to contract.";
+                }
+            }
+            else
+            {
+                ViewBag.Error = "Contract not found.";
+            }
+            return RedirectToAction("Index");
         }
     }
 }

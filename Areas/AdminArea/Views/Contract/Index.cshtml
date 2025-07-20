@@ -385,9 +385,14 @@
 
                                             </a>
                                          
-                                            <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#avatarModal">
-                                               
-                                                <img src="/Content/Image/swap-icon-19.jpg" alt="Delete" style="width:20px;height:20px">
+                                           
+                                            <button class="btn btn-outline-primary btn-sm"
+                                                    data-bs-toggle="modal"
+                                                    data-id="@item.id"
+                                                    data-current-employee-id="@(item.employee_id != 0 ? item.employee_id : 0)"
+                                                    id="@item.user_id"
+                                                    data-bs-target="#avatarModal">
+                                                <img src="/Content/Image/swap-icon-19.jpg" alt="Assign" style="width:20px;height:20px">
                                             </button>
                                             </td>
                                     </tr>
@@ -427,12 +432,32 @@
                                         <td>@(item.employee != null ? item.employee.full_name : "Not assigned")</td>
                                         <td>@(item.status == 1 ? "Active" : "Inactive")</td>
                                         <td>
-                                            <a href="/">
-                                            
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+
+                                            <a href="/" accesskey="" action="">
+
+
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                                                     <path d="M15.502 1.94a1.5 1.5 0 0 1 0 2.121l-1.06 1.06-2.121-2.12 1.06-1.06a1.5 1.5 0 0 1 2.121 0zM13.44 4.56l-2.12-2.12L9.22 4.22l2.12 2.12L13.44 4.56zM1 13V3a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2zm11-9H3a1 1 0 0 0-1 .993V13a1 1 0 0 0 .883.993L3 .993h8a1 .993V4z" />
                                                 </svg>
+
+
                                             </a>
+                                            <a href="/" accesskey="" action="">
+
+
+
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-journal-richtext" viewBox="0 0 16 16">
+                                                    <path d="M7.5 3.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0m-.861 1.542 1.33.886 1.854-1.855a.25.25 0 0 1 .289-.047L11 4.75V7a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 7v-.5s1.54-1.274 1.639-1.208M5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5" />
+                                                    <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2" />
+                                                    <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1z" />
+                                                </svg>
+
+                                            </a>
+
+                                            <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-id="@item.id" id="@item.user_id" data-bs-target="#avatarModal">
+
+                                                <img src="/Content/Image/swap-icon-19.jpg" alt="Delete" style="width:20px;height:20px">
+                                            </button>
                                         </td>
                                     </tr>
 
@@ -471,30 +496,37 @@
 
 
 
-
+<!--Assign work to employee modal-->
+<!--Assign work to employee modal-->
 <div class="modal fade" id="avatarModal" tabindex="-1" aria-labelledby="avatarModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title text-primary" id="avatarModalLabel">
-                    <i class="fas fa-camera me-2"></i>Choose an employee to swap
-                </h4>
+                <div class="w-100">
+                    <h4 class="modal-title text-primary mb-1" id="avatarModalLabel">
+                        <i class="fas fa-users me-2"></i>Chọn nhân viên phụ trách
+                    </h4>
+                    <!-- Subtitle sẽ được thêm động bằng JavaScript -->
+                </div>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form method="post" action="/adminarea/employee/updateavatar" enctype="multipart/form-data">
+            <form method="post" action="/adminarea/employee/updateemployeetocontract" enctype="multipart/form-data">
+                <input type="hidden" id="contractId" name="contract_id" value="" />
+
                 <div class="modal-body">
-                    <div class="table-responsive">
-                  
-                        <table class="table align-middle mb-0 bg-white">
+
+                    <div class="table-responsive" style="height:300px; overflow:scroll">
+                        <h5 class="text-primary mb-3">
+                            <i class="fas fa-list me-2"></i>Danh sách nhân viên
+                        </h5>
+                        <table class="table align-middle mb-3 bg-white">
                             <thead class="bg-light">
                                 <tr>
-                                    <th>Name</th>
-                                   
-                                    <th>Actions</th>
+                                    <th>Nhân viên</th>
+                                    <th style="width: 100px;">Hành động</th>
                                 </tr>
                             </thead>
                             <tbody>
-
                                 @if (ViewBag.Employees != null)
                                 {
                                     var list = ViewBag.Employees as HashSet<Insurance_agency.Models.ModelView.User>;
@@ -506,16 +538,16 @@
                                                     <img src="/Content/Admin/img/avatar/@item.avatar" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
                                                     <div class="ms-3">
                                                         <p class="fw-bold mb-1">@item.full_name</p>
-
                                                         <p class="text-muted mb-0">@item.email</p>
                                                     </div>
                                                 </div>
                                             </td>
-                                           
                                             <td>
-                                                <a href="/adminarea/employee/employeedetail?id=@item.id" class="btn btn-link btn-sm btn-rounded">
-                                                    Detail
-                                                </a>
+                                                <button type="button"
+                                                        class="btn btn-outline-primary btn-sm choose-employee-btn"
+                                                        data-employee-id="@item.id">
+                                                    <i class="fas fa-check me-1"></i>Chọn
+                                                </button>
                                             </td>
                                         </tr>
                                     }
@@ -523,14 +555,242 @@
                             </tbody>
                         </table>
                     </div>
+
+                    <div class="table-responsive">
+                        <h5 class="text-primary mt-3 mb-3">
+                            <i class="fas fa-user-check me-2"></i>Nhân viên được chọn
+                        </h5>
+                        <table class="table align-middle mb-0 bg-white">
+                            <thead class="bg-light">
+                                <tr>
+                                    <th>Nhân viên</th>
+                                    <th style="width: 100px;">Hành động</th>
+                                </tr>
+                            </thead>
+                            <tbody id="choosed_employee">
+                                <tr>
+                                    <td colspan="2" class="text-center text-muted py-4">
+                                        <i class="fas fa-user-plus fa-3x mb-3 d-block"></i>
+                                        <p class="mb-0">Vui lòng chọn nhân viên để phân công hợp đồng</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
+
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times me-1"></i>Hủy
+                    </button>
                     <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-upload me-1"></i>Tải lên
+                        <i class="fas fa-save me-1"></i>Lưu thay đổi
                     </button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+<script>
+         $(document).ready(function () {
+        // Xử lý khi modal được mở
+        $('#avatarModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var contractId = button.data('id');
+            var currentEmployeeId = button.data('current-employee-id');
+            var modal = $(this);
+
+            // Set contract ID
+            modal.find('#contractId').val(contractId);
+
+            // Thay đổi title của modal dựa trên trạng thái employee
+            var modalTitle = modal.find('#avatarModalLabel');
+            var modalIcon = '<i class="fas fa-users me-2"></i>';
+
+            // if (currentEmployeeId && currentEmployeeId !== '' && currentEmployeeId !== 'null' && currentEmployeeId != '0') {
+            //     // Trường hợp đã có employee - Swap/Change employee
+            //     modalTitle.html(modalIcon + 'Thay đổi nhân viên phụ trách');
+
+            //     // Thêm subtitle để làm rõ hơn
+            //     if (modal.find('.modal-subtitle').length === 0) {
+            //         modal.find('.modal-header').append('<p class="modal-subtitle text-muted mb-0 small">Hợp đồng này đã có nhân viên phụ trách. Bạn có thể thay đổi hoặc gỡ bỏ.</p>');
+            //     } else {
+            //         modal.find('.modal-subtitle').text('Hợp đồng này đã có nhân viên phụ trách. Bạn có thể thay đổi hoặc gỡ bỏ.');
+            //     }
+            // } else {
+            //     // Trường hợp chưa có employee - Assign new employee
+            //     modalTitle.html(modalIcon + 'Phân công nhân viên');
+
+            //     if (modal.find('.modal-subtitle').length === 0) {
+            //         modal.find('.modal-header').append('<p class="modal-subtitle text-muted mb-0 small">Hợp đồng này chưa có nhân viên phụ trách. Vui lòng chọn nhân viên.</p>');
+            //     } else {
+            //         modal.find('.modal-subtitle').text('Hợp đồng này chưa có nhân viên phụ trách. Vui lòng chọn nhân viên.');
+            //     }
+            // }
+
+            // Reset lại chosen employee khi mở modal
+            resetChosenEmployee();
+
+            // Nếu contract đã có employee, hiển thị employee đó
+            if (currentEmployeeId && currentEmployeeId !== '' && currentEmployeeId !== 'null' && currentEmployeeId != '0') {
+                loadCurrentEmployee(currentEmployeeId);
+
+                // Thêm input hidden với name="current_employee"
+                if ($('input[name="current_employee"]').length === 0) {
+                    $('#avatarModal form').append(`<input type="hidden" name="current_employee" value="${currentEmployeeId}" />`);
+                } else {
+                    $('input[name="current_employee"]').val(currentEmployeeId);
+                }
+            }
+        });
+
+        // Xử lý khi modal đóng - reset title về mặc định
+        $('#avatarModal').on('hidden.bs.modal', function (event) {
+            var modal = $(this);
+            modal.find('#avatarModalLabel').html('<i class="fas fa-users me-2"></i>Chọn nhân viên phụ trách');
+            modal.find('.modal-subtitle').remove();
+        });
+
+        // Xử lý khi nhấn nút Choose
+        $(document).on('click', '.choose-employee-btn', function(e) {
+            e.preventDefault();
+
+            var row = $(this).closest('tr');
+            var employeeId = $(this).data('employee-id');
+            var avatar = row.find('img').attr('src');
+            var fullName = row.find('.fw-bold').text();
+            var email = row.find('.text-muted').text();
+
+            // Kiểm tra xem có employee hiện tại không để hiển thị label phù hợp
+            var currentEmployeeId = $('input[name="current_employee"]').val();
+            var isChanging = currentEmployeeId && currentEmployeeId !== '' && currentEmployeeId !== 'null' && currentEmployeeId != '0';
+
+            var actionBadge = isChanging ?
+                '<span class="badge bg-warning ms-2">Thay đổi</span>' :
+                '<span class="badge bg-success ms-2">Mới</span>';
+
+            var chosenEmployeeHtml = `
+                <tr data-employee-id="${employeeId}">
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <img src="${avatar}" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
+                            <div class="ms-3">
+                                <p class="fw-bold mb-1">
+                                    ${fullName}
+                                    ${actionBadge}
+                                </p>
+                                <p class="text-muted mb-0">${email}</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-outline-danger remove-chosen-btn">
+                            <i class="fas fa-times"></i> Hủy chọn
+                        </button>
+                    </td>
+                </tr>
+            `;
+
+            $('#choosed_employee').html(chosenEmployeeHtml);
+
+            if ($('input[name="employee_id"]').length === 0) {
+                $('#avatarModal form').append(`<input type="hidden" name="employee_id" value="${employeeId}" />`);
+            } else {
+                $('input[name="employee_id"]').val(employeeId);
+            }
+
+            var message = isChanging ? 'Đã chọn nhân viên thay thế!' : 'Đã chọn nhân viên mới!';
+            showNotification(message, 'success');
+        });
+
+        // Xử lý khi nhấn nút Remove
+        $(document).on('click', '.remove-chosen-btn', function(e) {
+            e.preventDefault();
+            resetChosenEmployee();
+            showNotification('Đã hủy chọn nhân viên!', 'info');
+        });
+
+        // Hàm load employee hiện tại của contract
+        function loadCurrentEmployee(employeeId) {
+            var employeeRow = $(`.choose-employee-btn[data-employee-id="${employeeId}"]`).closest('tr');
+
+            if (employeeRow.length > 0) {
+                var avatar = employeeRow.find('img').attr('src');
+                var fullName = employeeRow.find('.fw-bold').text();
+                var email = employeeRow.find('.text-muted').text();
+
+                var currentEmployeeHtml = `
+                    <tr data-employee-id="${employeeId}">
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <img src="${avatar}" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
+                                <div class="ms-3">
+                                    <p class="fw-bold mb-1">
+                                        ${fullName}
+                                        <span class="badge bg-primary ms-2">Hiện tại</span>
+                                    </p>
+                                    <p class="text-muted mb-0">${email}</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-sm btn-outline-warning remove-chosen-btn">
+                                <i class="fas fa-user-times"></i> Gỡ bỏ
+                            </button>
+                        </td>
+                    </tr>
+                `;
+
+                $('#choosed_employee').html(currentEmployeeHtml);
+
+                if ($('input[name="employee_id"]').length === 0) {
+                    $('#avatarModal form').append(`<input type="hidden" name="employee_id" value="${employeeId}" />`);
+                } else {
+                    $('input[name="employee_id"]').val(employeeId);
+                }
+            }
+        }
+
+        // Hàm reset chosen employee về trạng thái ban đầu
+        function resetChosenEmployee() {
+            var currentEmployeeId = $('input[name="current_employee"]').val();
+            var hasCurrentEmployee = currentEmployeeId && currentEmployeeId !== '' && currentEmployeeId !== 'null' && currentEmployeeId != '0';
+
+            var defaultMessage = hasCurrentEmployee ?
+                'Nhân viên hiện tại sẽ được giữ nguyên nếu không chọn nhân viên mới' :
+                'Vui lòng chọn nhân viên để phân công hợp đồng';
+
+            var defaultIcon = hasCurrentEmployee ? 'fa-user-check' : 'fa-user-plus';
+
+            var defaultHtml = `
+                <tr>
+                    <td colspan="2" class="text-center text-muted py-4">
+                        <i class="fas ${defaultIcon} fa-3x mb-3 d-block"></i>
+                        <p class="mb-0">${defaultMessage}</p>
+                    </td>
+                </tr>
+            `;
+            $('#choosed_employee').html(defaultHtml);
+            $('input[name="employee_id"]').remove();
+        }
+
+        // Hàm hiển thị thông báo
+        function showNotification(message, type) {
+            var alertClass = type === 'success' ? 'alert-success' : (type === 'warning' ? 'alert-warning' : 'alert-info');
+            var notification = `
+                <div class="alert ${alertClass} alert-dismissible fade show position-fixed"
+                     style="top: 20px; right: 20px; z-index: 9999; min-width: 300px;" role="alert">
+                    ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            `;
+
+            $('body').append(notification);
+
+            setTimeout(function() {
+                $('.alert').fadeOut();
+            }, 3000);
+        }
+    });
+</script>

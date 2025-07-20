@@ -7,6 +7,7 @@ wwwroot\Content\Admin\css\sb-admin-2.css
 wwwroot\Content\Admin\css\sb-admin-2.min.css
 wwwroot\Content\Admin\css\tiny.css
 wwwroot\Content\Admin\forgot-password.html
+wwwroot\Content\Admin\img\avatar\23add3bf-698c-4aff-b856-e72e295d46ca_res-euro-2012-15224677164861664971189.png
 wwwroot\Content\Admin\img\avatar\d088a251-72cc-4900-b449-d8e2db0c78a9_ertiga.jpg
 wwwroot\Content\Admin\img\avatar\loan.png
 wwwroot\Content\Admin\img\avatar\thoai.13f11c8e0062430708ec.png
