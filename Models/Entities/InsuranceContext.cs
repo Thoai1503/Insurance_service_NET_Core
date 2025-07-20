@@ -19,6 +19,8 @@ public partial class InsuranceContext : DbContext
 
     public virtual DbSet<TblActivityLog> TblActivityLogs { get; set; }
 
+    public virtual DbSet<TblAssignHistory> TblAssignHistories { get; set; }
+
     public virtual DbSet<TblAuthentication> TblAuthentications { get; set; }
 
     public virtual DbSet<TblAuthorization> TblAuthorizations { get; set; }
@@ -96,6 +98,23 @@ public partial class InsuranceContext : DbContext
                 .HasColumnName("timestamp");
         });
 
+        modelBuilder.Entity<TblAssignHistory>(entity =>
+        {
+            entity.ToTable("tbl_assign_history");
+
+            entity.Property(e => e.Id)
+                .ValueGeneratedNever()
+                .HasColumnName("id");
+            entity.Property(e => e.ContractId).HasColumnName("contract_id");
+            entity.Property(e => e.EmployeeId).HasColumnName("employee_id");
+            entity.Property(e => e.EndDate)
+                .HasColumnType("datetime")
+                .HasColumnName("end_date");
+            entity.Property(e => e.StartDate)
+                .HasColumnType("datetime")
+                .HasColumnName("start_date");
+        });
+
         modelBuilder.Entity<TblAuthentication>(entity =>
         {
             entity.ToTable("tbl_authentication");
@@ -167,7 +186,7 @@ public partial class InsuranceContext : DbContext
 
             entity.HasOne(d => d.User).WithMany(p => p.TblContracts)
                 .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK_Contract_User");
+                .HasConstraintName("FK_tbl_contract_tbl_user");
         });
 
         modelBuilder.Entity<TblInsuranceType>(entity =>
@@ -302,6 +321,10 @@ public partial class InsuranceContext : DbContext
 
             entity.ToTable("tbl_user");
 
+            entity.HasIndex(e => e.Email, "UX_tbl_user_email").IsUnique();
+
+            entity.HasIndex(e => e.Phone, "UX_tbl_user_phone").IsUnique();
+
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Active).HasColumnName("active");
             entity.Property(e => e.Address)
@@ -313,6 +336,9 @@ public partial class InsuranceContext : DbContext
                 .IsUnicode(false)
                 .HasDefaultValue("user.jpg")
                 .HasColumnName("avatar");
+            entity.Property(e => e.CreatedDate)
+                .HasColumnType("datetime")
+                .HasColumnName("created_date");
             entity.Property(e => e.Email)
                 .HasMaxLength(50)
                 .IsUnicode(false)

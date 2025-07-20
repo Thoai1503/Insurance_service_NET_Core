@@ -23,6 +23,8 @@ public partial class TblUser
 
     public string? Avatar { get; set; }
 
+    public DateTime? CreatedDate { get; set; }
+
     public virtual TblAuthentication? Auth { get; set; }
 
     public virtual ICollection<TblContract> TblContracts { get; set; } = new List<TblContract>();

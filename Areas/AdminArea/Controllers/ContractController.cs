@@ -13,17 +13,18 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
         {
             var user = HttpContext.Session.GetObject<User>("user");
             var contracts = ContractRepository.Instance.GetAll();
-            var unassignedContracts = contracts.Where(c=> c.employee_id ==0).ToHashSet();
+            var unassignedContracts = contracts.Where(c => c.employee_id == 0).OrderByDescending(c => c.StartDate).ToHashSet();
             var assignedContracts = contracts.Where(c => c.employee_id != 0).ToHashSet();
-            ViewBag.user = user;    
+            ViewBag.user = user;
+            var employees = UserRepository.Instance.GetAllEmployeeUser();
             ViewBag.UnassignedContracts = unassignedContracts;
             ViewBag.AssignedContracts = assignedContracts;
-
+            ViewBag.Employees = employees;
             return View(contracts);
         }
 
         // GET: ContractController/Details/5
-   
+
         // GET: ContractController/Create
         public ActionResult Create()
         {

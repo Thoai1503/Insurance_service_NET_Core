@@ -74,7 +74,7 @@ namespace Insurance_agency.Models.DAO
                         address = res.Address ?? "",
                         auth_id = res.AuthId ?? 0,
                         avatar = res.Avatar ?? "",
-                        created_at = DateTime.Now, // Assuming created_at is set to current time
+                        created_date = DateTime.Now, // Assuming created_at is set to current time
                         active = res.Active ?? 1 // Assuming 1 means active
                     };
                 }

@@ -19,7 +19,7 @@ builder.Services.AddHttpContextAccessor();
 // Add payment gateway service
 builder.Services.AddScoped<IVnPayService, VnPayService>();
 var app = builder.Build();
-
+app.UseStaticFiles();
 app.UseSession();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

@@ -7,10 +7,16 @@
     ViewBag.Title = "Employee List";
     @model HashSet<Insurance_agency.Models.ModelView.User>;
 }
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-fileinput/css/fileinput.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-fileinput/js/fileinput.min.js"></script>
+
+<!-- Optional theme and icons -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-fileinput/themes/fas/theme.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-fileinput/js/locales/en.js"></script>
 
 <h1>Danh sách nhân viên</h1>
 
-<table class="table align-middle mb-0 bg-white mt-5">
+@* <table class="table align-middle mb-0 bg-white mt-5">
     <thead class="bg-light">
         <tr>
             <th>Name</th>
@@ -21,91 +27,7 @@
         </tr>
     </thead>
     <tbody>
-       @*  <tr>
-            <td>
-                <div class="d-flex align-items-center">
-                    <img src="https://mdbootstrap.com/img/new/avatars/8.jpg"
-                         alt=""
-                         style="width: 45px; height: 45px"
-                         class="rounded-circle" />
-                    <div class="ms-3">
-                        <p class="fw-bold mb-1">John Doe</p>
-                        <p class="text-muted mb-0">john.doe@gmail.com</p>
-                    </div>
-                </div>
-            </td>
-            <td>
-                <p class="fw-normal mb-1">Software engineer</p>
-                <p class="text-muted mb-0">IT department</p>
-            </td>
-            <td>
-                <span class="badge badge-success rounded-pill d-inline">Active</span>
-            </td>
-            <td>Senior</td>
-            <td>
-                <button type="button" class="btn btn-link btn-sm btn-rounded">
-                    Edit
-                </button>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <div class="d-flex align-items-center">
-                    <img src="https://mdbootstrap.com/img/new/avatars/6.jpg"
-                         class="rounded-circle"
-                         alt=""
-                         style="width: 45px; height: 45px" />
-                    <div class="ms-3">
-                        <p class="fw-bold mb-1">Alex Ray</p>
-                        <p class="text-muted mb-0">alex.ray@gmail.com</p>
-                    </div>
-                </div>
-            </td>
-            <td>
-                <p class="fw-normal mb-1">Consultant</p>
-                <p class="text-muted mb-0">Finance</p>
-            </td>
-            <td>
-                <span class="badge badge-primary rounded-pill d-inline">Onboarding</span>
-            </td>
-            <td>Junior</td>
-            <td>
-                <button type="button"
-                        class="btn btn-link btn-rounded btn-sm fw-bold"
-                        data-mdb-ripple-color="dark">
-                    Edit
-                </button>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <div class="d-flex align-items-center">
-                    <img src="https://mdbootstrap.com/img/new/avatars/7.jpg"
-                         class="rounded-circle"
-                         alt=""
-                         style="width: 45px; height: 45px" />
-                    <div class="ms-3">
-                        <p class="fw-bold mb-1">Kate Hunington</p>
-                        <p class="text-muted mb-0">kate.hunington@gmail.com</p>
-                    </div>
-                </div>
-            </td>
-            <td>
-                <p class="fw-normal mb-1">Designer</p>
-                <p class="text-muted mb-0">UI/UX</p>
-            </td>
-            <td>
-                <span class="badge badge-warning rounded-pill d-inline">Awaiting</span>
-            </td>
-            <td>Senior</td>
-            <td>
-                <button type="button"
-                        class="btn btn-link btn-rounded btn-sm fw-bold"
-                        data-mdb-ripple-color="dark">
-                    Edit
-                </button>
-            </td>
-        </tr> *@
+       
         @if (Model != null && Model.Count > 0)
         {
             foreach (var item in Model)
@@ -145,3 +67,538 @@
         }
     </tbody>
 </table>
+ *@
+
+<style>
+    .table {
+        border-collapse: collapse;
+    }
+
+        .table th,
+        .table td {
+            border-top: 1px solid #dee2e6;
+            border-bottom: 1px solid #dee2e6;
+            border-left: none !important;
+            border-right: none !important;
+        }
+</style>
+<h3 class="mb-5">Danh sách bảo hiểm</h3>
+
+
+
+
+<style>
+    /* Custom border styles for tabs */
+    .nav-tabs {
+        border-bottom: 2px solid #dee2e6;
+        margin-bottom: 0;
+    }
+
+        .nav-tabs .nav-link {
+            border: 1px solid transparent;
+            border-top-left-radius: 0.375rem;
+            border-top-right-radius: 0.375rem;
+            margin-bottom: -1px;
+            padding: 10px 15px;
+        }
+
+            .nav-tabs .nav-link:hover {
+                border-color: #e9ecef #e9ecef #dee2e6;
+                background-color: #f8f9fa;
+            }
+
+            .nav-tabs .nav-link.active {
+                border-color: #dee2e6 #dee2e6 #fff;
+                background-color: #fff;
+                border-bottom-color: transparent;
+            }
+
+    /* Tab content borders */
+    .tab-content {
+        border: 1px solid #dee2e6;
+        border-top: none;
+        border-radius: 0 0 0.375rem 0.375rem;
+    }
+
+    .tab-pane {
+        padding: 20px;
+    }
+
+    /* Form styling */
+    .form-control {
+        border: 1px solid #ced4da;
+        border-radius: 0.375rem;
+    }
+
+        .form-control:focus {
+            border-color: #86b7fe;
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+        }
+
+    /* Table styling */
+    .table {
+        border: 1px solid #dee2e6;
+    }
+
+        .table th,
+        .table td {
+            border: 1px solid #dee2e6;
+            padding: 8px 12px;
+        }
+
+        .table thead th {
+            background-color: #f8f9fa;
+            border-bottom: 2px solid #dee2e6;
+        }
+
+    /* Button styling */
+    .btn {
+        border: 1px solid;
+        border-radius: 0.375rem;
+    }
+
+    .btn-success {
+        border-color: #198754;
+    }
+
+    .btn-info {
+        border-color: #0dcaf0;
+    }
+
+    /* Container styling */
+    .container-fluid {
+        background-color: white;
+    }
+
+    /* Tab wrapper border */
+    .tab-wrapper {
+        border: 1px solid #dee2e6;
+        border-radius: 0.375rem;
+        background-color: white;
+        margin: 20px 0;
+    }
+
+    .kv-avatar .krajee-default.file-preview-frame, .kv-avatar .krajee-default.file-preview-frame:hover {
+        margin: 0;
+        padding: 0;
+        border: none;
+        box-shadow: none;
+        text-align: center;
+    }
+
+    .kv-avatar {
+        display: inline-block;
+    }
+
+        .kv-avatar .file-input {
+            display: table-cell;
+            width: 213px;
+        }
+
+    .kv-reqd {
+        color: red;
+        font-family: monospace;
+        font-weight: normal;
+    }
+</style>
+
+<div class="container mt-4">
+    <div class="tab-wrapper" style="border:1px solid white">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link text-primary active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">
+                    <h6 class="m-0 font-weight-bold text-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                        </svg> Search filter
+                    </h6>
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link text-primary" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">
+                    <h6 class="m-0 font-weight-bold text-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-window-plus" viewBox="0 0 16 16">
+                            <path d="M2.5 5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1M4 5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1m2-.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0" />
+                            <path d="M0 4a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v4a.5.5 0 0 1-1 0V7H1v5a1 1 0 0 0 1 1h5.5a.5.5 0 0 1 0 1H2a2 2 0 0 1-2-2zm1 2h13V4a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1z" />
+                            <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0m-3.5-2a.5.5 0 0 0-.5.5v1h-1a.5.5 0 0 0 0 1h1v1a.5.5 0 0 0 1 0v-1h1a.5.5 0 0 0 0-1h-1v-1a.5.5 0 0 0-.5-.5" />
+                        </svg>
+                        Create new employee
+                    </h6>
+                </button>
+            </li>
+
+        </ul>
+
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <div class="container-fluid py-2">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                                    </svg>
+                                </span>
+                                <input type="text" class="form-control" placeholder="Search..." aria-label="Username" aria-describedby="basic-addon1" onkeyup="handleSearch(event)">
+                            </div>
+
+                        </div>
+                    </div>
+                    <form class="" action="/adminarea/insurancemanagement">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label for="inputState">Insurance Type</label>
+                                    <select id="inputState" class="form-control" name="insurance_type_id">
+                                        <option value="-1" selected>Choose...</option>
+                              @*           @if (Model != null)
+                                        {
+                                            var insuranceType = (HashSet<Insurance_agency.Models.ModelView.InsuranceTypeView>)Model;
+                                            foreach (var item in insuranceType)
+                                            {
+                                                <option value="@item.id">@item.name</option>
+                                            }
+                                        } *@
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label for="inputState">Sort By</label>
+                                    <select id="inputState" class="form-control" name="sort_by">
+                                        <option value="-1" selected>Choose...</option>
+                                        <option value="1">Name (A-Z)</option>
+
+                                        <option value="2">Name (Z-A)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-success">Filter</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="container-fluid">
+                    <div class="container-fluid py-2">
+                        <form id="create_employee" class="form form-vertical" action="/adminarea/employee/create" method="post" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="col-sm-4 text-center">
+                                    <div class="kv-avatar">
+                                        <div class="file-loading">
+                                        @*     <input id="avatar-1" name="avatar-1" type="file" accept="image/*" required> *@
+                                        </div>
+                                        <img id="avatar-1" src="/Content/Admin/img/avatar/user.jpg" class="img-fluid img-thumbnail" alt="Your Avatar" style="width:160px">
+                                    </div>
+                                    <div class="kv-avatar-hint">
+                                        <small>Select file < 1500 KB</small>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="formFileMultiple" class="form-label">Multiple files input example</label>
+                                        <input class="form-control" type="file" id="formFileMultiple" name="Img" multiple>
+                                    </div>
+                                </div>
+                                <div class="col-sm-8">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="email">Email Address<span class="kv-reqd">*</span></label>
+                                                <input type="email" class="form-control" name="email" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="pwd">Phone<span class="kv-reqd">*</span></label>
+                                                <input type="text" class="form-control" name="phone"  required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="fname">Full Name</label>
+                                                <input type="text" class="form-control" name="full_name" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="lname">Address</label>
+                                                <input type="text" class="form-control" name="address" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <hr>
+                                        <div class="text-right">
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <div id="kv-avatar-errors-1" class="text-center" style="display:none"></div>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#myTable2').DataTable({
+            "pageLength": 10,
+            "responsive": true
+        });
+
+        $('#myTable3').DataTable({
+            "pageLength": 10,
+            "responsive": true
+        });
+    });
+</script>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Insurance List - All services</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            @* <table class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <th class="text-center align-middle" scope="col">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-image" viewBox="0 0 16 16">
+                                <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
+                                <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1z" />
+                            </svg>
+                        </th>
+                        <th scope="col">No .</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Action</th>
+
+                    </tr>
+                </thead>
+                <tbody id="insurance_list">
+                    @if (ViewBag.item != null)
+                    {
+                        var list = (HashSet<Insurance_agency.Models.ModelView.InsuranceView>)ViewBag.item;
+                        foreach (var item in list)
+                        {
+                            <tr>
+                                <th class="text-center align-middle"><img width="120" height="70" src="/Content/Image/Ex/@item.ex_image" /></th>
+                                <td class="align-middle">@item.id</td>
+                                <td class="align-middle">@item.name</td>
+                                <td class="align-middle">
+                                    @if (item.status == 1)
+                                    {
+                                        <input class="form-check-input checkbox-toggle-active" type="checkbox" checked value="" data-id="@item.id" onchange="updateStatus(event)" />
+                                    }
+                                    else
+                                    {
+
+                                        <input class="form-check-input checkbox-toggle-active" type="checkbox" value="" data-id="@item.id" onchange="updateStatus(event)" />
+                                    }
+
+                                </td>
+
+                                <td class="align-middle">
+
+                                    <a href="/adminarea/insurancemanagement/insurancedetail?id=@item.id" class="btn btn-outline-info">Detail</a>
+
+
+
+                                </td>
+                            </tr>
+                        }
+                    }
+
+             
+                </tbody>
+            </table> *@
+                <table class="table align-middle mb-0 bg-white">
+                    <thead class="bg-light">
+                        <tr>
+                            <th>Name</th>
+                            <th>Title</th>
+                            <th>Status</th>
+                            <th>Phone</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @if (Model != null && Model.Count > 0)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="/Content/Admin/img/avatar/@item.avatar" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
+                                            <div class="ms-3">
+                                                <p class="fw-bold mb-1">@item.full_name</p>
+
+                                                <p class="text-muted mb-0">@item.email</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <p class="fw-normal mb-1">@item.address</p>
+
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-@(item.active == 1 ? "success" : "danger") rounded-pill d-inline">@(item.active == 1 ? "Active" : "Inactive")</span>
+                                    </td>
+                                    <td>@item.phone</td>
+                                    <td>
+                                        <a href="/adminarea/employee/employeedetail?id=@item.id" class="btn btn-link btn-sm btn-rounded">
+                                            Detail
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+        </div>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                </li>
+                @if (ViewBag.TotalPages != null && ViewBag.TotalPages > 0)
+                {
+                    for (int i = 1; i <= ViewBag.TotalPages; i++)
+                    {
+                        <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")"><a class="page-link" href="/adminarea/insurancemanagement/index?page=@i">@i</a></li>
+                    }
+                }
+
+
+         
+                <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        var btnCust = ''; // Nếu bạn có nút tùy chỉnh thêm, khai báo ở đây
+
+        $("#avatar-1").fileinput({
+            overwriteInitial: true,
+            maxFileSize: 1500,
+            showClose: false,
+            showCaption: false,
+            browseLabel: '',
+            removeLabel: '',
+            browseIcon: '<i class="bi bi-folder2-open"></i>',
+            removeIcon: '<i class="bi bi-x-lg"></i>',
+            removeTitle: 'Cancel or reset changes',
+            elErrorContainer: '#kv-avatar-errors-1',
+            msgErrorClass: 'alert alert-block alert-danger',
+            defaultPreviewContent: '<img src="/Content/Admin/img/avatar/user.jpg" alt="Your Avatar" style="width:160px">',
+            layoutTemplates: { main2: '{preview} ' + btnCust + ' {remove} {browse}' },
+            allowedFileExtensions: ["jpg", "png", "gif"]
+        });
+    });
+</script>
+<script>
+    // Render the original insurance list as a JS array
+    var originalInsuranceList = [];
+    @if (ViewBag.item != null)
+    {
+                var list = (HashSet<Insurance_agency.Models.ModelView.InsuranceView>)ViewBag.item;
+                foreach (var item in list)
+                {
+                            <text>
+                                originalInsuranceList.push({
+                                    id: '@item.id',
+                                    name: '@item.name',
+                                    ex_image: '@item.ex_image'
+                                });
+                            </text>
+                }
+    }
+
+    function renderInsuranceList(list) {
+        var tbody = $('#insurance_list');
+        tbody.empty();
+        list.forEach(function(item) {
+
+
+            var row = `<tr>
+                <th class="text-center align-middle"><img width="120" height="70" src="/Content/Image/Ex/${item.ex_image}" /></th>
+                <td class="align-middle">${item.id}</td>
+                <td class="align-middle">${item.name}</td>
+                <td class="align-middle">
+                    <input type="checkbox" ${item.status == 1 ? 'checked' : ''} value="" data-id="${item.id}" onchange="updateStatus(event)" />
+                </td>
+                <td class="align-middle">
+                    <a href="/adminarea/insurancemanagement/insurancedetail?id=${item.id}" class="btn btn-outline-info">Detail</a>
+                </td>
+            </tr>`;
+            tbody.append(row);
+
+
+        });
+    }
+
+    function handleSearch(event){
+        var value = event.target.value;
+        console.log("Value:" + value);
+        if(value.length > 0){
+            $.ajax({
+                url: '/adminarea/insurancemanagement',
+                type: 'GET',
+                data: { keyword: value },
+                success: function(data) {
+                    // data.insList is expected to be an array
+                    renderInsuranceList(data.insList);
+                },
+                error: function(error) {
+                    console.error("Error fetching search results:", error);
+                }
+            });
+        } else {
+            // Show the original list
+            renderInsuranceList(originalInsuranceList);
+        }
+    }
+          function updateStatus(event) {
+
+
+
+                    var item = event.target;
+                    var checked = $(item).is(":checked");
+                    var id = $(item).attr("data-id");
+                    $.ajax({
+                        method: 'POST',
+                        url: "@Url.Action("UpdateActiveStatus")",
+                        data: { _id: id, _checked: checked == true ? 1 : 0 }
+                    }).done(function (msg) {
+                        if (msg.success) {
+                            alert("Status updated successfully!");
+                        } else {
+                            alert("Failed to update status.");
+                        }
+                    }).fail(function () {
+                        alert("Error occurred while updating status.");
+                    });
+
+        };
+</script>

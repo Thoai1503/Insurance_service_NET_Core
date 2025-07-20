@@ -87,10 +87,10 @@ namespace Insurance_agency.Models.Repository
             {
                 if (entity != null)
                 {
-                    var item = _context.TblUsers.Where(d=>d.Id==entity.id).FirstOrDefault();
+                    var item = _context.TblUsers.Where(d => d.Id == entity.id).FirstOrDefault();
                     if (item != null)
                     {
-                        item.Active =entity.active;
+                        item.Active = entity.active;
                         _context.SaveChanges();
                         return true;
                     }
@@ -103,25 +103,33 @@ namespace Insurance_agency.Models.Repository
         }
         public bool Update(User entity)
         {
+
             try
             {
                 if (entity != null)
                 {
-                    var item = _context.TblUsers.Where(d=>d.Id==entity.id).FirstOrDefault();
-                    if (item != null)
+                    var user = _context.TblUsers.FirstOrDefault(u => u.Id == entity.id);
+                    if (user != null)
                     {
-                        item.FullName = entity.full_name;
-                        item.Address = entity.address;
-                        item.Email = entity.email;
-                        item.Phone = entity.phone;
-                        item.Active = entity.active;
+                        user.FullName = entity.full_name;
+                        user.Email = entity.email;
+                        user.Phone = entity.phone;
+                        user.Address = entity.address;
+                        user.AuthId = entity.auth_id;
+                        user.Avatar = entity.avatar;
+                        user.Active = entity.active;
                         _context.SaveChanges();
                         return true;
+                    }
+                    else
+                    {
+                        throw new Exception("User not found.");
                     }
                 }
             }
             catch (Exception ex)
             {
+                Console.WriteLine("Error updating user: " + ex.Message);
             }
             return false;
         }
@@ -135,7 +143,7 @@ namespace Insurance_agency.Models.Repository
         }
         public User FindById(int id)
         {
-           // throw new NotImplementedException();
+            // throw new NotImplementedException();
 
             var user = _context.TblUsers.Where(u => u.Id == id).Select(u => new User
             {
@@ -145,8 +153,8 @@ namespace Insurance_agency.Models.Repository
                 phone = u.Phone,
                 auth_id = (int)u.AuthId,
                 address = u.Address,
-                active = (int)u.Active,
-                avatar= u.Avatar
+                avatar = u.Avatar,
+                active = (int)u.Active
             }).FirstOrDefault();
             if (user == null)
             {
@@ -168,9 +176,12 @@ namespace Insurance_agency.Models.Repository
                 phone = u.Phone,
                 auth_id = (int)u.AuthId,
                 address = u.Address,
-                active =(int) u.Active,
-                avatar = u.Avatar
-                
+                active = (int)u.Active,
+                avatar = u.Avatar,
+
+                created_date = u.CreatedDate,
+
+
             }).ToHashSet();
             if (user == null)
             {
@@ -188,14 +199,44 @@ namespace Insurance_agency.Models.Repository
                 phone = u.Phone,
                 auth_id = (int)u.AuthId,
                 address = u.Address,
-                active = (int)u.Active,
-                avatar = u.Avatar
+                avatar = u.Avatar,
+                created_date = u.CreatedDate,
+                active = (int)u.Active
             }).ToHashSet();
             if (user == null)
             {
                 throw new Exception("No employee user found.");
             }
             return user;
+        }
+        public bool CreateEmployee(User entity)
+        {
+            try
+            {
+                if (entity != null)
+                {
+                    var user = new TblUser
+                    {
+                        FullName = entity.full_name,
+                        Email = entity.email,
+                        Password = "default123",
+                        Phone = entity.phone,
+                        Address = entity.address,
+                        AuthId = 3,
+                        Avatar = entity.avatar,
+                        Active = 1,// Assuming 1 means active
+                        CreatedDate = DateTime.Now
+                    };
+                    _context.TblUsers.Add(user);
+                    _context.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error creating employee: " + ex.Message);
+            }
+            return false;
         }
     }
 
