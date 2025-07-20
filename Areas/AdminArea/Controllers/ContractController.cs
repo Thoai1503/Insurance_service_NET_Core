@@ -11,7 +11,7 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
         public ActionResult Index()
         {
             var contracts = ContractRepository.Instance.GetAll();
-            var unassignedContracts = contracts.Where(c=> c.employee_id ==0).ToHashSet();
+            var unassignedContracts = contracts.Where(c=> c.employee_id ==0).OrderByDescending(c=>c.StartDate).ToHashSet();
             var assignedContracts = contracts.Where(c => c.employee_id != 0).ToHashSet();
             ViewBag.UnassignedContracts = unassignedContracts;
             ViewBag.AssignedContracts = assignedContracts;

@@ -220,7 +220,7 @@ namespace Insurance_agency.Models.Repository
                     employee_id = (int)c.EmployeeId,
                     year_paid = (long)c.YearPaid,
                     number_year_paid = c.NumberYearPaid,
-                    status = (int)c.Status
+                    status = c.Status??0
                 }).ToHashSet();
             return contracts;
         }
@@ -232,15 +232,53 @@ namespace Insurance_agency.Models.Repository
                 {
                     id = c.Id,
                     user_id = (int)c.UserId,
+                    user = new User
+                    {
+                        id = c.User.Id,
+                        full_name = c.User.FullName, // Assuming FullName is the correct property
+                        email = c.User.Email,
+                        phone = c.User.Phone
+                    },
                     insurance_id = (int) c.InsuranceId,
+                    insurance = new InsuranceView
+                    {
+                        id = c.Insurance.Id,
+                        name = c.Insurance.Name,
+                        description = c.Insurance.Description,
+                        value = c.Insurance.Value??0,
+                        year_max = c.Insurance.YearMax??0,
+                        ex_image = c.Insurance.ExImage
+                    },
                     StartDate = c.StartDate,
                     EndDate = c.EndDate,
                     value_contract = (long)c.ValueContract,
                     employee_id = c.EmployeeId ?? 0,
+                    
+                    
                     year_paid = (long)c.YearPaid,
                     number_year_paid = c.NumberYearPaid,
-                    status = (int)c.Status
+                    status = c.Status??0
                 }).ToHashSet();
+            // retrive employee information if available
+            foreach (var contract in contracts)
+            {
+                if (contract.employee_id != 0)
+                {
+                    var employee = _context.TblUsers.FirstOrDefault(u => u.Id == contract.employee_id);
+                    if (employee != null)
+                    {
+                        contract.employee = new User
+                        {
+                            id = employee.Id,
+                            full_name = employee.FullName,
+                            email = employee.Email,
+                            phone = employee.Phone
+                        };
+                    }
+                }
+            }
+            // Return the set of contracts
+            //var contracts = _context.TblContracts
             return contracts;
 
         }

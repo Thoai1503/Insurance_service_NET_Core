@@ -9,177 +9,445 @@
 <h2 class="mb-5">Danh sách hợp đồng</h2>
 
 
-<ul class="nav nav-tabs" id="myTab" role="tablist">
-    <li class="nav-item" role="presentation">
-        <button class="nav-link text-primary active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Tất cả hợp đồng</button>
-    </li>
-    <li class="nav-item" role="presentation">
-        <button class="nav-link text-primary" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Hợp đồng đã phân công</button>
-    </li>
-    <li class="nav-item" role="presentation">
-        <button class="nav-link text-primary" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Hợp đồng chưa phân công</button>
-    </li>
-</ul>
-<div class="tab-content" id="myTabContent" style="background-color:white">
-    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-        <div class="container-fluid">
-        <table id="myTable" class="display">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Người mua</th>
+<style>
+    .table {
+        border-collapse: collapse;
+    }
 
-                    <th>Mã bảo hiểm</th>
-                    <th>Tổng giá trị bảo hiểm</th>
-                    <th>Tiền trả trên năm</th>
-                    <th>Số năm trả</th>
-                    <th>Trạng thái</th>
-                    <th>Hành động</th>
-                </tr>
-            </thead>
-            <tbody id="order_list">
-                <tr>
-                    <td>1</td>
-                    <td>Thoai Vip</td>
+        .table th,
+        .table td {
+            border-top: 1px solid #dee2e6;
+            border-bottom: 1px solid #dee2e6;
+            border-left: none !important;
+            border-right: none !important;
+        }
+</style>
 
-                    <th>#BHNT32032</th>
-                    <td>500.000.000</td>
-                    <td>5.000.000</td>
-                    <td>10</td>
-                    <td>In process</td>
-                    <td><a class="btn btn-info">Xem chi tiết</a></td>
-                </tr>
-                @if (Model != null && Model.Count > 0)
-                {
-                    foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>@item.id</td>
-                            <td>User @(item.user_id)</td>
 
-                            <td>#BHNT3423@(item.insurance_id)</td>
-                            <td>@item.value_contract</td>
-                            <td>@item.year_paid</td>
-                            <td>@item.number_year_paid</td>
-                            <td>@item.status</td>
-                            <td><a class="btn btn-info" href="/adminarea/contract/detail?id=@item.id">Xem chi tiết</a></td>
-                        </tr>
-                    }
-                }
-            </tbody>
-        </table>
-        </div>
-    </div>
-    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-        <div class="container-fluid">
-            <table id="myTable2" class="display">
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Người mua</th>
 
-                        <th>Mã bảo hiểm</th>
-                        <th>Tổng giá trị bảo hiểm</th>
-                        <th>Tiền trả trên năm</th>
-                        <th>Số năm trả</th>
-                        <th>Trạng thái</th>
-                        <th>Hành động</th>
-                    </tr>
-                </thead>
-                <tbody id="order_list">
-                    <tr>
-                        <td>1</td>
-                        <td>Thoai Vip</td>
 
-                        <th>#BHNT32032</th>
-                        <td>500.000.000</td>
-                        <td>5.000.000</td>
-                        <td>10</td>
-                        <td>In process</td>
-                        <td><a class="btn btn-info">Xem chi tiết</a></td>
-                    </tr>
-                    @if (ViewBag.AssignedContracts != null)
-                    {
-                        var list = ViewBag.AssignedContracts as HashSet<Insurance_agency.Models.ModelView.ContractView>;
-                        foreach (var item in list)
-                        {
-                            <tr>
-                                <td>@item.id</td>
-                                <td>User @(item.user_id)</td>
 
-                                <td>#BHNT3423@(item.insurance_id)</td>
-                                <td>@item.value_contract</td>
-                                <td>@item.year_paid</td>
-                                <td>@item.number_year_paid</td>
-                                <td>@item.status</td>
-                                <td><a class="btn btn-info" href="/adminarea/contract/detail?id=@item.id">Xem chi tiết</a></td>
-                            </tr>
-                        }
-                    }
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-            <div class="container-fluid">
-                <table id="myTable3" class="display">
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Người mua</th>
+<style>
+    /* Custom border styles for tabs */
+    .nav-tabs {
+        border-bottom: 2px solid #dee2e6;
+        margin-bottom: 0;
+    }
 
-                            <th>Mã bảo hiểm</th>
-                            <th>Tổng giá trị bảo hiểm</th>
-                            <th>Tiền trả trên năm</th>
-                            <th>Số năm trả</th>
-                            <th>Trạng thái</th>
-                            <th>Hành động</th>
-                        </tr>
-                    </thead>
-                    <tbody id="order_list">
-                        <tr>
-                            <td>1</td>
-                            <td>Thoai Vip</td>
+        .nav-tabs .nav-link {
+            border: 1px solid transparent;
+            border-top-left-radius: 0.375rem;
+            border-top-right-radius: 0.375rem;
+            margin-bottom: -1px;
+            padding: 10px 15px;
+        }
 
-                            <th>#BHNT32032</th>
-                            <td>500.000.000</td>
-                            <td>5.000.000</td>
-                            <td>10</td>
-                            <td>In process</td>
-                            <td><a class="btn btn-info">Xem chi tiết</a></td>
-                        </tr>
-                        @if (ViewBag.UnassignedContracts != null)
-                        {
-                            var list = ViewBag.UnassignedContracts as HashSet<Insurance_agency.Models.ModelView.ContractView>;
-                            foreach (var item in list)
-                            {
-                                <tr>
-                                    <td>@item.id</td>
-                                    <td>User @(item.user_id)</td>
+            .nav-tabs .nav-link:hover {
+                border-color: #e9ecef #e9ecef #dee2e6;
+                background-color: #f8f9fa;
+            }
 
-                                    <td>#BHNT3423@(item.insurance_id)</td>
-                                    <td>@item.value_contract</td>
-                                    <td>@item.year_paid</td>
-                                    <td>@item.number_year_paid</td> 
-                                    <td>@item.status</td>
-                                    <td><a class="btn btn-info" href="/adminarea/contract/detail?id=@item.id">Xem chi tiết</a></td>
-                                </tr>
-                            }
-                        }
-                    </tbody>
-                </table>
+            .nav-tabs .nav-link.active {
+                border-color: #dee2e6 #dee2e6 #fff;
+                background-color: #fff;
+                border-bottom-color: transparent;
+            }
+
+    /* Tab content borders */
+    .tab-content {
+        border: 1px solid #dee2e6;
+        border-top: none;
+        border-radius: 0 0 0.375rem 0.375rem;
+    }
+
+    .tab-pane {
+        padding: 20px;
+    }
+
+    /* Form styling */
+    .form-control {
+        border: 1px solid #ced4da;
+        border-radius: 0.375rem;
+    }
+
+        .form-control:focus {
+            border-color: #86b7fe;
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+        }
+
+    /* Table styling */
+    .table {
+        border: 1px solid #dee2e6;
+    }
+
+        .table th,
+        .table td {
+            border: 1px solid #dee2e6;
+            padding: 8px 12px;
+        }
+
+        .table thead th {
+            background-color: #f8f9fa;
+            border-bottom: 2px solid #dee2e6;
+        }
+
+    /* Button styling */
+    .btn {
+        border: 1px solid;
+        border-radius: 0.375rem;
+    }
+
+    .btn-success {
+        border-color: #198754;
+    }
+
+    .btn-info {
+        border-color: #0dcaf0;
+    }
+
+    /* Container styling */
+    .container-fluid {
+        background-color: white;
+    }
+
+    /* Tab wrapper border */
+    .tab-wrapper {
+        border: 1px solid #dee2e6;
+        border-radius: 0.375rem;
+        background-color: white;
+        margin: 20px 0;
+    }
+</style>
+
+<div class="container mt-4">
+    <div class="tab-wrapper" style="border:1px solid white">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link text-primary active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">
+                    <h6 class="m-0 font-weight-bold text-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                        </svg> Search filter
+                    </h6>
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link text-primary" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">
+                    <h6 class="m-0 font-weight-bold text-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-window-plus" viewBox="0 0 16 16">
+                            <path d="M2.5 5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1M4 5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1m2-.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0" />
+                            <path d="M0 4a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v4a.5.5 0 0 1-1 0V7H1v5a1 1 0 0 0 1 1h5.5a.5.5 0 0 1 0 1H2a2 2 0 0 1-2-2zm1 2h13V4a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1z" />
+                            <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0m-3.5-2a.5.5 0 0 0-.5.5v1h-1a.5.5 0 0 0 0 1h1v1a.5.5 0 0 0 1 0v-1h1a.5.5 0 0 0 0-1h-1v-1a.5.5 0 0 0-.5-.5" />
+                        </svg>
+                        Create new service
+                    </h6>
+                </button>
+            </li>
+
+        </ul>
+
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <div class="container-fluid py-2">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                                    </svg>
+                                </span>
+                                <input type="text" class="form-control" placeholder="Search..." aria-label="Username" aria-describedby="basic-addon1" onkeyup="handleSearch(event)">
+                            </div>
+
+                        </div>
+                    </div>
+                    <form class="" action="/adminarea/insurancemanagement">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label for="inputState">Insurance Type</label>
+                                    <select id="inputState" class="form-control" name="insurance_type_id">
+                                        <option value="-1" selected>Choose...</option>
+                                
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label for="inputState">Sort By</label>
+                                    <select id="inputState" class="form-control" name="sort_by">
+                                        <option value="-1" selected>Choose...</option>
+                                        <option value="1">Name (A-Z)</option>
+
+                                        <option value="2">Name (Z-A)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        @*     <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label for="inputCity">City</label>
+                                        <input type="text" class="form-control" id="inputCity">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group mb-3">
+                                        <label for="inputState">State</label>
+                                        <select id="inputState" class="form-control">
+                                            <option selected>Choose...</option>
+                                            <option>...</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group mb-3">
+                                        <label for="inputZip">Zip</label>
+                                        <input type="text" class="form-control" id="inputZip">
+                                    </div>
+                                </div>
+                            </div> *@
+                        @*   <div class="form-group mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="gridCheck">
+                                    <label class="form-check-label" for="gridCheck">
+                                        Check me out
+                                    </label>
+                                </div>
+                            </div> *@
+                        <button type="submit" class="btn btn-success">Filter</button>
+                    </form>
+                </div>
             </div>
+
+            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="container-fluid">
+                    <div class="container-fluid py-2">
+                        <h4 class="text-primary">New insurance</h4>
+                        <form class="" action="@Url.Action("CreateConfirm")" method="post" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label for="inputEmail4">Name</label>
+                                        <input type="text" class="form-control" id="inputEmail4" placeholder="name" name="name">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label for="inputPassword4">Value (VND)</label>
+                                        <input type="number" class="form-control" id="inputPassword4" name="value" placeholder="Type the value (VND)">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label for="inputCity">Description</label>
+
+                                        <textarea class="form-control" name="decription" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group mb-3">
+                                        <label for="inputState">Insurance Type</label>
+                                        <select id="inputState" class="form-control" name="insurance_type_id">
+                                            <option selected>Choose...</option>
+
+                                     
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group mb-3">
+                                        <label for="inputZip">Year max</label>
+                                        <input type="number" class="form-control" max="50" name="year_max" id="inputZip">
+                                    </div>
+                                </div>
+                            </div>
+                            @*  <div class="form-group mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="gridCheck">
+                                    <label class="form-check-label" for="gridCheck">
+                                        Check me out
+                                    </label>
+                                </div>
+                            </div> *@
+                            <div class="row">
+                                <div class="col-md-12 mb-3">
+                                    <label for="formFile" class="form-label">Default file input example</label>
+                                    <input class="form-control" type="file" name="Img" id="eximage" />
+                                </div>
+                            </div>
+                            <div class="row">
+                            </div>
+                            <button type="submit" class="btn btn-success">Add new item</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
     </div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
 <script>
-       document.addEventListener("DOMContentLoaded", function () {
-        new DataTable('#myTable');
-        new DataTable('#myTable2');
+    $(document).ready(function() {
+        $('#myTable2').DataTable({
+            "pageLength": 10,
+            "responsive": true
+        });
 
-        new DataTable('#myTable3');
-
+        $('#myTable3').DataTable({
+            "pageLength": 10,
+            "responsive": true
+        });
     });
 </script>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Insurance List - All services</h6>
+    </div>
+    <div class="card-body">
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">All Contract</button>
+                <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Unassigned Contract</button>
+                <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</button>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <div class="table-responsive" style="height:400px;overflow:scroll">
+                    <table class="table">
+                        <thead class="thead-light">
+                            <tr>
+                                
+                                <th scope="col">No .</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">User</th>
+                                <th scope="col">Employee</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Action</th>
+
+                            </tr>
+                        </thead>
+                        <tbody id="all_contract_list">
+                            @if(Model != null && Model.Count > 0)
+                            {
+                                
+
+                                int index = 1;
+                                foreach (var item in Model)
+                                {
+                                    index = ++index;
+                                    <tr>
+                                        <th scope="row">@index</th>
+                                        <td>@item.insurance.name</td>
+                                        <td>@item.user.full_name</td>
+                                        <td>
+                                            @if (item.employee != null)
+                                            {
+                                                <span> @item.employee.full_name</span>
+                                            }
+                                            else
+                                            {
+                                                <button class="btn btn-danger" style="border:30px; width:8px;height:4px" disabled>Not assigned</button>
+                                            }
+                                        </td>
+                                        <td>@(item.status == 1 ? "Active" : "Inactive")</td>
+                                        <td>
+
+                                            <a href="/"accesskey="" action=""       >
+                                            
+                                              
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                                        <path d="M15.502 1.94a1.5 1.5 0 0 1 0 2.121l-1.06 1.06-2.121-2.12 1.06-1.06a1.5 1.5 0 0 1 2.121 0zM13.44 4.56l-2.12-2.12L9.22 4.22l2.12 2.12L13.44 4.56zM1 13V3a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2zm11-9H3a1 1 0 0 0-1 .993V13a1 1 0 0 0 .883.993L3 .993h8a1 .993V4z" />
+                                                    </svg>
+                                               
+                                            </a>
+                                            </td>
+                                    </tr>
+
+
+                                }
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                <div class="table-responsive" style="height:400px;overflow:scroll">
+                    <table class="table">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">No .</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">User</th>
+                                <th scope="col">Employee</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="unassigned_contract_list">
+                            @if (ViewBag.UnassignedContracts != null && ViewBag.UnassignedContracts.Count > 0)
+                            {
+                                int index = 1;
+                                foreach (var item in ViewBag.UnassignedContracts)
+                                {
+                                    index = index++;
+                                    <tr>
+                                        <th scope="row">@index</th>
+                                        <td>@item.insurance.name</td>
+                                        <td>@item.user.full_name</td>
+                                        <td>@(item.employee != null ? item.employee.full_name : "Not assigned")</td>
+                                        <td>@(item.status == 1 ? "Active" : "Inactive")</td>
+                                        <td>
+                                            <a href="/">
+                                            
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                                    <path d="M15.502 1.94a1.5 1.5 0 0 1 0 2.121l-1.06 1.06-2.121-2.12 1.06-1.06a1.5 1.5 0 0 1 2.121 0zM13.44 4.56l-2.12-2.12L9.22 4.22l2.12 2.12L13.44 4.56zM1 13V3a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2zm11-9H3a1 1 0 0 0-1 .993V13a1 1 0 0 0 .883.993L3 .993h8a1 .993V4z" />
+                                                </svg>
+                                            </a>
+                                        </td>
+                                    </tr>
+
+
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
+        </div>
+       
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                </li>
+         @*        @if (ViewBag.TotalPages != null && ViewBag.TotalPages > 0)
+                {
+                    for (int i = 1; i <= ViewBag.TotalPages; i++)
+                    {
+                        <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")"><a class="page-link" href="/adminarea/insurancemanagement/index?page=@i">@i</a></li>
+                    }
+                }
+ *@
+
+       
+                <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
