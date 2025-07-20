@@ -3,7 +3,11 @@
 *@
 @{
     @model HashSet<Insurance_agency.Models.ModelView.Policy>
-    Layout = "~/Areas/AdminArea/Views/Shared/_AdminLayout.cshtml";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    Insurance_agency.Models.ModelView.InsuranceTypeView type = new Insurance_agency.Models.ModelView.InsuranceTypeView();
+    if (ViewBag.type != null){
+        type = (Insurance_agency.Models.ModelView.InsuranceTypeView)ViewBag.type;
+    }
 }
 
 <style>
@@ -38,7 +42,7 @@
     <div class="card border-left-primary shadow h-100 py-2">
         <div class="card-body">
 <h5 class="text-primary">Mã bảo hiểm: #BHNT02483</h5>
-<p class="text-primary">Loại bảo hiểm: Bảo hiểm nhân thọ</p>
+<p class="text-primary">Loại bảo hiểm: @type.name</p>
         </div>
     </div>
 </div>

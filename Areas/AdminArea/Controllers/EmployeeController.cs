@@ -47,6 +47,38 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
 
             return View();
         }
+        public IActionResult CreateConfirm(IFormFile Img, User item)
+        {
+            if (item != null)
+            {
+                if (Img != null)
+                {
+                    string folder = "Image/Avatar/Employee/";
+                    string name = Img.FileName;
+                    name = name.Replace("-", "");
+                    name = name.Replace(" ", "");
+                    name = name.Replace("_", "");
+                    folder += name;
+                    string fullPathSave = Path.Combine("wwwroot/Content", folder);
+                    item.avatar = name;
+                    using (var fileStream = new FileStream(fullPathSave, FileMode.Create))
+                    {
+                        Img.CopyTo(fileStream);
+                    }
+                }
+                else
+                {
+                    item.avatar = "no avatar";
+                }
+                var a = UserRepository.Instance.CreateEmployee(item);
+                if (a == false)
+                {
+                    return RedirectToAction("Create");
+                }
+            }
+            return RedirectToAction("index");
+        }
+
         public IActionResult Edit(User user, IFormFile Img)
         {
             if (user != null)
@@ -118,6 +150,28 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
             ViewBag.Contracts = contracts;
             return View(employee);
         }
-      
+        public IActionResult UpdateEmployeeToContract(int employee_id, int contract_id, int current_employee)
+        {
+            var contract = ContractRepository.Instance.FindById(contract_id);
+            if (contract != null)
+            {
+                contract.employee_id = employee_id;
+                var result = ContractRepository.Instance.Update(contract);
+                if (result)
+                {
+
+                    return RedirectToAction("Index", "Contract", new { id = employee_id });
+                }
+                else
+                {
+                    ViewBag.Error = "Failed to update employee to contract.";
+                }
+            }
+            else
+            {
+                ViewBag.Error = "Contract not found.";
+            }
+            return RedirectToAction("Index");
+        }
     }
 }
