@@ -129,9 +129,9 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
 
 
         }
-        public ActionResult InsuranceEdit(int id)
+        public async Task<ActionResult> InsuranceEdit(int id)
         {
-            var insurancetype = InsuranceTypeRepository.Instance.GetAll();
+            var insurancetype = await InsuranceTypeRepository.Instance.GetAll();
             ViewBag.insurancetype = insurancetype;
             ViewBag.data = InsuranceRepository.Instance.FindById(id);
             return View();

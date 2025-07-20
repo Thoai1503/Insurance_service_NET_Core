@@ -15,12 +15,12 @@ namespace Insurance_agency.Controllers
             HttpContext.Session.SetInt32("allbanner", 0);
             return View();
         }
-        
+
         public void sendmail(string email)
         {
             string to = email;
             string code = Function.GenerateCode();
-            HttpContext.Session.SetObject("code",code);
+            HttpContext.Session.SetObject("code", code);
             string from = "minhphat1612@gmail.com";
             MailMessage message = new MailMessage(from, to);
             message.Subject = "Verification Code";
@@ -44,7 +44,7 @@ namespace Insurance_agency.Controllers
                     ex.ToString());
             }
         }
-        public IActionResult Register(IFormFile Img,User item,int code=0)
+        public IActionResult Register(IFormFile Img, User item, int code = 0)
         {
             try
             {
@@ -52,9 +52,12 @@ namespace Insurance_agency.Controllers
                 {
                     if (item != null)
                     {
-                        if (Img != null)
-                            if (HttpContext.Session.GetObject<int>("code") == code)
+                        item.active = 1;
+                        if (int.TryParse(HttpContext.Session.GetObject<string>("code"), out int number))
+                        {
+                            if (number == code)
                             {
+                                if (Img != null)
                                 {
                                     string folder = "Image/Avatar/Customer/";
                                     string name = Img.FileName;
@@ -69,23 +72,23 @@ namespace Insurance_agency.Controllers
                                         Img.CopyTo(fileStream);
                                     }
                                 }
+                                else
+                                {
+                                    item.avatar = "no avatar";
+                                }
+                                item.password = Function.MD5Hash(item.password);
+                                var a = UserRepository.Instance.Create(item);
+                                if (a == false)
+                                {
+                                    return RedirectToAction("Create");
+                                }
                             }
-                            else
-                            {
-                                item.avatar = "no avatar";
-                            }
-                        item.password = Function.MD5Hash(item.password);
-                        var a = UserRepository.Instance.Create(item);
-                        if (a == false)
-                        {
-                            return RedirectToAction("Create");
                         }
                     }
                 }
-                    
             }
-            catch (Exception){ }
-            return RedirectToAction("Index","Login");
+            catch (Exception) { }
+            return RedirectToAction("Index", "Login");
         }
     }
 }

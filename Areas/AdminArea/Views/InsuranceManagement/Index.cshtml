@@ -255,6 +255,14 @@
                                  
                                         <textarea class="form-control" name="decription" id="exampleFormControlTextarea1" rows="3"></textarea>
                                     </div>
+                                    <script>
+                                        const textarea = document.querySelector("textarea");
+                                        textarea.addEventListener("keyup", e =>{
+                                          textarea.style.height = "63px";
+                                          let scHeight = e.target.scrollHeight;
+                                          textarea.style.height = `${scHeight}px`;
+                                        });
+                                    </script>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group mb-3">
@@ -374,8 +382,8 @@
                                 <td class="align-middle">
 
                                     <a href="/adminarea/insurancemanagement/insurancedetail?id=@item.id" class="btn btn-outline-info">Detail</a>
-                                      
-                                     
+
+									<a href="@Url.Action("InsuranceEdit",new{id=item.id})" class="btn btn-outline-warning"></a>
                                  
                                 </td>
                             </tr>

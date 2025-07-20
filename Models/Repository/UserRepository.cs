@@ -58,26 +58,26 @@ namespace Insurance_agency.Models.Repository
             {
                 if (entity != null)
                 {
-                    var item = new TblUser
+                    var user = new TblUser
                     {
-                        Email = entity.email,
                         FullName = entity.full_name,
-                        Active = 1,
-                        Address = entity.address,
-                        Password = entity.password,
+                        Email = entity.email,
+                        Password = "default123",
                         Phone = entity.phone,
+                        Address = entity.address,
                         AuthId = 3,
                         Avatar = entity.avatar,
+                        Active = 1,// Assuming 1 means active
+                        CreatedDate = DateTime.Now
                     };
-                    _context.Add(item);
+                    _context.TblUsers.Add(user);
                     _context.SaveChanges();
                     return true;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                Console.WriteLine("Error creating employee: " + ex.Message);
             }
             return false;
         }
@@ -209,35 +209,7 @@ namespace Insurance_agency.Models.Repository
             }
             return user;
         }
-        public bool CreateEmployee(User entity)
-        {
-            try
-            {
-                if (entity != null)
-                {
-                    var user = new TblUser
-                    {
-                        FullName = entity.full_name,
-                        Email = entity.email,
-                        Password = "default123",
-                        Phone = entity.phone,
-                        Address = entity.address,
-                        AuthId = 3,
-                        Avatar = entity.avatar,
-                        Active = 1,// Assuming 1 means active
-                        CreatedDate = DateTime.Now
-                    };
-                    _context.TblUsers.Add(user);
-                    _context.SaveChanges();
-                    return true;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error creating employee: " + ex.Message);
-            }
-            return false;
-        }
+       
     }
 
 }
