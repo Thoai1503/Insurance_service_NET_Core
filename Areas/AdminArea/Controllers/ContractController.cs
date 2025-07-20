@@ -13,9 +13,10 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
             var contracts = ContractRepository.Instance.GetAll();
             var unassignedContracts = contracts.Where(c=> c.employee_id ==0).OrderByDescending(c=>c.StartDate).ToHashSet();
             var assignedContracts = contracts.Where(c => c.employee_id != 0).ToHashSet();
+            var employees = UserRepository.Instance.GetAllEmployeeUser();
             ViewBag.UnassignedContracts = unassignedContracts;
             ViewBag.AssignedContracts = assignedContracts;
-
+            ViewBag.Employees = employees;
             return View(contracts);
         }
 

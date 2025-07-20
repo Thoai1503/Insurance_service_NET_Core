@@ -367,11 +367,28 @@
                                             <a href="/"accesskey="" action=""       >
                                             
                                               
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                                                         <path d="M15.502 1.94a1.5 1.5 0 0 1 0 2.121l-1.06 1.06-2.121-2.12 1.06-1.06a1.5 1.5 0 0 1 2.121 0zM13.44 4.56l-2.12-2.12L9.22 4.22l2.12 2.12L13.44 4.56zM1 13V3a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2zm11-9H3a1 1 0 0 0-1 .993V13a1 1 0 0 0 .883.993L3 .993h8a1 .993V4z" />
                                                     </svg>
+                                              
                                                
                                             </a>
+                                            <a href="/" accesskey="" action="">
+
+
+                                           
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-journal-richtext" viewBox="0 0 16 16">
+                                                    <path d="M7.5 3.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0m-.861 1.542 1.33.886 1.854-1.855a.25.25 0 0 1 .289-.047L11 4.75V7a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 7v-.5s1.54-1.274 1.639-1.208M5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5" />
+                                                    <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2" />
+                                                    <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1z" />
+                                                </svg>
+
+                                            </a>
+                                         
+                                            <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#avatarModal">
+                                               
+                                                <img src="/Content/Image/swap-icon-19.jpg" alt="Delete" style="width:20px;height:20px">
+                                            </button>
                                             </td>
                                     </tr>
 
@@ -449,5 +466,71 @@
                 </li>
             </ul>
         </nav>
+    </div>
+</div>
+
+
+
+
+<div class="modal fade" id="avatarModal" tabindex="-1" aria-labelledby="avatarModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-primary" id="avatarModalLabel">
+                    <i class="fas fa-camera me-2"></i>Choose an employee to swap
+                </h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" action="/adminarea/employee/updateavatar" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="table-responsive">
+                  
+                        <table class="table align-middle mb-0 bg-white">
+                            <thead class="bg-light">
+                                <tr>
+                                    <th>Name</th>
+                                   
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @if (ViewBag.Employees != null)
+                                {
+                                    var list = ViewBag.Employees as HashSet<Insurance_agency.Models.ModelView.User>;
+                                    foreach (var item in list)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <img src="/Content/Admin/img/avatar/@item.avatar" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
+                                                    <div class="ms-3">
+                                                        <p class="fw-bold mb-1">@item.full_name</p>
+
+                                                        <p class="text-muted mb-0">@item.email</p>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                           
+                                            <td>
+                                                <a href="/adminarea/employee/employeedetail?id=@item.id" class="btn btn-link btn-sm btn-rounded">
+                                                    Detail
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-upload me-1"></i>Tải lên
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>

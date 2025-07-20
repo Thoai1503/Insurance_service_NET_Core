@@ -2026,6 +2026,7 @@ wwwroot\Content\Image\Ex\logo.png
 wwwroot\Content\Image\Ex\Neuschwanstein_Herbst_Schnepfling__37_-ti-schwangau.jpg
 wwwroot\Content\Image\Ex\reseuro201215224677164861664971189.png
 wwwroot\Content\Image\Ex\victormanuelrodriguezfondo3dvictormrodriguez.jpg
+wwwroot\Content\Image\swap-icon-19.jpg
 wwwroot\css\site.css
 wwwroot\favicon.ico
 wwwroot\js\site.js
