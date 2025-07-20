@@ -7736,23 +7736,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ACER\\.nuget\\packages\\": {},
+    "C:\\Users\\minhp\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\project_NET\\Insurance_agency\\Insurance_agency\\Insurance_agency.csproj",
+      "projectUniqueName": "C:\\Users\\minhp\\Desktop\\Gitclone\\Insurance_agancy_NET_Core\\Insurance_agency.csproj",
       "projectName": "Insurance_agency",
-      "projectPath": "C:\\project_NET\\Insurance_agency\\Insurance_agency\\Insurance_agency.csproj",
-      "packagesPath": "C:\\Users\\ACER\\.nuget\\packages\\",
-      "outputPath": "C:\\project_NET\\Insurance_agency\\Insurance_agency\\obj\\",
+      "projectPath": "C:\\Users\\minhp\\Desktop\\Gitclone\\Insurance_agancy_NET_Core\\Insurance_agency.csproj",
+      "packagesPath": "C:\\Users\\minhp\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\minhp\\Desktop\\Gitclone\\Insurance_agancy_NET_Core\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\ACER\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\minhp\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -7779,7 +7779,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.300"
+      "SdkAnalysisLevel": "9.0.100"
     },
     "frameworks": {
       "net8.0": {
@@ -7829,7 +7829,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
