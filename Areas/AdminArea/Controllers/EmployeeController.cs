@@ -118,28 +118,6 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
             ViewBag.Contracts = contracts;
             return View(employee);
         }
-        public IActionResult UpdateEmployeeToContract(int employee_id, int contract_id, int current_employee)
-        {
-            var contract = ContractRepository.Instance.FindById(contract_id);
-            if (contract != null)
-            {
-                contract.employee_id = employee_id;
-                var result = ContractRepository.Instance.Update(contract);
-                if (result)
-                {
-                
-                    return RedirectToAction("Index","Contract", new { id = employee_id });
-                }
-                else
-                {
-                    ViewBag.Error = "Failed to update employee to contract.";
-                }
-            }
-            else
-            {
-                ViewBag.Error = "Contract not found.";
-            }
-            return RedirectToAction("Index");
-        }
+      
     }
 }

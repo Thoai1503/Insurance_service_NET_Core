@@ -330,6 +330,7 @@
                             <tr>
                                 
                                 <th scope="col">No .</th>
+                                <th scope="col">ID</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">User</th>
                                 <th scope="col">Employee</th>
@@ -349,6 +350,7 @@
                                     index = ++index;
                                     <tr>
                                         <th scope="row">@index</th>
+                                        <td>@item.id</td>
                                         <td>@item.insurance.name</td>
                                         <td>@item.user.full_name</td>
                                         <td>
@@ -411,6 +413,8 @@
                         <thead class="thead-light">
                             <tr>
                                 <th scope="col">No .</th>
+                                <th scope="col">ID</th>
+
                                 <th scope="col">Name</th>
                                 <th scope="col">User</th>
                                 <th scope="col">Employee</th>
@@ -427,6 +431,7 @@
                                     index = index++;
                                     <tr>
                                         <th scope="row">@index</th>
+                                        <td>@item.id</td>
                                         <td>@item.insurance.name</td>
                                         <td>@item.user.full_name</td>
                                         <td>@(item.employee != null ? item.employee.full_name : "Not assigned")</td>
@@ -510,7 +515,7 @@
                 </div>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form method="post" action="/adminarea/employee/updateemployeetocontract" enctype="multipart/form-data">
+            <form method="post" action="/adminarea/contract/updateemployeetocontract" enctype="multipart/form-data">
                 <input type="hidden" id="contractId" name="contract_id" value="" />
 
                 <div class="modal-body">
