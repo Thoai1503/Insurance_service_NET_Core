@@ -1,0 +1,90 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<form action="@Url.Action("Register")" enctype="multipart/form-data" method="post">
+	<div class="row">
+		<div class="col-2">Email</div>
+		<div class="col-3">
+			<input type="email" id="email" name="email" value="" required />
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-2">FullName</div>
+		<div class="col-3">
+			<input type="text" name="full_name" value="" required />
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-2">Password</div>
+		<div class="col-3">
+			<input type="password" name="password" value="" required />
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-2">Phone</div>
+		<div class="col-3">
+			<input type="text" name="phone" value="" />
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-2">Address</div>
+		<div class="col-3">
+			<input type="text" name="address" value="" />
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-2">Avatar</div>
+		<div class="col-3">
+			<input type="file" name="Img" value="" />
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-2">Verifitication Code</div>
+		<div class="col-3">
+			<input type="text" name="code" required value="" />
+		</div>
+		<div class="col-3">
+			<button id="myButton">Send</button>
+		</div>
+	</div>
+	<button class="btn btn-success">Confirm</button>
+</form>
+
+<p id="timer"></p>
+<script type="text/javascript">
+	document.addEventListener("DOMContentLoaded",function(){
+		 document.getElementById("myButton").addEventListener("click", function () {
+			button.disabled= true;
+		var email = $("#email").val();
+		$.ajax({
+		url:"@Url.Action("SendMail")",
+		type : "POST",
+		contentType:'application/x-www-form-urlencoded',
+		data:{"email":email},
+		success:function (response){
+			if(response.success){
+				alert("success")
+			}
+		}
+	})
+	updateCountdown();
+	const timer = setInterval(updateCountdown, 1000);
+		});
+	})
+	let countdown = 10;
+	const countdownText = document.getElementById("timer");
+	const button = document.getElementById("myButton");
+	 function updateCountdown() {
+		if (countdown > 0) {
+			button.innerText = `Please wait ${countdown} second(s)...`;
+			countdown--;
+		} else {
+			clearInterval(timer);
+			button.innerText = "Send";
+			button.disabled = false;
+		}
+	}
+
+</script>

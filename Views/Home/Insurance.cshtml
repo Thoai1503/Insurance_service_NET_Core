@@ -1,18 +1,36 @@
 ﻿@{
-    ViewBag.Title = "Insurance";
-  
+	ViewBag.Title = "Insurance";
+	var data = new HashSet<Insurance_agency.Models.ModelView.InsuranceView>();
+	if (ViewBag.data != null)
+	{
+		data = (HashSet<Insurance_agency.Models.ModelView.InsuranceView>)ViewBag.data;
+	}
+	var all = new HashSet<Insurance_agency.Models.ModelView.InsuranceView>();
+	if(ViewBag.all!=null){
+		all = (HashSet<Insurance_agency.Models.ModelView.InsuranceView>)ViewBag.all;
+	}
+	var pageNum = (int)ViewBag.pageNum;
+	var pageSize = (int)ViewBag.pageSize;
+	var pageMax = all.Count/pageSize;
+	var pageMaxFloat = (float)all.Count / pageSize;
+	if(pageMax<pageMaxFloat){
+		pageMax++;
+	}
+	string name = (string)ViewBag.name;
+	var highlight = data.First();
+	var size = 8;
 }
 
 <div class="container-fluid bg-breadcrumb-truck" id="insurance_banner">
-    <div class="col-3" style="background-color: white; margin-left: 30px; padding: 20px; border-top: 8px solid #007BFF; ">
-        <p><strong>Đảm bảo cho những chuyến vận chuyển luôn suôn sẻ cho doanh nghiệp của bạn</strong></p>
-        <h3><strong>Bảo hiểm xe tải</strong></h3>
-        <p><strong><h5 style="color:black">Đảm bảo cho những chuyến vận chuyển luôn suôn sẻ cho doanh nghiệp của bạn</h5></strong></p>
-        <div class="text-end mt-5" style="margin-right:30px">
-            <a class="btn btn-primary rounded-pill py-2 px-4" href="#">Read More</a>
-        </div>
-    </div>
-    @*<div class="container text-center py-5" style="max-width: 900px">
+	<div class="col-3" style="background-color: white; margin-left: 30px; padding: 20px; border-top: 8px solid #007BFF; ">
+		<p><strong>Đảm bảo cho những chuyến vận chuyển luôn suôn sẻ cho doanh nghiệp của bạn</strong></p>
+		<h3><strong>@highlight.name</strong></h3>
+		<p><strong><h5 style="color:black">@highlight.description</h5></strong></p>
+		<div class="text-end mt-5" style="margin-right:30px">
+			<a class="btn btn-primary rounded-pill py-2 px-4" href="#">Read More</a>
+		</div>
+	</div>
+	@*<div class="container text-center py-5" style="max-width: 900px">
             <h4 class="text-white display-4 mb-4 wow fadeInDown"
                 data-wow-delay="0.1s">
                 About Us
@@ -26,63 +44,100 @@
         </div>*@
 </div>
 <div class="container-fluid service">
-    <div class="container py-5">
-        <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
-            <h4 class="text-primary">Our Services</h4>
-            <h1 class="display-4 mb-4">We Provide Best Services</h1>
-            <p class="mb-0">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur adipisci facilis cupiditate recusandae aperiam temporibus corporis itaque quis facere, numquam, ad culpa deserunt sint dolorem autem obcaecati, ipsam mollitia hic.
-            </p>
-        </div>
+	<div class="container py-5">
+		<div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
+			<h4 class="text-primary">Our Services</h4>
+			<h1 class="display-4 mb-4">We Provide Best Services</h1>
+			<p class="mb-0">
+				Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur adipisci facilis cupiditate recusandae aperiam temporibus corporis itaque quis facere, numquam, ad culpa deserunt sint dolorem autem obcaecati, ipsam mollitia hic.
+			</p>
+		</div>
 
-    </div>
+	</div>
 </div>
 
 <div class="container-fluid pb-5">
-    <div class="container">
-        <div class="row gx-3 justify-content-center">
-            <div class="col-md-6 col-lg-4 d-flex align-items-stretch wow fadeInUp" data-wow-delay="0.2s">
-                <div class="service-item w-100 h-100" style="border-radius: 0; padding: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
-                    <div class="service-content p-4 h-100 d-flex flex-column justify-content-between">
-                        <div class="service-content-inner">
-                            <a href="#" class="d-inline-block h4 mb-4">Trách nhiệm dân sự bắt buộc đối với bên thứ ba</a>
-                            <p class="mb-4"><span style="color: green;">&#10003;</span> Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis, eum!</p>
-                        </div>
-                        <a class="btn btn-primary rounded-pill py-2 px-4 mt-auto" href="#">Read More</a>
-                    </div>
-                </div>
-            </div>
+	<div class="container">
+		<div class="row gx-3 justify-content-center">
+			<div class="col-md-6 col-lg-4 d-flex align-items-stretch wow fadeInUp" data-wow-delay="0.2s">
+				<div class="service-item w-100 h-100" style="border-radius: 0; padding: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+					<div class="service-content p-4 h-100 d-flex flex-column justify-content-between">
+						<div class="service-content-inner">
+							<a href="#" class="d-inline-block h4 mb-4">Trách nhiệm dân sự bắt buộc đối với bên thứ ba</a>
+							<p class="mb-4"><span style="color: green;">&#10003;</span> Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis, eum!</p>
+						</div>
+						<a class="btn btn-primary rounded-pill py-2 px-4 mt-auto" href="#">Read More</a>
+					</div>
+				</div>
+			</div>
 
-            <div class="col-md-6 col-lg-4 d-flex align-items-stretch wow fadeInUp" data-wow-delay="0.4s">
-                <div class="service-item w-100 h-100" style="border-radius: 0; padding: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
-                    <div class="service-content p-4 h-100 d-flex flex-column justify-content-between">
-                        <div class="service-content-inner">
-                            <a href="#" class="d-inline-block h4 mb-4">Health Insurance</a>
-                            <p class="mb-4"><span style="color: green;">&#10003;</span> Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis, eum!</p>
-                            <p class="mb-4"><span style="color: green;">&#10003;</span> Lorem ipsum dolor sit amet consectetur , eum!</p>
-                        </div>
-                        <a class="btn btn-primary rounded-pill py-2 px-4 mt-auto" href="#">Read More</a>
-                    </div>
-                </div>
-            </div>
+			<div class="col-md-6 col-lg-4 d-flex align-items-stretch wow fadeInUp" data-wow-delay="0.4s">
+				<div class="service-item w-100 h-100" style="border-radius: 0; padding: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+					<div class="service-content p-4 h-100 d-flex flex-column justify-content-between">
+						<div class="service-content-inner">
+							@if(ViewBag.name!=null){
+								<a href="#" class="d-inline-block h4 mb-4">@name</a>
+							}
+							<p class="mb-4"><span style="color: green;">&#10003;</span> Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis, eum!</p>
+							<p class="mb-4"><span style="color: green;">&#10003;</span> Lorem ipsum dolor sit amet consectetur , eum!</p>
+						</div>
+						<a class="btn btn-primary rounded-pill py-2 px-4 mt-auto" href="#">Read More</a>
+					</div>
+				</div>
+			</div>
 
-            <div class="col-md-6 col-lg-4 d-flex align-items-stretch wow fadeInUp" data-wow-delay="0.6s">
-                <div class="service-item w-100 h-100" style="border-radius: 0; padding: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
-                    <div class="service-content p-4 h-100 d-flex flex-column justify-content-between">
-                        <div class="service-content-inner">
-                            <a href="#" class="d-inline-block h4 mb-4">Gói toàn diện</a>
-                            <p class="mb-4"><span style="color: green;">&#10003;</span> Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis, eum!</p>
-                            <p class="mb-4"><span style="color: green;">&#10003;</span> Lorem ipsum dolor sit amet consectetur , eum!</p>
-                        </div>
-                        <a class="btn btn-primary rounded-pill py-2 px-4 mt-auto" href="#">Read More</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+			<div class="col-md-6 col-lg-4 d-flex align-items-stretch wow fadeInUp" data-wow-delay="0.6s">
+				<div class="service-item w-100 h-100" style="border-radius: 0; padding: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+					<div class="service-content p-4 h-100 d-flex flex-column justify-content-between">
+						<div class="service-content-inner">
+							<a href="#" class="d-inline-block h4 mb-4">Gói toàn diện</a>
+							<p class="mb-4"><span style="color: green;">&#10003;</span> Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis, eum!</p>
+							<p class="mb-4"><span style="color: green;">&#10003;</span> Lorem ipsum dolor sit amet consectetur , eum!</p>
+						</div>
+						<a class="btn btn-primary rounded-pill py-2 px-4 mt-auto" href="#">Read More</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
+<div>
+	<div class="row">
+		@foreach (var item in data)
+		{
+			<div class="col-3 mb-2">
+				<div class="card h-100 mb-2" style="width: 18rem;">
+					<img height="150px" class="card-img-top" src="~/Content/Image/Ex/@item.ex_image" alt="Card image cap">
+					<div class="card-body">
+						<h5 class="card-title">@item.name</h5>
+						<p class="card-text">@item.description</p>
+						<a href="@Url.Action("InsuranceDetail",new{id = item.id})" class="btn btn-primary">Check</a>
+					</div>
+				</div>
+			</div>
+		}
+	</div>
+</div>
+<ul class="pagination">
+
+	@{
+		int page = pageNum + 3;
+		int type = ViewBag.type;
+		<li class="page-item"><a class="page-link" href="@Url.Action("Insurance",new{typeId=type,pageNum=pageNum-1,pageSize=size})">Previous</a></li>
+		for (int i = pageNum; i < page; i++)
+		{
+			if (i <= pageMax)
+			{
+				<li class="page-item"><a class="page-link" href="@Url.Action("Insurance",new{typeId=type,pageNum=i,pageSize=size})">@i</a></li>
+			}
+
+		}
+		<li class="page-item"><a class="page-link" href="@Url.Action("Insurance",new{typeId=type,pageNum=pageNum+1,pageSize=size})">Next</a></li>
+	}
+
+</ul>
 <div class="col-12 text-center wow fadeInUp" data-wow-delay="0.2s" style="margin-bottom:100px; margin-top:150px">
-    <a class="btn btn-primary rounded-pill py-3 px-5" href="#">More Services</a>
+	<a class="btn btn-primary rounded-pill py-3 px-5" href="#">More Services</a>
 </div>
 
 

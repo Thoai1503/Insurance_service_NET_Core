@@ -3,7 +3,7 @@
 *@
 @{
     Layout = "~/Areas/AdminArea/Views/Shared/_AdminLayout.cshtml";
-    ViewBag.Title = "Chi tiết nhân viên";
+    ViewBag.Title = "Employee Info";
 }
 @model Insurance_agency.Models.ModelView.User
 
@@ -13,7 +13,7 @@
             <div class="d-flex justify-content-between align-items-center">
                 <h2 class="text-primary mb-0">
                     <i class="fas fa-user-tie me-2"></i>
-                    <strong>Chi tiết nhân viên:</strong> @Model.full_name
+                    <strong>Employee Info :</strong> @Model.full_name
                 </h2>
                 <a href="/adminarea/employee/index" class="btn btn-outline-secondary">
                     <i class="fas fa-arrow-left me-1"></i>
@@ -28,7 +28,7 @@
         <div class="col-lg-8">
             <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0"><i class="fas fa-edit me-2"></i>Thông tin cơ bản</h5>
+                    <h5 class="mb-0"><i class="fas fa-edit me-2"></i>Basic Information</h5>
                 </div>
                 <div class="card-body">
                     <form method="post" action="/adminarea/employee/edit" id="employeeForm">
@@ -36,7 +36,7 @@
 
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="fullName" class="form-label fw-bold">Họ và tên</label>
+                                <label for="fullName" class="form-label fw-bold">Full Name</label>
                                 <input type="text" class="form-control" id="fullName" name="full_name"
                                        value="@Model.full_name" required readonly>
                             </div>
@@ -49,12 +49,12 @@
 
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="phoneNumber" class="form-label fw-bold">Số điện thoại</label>
+                                <label for="phoneNumber" class="form-label fw-bold">Phone</label>
                                 <input type="text" class="form-control" id="phoneNumber" name="phone_number"
                                        value="@Model.phone" readonly>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="address" class="form-label fw-bold">Địa chỉ</label>
+                                <label for="address" class="form-label fw-bold">Address</label>
                                 <input type="text" class="form-control" id="address" name="address"
                                        value="@Model.address" readonly>
                             </div>
@@ -62,13 +62,13 @@
 
                         <div class="d-flex gap-2">
                             <button type="button" class="btn btn-warning" id="editBtn">
-                                <i class="fas fa-edit me-1"></i>Chỉnh sửa
+                                <i class="fas fa-edit me-1"></i>Edit
                             </button>
                             <button type="submit" class="btn btn-primary d-none" id="saveBtn">
-                                <i class="fas fa-save me-1"></i>Cập nhật thông tin
+                                <i class="fas fa-save me-1"></i>Update Information
                             </button>
                             <button type="button" class="btn btn-secondary d-none" id="cancelBtn">
-                                <i class="fas fa-times me-1"></i>Hủy
+                                <i class="fas fa-times me-1"></i>Cancel
                             </button>
                         </div>
                     </form>
@@ -80,7 +80,7 @@
         <div class="col-lg-4">
             <div class="card shadow-sm">
                 <div class="card-header bg-info text-white">
-                    <h5 class="mb-0"><i class="fas fa-info-circle me-2"></i>Thông tin chi tiết</h5>
+                    <h5 class="mb-0"><i class="fas fa-info-circle me-2"></i>Details</h5>
                 </div>
                 <div class="card-body text-center">
                     <!-- Employee Avatar -->
@@ -104,7 +104,7 @@
                         <div class="mt-2">
                             <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#avatarModal">
                                 <i class="fas fa-camera me-1"></i>
-                                @(string.IsNullOrEmpty(Model.avatar) ? "Thêm ảnh" : "Đổi ảnh")
+                                @(string.IsNullOrEmpty(Model.avatar) ? "Add Image" : "Change Image")
                             </button>
                         </div>
                     </div>
@@ -116,32 +116,32 @@
                             <div class="col-7">@Model.id</div>
                         </div>
                         <div class="row mb-2">
-                            <div class="col-5"><strong>Chức vụ:</strong></div>
+                            <div class="col-5"><strong>Position:</strong></div>
                             <div class="col-7">
-                                <span class="badge bg-secondary">Nhân viên</span>
+                                <span class="badge bg-secondary">Employee</span>
                             </div>
                         </div>
                         <div class="row mb-2">
-                            <div class="col-5"><strong>Trạng thái:</strong></div>
+                            <div class="col-5"><strong>Statusi:</strong></div>
                             <div class="col-7">
                                 <span class="badge @(Model.active == 1 ? "bg-success" : "bg-danger")">
-                                    @(Model.active == 1 ? "Đang hoạt động" : "Tạm ngưng")
+                                    @(Model.active == 1 ? "Active" : "Banned")
                                 </span>
                             </div>
                         </div>
                         <div class="row mb-2">
-                            <div class="col-5"><strong>Ngày tạo:</strong></div>
+                            <div class="col-5"><strong>Create Date:</strong></div>
                             <div class="col-7">@DateTime.Now.ToString("dd/MM/yyyy")</div>
                         </div>
                         <div class="row mb-2">
-                            <div class="col-5"><strong>Cập nhật:</strong></div>
+                            <div class="col-5"><strong>Update Date:</strong></div>
                             <div class="col-7">@DateTime.Now.ToString("dd/MM/yyyy")</div>
                         </div>
                         <div class="row">
-                            <div class="col-5"><strong>Hợp đồng:</strong></div>
+                            <div class="col-5"><strong>Contract:</strong></div>
                             <div class="col-7">
                                 <span class="badge bg-primary">
-                                    @(ViewBag.Contracts != null ? ViewBag.Contracts.Count : 0) hợp đồng
+                                    @(ViewBag.Contracts != null ? ViewBag.Contracts.Count : 0) Contract
                                 </span>
                             </div>
                         </div>
@@ -158,7 +158,7 @@
                 <div class="card-header bg-success text-white">
                     <h5 class="mb-0">
                         <i class="fas fa-file-contract me-2"></i>
-                        Danh sách hợp đồng
+                        Contract List
                         <span class="badge bg-light text-dark ms-2">
                             @(ViewBag.Contracts != null ? ViewBag.Contracts.Count : 0)
                         </span>
@@ -170,11 +170,11 @@
                             <thead class="table-dark">
                                 <tr>
                                     <th><i class="fas fa-hashtag me-1"></i>ID</th>
-                                    <th><i class="fas fa-shield-alt me-1"></i>Mã bảo hiểm</th>
-                                    <th><i class="fas fa-calendar-alt me-1"></i>Ngày bắt đầu</th>
-                                    <th><i class="fas fa-calendar-times me-1"></i>Ngày kết thúc</th>
-                                    <th><i class="fas fa-info-circle me-1"></i>Trạng thái</th>
-                                    <th><i class="fas fa-cogs me-1"></i>Thao tác</th>
+                                    <th><i class="fas fa-shield-alt me-1"></i>Insurance Code</th>
+                                    <th><i class="fas fa-calendar-alt me-1"></i>Start Date</th>
+                                    <th><i class="fas fa-calendar-times me-1"></i>End Date</th>
+                                    <th><i class="fas fa-info-circle me-1"></i>Status</th>
+                                    <th><i class="fas fa-cogs me-1"></i>Function</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -190,15 +190,15 @@
                                             <td>
                                                 <span class="badge bg-success">
                                                     <i class="fas fa-check-circle me-1"></i>
-                                                    Đang hoạt động
+                                                    Active
                                                 </span>
                                             </td>
                                             <td>
                                                 <div class="btn-group btn-group-sm" role="group">
-                                                    <button class="btn btn-outline-primary" title="Xem chi tiết">
+                                                    <button class="btn btn-outline-primary" title="Info">
                                                         <i class="fas fa-eye"></i>
                                                     </button>
-                                                    <button class="btn btn-outline-warning" title="Chỉnh sửa">
+                                                    <button class="btn btn-outline-warning" title="Edit">
                                                         <i class="fas fa-edit"></i>
                                                     </button>
                                                 </div>
@@ -211,7 +211,7 @@
                                     <tr>
                                         <td colspan="6" class="text-center text-muted py-4">
                                             <i class="fas fa-inbox fa-3x mb-3 d-block"></i>
-                                            <p class="mb-0">Không có hợp đồng nào.</p>
+                                            <p class="mb-0">No Contract.</p>
                                         </td>
                                     </tr>
                                 }
@@ -230,7 +230,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="avatarModalLabel">
-                    <i class="fas fa-camera me-2"></i>Cập nhật ảnh đại diện
+                    <i class="fas fa-camera me-2"></i>Update Avatar
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -238,19 +238,19 @@
                 <div class="modal-body">
                     <input type="hidden" name="id" value="@Model.id" />
                     <div class="mb-3">
-                        <label for="avatarFile" class="form-label">Chọn ảnh mới:</label>
+                        <label for="avatarFile" class="form-label">Choose New Image:</label>
                         <input type="file" class="form-control" id="avatarFile" name="Img"
                                accept="image/*" required>
-                        <div class="form-text">Chỉ chấp nhận file ảnh (JPG, PNG, GIF). Kích thước tối đa: 2MB.</div>
+                        <div class="form-text">Only Accept file (JPG, PNG, GIF). max size: 2MB.</div>
                     </div>
                     <div id="imagePreview" class="text-center" style="display: none;">
                         <img id="previewImg" class="img-thumbnail" style="max-width: 200px; max-height: 200px;">
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-upload me-1"></i>Tải lên
+                        <i class="fas fa-upload me-1"></i>Upload
                     </button>
                 </div>
             </form>
