@@ -29,7 +29,35 @@ namespace Insurance_agency.Models.Repository
         }
         public bool Update(User entity)
         {
-            throw new NotImplementedException();
+           
+            try
+            {
+                if (entity != null)
+                {
+                    var user = _context.TblUsers.FirstOrDefault(u => u.Id == entity.id);
+                    if (user != null)
+                    {
+                        user.FullName = entity.full_name;
+                        user.Email = entity.email;
+                        user.Phone = entity.phone;
+                        user.Address = entity.address;
+                        user.AuthId = entity.auth_id;
+                        user.Avatar = entity.avatar;
+                        user.Active = entity.active;
+                        _context.SaveChanges();
+                        return true;
+                    }
+                    else
+                    {
+                        throw new Exception("User not found.");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error updating user: " + ex.Message);
+            }
+            return false;
         }
         public bool Delete(int id)
         {
@@ -51,6 +79,7 @@ namespace Insurance_agency.Models.Repository
                 phone = u.Phone,
                 auth_id = (int)u.AuthId,
                 address = u.Address,
+                avatar = u.Avatar,
                 active = (int)u.Active
             }).FirstOrDefault();
             if (user == null)
@@ -73,8 +102,10 @@ namespace Insurance_agency.Models.Repository
                 phone = u.Phone,
                 auth_id = (int)u.AuthId,
                 address = u.Address,
-                active =(int) u.Active
-                
+                active =(int) u.Active,
+                created_date = u.CreatedDate,
+
+
             }).ToHashSet();
             if (user == null)
             {
@@ -92,6 +123,8 @@ namespace Insurance_agency.Models.Repository
                 phone = u.Phone,
                 auth_id = (int)u.AuthId,
                 address = u.Address,
+                avatar = u.Avatar,
+                created_date = u.CreatedDate,
                 active = (int)u.Active
             }).ToHashSet();
             if (user == null)
@@ -99,6 +132,35 @@ namespace Insurance_agency.Models.Repository
                 throw new Exception("No employee user found.");
             }
             return user;
+        }
+        public bool CreateEmployee(User entity)
+        {
+            try
+            {
+                if (entity != null)
+                {
+                    var user = new TblUser
+                    {
+                        FullName = entity.full_name,
+                        Email = entity.email,
+                        Password = "default123",
+                        Phone = entity.phone,
+                        Address = entity.address,
+                        AuthId = 3,
+                        Avatar = entity.avatar,
+                        Active = 1 ,// Assuming 1 means active
+                        CreatedDate = DateTime.Now
+                    };
+                    _context.TblUsers.Add(user);
+                    _context.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error creating employee: " + ex.Message);
+            }
+            return false;
         }
     }
 

@@ -3,100 +3,351 @@
 *@
 @{
     Layout = "~/Areas/AdminArea/Views/Shared/_AdminLayout.cshtml";
-    @model Insurance_agency.Models.ModelView.User;
+    ViewBag.Title = "Chi tiết nhân viên";
 }
+@model Insurance_agency.Models.ModelView.User
 
-
-
-<h2 class="text-primary"><strong>Chi tiết nhân viên:</strong> @Model.full_name</h2>
-
-<!--Create employee detail with edit form -->
-<div class="row">
-    <div class="col-md-6">
-        <form method="post" action="/adminarea/employee/edit">
-            <input type="hidden" name="id" value="@Model.id" />
-            <div class="mb-3">
-                <label for="fullName" class="form-label">Họ và tên</label>
-                <input type="text" class="form-control" id="fullName" name="full_name" value="@Model.full_name" required readonly>
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2 class="text-primary mb-0">
+                    <i class="fas fa-user-tie me-2"></i>
+                    <strong>Chi tiết nhân viên:</strong> @Model.full_name
+                </h2>
+                <a href="/adminarea/employee/index" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left me-1"></i>
+                    Quay lại danh sách
+                </a>
             </div>
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" name="email" value="@Model.email" required readonly>
-            </div>
-            <div class="mb-3">
-                <label for="phoneNumber" class="form-label">Số điện thoại</label>
-                <input type="text" class="form-control" id="phoneNumber" name="phone_number" value="@Model.phone" readonly>
-            </div>
-            <div class="mb-3">
-                <label for="address" class="form-label">Địa chỉ</label>
-                <input type="text" class="form-control" id="address" name="address" value="@Model.address" readonly>
-            </div>
-            <button type="submit" class="btn btn-primary">Cập nhật thông tin</button>
-        </form>
+        </div>
     </div>
 
-    <div class="col-md-6">
-        <h3>Thông tin chi tiết</h3>
-        <p><strong>Chức vụ:</strong>Nhân viên</p>
-        <p><strong>Trạng thái:</strong> @(Model.active == 1 ? "Đang hoạt động" : "Tạm ngưng")</p>
-        <p><strong>Ngày tạo:</strong> 05/25/2025</p>
-        <p><strong>Ngày cập nhật:</strong> 05/25/2025</p>
+    <div class="row">
+        <!-- Employee Form Section -->
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="fas fa-edit me-2"></i>Thông tin cơ bản</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post" action="/adminarea/employee/edit" id="employeeForm">
+                        <input type="hidden" name="id" value="@Model.id" />
 
-        <p><strong>Ghi chú:</strong> Đang chịu trách nhiệm cho 33 hợp đồng</p>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="fullName" class="form-label fw-bold">Họ và tên</label>
+                                <input type="text" class="form-control" id="fullName" name="full_name"
+                                       value="@Model.full_name" required readonly>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="email" class="form-label fw-bold">Email</label>
+                                <input type="email" class="form-control" id="email" name="email"
+                                       value="@Model.email" required readonly>
+                            </div>
+                        </div>
 
-        <p><strong>Ảnh đại diện:</strong></p>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="phoneNumber" class="form-label fw-bold">Số điện thoại</label>
+                                <input type="text" class="form-control" id="phoneNumber" name="phone_number"
+                                       value="@Model.phone" readonly>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="address" class="form-label fw-bold">Địa chỉ</label>
+                                <input type="text" class="form-control" id="address" name="address"
+                                       value="@Model.address" readonly>
+                            </div>
+                        </div>
 
-        @if (!string.IsNullOrEmpty(Model.avatar))
-        {
-            <img src="/Content/Admin/img/avatar/@Model.avatar" alt="Avatar" class="img-thumbnail" style="max-width: 200px; max-height: 200px;">
-        }
-        else
-        {
-            <p>Chưa có ảnh đại diện.</p>
-        }
+                        <div class="d-flex gap-2">
+                            <button type="button" class="btn btn-warning" id="editBtn">
+                                <i class="fas fa-edit me-1"></i>Chỉnh sửa
+                            </button>
+                            <button type="submit" class="btn btn-primary d-none" id="saveBtn">
+                                <i class="fas fa-save me-1"></i>Cập nhật thông tin
+                            </button>
+                            <button type="button" class="btn btn-secondary d-none" id="cancelBtn">
+                                <i class="fas fa-times me-1"></i>Hủy
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
-        <div class="mt-3">
-            <a href="/adminarea/employee/index" class="btn btn-secondary">Quay lại danh sách nhân viên</a>
+        <!-- Employee Image and Details Section -->
+        <div class="col-lg-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0"><i class="fas fa-info-circle me-2"></i>Thông tin chi tiết</h5>
+                </div>
+                <div class="card-body text-center">
+                    <!-- Employee Avatar -->
+                    <div class="mb-4">
+                        @if (!string.IsNullOrEmpty(Model.avatar))
+                        {
+                            <img src="/Content/Admin/img/avatar/@Model.avatar"
+                                 alt="Avatar của @Model.full_name"
+                                 class="rounded-circle img-thumbnail shadow"
+                                 style="width: 150px; height: 150px; object-fit: cover;">
+                        }
+                        else
+                        {
+                            <div class="bg-light rounded-circle d-flex align-items-center justify-content-center shadow"
+                                 style="width: 150px; height: 150px; margin: 0 auto;">
+                                <i class="fas fa-user text-muted" style="font-size: 60px;"></i>
+                            </div>
+                        }
+
+                        <!-- Add/Change Avatar Button -->
+                        <div class="mt-2">
+                            <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#avatarModal">
+                                <i class="fas fa-camera me-1"></i>
+                                @(string.IsNullOrEmpty(Model.avatar) ? "Thêm ảnh" : "Đổi ảnh")
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Employee Details -->
+                    <div class="text-start">
+                        <div class="row mb-2">
+                            <div class="col-5"><strong>ID:</strong></div>
+                            <div class="col-7">@Model.id</div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-5"><strong>Chức vụ:</strong></div>
+                            <div class="col-7">
+                                <span class="badge bg-secondary">Nhân viên</span>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-5"><strong>Trạng thái:</strong></div>
+                            <div class="col-7">
+                                <span class="badge @(Model.active == 1 ? "bg-success" : "bg-danger")">
+                                    @(Model.active == 1 ? "Đang hoạt động" : "Tạm ngưng")
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-5"><strong>Ngày tạo:</strong></div>
+                            <div class="col-7">@DateTime.Now.ToString("dd/MM/yyyy")</div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-5"><strong>Cập nhật:</strong></div>
+                            <div class="col-7">@DateTime.Now.ToString("dd/MM/yyyy")</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-5"><strong>Hợp đồng:</strong></div>
+                            <div class="col-7">
+                                <span class="badge bg-primary">
+                                    @(ViewBag.Contracts != null ? ViewBag.Contracts.Count : 0) hợp đồng
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contracts Section -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-file-contract me-2"></i>
+                        Danh sách hợp đồng
+                        <span class="badge bg-light text-dark ms-2">
+                            @(ViewBag.Contracts != null ? ViewBag.Contracts.Count : 0)
+                        </span>
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th><i class="fas fa-hashtag me-1"></i>ID</th>
+                                    <th><i class="fas fa-shield-alt me-1"></i>Mã bảo hiểm</th>
+                                    <th><i class="fas fa-calendar-alt me-1"></i>Ngày bắt đầu</th>
+                                    <th><i class="fas fa-calendar-times me-1"></i>Ngày kết thúc</th>
+                                    <th><i class="fas fa-info-circle me-1"></i>Trạng thái</th>
+                                    <th><i class="fas fa-cogs me-1"></i>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (ViewBag.Contracts != null && ViewBag.Contracts.Count > 0)
+                                {
+                                    foreach (var contract in ViewBag.Contracts)
+                                    {
+                                        <tr>
+                                            <td><strong>@contract.id</strong></td>
+                                            <td>@contract.insurance_id</td>
+                                            <td>25/05/2025</td>
+                                            <td>25/05/2026</td>
+                                            <td>
+                                                <span class="badge bg-success">
+                                                    <i class="fas fa-check-circle me-1"></i>
+                                                    Đang hoạt động
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <div class="btn-group btn-group-sm" role="group">
+                                                    <button class="btn btn-outline-primary" title="Xem chi tiết">
+                                                        <i class="fas fa-eye"></i>
+                                                    </button>
+                                                    <button class="btn btn-outline-warning" title="Chỉnh sửa">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="6" class="text-center text-muted py-4">
+                                            <i class="fas fa-inbox fa-3x mb-3 d-block"></i>
+                                            <p class="mb-0">Không có hợp đồng nào.</p>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
- <div class="mt-4">
-    <h3>Danh sách hợp đồng </h3>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Tên hợp đồng</th>
-                <th>Ngày bắt đầu</th>
-                <th>Ngày kết thúc</th>
-                <th>Trạng thái</th>
-            </tr>
-        </thead>
-        <tbody>
-            @if(ViewBag.Contracts!= null && ViewBag.Contracts.Count > 0)
-            {
-                foreach (var contract in ViewBag.Contracts)
-                {
-                    <tr>
-                        <td>@contract.id</td>
-                        <td>@contract.insurance_id</td>
-                        @* <td>@contract.start_date.ToString("dd/MM/yyyy")</td>
-                        <td>@contract.end_date.ToString("dd/MM/yyyy")</td>
-                        <td>@(contract.active ? "Đang hoạt động" : "Đã kết thúc")</td> *@
-                        <td>242532</td>
-                        <td>362-42</td>
-                        <td>Đang hoạt động</td>
-                    </tr>
-                }
-            }
-            else
-            {
-                <tr>
-                    <td colspan="6" class="text-center">Không có hợp đồng nào.</td>
-                </tr>
-            }
 
-        
-        </tbody>
-    </table>
+<!-- Avatar Upload Modal -->
+<div class="modal fade" id="avatarModal" tabindex="-1" aria-labelledby="avatarModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="avatarModalLabel">
+                    <i class="fas fa-camera me-2"></i>Cập nhật ảnh đại diện
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" action="/adminarea/employee/updateavatar" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <input type="hidden" name="id" value="@Model.id" />
+                    <div class="mb-3">
+                        <label for="avatarFile" class="form-label">Chọn ảnh mới:</label>
+                        <input type="file" class="form-control" id="avatarFile" name="Img"
+                               accept="image/*" required>
+                        <div class="form-text">Chỉ chấp nhận file ảnh (JPG, PNG, GIF). Kích thước tối đa: 2MB.</div>
+                    </div>
+                    <div id="imagePreview" class="text-center" style="display: none;">
+                        <img id="previewImg" class="img-thumbnail" style="max-width: 200px; max-height: 200px;">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-upload me-1"></i>Tải lên
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Edit form functionality
+        const editBtn = document.getElementById('editBtn');
+        const saveBtn = document.getElementById('saveBtn');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const formInputs = document.querySelectorAll('#employeeForm input[readonly]');
+
+        editBtn.addEventListener('click', function() {
+            formInputs.forEach(input => {
+                if (input.name !== 'full_name' && input.name !== 'email') {
+                    input.removeAttribute('readonly');
+                    input.classList.add('border-warning');
+                }
+            });
+            editBtn.classList.add('d-none');
+            saveBtn.classList.remove('d-none');
+            cancelBtn.classList.remove('d-none');
+        });
+
+        cancelBtn.addEventListener('click', function() {
+            formInputs.forEach(input => {
+                input.setAttribute('readonly', true);
+                input.classList.remove('border-warning');
+            });
+            editBtn.classList.remove('d-none');
+            saveBtn.classList.add('d-none');
+            cancelBtn.classList.add('d-none');
+            // Reset form values
+            document.getElementById('employeeForm').reset();
+        });
+
+        // Image preview functionality
+        const avatarFile = document.getElementById('avatarFile');
+        const imagePreview = document.getElementById('imagePreview');
+        const previewImg = document.getElementById('previewImg');
+
+        avatarFile.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewImg.src = e.target.result;
+                    imagePreview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            } else {
+                imagePreview.style.display = 'none';
+            }
+        });
+    });
+</script>
+
+<style>
+    .card {
+        border: none;
+        border-radius: 10px;
+    }
+
+    .card-header {
+        border-radius: 10px 10px 0 0 !important;
+    }
+
+    .table th {
+        border-top: none;
+        font-weight: 600;
+    }
+
+    .btn-group-sm > .btn {
+        padding: 0.25rem 0.5rem;
+    }
+
+    .img-thumbnail {
+        border: 3px solid #e9ecef;
+    }
+
+    .badge {
+        font-size: 0.75em;
+    }
+
+    @@media (max-width: 768px) {
+        .table-responsive
+
+    {
+        font-size: 0.875rem;
+    }
+
+    .btn-group-sm > .btn {
+        padding: 0.125rem 0.25rem;
+    }
+
+    }
+</style>
