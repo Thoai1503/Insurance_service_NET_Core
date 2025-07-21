@@ -3,6 +3,7 @@ using Insurance_agency.Models.Entities;
 using Insurance_agency.Models.ModelView;
 using Insurance_agency.Models.Repository;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace Insurance_agency.Controllers
@@ -89,13 +90,33 @@ namespace Insurance_agency.Controllers
             ViewBag.Message = "Your insurance page.";
             return View();
         }
-        public IActionResult InsuranceOverview()
+        public IActionResult InsuranceOverview(string? search, bool searchInsurance = false, int page = 1)
         {
 
             HttpContext.Session.SetInt32("allbanner", 0);
             var insuranceList = InsuranceRepository.Instance.GetAll().Where(e=>e.status==1).ToHashSet();
+            int pageSize = 6;
+            var query = _context.Insurances.Include(i => i.InsuranceType).AsQueryable();
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                search = search.ToLower().Trim();
+                if (searchInsurance)
+                {
+                    query = query.Where(i => i.Name != null && i.Name.ToLower().Contains(search));
+                }
+                else
+                {
+                    query = query.Where(i => i.InsuranceType != null && i.InsuranceType.Name.ToLower().Contains(search));
+                }
+            }
+            var totalItem = query.Count();
+            var item = query.OrderByDescending(i => i.Id).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPage = (int)Math.Ceiling((double)totalItem / pageSize);
+            ViewBag.Search = search;
+            ViewBag.SearchInsurance = searchInsurance;
             ViewBag.BannerCss = "motobike";
-            return View(insuranceList);
+            return View(item);
         }
         public IActionResult InsuranceDetail(int id)
         {
