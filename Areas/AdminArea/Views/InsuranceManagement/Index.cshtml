@@ -3,8 +3,10 @@
 *@
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
-	HashSet<Insurance_agency.Models.ModelView.InsuranceView> insurance = new HashSet<Insurance_agency.Models.ModelView.InsuranceView>();
-	if (ViewBag.item != null)
+    ViewData["Title"] = "Insurance";
+
+    HashSet < Insurance_agency.Models.ModelView.InsuranceView> insurance = new HashSet<Insurance_agency.Models.ModelView.InsuranceView>();
+    if (ViewBag.item != null)
 	{
 		insurance = (HashSet<Insurance_agency.Models.ModelView.InsuranceView>)ViewBag.item;
 	}
