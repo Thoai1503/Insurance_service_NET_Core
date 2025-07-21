@@ -1,8 +1,6 @@
-﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
-@{
-}
+
 <head>
 
 	<meta charset="utf-8">
@@ -18,7 +16,7 @@
 	<link href="@Url.Content("~/Content/Admin/")vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 	@*     <link href="@Url.Content("~/Content/Admin/")css/tiny.css" rel="stylesheet" type="text/css"> *@
 	<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-	rel="stylesheet">
+		  rel="stylesheet">
 
 	<!-- Custom styles for this template-->
 	<link href="@Url.Content("~/Content/Admin/")css/sb-admin-2.min.css" rel="stylesheet">
@@ -40,27 +38,27 @@
 	@RenderSection("Styles", required: false)
 	<style>
 		.accordionn {
-		background-color: #eee;
-		color: #444;
-		cursor: pointer;
-		padding: 18px;
-		width: 100%;
-		border: none;
-		text-align: left;
-		outline: none;
-		font-size: 15px;
-		transition: 2s ease;
+			background-color: #eee;
+			color: #444;
+			cursor: pointer;
+			padding: 18px;
+			width: 100%;
+			border: none;
+			text-align: left;
+			outline: none;
+			font-size: 15px;
+			transition: 2s ease;
 		}
 
-		.activet, .accordionn:hover {
-		background-color: #ccc;
-		}
+			.activet, .accordionn:hover {
+				background-color: #ccc;
+			}
 
 		.panel {
-		padding: 0 18px;
-		display: none;
-		background-color: white;
-		overflow: hidden;
+			padding: 0 18px;
+			display: none;
+			background-color: white;
+			overflow: hidden;
 		}
 	</style>
 </head>
@@ -78,7 +76,7 @@
 				<div class="sidebar-brand-icon rotate-n-15">
 					<i class="fas fa-laugh-wink"></i>
 				</div>
-				<div class="sidebar-brand-text mx-3">Insurance @* <sup>2</sup> *@</div>
+				<div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
 			</a>
 
 			<!-- Divider -->
@@ -92,7 +90,7 @@
 				</a>
 			</li>
 
-			@* <!-- Divider -->
+			<!-- Divider -->
 			<hr class="sidebar-divider">
 
 			<!-- Heading -->
@@ -133,29 +131,29 @@
 						<a class="collapse-item" href="@Url.Content("~/Content/Admin/")utilities-other.html">Other</a>
 					</div>
 				</div>
-			</li> *@
+			</li>
 
 			<!-- Divider -->
 			<hr class="sidebar-divider">
 
 			<!-- Heading -->
 			<div class="sidebar-heading">
-				Page
+				Addons
 			</div>
 
 			<!-- Nav Item - Pages Collapse Menu -->
 
 			<li class="nav-item">
 				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePage"
-				aria-expanded="true" aria-controls="collapsePages">
+				   aria-expanded="true" aria-controls="collapsePages">
 					<i class="fas fa-fw fa-folder"></i>
-					<span>Account Management</span>
+					<span>Quản lý tài khoản</span>
 				</a>
 				<div id="collapsePage" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 
-						<a class="collapse-item" href="/adminarea/employee">Employee</a>
-						<a class="collapse-item" href="/adminarea/customer">Customer</a>
+						<a class="collapse-item" href="/adminarea/employee">Nhân viên</a>
+						<a class="collapse-item" href="/adminarea/customer">Khách hàng</a>
 
 					</div>
 				</div>
@@ -164,14 +162,14 @@
 
 			<li class="nav-item">
 				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePage1"
-				aria-expanded="true" aria-controls="collapsePages">
+				   aria-expanded="true" aria-controls="collapsePages">
 					<i class="fas fa-fw fa-folder"></i>
-					<span>Contract Management</span>
+					<span>Quản lý hợp đồng</span>
 				</a>
 				<div id="collapsePage1" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 
-						<a class="collapse-item" href="/adminarea/contract">Contract List</a>
+						<a class="collapse-item" href="/adminarea/contract">Danh sách hợp đồng</a>
 						<a class="collapse-item" href="@Url.Content("~/Content/Admin/")register.html">Danh sách hợp đồng đáo hạn</a>
 
 
@@ -180,34 +178,34 @@
 			</li>
 			<li class="nav-item">
 				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-				aria-expanded="true" aria-controls="collapsePages">
+				   aria-expanded="true" aria-controls="collapsePages">
 					<i class="fas fa-fw fa-folder"></i>
-					<span>Insurance Management</span>
+					<span>Quản lý Bảo Hiểm</span>
 				</a>
 				<div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 
-						<a class="collapse-item" href="/adminarea/insurancemanagement">Insurance List</a>
+						<a class="collapse-item" href="/adminarea/insurancemanagement">Danh sách bảo hiểm</a>
 
 					</div>
 				</div>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePagesPoli"
-				aria-expanded="true" aria-controls="collapsePages">
+				   aria-expanded="true" aria-controls="collapsePages">
 					<i class="fas fa-fw fa-folder"></i>
-					<span>Policy Management</span>
+					<span>Quản lý Chính Sách</span>
 				</a>
 				<div id="collapsePagesPoli" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 
-						<a class="collapse-item" href="/adminarea/policymanagement">Policy List</a>
+						<a class="collapse-item" href="/adminarea/policymanagement">Danh sách chính sách</a>
 
 					</div>
 				</div>
 			</li>
 
-			@* <!-- Nav Item - Charts -->
+			<!-- Nav Item - Charts -->
 			<li class="nav-item">
 				<a class="nav-link" href="@Url.Content("~/Content/Admin/")charts.html">
 					<i class="fas fa-fw fa-chart-area"></i>
@@ -222,7 +220,7 @@
 					<span>Tables</span>
 				</a>
 			</li>
- *@
+
 			<!-- Divider -->
 			<hr class="sidebar-divider d-none d-md-block">
 
@@ -258,7 +256,7 @@
 					<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
 						<div class="input-group">
 							<input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-							aria-label="Search" aria-describedby="basic-addon2">
+								   aria-label="Search" aria-describedby="basic-addon2">
 							<div class="input-group-append">
 								<button class="btn btn-primary" type="button">
 									<i class="fas fa-search fa-sm"></i>
@@ -273,17 +271,17 @@
 						<!-- Nav Item - Search Dropdown (Visible Only XS) -->
 						<li class="nav-item dropdown no-arrow d-sm-none">
 							<a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
-							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								<i class="fas fa-search fa-fw"></i>
 							</a>
 							<!-- Dropdown - Messages -->
 							<div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-							aria-labelledby="searchDropdown">
+								 aria-labelledby="searchDropdown">
 								<form class="form-inline mr-auto w-100 navbar-search">
 									<div class="input-group">
 										<input type="text" class="form-control bg-light border-0 small"
-										placeholder="Search for..." aria-label="Search"
-										aria-describedby="basic-addon2">
+											   placeholder="Search for..." aria-label="Search"
+											   aria-describedby="basic-addon2">
 										<div class="input-group-append">
 											<button class="btn btn-primary" type="button">
 												<i class="fas fa-search fa-sm"></i>
@@ -297,14 +295,14 @@
 						<!-- Nav Item - Alerts -->
 						<li class="nav-item dropdown no-arrow mx-1">
 							<a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								<i class="fas fa-bell fa-fw"></i>
 								<!-- Counter - Alerts -->
 								<span class="badge badge-danger badge-counter">3+</span>
 							</a>
 							<!-- Dropdown - Alerts -->
 							<div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-							aria-labelledby="alertsDropdown">
+								 aria-labelledby="alertsDropdown">
 								<h6 class="dropdown-header">
 									Alerts Center
 								</h6>
@@ -348,21 +346,21 @@
 						<!-- Nav Item - Messages -->
 						<li class="nav-item dropdown no-arrow mx-1">
 							<a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
-							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								<i class="fas fa-envelope fa-fw"></i>
 								<!-- Counter - Messages -->
 								<span class="badge badge-danger badge-counter">7</span>
 							</a>
 							<!-- Dropdown - Messages -->
 							<div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-							aria-labelledby="messagesDropdown">
+								 aria-labelledby="messagesDropdown">
 								<h6 class="dropdown-header">
 									Message Center
 								</h6>
 								<a class="dropdown-item d-flex align-items-center" href="#">
 									<div class="dropdown-list-image mr-3">
 										<img class="rounded-circle" src="img/undraw_profile_1.svg"
-										alt="...">
+											 alt="...">
 										<div class="status-indicator bg-success"></div>
 									</div>
 									<div class="font-weight-bold">
@@ -376,7 +374,7 @@
 								<a class="dropdown-item d-flex align-items-center" href="#">
 									<div class="dropdown-list-image mr-3">
 										<img class="rounded-circle" src="img/undraw_profile_2.svg"
-										alt="...">
+											 alt="...">
 										<div class="status-indicator"></div>
 									</div>
 									<div>
@@ -390,7 +388,7 @@
 								<a class="dropdown-item d-flex align-items-center" href="#">
 									<div class="dropdown-list-image mr-3">
 										<img class="rounded-circle" src="img/undraw_profile_3.svg"
-										alt="...">
+											 alt="...">
 										<div class="status-indicator bg-warning"></div>
 									</div>
 									<div>
@@ -404,7 +402,7 @@
 								<a class="dropdown-item d-flex align-items-center" href="#">
 									<div class="dropdown-list-image mr-3">
 										<img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60"
-										alt="...">
+											 alt="...">
 										<div class="status-indicator bg-success"></div>
 									</div>
 									<div>
@@ -422,12 +420,10 @@
 						<div class="topbar-divider d-none d-sm-block"></div>
 
 						<!-- Nav Item - User Information -->
-						@{
-						}
 						<li class="nav-item dropdown no-arrow">
 							<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
 							   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<span class="mr-2 d-none d-lg-inline text-gray-600 small"></span>
+								<span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
 								<img class="img-profile rounded-circle"
 									 src="img/undraw_profile.svg">
 							</a>

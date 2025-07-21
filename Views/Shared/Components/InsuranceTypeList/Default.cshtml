@@ -12,14 +12,14 @@
 
         foreach (var insuranceType in Model)
         {
-            <div class="dropdown-menu">
-                <a class="dropdown-item" href="/home/insurance?typeId=@insuranceType.id">@insuranceType.name</a>
-@*                 <div class="dropdown-menu">
+            <div class="dropdown-submenu">
+                <a class="dropdown-item" href="/home/insurance?id=@insuranceType.id">@insuranceType.name</a>
+                <div class="dropdown-menu">
                     @foreach (var subType in insuranceType.children)
                     {
                         <a class="dropdown-item" href="/home/insurance?id=@subType.id">@subType.name</a>
                     }
-                </div> *@
+                </div>
             </div>
         }
 

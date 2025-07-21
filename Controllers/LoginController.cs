@@ -1,5 +1,4 @@
-﻿using Insurance_agency.Models;
-using Insurance_agency.Models.ModelView;
+﻿using Insurance_agency.Models.ModelView;
 using Insurance_agency.Models.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Client;
@@ -17,7 +16,6 @@ namespace Insurance_agency.Controllers
            
             string username = Request.Form["username"];
             string password = Request.Form["password"];
-            
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
                 return RedirectToAction("Index", new { username, password });
@@ -30,7 +28,7 @@ namespace Insurance_agency.Controllers
                 switch (member.auth_id)
                 {
                     case 1:
-                        return RedirectToAction("Dashboard", "AdminArea");
+                        return RedirectToAction("Dashboard", "AdminArea", new { member });
                     case 4:
                         return RedirectToAction("Index", "Home", new { member });
 

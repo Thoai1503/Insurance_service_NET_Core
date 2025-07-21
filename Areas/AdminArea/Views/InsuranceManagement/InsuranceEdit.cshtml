@@ -2,8 +2,8 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-	Layout = "~/Views/Shared/_AdminLayout.cshtml";
-	var insuranceType = new HashSet<Insurance_agency.Models.ModelView.InsuranceTypeView>();
+	Layout = "~/Areas/AdminArea/Views/Shared/_AdminLayout.cshtml";
+	HashSet<Insurance_agency.Models.ModelView.InsuranceTypeView> insuranceType = new HashSet<Insurance_agency.Models.ModelView.InsuranceTypeView>();
 	if (ViewBag.insurancetype != null)
 	{
 		insuranceType = (HashSet<Insurance_agency.Models.ModelView.InsuranceTypeView>)ViewBag.insurancetype;
@@ -29,22 +29,7 @@
 
 		</div>
 		<div class="col-3">
-			<div class="col-3">
-				<div class="wrapper">
-					<textarea spellcheck="false" id="description" name="description" placeholder="Type something here..." required>@insurance.description</textarea>
-				</div>
-				<script>
-					const textarea = document.querySelector("textarea");
-					textarea.addEventListener("loadeddata",e=>{
-						textarea.type.height = `${e.target.scrollHeight}px`;
-					})
-					textarea.addEventListener("keyup", e =>{
-					  textarea.style.height = "63px";
-					  let scHeight = e.target.scrollHeight;
-					  textarea.style.height = `${scHeight}px`;
-					});
-				</script>
-			</div>
+			<input id="description" name="description" type="text" value="@insurance.description" />
 		</div>
 	</div>
 	<div class="row">

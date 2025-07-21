@@ -168,8 +168,8 @@
   <ItemGroup>
     <Folder Include="Areas\AdminArea\Data\" />
     <Folder Include="Areas\AdminArea\Models\" />
-    <Folder Include="Areas\UserArea\Data\" />
-    <Folder Include="Areas\UserArea\Models\" />
+    <Folder Include="Areas\EmployeeArea\Data\" />
+    <Folder Include="Areas\EmployeeArea\Models\" />
     <Folder Include="wwwroot\Content\Admin\vendor\bootstrap\js\" />
   </ItemGroup>
 

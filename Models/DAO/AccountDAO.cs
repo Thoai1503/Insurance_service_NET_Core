@@ -61,9 +61,7 @@ namespace Insurance_agency.Models.DAO
             try
             {
                 var en = new InsuranceContext();
-                var pass = Function.MD5Hash(password);
-                var res = en.TblUsers.FirstOrDefault(InsuranceContext => InsuranceContext.Email == username && InsuranceContext.Password == password|| 
-                InsuranceContext.Email == username&&InsuranceContext.Password==pass);
+                var res = en.TblUsers.FirstOrDefault(InsuranceContext => InsuranceContext.Email == username && InsuranceContext.Password == password);
                 if (res != null)
                 {
                     return new User

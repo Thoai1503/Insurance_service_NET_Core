@@ -36,25 +36,7 @@ namespace Insurance_agency.Models.Repository
 
         public InsuranceTypeView FindById(int id)
         {
-            try
-            {
-                if (id != 0)
-                {
-                    var item = _context.TblInsuranceTypes.Where(d=>d.Id == id).Select(d=>new InsuranceTypeView
-                    {
-                        id = d.Id,
-                        name = d.Name,
-                        active = d.Active,
-                        description = d.Description,
-                        parent_id = id,
-                    }).FirstOrDefault();
-                    return item;
-                }
-            }
-            catch (Exception ex)
-            {
-            }
-            return new InsuranceTypeView();
+            throw new NotImplementedException();
         }
 
         public HashSet<InsuranceTypeView> FindByKeywork(string keywork)

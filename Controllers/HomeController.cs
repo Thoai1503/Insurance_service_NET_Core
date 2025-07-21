@@ -3,6 +3,7 @@ using Insurance_agency.Models.Entities;
 using Insurance_agency.Models.ModelView;
 using Insurance_agency.Models.Repository;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace Insurance_agency.Controllers
@@ -11,6 +12,7 @@ namespace Insurance_agency.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private InsuranceContext _context;
+
         // Constructor injection for ILogger4
         // and InsuranceContext
         // to enable logging and database access
@@ -18,13 +20,12 @@ namespace Insurance_agency.Controllers
         {
             _context = context;
             _logger = logger;
-
         }
 
 
         public IActionResult Index()
         {
-            // Assuming you have an extension method to set objects in session
+         // Assuming you have an extension method to set objects in session
 
             return View();
         }
@@ -81,45 +82,46 @@ namespace Insurance_agency.Controllers
             ViewBag.Message = "Your text editor page.";
             return View();
         }
-        public IActionResult Insurance(int typeId = 0, int pageNum = 1, int pageSize = 8)
+        public IActionResult Insurance()
         {
             HttpContext.Session.SetInt32("allbanner", 0); // Assuming you want to use session state
             //   Session["display"] = 0;
             var id = Request.Query["id"].ToString();
-
-            if (typeId == 0)
-            {
-                ViewBag.all = InsuranceRepository.Instance.GetAll();
-                ViewBag.data = InsuranceRepository.Instance.Paging(pageNum, pageSize);
-
-            }
-            else
-            {
-                ViewBag.all = InsuranceRepository.Instance.FindByInsuranceTypeId(typeId);
-                ViewBag.data = InsuranceRepository.Instance.PagingType(typeId, pageNum, pageSize);
-                ViewBag.name = InsuranceTypeRepository.Instance.FindById(typeId).name;
-
-            }
-            ViewBag.type = typeId;
-            ViewBag.pageNum = pageNum;
-            ViewBag.PageSize = pageSize;
             ViewBag.Message = "Your insurance page.";
-
             return View();
         }
-        public IActionResult InsuranceOverview()
+        public IActionResult InsuranceOverview(string? search, bool searchInsurance = false, int page = 1)
         {
 
             HttpContext.Session.SetInt32("allbanner", 0);
-            var insuranceList = InsuranceRepository.Instance.GetAll().ToHashSet();
+            var insuranceList = InsuranceRepository.Instance.GetAll().Where(e=>e.status==1).ToHashSet();
+            int pageSize = 6;
+            var query = _context.Insurances.Include(i => i.InsuranceType).AsQueryable();
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                search = search.ToLower().Trim();
+                if (searchInsurance)
+                {
+                    query = query.Where(i => i.Name != null && i.Name.ToLower().Contains(search));
+                }
+                else
+                {
+                    query = query.Where(i => i.InsuranceType != null && i.InsuranceType.Name.ToLower().Contains(search));
+                }
+            }
+            var totalItem = query.Count();
+            var item = query.OrderByDescending(i => i.Id).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPage = (int)Math.Ceiling((double)totalItem / pageSize);
+            ViewBag.Search = search;
+            ViewBag.SearchInsurance = searchInsurance;
             ViewBag.BannerCss = "motobike";
-            return View(insuranceList);
+            return View(item);
         }
         public IActionResult InsuranceDetail(int id)
         {
             var insurance = InsuranceRepository.Instance.FindById(id);
-            User user = HttpContext.Session.GetObject<User>("user");
-            ViewBag.user = user;
+
 
             var relatedinsurance = InsuranceRepository.Instance.FindByInsuranceTypeId(insurance.insurance_type_id).Take(3).ToHashSet();
             var item = PolicyRepository.Instance.GetAllByInsuranceId(id);
@@ -133,3 +135,4 @@ namespace Insurance_agency.Controllers
         }
     }
 }
+    

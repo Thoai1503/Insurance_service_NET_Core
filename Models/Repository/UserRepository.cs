@@ -25,85 +25,11 @@ namespace Insurance_agency.Models.Repository
         }
         public bool Create(User entity)
         {
-            try
-            {
-                if (entity != null)
-                {
-                    var item = new TblUser
-                    {
-                        Email = entity.email,
-                        FullName = entity.full_name,
-                        Active = 1,
-                        Address = entity.address,
-                        Password = entity.password,
-                        Phone = entity.phone,
-                        AuthId = 4,
-                        Avatar = entity.avatar,
-                    };
-                    _context.Add(item);
-                    _context.SaveChanges();
-                    return true;
-                }
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-            return false;
-        }
-        public bool CreateEmployee(User entity)
-        {
-            try
-            {
-                if (entity != null)
-                {
-                    var user = new TblUser
-                    {
-                        FullName = entity.full_name,
-                        Email = entity.email,
-                        Password = "default123",
-                        Phone = entity.phone,
-                        Address = entity.address,
-                        AuthId = 3,
-                        Avatar = entity.avatar,
-                        Active = 1,// Assuming 1 means active
-                        CreatedDate = DateTime.Now
-                    };
-                    _context.TblUsers.Add(user);
-                    _context.SaveChanges();
-                    return true;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error creating employee: " + ex.Message);
-            }
-            return false;
-        }
-        public bool ChangeStatus(User entity)
-        {
-            try
-            {
-                if (entity != null)
-                {
-                    var item = _context.TblUsers.Where(d => d.Id == entity.id).FirstOrDefault();
-                    if (item != null)
-                    {
-                        item.Active = entity.active;
-                        _context.SaveChanges();
-                        return true;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-            }
-            return false;
+            throw new NotImplementedException();
         }
         public bool Update(User entity)
         {
-
+           
             try
             {
                 if (entity != null)
@@ -143,7 +69,7 @@ namespace Insurance_agency.Models.Repository
         }
         public User FindById(int id)
         {
-            // throw new NotImplementedException();
+           // throw new NotImplementedException();
 
             var user = _context.TblUsers.Where(u => u.Id == id).Select(u => new User
             {
@@ -176,9 +102,7 @@ namespace Insurance_agency.Models.Repository
                 phone = u.Phone,
                 auth_id = (int)u.AuthId,
                 address = u.Address,
-                active = (int)u.Active,
-                avatar = u.Avatar,
-
+                active =(int) u.Active,
                 created_date = u.CreatedDate,
 
 
@@ -209,7 +133,35 @@ namespace Insurance_agency.Models.Repository
             }
             return user;
         }
-       
+        public bool CreateEmployee(User entity)
+        {
+            try
+            {
+                if (entity != null)
+                {
+                    var user = new TblUser
+                    {
+                        FullName = entity.full_name,
+                        Email = entity.email,
+                        Password = "default123",
+                        Phone = entity.phone,
+                        Address = entity.address,
+                        AuthId = 3,
+                        Avatar = entity.avatar,
+                        Active = 1 ,// Assuming 1 means active
+                        CreatedDate = DateTime.Now
+                    };
+                    _context.TblUsers.Add(user);
+                    _context.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error creating employee: " + ex.Message);
+            }
+            return false;
+        }
     }
 
 }

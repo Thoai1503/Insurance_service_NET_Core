@@ -2,7 +2,7 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-	Layout = "~/Views/Shared/_AdminLayout.cshtml";
+	Layout = "~/Areas/AdminArea/Views/Shared/_AdminLayout.cshtml";
 	HashSet<Insurance_agency.Models.ModelView.InsuranceTypeView> insuranceType = new HashSet<Insurance_agency.Models.ModelView.InsuranceTypeView>();
 	if (ViewBag.insurancetype != null)
 	{
@@ -24,20 +24,8 @@
 			<label for="description">Description</label>
 
 		</div>
-		
-
 		<div class="col-3">
-			<div class="wrapper">
-				<textarea spellcheck="false" id="description" name="description" placeholder="Type something here..." required></textarea>
-			</div>
-			<script>
-				const textarea = document.querySelector("textarea");
-				textarea.addEventListener("keyup", e =>{
-				  textarea.style.height = "63px";
-				  let scHeight = e.target.scrollHeight;
-				  textarea.style.height = `${scHeight}px`;
-				});
-			</script>
+			<input id="description" name="description" type="text" />
 		</div>
 	</div>
 	<div class="row">
@@ -47,24 +35,6 @@
 		</div>
 		<div class="col-3">
 			<input id="target_id" name="target_id" type="text" />
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-2">
-			<label for="year_max">Year Max</label>
-
-		</div>
-		<div class="col-3">
-			<input id="year_max" name="year_max" type="number"/>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-2">
-			<label for="value">Value</label>
-
-		</div>
-		<div class="col-3">
-			<input id="value" name="value" type="text" />
 		</div>
 	</div>
 	<div class="row">
@@ -79,6 +49,7 @@
 	<div class="row">
 		<div class="col-2">
 			<label for="name">Insurance Type</label>
+
 		</div>
 		<div class="col-3">
 			<select name="insurance_type_id">
