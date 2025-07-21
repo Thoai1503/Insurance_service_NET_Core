@@ -1,18 +1,21 @@
 ﻿@{
-    ViewBag.Title = "Insurance";
-    @model HashSet<Insurance_agency.Models.ModelView.InsuranceView>;
+	ViewBag.Title = "Insurance";
+	@model List<Insurance_agency.Models.Entities.Insurance>;
+	Layout = "~/Views/Shared/_Layout.cshtml";
+	var isSearchInsuran = ViewBag.SearchInsurance ?? false;
+	var search = ViewBag.Search ?? "";
 }
 
 <div class="container-fluid bg-breadcrumb-@ViewBag.BannerCss" id="insurance_banner" style="height:600px">
-    <div class="col-3" style="background-color: white; margin-left: 30px; padding: 20px; border-top: 8px solid #007BFF; ">
-        <p><strong>Đảm bảo cho những chuyến vận chuyển luôn suôn sẻ cho doanh nghiệp của bạn</strong></p>
-        <h3><strong>Bảo hiểm xe máy</strong></h3>
-        <p><strong><h5 style="color:black">Đảm bảo cho những chuyến vận chuyển luôn suôn sẻ cho doanh nghiệp của bạn</h5></strong></p>
-        <div class="text-end mt-5" style="margin-right:30px">
-            <a class="btn btn-primary rounded-pill py-2 px-4" href="#">Read More</a>
-        </div>
-    </div>
-    @*<div class="container text-center py-5" style="max-width: 900px">
+	<div class="col-3" style="background-color: white; margin-left: 30px; padding: 20px; border-top: 8px solid #007BFF; ">
+		<p><strong>Đảm bảo cho những chuyến vận chuyển luôn suôn sẻ cho doanh nghiệp của bạn</strong></p>
+		<h3><strong>Bảo hiểm xe máy</strong></h3>
+		<p><strong><h5 style="color:black">Đảm bảo cho những chuyến vận chuyển luôn suôn sẻ cho doanh nghiệp của bạn</h5></strong></p>
+		<div class="text-end mt-5" style="margin-right:30px">
+			<a class="btn btn-primary rounded-pill py-2 px-4" href="#">Read More</a>
+		</div>
+	</div>
+	@*<div class="container text-center py-5" style="max-width: 900px">
             <h4 class="text-white display-4 mb-4 wow fadeInDown"
                 data-wow-delay="0.1s">
                 About Us
@@ -27,122 +30,140 @@
 </div>
 
 <div class="container-fluid blog py-5">
-    <div class="container py-5">
-        <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px; visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
-            <h4 class="text-primary">From Blog</h4>
-            <h1 class="display-4 mb-4">News And Updates</h1>
-            <p class="mb-0">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur
-                adipisci facilis cupiditate recusandae aperiam temporibus corporis
-                itaque quis facere, numquam, ad culpa deserunt sint dolorem autem
-                obcaecati, ipsam mollitia hic.
-            </p>
-        </div>
+	<div class="container py-5">
+		<div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px; visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
+			<h4 class="text-primary">From Blog</h4>
+			<h1 class="display-4 mb-4">News And Updates</h1>
+			<p class="mb-0">
+				Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur
+				adipisci facilis cupiditate recusandae aperiam temporibus corporis
+				itaque quis facere, numquam, ad culpa deserunt sint dolorem autem
+				obcaecati, ipsam mollitia hic.
+			</p>
+		</div>
+		<form action="/Home/InsuranceOverview" method="get" id="searchForm" class="d-flex align-items-center gap-2 mb-4">
+			<input type="text" name="search" value="@search" class="form-control" placeholder="Search..." oninput="this.form.submit()" />
+			<div class="form-check ms-2">
+				<input type="checkbox" class="form-check-input" name="searchInsurance" @(isSearchInsuran ? "checked" : "") onchange="this.form.submit()" />
+				<label class="form-check-label" for="searchInsurance">Search by Insurance</label>
+			</div>
+		</form>
+		<div class="row g-4 justify-content-center">
+			@if (Model != null)
+			{
+				@* HashSet<Insurance_agency.Models.ModelView.InsuranceView> insurance = Model; *@
+				foreach (var ins in Model)
+				{
+					<div class="col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.4s" style="visibility: hidden; animation-delay: 0.4s; animation-name: none;">
+						<div class="blog-item">
+							<div class="blog-img">
+								<img src="/Content/Image/Ex/@ins.ExImage" style="height:200px" class="img-fluid rounded-top w-100" alt="">
+								<div class="blog-categiry py-2 px-4">
+									<span>@ins.InsuranceType?.Name</span>
+								</div>
+							</div>
+							<div class="blog-content p-4">
+								<div class="blog-comment d-flex justify-content-between mb-3">
+									<div class="small">
+										<span class="fa fa-user text-primary"></span> Martin.C
+									</div>
+									<div class="small">
+										<span class="fa fa-calendar text-primary"></span> @ins.YearMax Year Max
+									</div>
+									<div class="small">
+										<span class="fa-solid fa-money-check-dollar text-primary" style="font-size:17px;"></span>
+										@ins.Value?.ToString("N0", new System.Globalization.CultureInfo("ni-VN")) VNĐ
+									</div>
+								</div>
+								<a href="#" class="h4 d-inline-block mb-3">@ins.Name</a>
+								<p class="mb-3">
+									@ins.Description
+								</p>
+								<a href="/home/insurancedetail?id=@ins.Id" class="btn p-0">
+									Read More <i class="fa fa-arrow-right"></i>
+								</a>
+							</div>
+						</div>
+					</div>
+				}
+			}
 
-        <div class="row g-4 justify-content-center">
-            @if (Model != null)
-            {
-                HashSet<Insurance_agency.Models.ModelView.InsuranceView> insurance = Model;
-                foreach (var ins in insurance)
-                {
-                    <div class="col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.4s" style="visibility: hidden; animation-delay: 0.4s; animation-name: none;">
-                        <div class="blog-item">
-                            <div class="blog-img">
-                                <img src="/Content/Image/Ex/@ins.ex_image" style="height:200px" class="img-fluid rounded-top w-100" alt="">
-                                <div class="blog-categiry py-2 px-4">
-                                    <span>Business</span>
-                                </div>
-                            </div>
-                            <div class="blog-content p-4">
-                                <div class="blog-comment d-flex justify-content-between mb-3">
-                                    <div class="small">
-                                        <span class="fa fa-user text-primary"></span> Martin.C
-                                    </div>
-                                    <div class="small">
-                                        <span class="fa fa-calendar text-primary"></span> 30 Dec
-                                        2025
-                                    </div>
-                                    <div class="small">
-                                        <span class="fa fa-comment-alt text-primary"></span> 6
-                                        Comments
-                                    </div>
-                                </div>
-                                <a href="#" class="h4 d-inline-block mb-3">@ins.name</a>
-                                <p class="mb-3">
-                                    @ins.description
-                                </p>
-                                <a href="/home/insurancedetail?id=@ins.id" class="btn p-0">
-                                    Read More <i class="fa fa-arrow-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                }
-            }
-            
-        </div>
-    </div>
+		</div>
+	</div>
 </div>
-
+@if (ViewBag.TotalPage > 1)
+{
+	<nav>
+		<ul class="pagination justify-content-center">
+			@for (int i = 1; i <= ViewBag.TotalPage; i++)
+			{
+				var active = (i == ViewBag.CurrentPage) ? "active" : "";
+				<li class="page-item @active">
+					<a href="@Url.Action("InsuranceOverview",new{page = i,search = ViewBag.Search,isSearchInsuran=ViewBag.SearchInsurance})">@i</a>
+				</li>
+			}
+		</ul>
+	</nav>
+}
 
 <div class="container-fluid service">
-    <div class="container py-5">
-        <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
-            <h4 class="text-primary">Our Services</h4>
-            <h1 class="display-4 mb-4">We Provide Best Services</h1>
-            <p class="mb-0">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur adipisci facilis cupiditate recusandae aperiam temporibus corporis itaque quis facere, numquam, ad culpa deserunt sint dolorem autem obcaecati, ipsam mollitia hic.
-            </p>
-        </div>
+	<div class="container py-5">
+		<div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
+			<h4 class="text-primary">Our Services</h4>
+			<h1 class="display-4 mb-4">We Provide Best Services</h1>
+			<p class="mb-0">
+				Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur adipisci facilis cupiditate recusandae aperiam temporibus corporis itaque quis facere, numquam, ad culpa deserunt sint dolorem autem obcaecati, ipsam mollitia hic.
+			</p>
+		</div>
 
-    </div>
+	</div>
 </div>
 
 <div class="container-fluid pb-5">
-    <div class="container">
-        <div class="row gx-3 justify-content-center">
-            <div class="col-md-6 col-lg-4 d-flex align-items-stretch wow fadeInUp" data-wow-delay="0.2s">
-                <div class="service-item w-100 h-100" style="border-radius: 0; padding: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
-                    <div class="service-content p-4 h-100 d-flex flex-column justify-content-between">
-                        <div class="service-content-inner">
-                            <a href="#" class="d-inline-block h4 mb-4">Trách nhiệm dân sự bắt buộc đối với bên thứ ba</a>
-                            <p class="mb-4"><span style="color: green;">&#10003;</span> Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis, eum!</p>
-                        </div>
-                        <a class="btn btn-primary rounded-pill py-2 px-4 mt-auto" href="#">Read More</a>
-                    </div>
-                </div>
-            </div>
+	<div class="container">
+		<div class="row gx-3 justify-content-center">
+			<div class="col-md-6 col-lg-4 d-flex align-items-stretch wow fadeInUp" data-wow-delay="0.2s">
+				<div class="service-item w-100 h-100" style="border-radius: 0; padding: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+					<div class="service-content p-4 h-100 d-flex flex-column justify-content-between">
+						<div class="service-content-inner">
+							<a href="#" class="d-inline-block h4 mb-4">Trách nhiệm dân sự bắt buộc đối với bên thứ ba</a>
+							<p class="mb-4"><span style="color: green;">&#10003;</span> Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis, eum!</p>
+						</div>
+						<a class="btn btn-primary rounded-pill py-2 px-4 mt-auto" href="#">Read More</a>
+					</div>
+				</div>
+			</div>
 
-            <div class="col-md-6 col-lg-4 d-flex align-items-stretch wow fadeInUp" data-wow-delay="0.4s">
-                <div class="service-item w-100 h-100" style="border-radius: 0; padding: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
-                    <div class="service-content p-4 h-100 d-flex flex-column justify-content-between">
-                        <div class="service-content-inner">
-                            <a href="#" class="d-inline-block h4 mb-4">Health Insurance</a>
-                            <p class="mb-4"><span style="color: green;">&#10003;</span> Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis, eum!</p>
-                            <p class="mb-4"><span style="color: green;">&#10003;</span> Lorem ipsum dolor sit amet consectetur , eum!</p>
-                        </div>
-                        <a class="btn btn-primary rounded-pill py-2 px-4 mt-auto" href="#">Read More</a>
-                    </div>
-                </div>
-            </div>
+			<div class="col-md-6 col-lg-4 d-flex align-items-stretch wow fadeInUp" data-wow-delay="0.4s">
+				<div class="service-item w-100 h-100" style="border-radius: 0; padding: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+					<div class="service-content p-4 h-100 d-flex flex-column justify-content-between">
+						<div class="service-content-inner">
+							<a href="#" class="d-inline-block h4 mb-4">Health Insurance</a>
+							<p class="mb-4"><span style="color: green;">&#10003;</span> Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis, eum!</p>
+							<p class="mb-4"><span style="color: green;">&#10003;</span> Lorem ipsum dolor sit amet consectetur , eum!</p>
+						</div>
+						<a class="btn btn-primary rounded-pill py-2 px-4 mt-auto" href="#">Read More</a>
+					</div>
+				</div>
+			</div>
 
-            <div class="col-md-6 col-lg-4 d-flex align-items-stretch wow fadeInUp" data-wow-delay="0.6s">
-                <div class="service-item w-100 h-100" style="border-radius: 0; padding: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
-                    <div class="service-content p-4 h-100 d-flex flex-column justify-content-between">
-                        <div class="service-content-inner">
-                            <a href="#" class="d-inline-block h4 mb-4">Gói toàn diện</a>
-                            <p class="mb-4"><span style="color: green;">&#10003;</span> Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis, eum!</p>
-                            <p class="mb-4"><span style="color: green;">&#10003;</span> Lorem ipsum dolor sit amet consectetur , eum!</p>
-                        </div>
-                        <a class="btn btn-primary rounded-pill py-2 px-4 mt-auto" href="#">Read More</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+			<div class="col-md-6 col-lg-4 d-flex align-items-stretch wow fadeInUp" data-wow-delay="0.6s">
+				<div class="service-item w-100 h-100" style="border-radius: 0; padding: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+					<div class="service-content p-4 h-100 d-flex flex-column justify-content-between">
+						<div class="service-content-inner">
+							<a href="#" class="d-inline-block h4 mb-4">Gói toàn diện</a>
+							<p class="mb-4"><span style="color: green;">&#10003;</span> Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis, eum!</p>
+							<p class="mb-4"><span style="color: green;">&#10003;</span> Lorem ipsum dolor sit amet consectetur , eum!</p>
+						</div>
+						<a class="btn btn-primary rounded-pill py-2 px-4 mt-auto" href="#">Read More</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 <div class="col-12 text-center wow fadeInUp" data-wow-delay="0.2s" style="margin-bottom:100px; margin-top:150px">
-    <a class="btn btn-primary rounded-pill py-3 px-5" href="#">More Services</a>
+	<a class="btn btn-primary rounded-pill py-3 px-5" href="#">More Services</a>
 </div>
 
 
