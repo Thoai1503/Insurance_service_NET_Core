@@ -17,7 +17,7 @@ namespace Insurance_agency.Controllers
            
             string username = Request.Form["username"];
             string password = Request.Form["password"];
-            password = Function.MD5Hash(password);
+            
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
                 return RedirectToAction("Index", new { username, password });

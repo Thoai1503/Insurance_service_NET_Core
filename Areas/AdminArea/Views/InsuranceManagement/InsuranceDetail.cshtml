@@ -4,6 +4,7 @@
 @{
     @model HashSet<Insurance_agency.Models.ModelView.Policy>
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Insurance Details=";
     Insurance_agency.Models.ModelView.InsuranceTypeView type = new Insurance_agency.Models.ModelView.InsuranceTypeView();
     if (ViewBag.type != null){
         type = (Insurance_agency.Models.ModelView.InsuranceTypeView)ViewBag.type;
