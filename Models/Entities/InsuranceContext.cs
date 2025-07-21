@@ -102,9 +102,7 @@ public partial class InsuranceContext : DbContext
         {
             entity.ToTable("tbl_assign_history");
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.ContractId).HasColumnName("contract_id");
             entity.Property(e => e.EmployeeId).HasColumnName("employee_id");
             entity.Property(e => e.EndDate)

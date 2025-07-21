@@ -351,7 +351,7 @@
                                     <tr>
                                         <th scope="row">@index</th>
                                         <td>@item.id</td>
-                                        <td>@item.insurance.name</td>
+                                        <td><a href="/adminarea/insurancemanagement/insurancedetail?id=@item.insurance_id">@item.insurance.name</a></td>
                                         <td>@item.user.full_name</td>
                                         <td>
                                             @if (item.employee != null)

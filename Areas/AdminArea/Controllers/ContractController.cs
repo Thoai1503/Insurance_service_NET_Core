@@ -94,7 +94,7 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
                 // Check if the contract is already assigned to an employee
                 if (current_employee != 0)
                 {
-
+                    contract.employee_id = employee_id;
 
                     // Update the employee_id in the contract
                     var result = ContractRepository.Instance.Update(contract);
