@@ -1,0 +1,78 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "~/Areas/EmployeeArea/Views/Shared/_EmployeeLayout.cshtml";
+    @model HashSet<Insurance_agency.Models.ModelView.ContractView>
+}
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Tables</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+            <li class="breadcrumb-item active">Contract</li>
+        </ol>
+        <div class="card mb-4">
+            <div class="card-body">
+                DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the
+                <a target="_blank" href="https://datatables.net/">official DataTables documentation</a>
+                .
+            </div>
+        </div>
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+                DataTable Example
+            </div>
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead>
+                        <tr>
+                            <th>No .</th>
+                            <th>Product Name</th>
+                            <th>User</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                          
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>No .</th>
+                            <th>Product Name</th>
+                            <th>User</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                       @if (Model != null && Model.Count > 0)
+                        {
+                            int i = 1;
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@i</td>
+                                    <td>@item.insurance.name</td>
+                                    <td>@item.user.full_name</td>
+                                    <td>@item.status</td>
+                                    <td>
+                                        <a class="btn btn-primary" href="@Url.Action("Details", "Contract", new { id = item.id })">Details</a>
+                                        <a class="btn btn-secondary" href="@Url.Action("Edit", "Contract", new { id = item.id })">Edit</a>
+                                    </td>
+                                </tr>
+                                i++;
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="5" class="text-center">No contracts found.</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>

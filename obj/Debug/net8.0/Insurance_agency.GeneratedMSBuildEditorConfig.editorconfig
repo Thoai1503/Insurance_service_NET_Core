@@ -84,12 +84,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5BcmVhXFZpZXdzXFNoYXJlZFxfQWRtaW5MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/project_NET/Insurance_agency/Insurance_agency/Areas/UserArea/Views/Profile/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlckFyZWFcVmlld3NcUHJvZmlsZVxJbmRleC5jc2h0bWw=
+[C:/project_NET/Insurance_agency/Insurance_agency/Areas/EmployeeArea/Views/Contract/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcRW1wbG95ZWVBcmVhXFZpZXdzXENvbnRyYWN0XEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/project_NET/Insurance_agency/Insurance_agency/Areas/UserArea/Views/Shared/_Layout.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVXNlckFyZWFcVmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+[C:/project_NET/Insurance_agency/Insurance_agency/Areas/EmployeeArea/Views/Dashboard/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcRW1wbG95ZWVBcmVhXFZpZXdzXERhc2hib2FyZFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/project_NET/Insurance_agency/Insurance_agency/Areas/EmployeeArea/Views/Shared/_EmployeeLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcRW1wbG95ZWVBcmVhXFZpZXdzXFNoYXJlZFxfRW1wbG95ZWVMYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/project_NET/Insurance_agency/Insurance_agency/Views/Checkout/Index.cshtml]

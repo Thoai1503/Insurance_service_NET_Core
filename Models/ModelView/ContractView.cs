@@ -19,6 +19,8 @@ public class ContractView
 
     public long? year_paid { get; set; }
 
+    public DateTime next_payment_due = DateTime.Now;
+
    public int employee_id { get; set; }
     public User employee { get; set; }
     public int? number_year_paid { get; set; }
@@ -26,6 +28,8 @@ public class ContractView
 
     public InsuranceView insurance { get; set; }
     public User user { get; set; }
+
+    public HashSet<PaymentHistory> paymentHistories { get; set; } = new HashSet<PaymentHistory>();
 
     public int? status { get; set; }
 

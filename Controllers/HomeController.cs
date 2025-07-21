@@ -93,7 +93,7 @@ namespace Insurance_agency.Controllers
         {
 
             HttpContext.Session.SetInt32("allbanner", 0);
-            var insuranceList = InsuranceRepository.Instance.GetAll().ToHashSet();
+            var insuranceList = InsuranceRepository.Instance.GetAll().Where(e=>e.status==1).ToHashSet();
             ViewBag.BannerCss = "motobike";
             return View(insuranceList);
         }

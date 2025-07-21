@@ -2014,6 +2014,14 @@ wwwroot\Content\Client\scss\bootstrap\scss\_transitions.scss
 wwwroot\Content\Client\scss\bootstrap\scss\_type.scss
 wwwroot\Content\Client\scss\bootstrap\scss\_utilities.scss
 wwwroot\Content\Client\scss\bootstrap\scss\_variables.scss
+wwwroot\Content\Employee\assets\demo\chart-area-demo.js
+wwwroot\Content\Employee\assets\demo\chart-bar-demo.js
+wwwroot\Content\Employee\assets\demo\chart-pie-demo.js
+wwwroot\Content\Employee\assets\demo\datatables-demo.js
+wwwroot\Content\Employee\assets\img\error-404-monochrome.svg
+wwwroot\Content\Employee\css\styles.css
+wwwroot\Content\Employee\js\datatables-simple-demo.js
+wwwroot\Content\Employee\js\scripts.js
 wwwroot\Content\Image\Ex\1goiactionairshipcitieswallpaperpreview.jpg
 wwwroot\Content\Image\Ex\AllianzMotorcylceplus1024x534.jpg
 wwwroot\Content\Image\Ex\baohiemtreem.jpg
