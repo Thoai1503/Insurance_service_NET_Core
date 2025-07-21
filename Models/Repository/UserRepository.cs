@@ -111,13 +111,48 @@ namespace Insurance_agency.Models.Repository
                     var user = _context.TblUsers.FirstOrDefault(u => u.Id == entity.id);
                     if (user != null)
                     {
-                        user.FullName = entity.full_name;
-                        user.Email = entity.email;
+                        //user.FullName = entity.full_name;
+                        //user.Email = entity.email;
                         user.Phone = entity.phone;
                         user.Address = entity.address;
-                        user.AuthId = entity.auth_id;
+                        //user.AuthId = entity.auth_id;
                         user.Avatar = entity.avatar;
-                        user.Active = entity.active;
+                        //user.Active = entity.active;
+                        _context.SaveChanges();
+                        return true;
+                    }
+                    else
+                    {
+                        throw new Exception("User not found.");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error updating user: " + ex.Message);
+            }
+            return false;
+        }
+        public bool Update1(User entity)
+        {
+
+            try
+            {
+                if (entity != null)
+                {
+                    var user = _context.TblUsers.Where(d=>d.Id==entity.id).FirstOrDefault();
+                    if (user != null)
+                    {
+                        //user.FullName = entity.full_name;
+                        //user.Email = entity.email;
+                        user.Phone = entity.phone;
+                        user.Address = entity.address;
+                        //user.AuthId = entity.auth_id;
+                        if(entity.avatar != "user.jpg")
+                        {
+                            user.Avatar = entity.avatar;
+                        }
+                        //user.Active = entity.active;
                         _context.SaveChanges();
                         return true;
                     }
