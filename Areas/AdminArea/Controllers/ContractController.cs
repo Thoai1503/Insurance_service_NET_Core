@@ -13,13 +13,16 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
         {
             var user = HttpContext.Session.GetObject<User>("user");
             var contracts = ContractRepository.Instance.GetAll();
+            var customer = UserRepository.Instance.GetCustomerUser();
             var unassignedContracts = contracts.Where(c => c.employee_id == 0).OrderByDescending(c => c.StartDate).ToHashSet();
             var assignedContracts = contracts.Where(c => c.employee_id != 0).ToHashSet();
             ViewBag.user = user;
             var employees = UserRepository.Instance.GetAllEmployeeUser();
+            ViewBag.customer = customer;    
             ViewBag.UnassignedContracts = unassignedContracts;
             ViewBag.AssignedContracts = assignedContracts;
             ViewBag.Employees = employees;
+            ViewBag.Insurance = InsuranceRepository.Instance.GetAll();
             return View(contracts);
         }
 
@@ -35,20 +38,27 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
 
         // POST: ContractController/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult CreateConfirm(ContractView contract)
         {
-            var user = HttpContext.Session.GetObject<User>("user");
-            ViewBag.user = user;
             try
             {
 
-                return RedirectToAction(nameof(Index));
+                if (contract == null)
+                {
+                    return RedirectToAction("index");
+                }
+                var user = HttpContext.Session.GetObject<User>("user");
+                contract.employee_id = user.id;
+                contract.EndDate = contract.StartDate.AddYears((int)contract.number_year_paid);
+                contract.total_paid = 0;
+                var con = ContractRepository.Instance.Create(contract);
+                
             }
             catch
             {
                 return View();
             }
+            return RedirectToAction("index");
         }
 
         // GET: ContractController/Edit/5

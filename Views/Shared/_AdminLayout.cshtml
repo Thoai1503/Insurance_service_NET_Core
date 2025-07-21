@@ -429,18 +429,19 @@
 
 										if ( user.auth_id == 1)
 										{
-											img = "~/Content/Image/Avatar/@user.avatar";
+											<img class="img-profile rounded-circle" src="~/Content/Admin/img/avatar/@user.avatar">
 										}
 										else{
-											img = "~/Content/Image/Avatar/Employee/@user.avatar";
+											<img class="img-profile rounded-circle" src="~/Content/Admin/img/avatar/@user.avatar">
+											
 										}
 										
 									}
 									else{
-										img = "~/Content/Image/Avatar/avatar2.png";
+										<img class="img-profile rounded-circle" src="~/Content/Image/Avatar/avatar2.png">
+										
 									}
-								<img class="img-profile rounded-circle"
-									 src=@img>
+								
 								 }
 							</a>
 							<!-- Dropdown - User Information -->
@@ -511,7 +512,7 @@
 					<div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
 					<div class="modal-footer">
 						<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-						<a class="btn btn-primary" href="login.html">Logout</a>
+						<a class="btn btn-primary" href="@Url.Action("Logout")">Logout</a>
 					</div>
 				</div>
 			</div>

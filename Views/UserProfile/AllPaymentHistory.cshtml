@@ -253,7 +253,7 @@
                             {
                                 <tr>
                                     <td>#3920@(item.id)</td>
-                                    <td>@item.EndDate?.ToString("MM/dd/yyyy")</td>
+                                    <td>@item.EndDate.ToString("MM/dd/yyyy")</td>
                                     <td>@item.value_contract?.ToString("N0") VND</td>
                                     <td><span class="badge @(item.status == 1 ? "bg-success" : "bg-light text-dark")">@(item.status == 1 ? "Pending" : "Paid")</span></td>
                                     <td>

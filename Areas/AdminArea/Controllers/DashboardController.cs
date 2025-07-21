@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Insurance_agency.Models.Repository;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Insurance_agency.Areas.AdminArea.Controllers
@@ -9,6 +10,8 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
         // GET: DashboardController
         public ActionResult Index()
         {
+            ViewBag.data = ContractRepository.Instance.GetAll();
+            ViewBag.customer = UserRepository.Instance.GetCustomerUser();
             return View();
         }
 

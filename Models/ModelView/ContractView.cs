@@ -11,9 +11,9 @@ public class ContractView
 
     public int? insurance_id { get; set; }
 
-    public DateTime? StartDate { get; set; }
+    public DateTime StartDate { get; set; }
 
-    public DateTime? EndDate { get; set; }
+    public DateTime EndDate { get; set; }
 
     public long? total_paid { get; set; }
 
