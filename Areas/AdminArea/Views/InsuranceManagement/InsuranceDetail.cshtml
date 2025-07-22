@@ -261,8 +261,8 @@
         })
         .then(response => {
             if (response.ok) {
-                console.log("Nội dung đã được xoá thành công");
-                alert("Nội dung đã được xoá thành công");
+                console.log("Content has been deleted successfully");
+                alert("Content has been deleted successfully");
                 // Xử lý phản hồi từ máy chủ nếu cần
               //  location.reload(); // Tải lại trang để cập nhật danh sách chính sách
                 document.querySelector(`button[onclick="deleteContent(${id})"]`).closest('.policy-item').remove();
@@ -270,7 +270,7 @@
 
 
             } else {
-                console.error("Lỗi khi xoá nội dung:", response.statusText);
+                console.error("Error when delete content:", response.statusText);
             }
         })
     }
@@ -279,7 +279,7 @@
         //chèn nội dung của item đó vào trình soạn thảo
         var item = document.getElementById(`policy_${id}`);
         var content = item.querySelector('.policy-content').innerHTML;
-        alert("Nội dung: "+content);
+        alert("Content: "+content);
         // Đặt nội dung vào trình soạn thảo
         tinymce.get('default-editor').setContent(content);
         // Đổi màu nền của item thành màu lúc hover
@@ -288,10 +288,10 @@
         var editButton = item.querySelector('.btn-warning');
           editButton.classList.remove('btn-warning');
         editButton.classList.add('btn-primary');
-        editButton.textContent = 'Bỏ sửa';
+        editButton.textContent = 'Cancel Update';
         editButton.setAttribute('onclick', `cancelEdit(${id})`);
          // Đổi nút submit thành cập nhật
-         document.getElementById('submit_btn').textContent = 'Cập nhật';
+         document.getElementById('submit_btn').textContent = 'Updated';
          //thêm sự kiện updateContent(id) cho nút này
             document.getElementById('submit_btn').setAttribute('onclick', `updateContent(${id})`);
 

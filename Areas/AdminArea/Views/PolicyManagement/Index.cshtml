@@ -52,7 +52,7 @@
 	</style>
 }
 
-<h1 class="h3 mb4 text-gray-800">Danh Sách Chính Sách</h1>
+<h1 class="h3 mb4 text-gray-800">Policy List</h1>
 
 <button type="button" class="btn btn-primary mb-3" id="btnAdd">Add Policy</button>
 <form method="get" action="/AdminArea/PolicyManagement" id="searchForm" class="d-flex align-items-center gap-2 mb-3">
@@ -169,8 +169,8 @@
 					<div class="form-group mb-3">
 						<label>Action</label>
 						<select class="form-control" id="active" name="active">
-							<option value="1">Hoạt Động</option>
-							<option value="0">Không Hoạt Động</option>
+							<option value="1">Active</option>
+							<option value="0">UnActive</option>
 						</select>
 					</div>
 
@@ -262,14 +262,14 @@
 			// Xóa
 			$('.btn-delete').click(function () {
 				console.log('Delete clicked');
-				if (!confirm('Bạn chắc muốn xóa?')) return;
+				if (!confirm('Do you want to delete?')) return;
 				const id = $(this).closest('tr').data('id');
 				$.post('/adminarea/policymanagement/delete', { id: id }, function (res) {
 					if (res) {
-						alert('Xóa thành công');
+						alert('Deleted');
 						location.reload();
 					} else {
-						alert('Thất bại');
+						alert('Error');
 					}
 				});
 			});
@@ -288,13 +288,13 @@
 					active: isChecked
 				}),
 				success:function(res){
-					if(res.success) console.log("Cập nhật thành công");
-					else{alert("Thai bai")
+					if(res.success) console.log("Updated");
+					else{alert("Failed")
 					checkbox.prop('checked',!isChecked);
 					}
 				},
 				error:function(){
-					alert("Loi ket noi");
+					alert("Connection Error");
 					checkbox.prop('checked',!isChecked);
 				}
 			});
