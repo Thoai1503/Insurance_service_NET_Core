@@ -31,7 +31,8 @@
                             <th>No .</th>
                             <th>Product Name</th>
                             <th>User</th>
-                            <th>Status</th>
+
+                            <th>Next Due Date</th>
                             <th>Action</th>
                           
                         </tr>
@@ -41,7 +42,7 @@
                             <th>No .</th>
                             <th>Product Name</th>
                             <th>User</th>
-                            <th>Status</th>
+                            <th>Next Due Date</th>
                             <th>Action</th>
                         </tr>
                     </tfoot>
@@ -52,13 +53,37 @@
                             foreach (var item in Model)
                             {
                                 <tr>
-                                    <td>@i</td>
+                                    <td>@item.id</td>
                                     <td>@item.insurance.name</td>
                                     <td>@item.user.full_name</td>
-                                    <td>@item.status</td>
                                     <td>
-                                        <a class="btn btn-primary" href="@Url.Action("Details", "Contract", new { id = item.id })">Details</a>
-                                        <a class="btn btn-secondary" href="@Url.Action("Edit", "Contract", new { id = item.id })">Edit</a>
+                                        @if (0 < item.left_day && item.left_day<3)
+                                            {
+                                            <span class="badge bg-danger">Due Soon</span>
+                                        }
+                                        else if (item.left_day <= 0)
+                                        {
+                                            <span class="badge bg-warning">Overdue</span>
+
+                                        }
+                                        else
+                                        {
+                                            @item.next_payment_due
+                                        }
+                                       
+                                    </td>
+                                    <td>
+
+                                        <a class="btn btn-outline-primary" href="/employeearea/contract/details?id=@item.id">Details</a>
+                                      
+                                        @if (0 < item.left_day && item.left_day < 3)
+                                        {
+                                            <button class="btn btn-outline-primary" disabled >
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell-fill" viewBox="0 0 16 16">
+                                                    <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2m.995-14.901a1 1 0 1 0-1.99 0A5 5 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901" />
+                                                </svg>
+                                            </button>
+                                        }
                                     </td>
                                 </tr>
                                 i++;
@@ -74,5 +99,7 @@
                 </table>
             </div>
         </div>
+       
+        
     </div>
 </main>

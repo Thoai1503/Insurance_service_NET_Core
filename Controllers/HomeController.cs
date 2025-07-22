@@ -90,33 +90,38 @@ namespace Insurance_agency.Controllers
             ViewBag.Message = "Your insurance page.";
             return View();
         }
-        public IActionResult InsuranceOverview(string? search, bool searchInsurance = false, int page = 1)
+        public IActionResult InsuranceOverview(string? search, int page = 1)
         {
 
             HttpContext.Session.SetInt32("allbanner", 0);
             var insuranceList = InsuranceRepository.Instance.GetAll().Where(e=>e.status==1).ToHashSet();
-            int pageSize = 6;
-            var query = _context.Insurances.Include(i => i.InsuranceType).AsQueryable();
-            if (!string.IsNullOrWhiteSpace(search))
+            int pageSize = 9;
+            int previousPage = page-2;
+            int nextPage = page + 2;
+            int firstPage = 1;
+            var totalItems = insuranceList.Count;
+            int totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+            insuranceList = insuranceList
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToHashSet();
+            if (previousPage > 1)
             {
-                search = search.ToLower().Trim();
-                if (searchInsurance)
-                {
-                    query = query.Where(i => i.Name != null && i.Name.ToLower().Contains(search));
-                }
-                else
-                {
-                    query = query.Where(i => i.InsuranceType != null && i.InsuranceType.Name.ToLower().Contains(search));
-                }
+                ViewBag.PreviousPage = previousPage;
             }
-            var totalItem = query.Count();
-            var item = query.OrderByDescending(i => i.Id).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            else
+            {
+                ViewBag.PreviousPage = 1;
+            }
+                ViewBag.TotalPages = 5;
+
+            ViewBag.ttPages = totalPages;
             ViewBag.CurrentPage = page;
-            ViewBag.TotalPage = (int)Math.Ceiling((double)totalItem / pageSize);
+      
             ViewBag.Search = search;
-            ViewBag.SearchInsurance = searchInsurance;
+           
             ViewBag.BannerCss = "motobike";
-            return View(item);
+            return View(insuranceList);
         }
         public IActionResult InsuranceDetail(int id)
         {

@@ -263,60 +263,54 @@
                                 <span class="dropdown-toggle">Insurance</span>
                             </a>
                             @await Component.InvokeAsync("InsuranceTypeList")
-                       @*      <div class="dropdown-menu">
-                                <!-- Bảo hiểm nhân thọ with sub-dropdown -->
-                                <div class="dropdown-submenu">
-                                    <a class="dropdown-item" href="/home/life-insurance">Bảo hiểm nhân thọ</a>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="/home/term-life">Bảo hiểm nhân thọ xã hội</a>
-                                        <a class="dropdown-item" href="/home/whole-life">Bảo hiểm nhân thọ trọn đời</a>
-                                        <a class="dropdown-item" href="/home/universal-life">Bảo hiểm nhân thọ linh hoạt</a>
-                                        <a class="dropdown-item" href="/home/investment-life">Bảo hiểm nhân thọ đầu tư</a>
-                                    </div>
-                                </div>
-
-                                <!-- Bảo hiểm y tế with sub-dropdown -->
-                                <div class="dropdown-submenu">
-                                    <a class="dropdown-item" href="/home/health-insurance">Bảo hiểm y tế</a>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="/home/individual-health">Bảo hiểm y tế cá nhân</a>
-                                        <a class="dropdown-item" href="/home/family-health">Bảo hiểm y tế gia đình</a>
-                                        <a class="dropdown-item" href="/home/group-health">Bảo hiểm y tế nhóm</a>
-                                        <a class="dropdown-item" href="/home/critical-illness">Bảo hiểm bệnh hiểm nghèo</a>
-                                        <a class="dropdown-item" href="/home/dental-health">Bảo hiểm nha khoa</a>
-                                    </div>
-                                </div>
-
-                                <!-- Bảo hiểm xe cơ giới with sub-dropdown -->
-                                <div class="dropdown-submenu">
-                                    <a class="dropdown-item" href="/home/vehicle-insurance">Bảo hiểm xe cơ giới</a>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="/home/car-insurance">Bảo hiểm ô tô</a>
-                                        <a class="dropdown-item" href="/home/motorcycle-insurance">Bảo hiểm xe máy</a>
-                                        <a class="dropdown-item" href="/home/insurance">Bảo hiểm xe tải</a>
-                                        <a class="dropdown-item" href="/home/comprehensive-auto">Bảo hiểm toàn diện</a>
-                                        <a class="dropdown-item" href="/home/third-party-auto">Bảo hiểm trách nhiệm dân sự</a>
-                                    </div>
-                                </div>
-
-                                <!-- Bảo hiểm nhà cửa with sub-dropdown -->
-                                <div class="dropdown-submenu">
-                                    <a class="dropdown-item" href="/home/property-insurance">Bảo hiểm nhà cửa</a>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="/home/home-insurance">Bảo hiểm nhà ở</a>
-                                        <a class="dropdown-item" href="/home/apartment-insurance">Bảo hiểm chung cư</a>
-                                        <a class="dropdown-item" href="/home/fire-insurance">Bảo hiểm cháy nổ</a>
-                                        <a class="dropdown-item" href="/home/flood-insurance">Bảo hiểm thiên tai</a>
-                                        <a class="dropdown-item" href="/home/content-insurance">Bảo hiểm tài sản trong nhà</a>
-                                    </div>
-                                </div>
-                            </div> *@
+                    
                         </div>
                         <a href="/home/contact" class="nav-item nav-link">More</a>
 
                         <div class="nav-btn px-3">
                             <button class="btn-search btn btn-primary btn-md-square rounded-circle flex-shrink-0" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search"></i></button>
-                            <a href="/login" class="btn btn-primary rounded-pill py-2 px-4 ms-3 flex-shrink-0">LOGIN</a>
+
+
+                            @{
+                                var user = HttpContextAccessor.HttpContext.Session.GetObject<Insurance_agency.Models.ModelView.User>("user") ;
+                               
+                            }
+                            @if (user != null)
+                            {
+                                <!-- User Profile Dropdown -->
+                                <div class="dropdown ms-3">
+                                    <a href="#" class="dropdown-toggle d-flex align-items-center text-decoration-none" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <img src="@Url.Content("~/Content/Admin")/img/avatar/user.jpg" alt="User Image" class="rounded-circle me-2" style="width: 40px; height: 40px;">
+                                        <span class="text-dark">@(user.full_name ?? "User")</span>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-end">
+                                        <li>
+                                            <a class="dropdown-item d-flex align-items-center" href="/userprofile">
+                                                <i class="fas fa-user me-2"></i>
+                                                Profile
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item d-flex align-items-center" href="/home/settings">
+                                                <i class="fas fa-cog me-2"></i>
+                                                Settings
+                                            </a>
+                                        </li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li>
+                                            <a class="dropdown-item d-flex align-items-center text-danger" href="/logout">
+                                                <i class="fas fa-sign-out-alt me-2"></i>
+                                                Logout
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            }
+                            else
+                            {
+                                <a href="/login" class="btn btn-primary rounded-pill py-2 px-4 ms-3 flex-shrink-0">LOGIN</a>
+                            }
+
                         </div>
                     </div>
                 </div>

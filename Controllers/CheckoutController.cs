@@ -65,7 +65,7 @@ namespace Insurance_agency.Controllers
                             contract_id = success,
                             amount = (long)contract.year_paid,
                             payment_day = DateTime.Now,
-                            status = 1 // Assuming 1 means successful
+                            status = 0 // Assuming 1 means successful
                         };
                         var paymentSuccess = PaymentRepository.Instance.Create(paymentHistory);
                         if (!paymentSuccess)

@@ -1,6 +1,6 @@
 ﻿@{
 	ViewBag.Title = "Insurance";
-	@model List<Insurance_agency.Models.Entities.Insurance>;
+	@model HashSet<Insurance_agency.Models.ModelView.InsuranceView>;
 	Layout = "~/Views/Shared/_Layout.cshtml";
 	var isSearchInsuran = ViewBag.SearchInsurance ?? false;
 	var search = ViewBag.Search ?? "";
@@ -41,13 +41,26 @@
 				obcaecati, ipsam mollitia hic.
 			</p>
 		</div>
-		<form action="/Home/InsuranceOverview" method="get" id="searchForm" class="d-flex align-items-center gap-2 mb-4">
-			<input type="text" name="search" value="@search" class="form-control" placeholder="Search..." oninput="this.form.submit()" />
-			<div class="form-check ms-2">
-				<input type="checkbox" class="form-check-input" name="searchInsurance" @(isSearchInsuran ? "checked" : "") onchange="this.form.submit()" />
-				<label class="form-check-label" for="searchInsurance">Search by Insurance</label>
+		<div class="row">
+			<div class="col-sm-9"></div>
+			<div class="col-sm-3 mb-5 justify-content-end">
+			
+			<div class="input-group ">
+				<div class="input-group-prepend">
+						<span class="input-group-text" style="border-top-right-radius:0px; border-bottom-right-radius:0px;border-top-left-radius:7px; border-bottom-left-radius:7px">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="28" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+								<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+							</svg>
+						</span>
+				</div>
+				<input type="text" class="form-control" id="username" placeholder="Search.." required="" style="border-top-right-radius:7px; border-bottom-right-radius:7px">
+				<div class="invalid-feedback" style="width: 100%;">
+					Your username is required.
+				</div>
 			</div>
-		</form>
+		</div>
+    </div>
+	
 		<div class="row g-4 justify-content-center">
 			@if (Model != null)
 			{
@@ -57,9 +70,9 @@
 					<div class="col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.4s" style="visibility: hidden; animation-delay: 0.4s; animation-name: none;">
 						<div class="blog-item">
 							<div class="blog-img">
-								<img src="/Content/Image/Ex/@ins.ExImage" style="height:200px" class="img-fluid rounded-top w-100" alt="">
+								<img src="/Content/Image/Ex/@ins.ex_image" style="height:200px" class="img-fluid rounded-top w-100" alt="">
 								<div class="blog-categiry py-2 px-4">
-									<span>@ins.InsuranceType?.Name</span>
+									<span>@ins.name</span>
 								</div>
 							</div>
 							<div class="blog-content p-4">
@@ -68,18 +81,18 @@
 										<span class="fa fa-user text-primary"></span> Martin.C
 									</div>
 									<div class="small">
-										<span class="fa fa-calendar text-primary"></span> @ins.YearMax Year Max
+										<span class="fa fa-calendar text-primary"></span> @ins.year_max Year Max
 									</div>
 									<div class="small">
 										<span class="fa-solid fa-money-check-dollar text-primary" style="font-size:17px;"></span>
-										@ins.Value?.ToString("N0", new System.Globalization.CultureInfo("ni-VN")) VNĐ
+										@ins.value.ToString("N0", new System.Globalization.CultureInfo("ni-VN")) VNĐ
 									</div>
 								</div>
-								<a href="#" class="h4 d-inline-block mb-3">@ins.Name</a>
+								<a href="#" class="h4 d-inline-block mb-3">@ins.name</a>
 								<p class="mb-3">
-									@ins.Description
+									@ins.description
 								</p>
-								<a href="/home/insurancedetail?id=@ins.Id" class="btn p-0">
+								<a href="/home/insurancedetail?id=@ins.id" class="btn p-0">
 									Read More <i class="fa fa-arrow-right"></i>
 								</a>
 							</div>
@@ -89,22 +102,50 @@
 			}
 
 		</div>
-	</div>
-</div>
-@if (ViewBag.TotalPage > 1)
-{
-	<nav>
-		<ul class="pagination justify-content-center">
-			@for (int i = 1; i <= ViewBag.TotalPage; i++)
-			{
-				var active = (i == ViewBag.CurrentPage) ? "active" : "";
-				<li class="page-item @active">
-					<a href="@Url.Action("InsuranceOverview",new{page = i,search = ViewBag.Search,isSearchInsuran=ViewBag.SearchInsurance})">@i</a>
+		<nav aria-label="Page navigation example" style="margin-top:50px">
+			<ul class="pagination">
+				<li class="page-item">
+					<a class="page-link" href="#" aria-label="Previous">
+						<span aria-hidden="true">&laquo;</span>
+						<span class="sr-only">Previous</span>
+					</a>
 				</li>
-			}
-		</ul>
-	</nav>
-}
+				@if(ViewBag.TotalPages > 0)
+				{  
+
+					@if (ViewBag.PreviousPage>1)
+					{
+						for (int i = ViewBag.PreviousPage; i <= ViewBag.PreviousPage+4; i++)
+						{
+
+                            <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                                <a class="page-link" href="/home/insuranceoverview?page=@i">@i</a>
+                            </li>
+                        }
+					}
+					else{
+					for (int i = 1; i <= 5; i++)
+					{
+						<li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+							<a class="page-link" href="/home/insuranceoverview?page=@i">@i</a>
+						</li>
+					}
+					}
+                }
+
+		
+				<li class="page-item">
+					<a class="page-link" href="#" aria-label="Next">
+						<span aria-hidden="true">&raquo;</span>
+						<span class="sr-only">Next</span>
+					</a>
+				</li>
+			</ul>
+		</nav>
+	</div>
+	
+</div>
+
 
 <div class="container-fluid service">
 	<div class="container py-5">

@@ -39,23 +39,7 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
             {
                 item = item.OrderByDescending(d => d.name).ToHashSet();
             }
-            //else if (sort_by == 3)
-            //{
-            //    item = item.OrderBy(d => d.value).ToHashSet();
-            //}
-            //else if (sort_by == 4)
-            //{
-            //    item = item.OrderByDescending(d => d.value).ToHashSet();
-            //}
-            //else if (sort_by == 5)
-            //{
-            //    item = item.OrderBy(d => d.year_max).ToHashSet();
-            //}
-            //else if (sort_by == 6)
-            //{
-            //    item = item.OrderByDescending(d => d.year_max).ToHashSet();
-            //}
-            //Create pagination for item
+         
 
             if (Request.Query.ContainsKey("page"))
             {
