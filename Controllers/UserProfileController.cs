@@ -30,8 +30,16 @@ namespace Insurance_agency.Controllers
             }
             var totalAmount = 0;
             var contracts = ContractRepository.Instance.GetContractsByUserId(user.id);
-          
-            ViewBag.Contracts = contracts;
+          var totalPaid = contracts.Sum(c => c.total_paid);
+            var contrNum = contracts.Count();
+           DateTime nextDue = contracts.Min(c=>c.next_payment_due);
+            var displayDate = nextDue.ToString("dd MMM yyyy");
+            ContractView nextDueContract = contracts.Where(c => c.next_payment_due == nextDue).FirstOrDefault();
+            ViewBag.TotalPaid = totalPaid;
+             ViewBag.Contracts = contracts;
+            ViewBag.Count = contrNum;
+            ViewBag.NextDue = displayDate;
+            ViewBag.NextDueContract = nextDueContract;
             HttpContext.Session.SetInt32("allbanner", 0);
             return View(contracts);
         }
@@ -43,6 +51,7 @@ namespace Insurance_agency.Controllers
 
             var contract = ContractRepository.Instance.FindById(contractId);
 
+            var remainPayment = contract.number_year_paid - paymentCount;
             //Estimate the next payment year
        
             string nextDueDate = contract.StartDate?.AddYears(paymentCount).ToString();
@@ -55,6 +64,7 @@ namespace Insurance_agency.Controllers
             HttpContext.Session.SetInt32("allbanner", 0);
             ViewBag.NextDueDate = displayDate;
             ViewBag.Id = contractId;
+            ViewBag.RemainTime = remainPayment;
             ViewBag.Contract = contract;
             return View(payment);
         }
