@@ -140,7 +140,9 @@
 
 			<!-- Nav Item - Pages Collapse Menu -->
 
-			<li class="nav-item">
+			@{
+				if(user.auth_id==1){
+					<li class="nav-item">
 				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePage"
 				aria-expanded="true" aria-controls="collapsePages">
 					<i class="fas fa-fw fa-folder"></i>
@@ -155,6 +157,8 @@
 					</div>
 				</div>
 			</li>
+				}
+			}
 
 
 			<li class="nav-item">
@@ -167,26 +171,28 @@
 					<div class="bg-white py-2 collapse-inner rounded">
 
 						<a class="collapse-item" href="/adminarea/contract">Contract List</a>
-						<a class="collapse-item" href="@Url.Content("~/Content/Admin/")register.html">Danh sách hợp đồng đáo hạn</a>
+						<a class="collapse-item" href="@Url.Content("~/Content/Admin/")register.html">Due Contract List</a>
 
 
 					</div>
 				</div>
 			</li>
-			<li class="nav-item">
-				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-				aria-expanded="true" aria-controls="collapsePages">
-					<i class="fas fa-fw fa-folder"></i>
-					<span>Insurance Management</span>
-				</a>
-				<div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-					<div class="bg-white py-2 collapse-inner rounded">
+			@{
+				<li class="nav-item">
+					<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+					   aria-expanded="true" aria-controls="collapsePages">
+						<i class="fas fa-fw fa-folder"></i>
+						<span>Insurance Management</span>
+					</a>
+					<div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+						<div class="bg-white py-2 collapse-inner rounded">
 
-						<a class="collapse-item" href="/adminarea/insurancemanagement">Insurance List</a>
+							<a class="collapse-item" href="/adminarea/insurancemanagement">Insurance List</a>
 
+						</div>
 					</div>
-				</div>
-			</li>
+				</li>
+			}
 			<li class="nav-item">
 				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePagesPoli"
 				aria-expanded="true" aria-controls="collapsePages">

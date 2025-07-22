@@ -233,7 +233,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group mb-3">
                                         <label for="inputcustomer">Customer</label>
-                                        <select name="customer_id" class="form-control" id="inputcustomer">
+                                        <select name="user_id" class="form-control" id="inputcustomer">
 											<option>Select Customer</option>
                                             @foreach(var item in customer){
                                                 <option value="@item.id">@item.full_name</option>
@@ -255,17 +255,17 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group mb-3">
-                                        <label for="inputPassword4">Value (VND)</label>
-                                        <input type="number" class="form-control" id="inputPassword4" name="value" placeholder="Type the value (VND)">
+                                        <label for="inputValue">Value (VND)</label>
+                                        <input type="number" class="form-control" id="inputValue" name="value_contract" placeholder="Type the value (VND)">
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group mb-3">
-                                        <label for="inputCity">Start Date</label>
+                                        <label for="startDate">Start Date</label>
 
-                                        <input type="date" class="form-control" />
+                                        <input type="date" name="StartDate" id="startDate" class="form-control" />
                                     </div>
                                 </div>
                                 <div class="col-md-6">

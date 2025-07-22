@@ -227,7 +227,8 @@ namespace Insurance_agency.Models.Repository
         public HashSet<ContractView> GetAll()
         {
 
-            var contracts = _context.TblContracts
+            var contracts = new HashSet<ContractView>();
+                contracts = _context.TblContracts
                 .Select(c => new ContractView
                 {
                     id = c.Id,

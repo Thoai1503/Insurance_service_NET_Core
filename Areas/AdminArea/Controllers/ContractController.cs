@@ -51,6 +51,8 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
                 contract.employee_id = user.id;
                 contract.EndDate = contract.StartDate.AddYears((int)contract.number_year_paid);
                 contract.total_paid = 0;
+                contract.status = 1;
+                contract.year_paid = (contract.value_contract/contract.number_year_paid)/10;
                 var con = ContractRepository.Instance.Create(contract);
                 
             }
