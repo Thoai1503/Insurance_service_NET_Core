@@ -6,6 +6,10 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
     ViewData["Title"] = "Insurance Details=";
     Insurance_agency.Models.ModelView.InsuranceTypeView type = new Insurance_agency.Models.ModelView.InsuranceTypeView();
+    var insurance = new Insurance_agency.Models.ModelView.InsuranceView();
+    if(ViewBag.insurance!=null){
+        insurance = (Insurance_agency.Models.ModelView.InsuranceView)ViewBag.insurance;
+    }
     if (ViewBag.type != null){
         type = (Insurance_agency.Models.ModelView.InsuranceTypeView)ViewBag.type;
     }
@@ -31,38 +35,34 @@
     }
   
 </style>
-@{
-    var insurance = (Insurance_agency.Models.ModelView.InsuranceView)ViewBag.insurance;
 
-}
-
-<h2 class="text-primary"><strong> Chi tiết các chính sách của gói bảo hiểm :</strong>@insurance.name</h2>
+<h2 class="text-primary"><strong> Detail About Insurance Policies :</strong>@insurance.name</h2>
 <br/>
 <div class="row">
 <div class="col-xl-3 col-md-6 mb-4">
     <div class="card border-left-primary shadow h-100 py-2">
         <div class="card-body">
-<h5 class="text-primary">Mã bảo hiểm: #BHNT02483</h5>
-<p class="text-primary">Loại bảo hiểm: @type.name</p>
+<h5 class="text-primary">Insurance Id: #BHNT02483</h5>
+<p class="text-primary">Insurance Type: @type.name</p>
         </div>
     </div>
 </div>
 
-    <div class="col-xl-3 col-md-6 mb-4">
+    @* <div class="col-xl-3 col-md-6 mb-4">
         <div class="card border-left-success shadow h-100 py-2">
             <div class="card-body">
-                <h5 class="text-success">Ngày bắt đầu: 01/01/2023</h5>
-                <p class="text-success">Ngày kết thúc: 01/01/2033</p>
+                <h5 class="text-success">Start Date: </h5>
+                <p class="text-success">End Date: 01/01/2033</p>
             </div>
         </div>
 
-        </div>
+        </div> *@
 </div>
 
 <br />
 <br />
 
-<h2>Thông tin cơ bản:</h2>
+<h2>Basic Information:</h2>
 <div class="row">
 
     <!-- Earnings (Monthly) Card Example -->
@@ -72,7 +72,7 @@
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                           Tổng giá trị bảo hiểm
+                           Total Value
                         </div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">@insurance.value.ToString("N0")</div>
                     </div>
@@ -91,7 +91,7 @@
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                            Số năm đóng 
+                            Number Year Paid
                         </div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">@insurance.year_max</div>
                     </div>
@@ -112,7 +112,7 @@
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                            <strong>Số tiền đóng tối thiểu mỗi năm</strong>
+                            <strong>Minimum Annual Payment </strong>
                         </div>
                         
                         <div class="row no-gutters align-items-center">
@@ -142,7 +142,7 @@
 
 <br/>
 <br />
-<h5 class="text-danger align-content-center"><strong>Bản xem trước nội dung chính sách:</strong></h5>
+<h5 class="text-danger align-content-center"><strong>Preview About Policies:</strong></h5>
 <br/>
 @* 
 <table class="table table-hover">
@@ -186,10 +186,10 @@
                 </div>
                 <div class="policy-actions d-none align-items-start">
                     <button  class="btn btn-sm btn-warning me-1" title="Chỉnh sửa" onclick="edit(@policy.id)">
-                       Sửa
+                       Edit
                     </button>
                     <button href="/adminarea/policymanagement/delete?id=@policy.id" class="btn btn-sm btn-danger" onclick="deleteContent(@policy.id)" title="Xoá">
-                       Xoá
+                       Delete
                     </button>  
                 </div>
             </div>
@@ -201,7 +201,7 @@
 <br/>
 <br />
 <br />
-<h4 class="text-primary">Trình soạn thảo chính sách</h4>
+<h4 class="text-primary">Policies Editor</h4>
 
 <form method="post" action="/adminarea/dashboard">
     <textarea id="default-editor" style="width:1200px" onchange="handleChange(event)">

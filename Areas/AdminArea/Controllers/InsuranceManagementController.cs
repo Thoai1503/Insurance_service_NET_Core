@@ -14,7 +14,8 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
         {
             var insurancetype = await InsuranceTypeRepository.Instance.GetAll();
             var item = InsuranceRepository.Instance.GetAll();
-
+            var user = HttpContext.Session.GetObject<User>("user");
+            ViewBag.user=user;
 
             if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
             {
