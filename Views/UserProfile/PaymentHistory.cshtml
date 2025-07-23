@@ -118,6 +118,79 @@
     .h-100 {
         height: 100% !important;
     }
+
+    .nav-borders .nav-link.active {
+        color: #0061f2;
+        border-bottom-color: #0061f2;
+    }
+
+    .nav-borders .nav-link {
+        color: #69707a;
+        border-bottom-width: 0.125rem;
+        border-bottom-style: solid;
+        border-bottom-color: transparent;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        padding-left: 0;
+        padding-right: 0;
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+
+    /* Notification Badge Styles */
+    .nav-link-with-badge {
+        position: relative;
+        display: inline-block;
+    }
+
+    .notification-badge {
+        position: absolute;
+        top: -8px;
+        right: -10px;
+        background-color: #dc3545;
+        color: white;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        font-size: 12px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1;
+        min-width: 20px;
+        padding: 2px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        animation: pulse 2s infinite;
+    }
+
+    /* Animation cho badge */
+    @@keyframes pulse {
+        0% {
+            transform: scale(1);
+        }
+
+        50% {
+            transform: scale(1.1);
+        }
+
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    /* Cho số lớn hơn 99 */
+    .notification-badge.large-number {
+        border-radius: 10px;
+        min-width: 25px;
+        font-size: 10px;
+    }
+
+    /* Hover effect */
+    .nav-link-with-badge:hover .notification-badge {
+        transform: scale(1.1);
+        transition: transform 0.2s ease;
+    }
 </style>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
@@ -125,10 +198,16 @@
 <div class="container-xl px-4 mt-4">
     <!-- Account page navigation-->
     <nav class="nav nav-borders">
-        <a class="nav-link ms-0" href="/userprofile">Profile</a>
-        <a class="nav-link active" href="/userprofile/contract">Billing</a>
-        <a class="nav-link" href="https://www.bootdey.com/snippets/view/bs5-profile-security-page">Security</a>
-        <a class="nav-link" href="https://www.bootdey.com/snippets/view/bs5-edit-notifications-page">Notifications</a>
+        <a class="nav-link active ms-0" href="/userprofile">Profile</a>
+        <a class="nav-link" href="/userprofile/contracthistory">Billing</a>
+        <a class="nav-link" href="/userprofile/notification" target="__blank">Security</a>
+        <span class="nav-link-with-badge">
+            <a class="nav-link" href="/userprofile/notification">Notifications</a>
+            @if (ViewBag.NotificationCount > 0)
+            {
+                <span class="notification-badge large-number" id="notificationCount">@ViewBag.NotificationCount</span>
+            }
+        </span>
     </nav>
     <hr class="mt-0 mb-4">
     <div class="row">

@@ -236,17 +236,17 @@ public partial class InsuranceContext : DbContext
             entity.ToTable("tbl_notification");
 
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.ContractId).HasColumnName("contract_id");
             entity.Property(e => e.Detail)
                 .HasMaxLength(10)
                 .IsFixedLength()
                 .HasColumnName("detail");
             entity.Property(e => e.IsRead).HasColumnName("is_read");
             entity.Property(e => e.NotificationTypeId).HasColumnName("notification_type_id");
-            entity.Property(e => e.Status).HasColumnName("status");
 
-            entity.HasOne(d => d.Contract).WithMany(p => p.TblNotifications)
-                .HasForeignKey(d => d.ContractId)
+            entity.Property(e => e.UserId).HasColumnName("user_id");
+
+            entity.HasOne(d => d.User).WithMany(p => p.TblNotifications)
+                .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_tbl_notification_tbl_contract");
         });

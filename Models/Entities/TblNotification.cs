@@ -11,11 +11,10 @@ public partial class TblNotification
 
     public int? NotificationTypeId { get; set; }
 
-    public int? Status { get; set; }
 
-    public int ContractId { get; set; }
+    public int UserId { get; set; }
 
     public int? IsRead { get; set; }
 
-    public virtual TblContract Contract { get; set; } = null!;
+    public virtual TblContract User { get; set; } = null!;
 }

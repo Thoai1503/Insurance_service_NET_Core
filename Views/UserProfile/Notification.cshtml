@@ -1,0 +1,550 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    @model HashSet<Insurance_agency.Models.ModelView.Notification>;
+}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/@@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+
+
+<style>
+  
+
+    .form-control, .dataTable-input {
+        display: block;
+        width: 100%;
+        padding: 0.875rem 1.125rem;
+        font-size: 0.875rem;
+        font-weight: 400;
+        line-height: 1;
+        color: #69707a;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #c5ccd6;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        border-radius: 0.35rem;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+
+    .nav-borders .nav-link.active {
+        color: #0061f2;
+        border-bottom-color: #0061f2;
+    }
+
+    .nav-borders .nav-link {
+        color: #69707a;
+        border-bottom-width: 0.125rem;
+        border-bottom-style: solid;
+        border-bottom-color: transparent;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        padding-left: 0;
+        padding-right: 0;
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+
+    /* Notification Badge Styles */
+    .nav-link-with-badge {
+        position: relative;
+        display: inline-block;
+    }
+
+    .notification-badge {
+        position: absolute;
+        top: -8px;
+        right: -10px;
+        background-color: #dc3545;
+        color: white;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        font-size: 12px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1;
+        min-width: 20px;
+        padding: 2px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        animation: pulse 2s infinite;
+    }
+
+    /* Animation cho badge */
+    @@keyframes pulse {
+        0% {
+            transform: scale(1);
+        }
+
+        50% {
+            transform: scale(1.1);
+        }
+
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    /* Cho số lớn hơn 99 */
+    .notification-badge.large-number {
+        border-radius: 10px;
+        min-width: 25px;
+        font-size: 10px;
+    }
+
+    /* Hover effect */
+    .nav-link-with-badge:hover .notification-badge {
+        transform: scale(1.1);
+        transition: transform 0.2s ease;
+    }
+
+    body {
+        margin-top: 20px;
+        background-color: #f0f2f5;
+    }
+
+    .dropdown-list-image {
+        position: relative;
+        height: 2.5rem;
+        width: 2.5rem;
+    }
+
+        .dropdown-list-image img {
+            height: 2.5rem;
+            width: 2.5rem;
+        }
+
+    .btn-light {
+        color: #2cdd9b;
+        background-color: #e5f7f0;
+        border-color: #d8f7eb;
+    }
+
+    /* Thêm CSS này vào phần <style> của bạn */
+
+    .dropdown-menu-right {
+        right: 0 !important;
+        left: auto !important;
+        transform: translateX(0) !important;
+    }
+
+    /* Đảm bảo dropdown button group có position relative */
+    .btn-group {
+        position: relative;
+    }
+
+    /* Alternative: Nếu muốn dropdown menu nằm hoàn toàn bên phải màn hình */
+    .dropdown-menu-right.full-right {
+        right: 15px !important;
+        left: auto !important;
+        position: fixed !important;
+    }
+
+    /* Hoặc sử dụng flexbox để căn chỉnh */
+    .osahan-post-header .ml-auto {
+        margin-left: auto !important;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    .nav-borders .nav-link.active {
+        color: #0061f2;
+        border-bottom-color: #0061f2;
+    }
+
+    .nav-borders .nav-link {
+        color: #69707a;
+        border-bottom-width: 0.125rem;
+        border-bottom-style: solid;
+        border-bottom-color: transparent;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        padding-left: 0;
+        padding-right: 0;
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+
+    /* Notification Badge Styles */
+    .nav-link-with-badge {
+        position: relative;
+        display: inline-block;
+    }
+
+    .notification-badge {
+        position: absolute;
+        top: -8px;
+        right: -10px;
+        background-color: #dc3545;
+        color: white;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        font-size: 12px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1;
+        min-width: 20px;
+        padding: 2px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        animation: pulse 2s infinite;
+    }
+
+    /* Animation cho badge */
+    @@keyframes pulse {
+        0% {
+            transform: scale(1);
+        }
+
+        50% {
+            transform: scale(1.1);
+        }
+
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    /* Cho số lớn hơn 99 */
+    .notification-badge.large-number {
+        border-radius: 10px;
+        min-width: 25px;
+        font-size: 10px;
+    }
+
+    /* Hover effect */
+    .nav-link-with-badge:hover .notification-badge {
+        transform: scale(1.1);
+        transition: transform 0.2s ease;
+    }
+</style>
+
+@if (Model != null)
+{
+    var user = Model;
+}
+
+
+<div class="container-xl px-4 mt-4">
+    <!-- Account page navigation-->
+    <nav class="nav nav-borders">
+        <a class="nav-link" href="/userprofile">Profile</a>
+        <a class="nav-link" href="/userprofile/contracthistory">Billing</a>
+        <a class="nav-link" href="/userprofile/notification" target="__blank">Security</a>
+        <span class="nav-link-with-badge">
+            <a class="nav-link active ms-0" href="#">Notifications</a>
+            @if (ViewBag.NotificationCount>0)
+            {
+                <span class="notification-badge large-number" id="notificationCount">@ViewBag.NotificationCount</span>
+            }
+          
+        </span>
+    </nav>
+    <hr class="mt-0 mb-4">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.css" integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc=" crossorigin="anonymous" />
+
+    <div class="container " style="margin-bottom:50px">
+        <div class="row">
+            <div class="col-lg-3 left">
+                <div class="box shadow-sm mb-3 rounded bg-white ads-box text-center">
+                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" class="img-fluid" alt="Responsive image" />
+                    <div class="p-3 border-bottom">
+                        <h6 class="font-weight-bold text-dark">Notifications</h6>
+                        <p class="mb-0 text-muted">You’re all caught up! Check back later for new notifications</p>
+                    </div>
+                    <div class="p-3">
+                        <button type="button" class="btn btn-outline-success btn-sm pl-4 pr-4">View settings</button>
+                    </div>
+                </div>
+               @*  <div class="box mb-3 shadow-sm rounded bg-white profile-box text-center">
+                    <div class="p-5">
+                        <img src="https://bootdey.com/img/Content/avatar/avatar6.png" class="img-fluid" alt="Responsive image" />
+                    </div>
+                    <div class="p-3 border-top border-bottom">
+                        <h5 class="font-weight-bold text-dark mb-1 mt-0">Envato</h5>
+                        <p class="mb-0 text-muted">Melbourne, AU</p>
+                    </div>
+                    <div class="p-3">
+                        <div class="d-flex align-items-top mb-2">
+                            <p class="mb-0 text-muted">Posted</p>
+                            <p class="font-weight-bold text-dark mb-0 mt-0 ml-auto">1 day ago</p>
+                        </div>
+                        <div class="d-flex align-items-top">
+                            <p class="mb-0 text-muted">Applicant Rank</p>
+                            <p class="font-weight-bold text-dark mb-0 mt-0 ml-auto">25</p>
+                        </div>
+                    </div>
+                </div> *@
+            </div>
+            <div class="col-lg-9 right">
+                <div class="box shadow-sm rounded bg-white mb-3">
+                    <div class="box-title border-bottom p-3">
+                        <h6 class="m-0">Recent</h6>
+                    </div>
+                    <div class="box-body p-0">
+                        <div class="p-3 d-flex align-items-center bg-light border-bottom osahan-post-header">
+                            <div class="dropdown-list-image mr-3">
+                                <img class="rounded-circle" src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="" />
+                            </div>
+                            <div class="font-weight-bold mr-3">
+                                <div class="text-truncate">DAILY RUNDOWN: WEDNESDAY</div>
+                                <div class="small">Income tax sops on the cards, The bias in VC funding, and other top news for you</div>
+                            </div>
+                            <span class="ml-auto mb-auto">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-light btn-sm rounded" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="mdi mdi-dots-vertical"></i>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <button class="dropdown-item" type="button"><i class="mdi mdi-delete"></i> Delete</button>
+                                        <button class="dropdown-item" type="button"><i class="mdi mdi-close"></i> Turn Off</button>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="text-right text-muted pt-1">3d</div>
+                            </span>
+                        </div>
+                        <div class="p-3 d-flex align-items-center osahan-post-header">
+                            <div class="dropdown-list-image mr-3">
+                                <img class="rounded-circle" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" />
+                            </div>
+                            <div class="font-weight-bold mr-3">
+                                <div class="mb-2">We found a job at askbootstrap Ltd that you may be interested in Vivamus imperdiet venenatis est...</div>
+                                <button type="button" class="btn btn-outline-success btn-sm">View Jobs</button>
+                            </div>
+                            <span class="ml-auto mb-auto">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-light btn-sm rounded" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="mdi mdi-dots-vertical"></i>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <button class="dropdown-item" type="button"><i class="mdi mdi-delete"></i> Delete</button>
+                                        <button class="dropdown-item" type="button"><i class="mdi mdi-close"></i> Turn Off</button>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="text-right text-muted pt-1">4d</div>
+                            </span>
+                        </div>
+                        @if(Model != null && Model.Count > 0)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <div class="p-3 d-flex align-items-center bg-light border-bottom osahan-post-header">
+                                    <div class="dropdown-list-image mr-3">
+                                        <img class="rounded-circle" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" />
+                                    </div>
+                                    <div class="font-weight-bold mr-3">
+                                        <div class="mb-2">@(item.detail.Length > 100 ? item.detail.Substring(0, 100) + "..." : item.detail)</div>
+                                        <button type="button" class="btn btn-outline-success btn-sm">View Jobs</button>
+                                    </div>
+                                    <span class="ml-auto mb-auto">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-light btn-sm rounded" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="mdi mdi-dots-vertical"></i>
+                                            </button>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <button class="dropdown-item" type="button"><i class="mdi mdi-delete"></i> Delete</button>
+                                                <button class="dropdown-item" type="button"><i class="mdi mdi-close"></i> Turn Off</button>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div class="text-right text-muted pt-1">4d</div>
+                                    </span>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+                @* <div class="box shadow-sm rounded bg-white mb-3">
+                    <div class="box-title border-bottom p-3">
+                        <h6 class="m-0">Earlier</h6>
+                    </div>
+                    <div class="box-body p-0">
+                        <div class="p-3 d-flex align-items-center border-bottom osahan-post-header">
+                            <div class="dropdown-list-image mr-3 d-flex align-items-center bg-danger justify-content-center rounded-circle text-white">DRM</div>
+                            <div class="font-weight-bold mr-3">
+                                <div class="text-truncate">DAILY RUNDOWN: MONDAY</div>
+                                <div class="small">Nunc purus metus, aliquam vitae venenatis sit amet, porta non est.</div>
+                            </div>
+                            <span class="ml-auto mb-auto">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-light btn-sm rounded" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="mdi mdi-dots-vertical"></i>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right" style="">
+                                        <button class="dropdown-item" type="button"><i class="mdi mdi-delete"></i> Delete</button>
+                                        <button class="dropdown-item" type="button"><i class="mdi mdi-close"></i> Turn Off</button>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="text-right text-muted pt-1">3d</div>
+                            </span>
+                        </div>
+                        <div class="p-3 d-flex align-items-center border-bottom osahan-post-header">
+                            <div class="dropdown-list-image mr-3"><img class="rounded-circle" src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="" /></div>
+                            <div class="font-weight-bold mr-3">
+                                <div class="text-truncate">DAILY RUNDOWN: SATURDAY</div>
+                                <div class="small">Pellentesque semper ex diam, at tristique ipsum varius sed. Pellentesque non metus ullamcorper</div>
+                            </div>
+                            <span class="ml-auto mb-auto">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-light btn-sm rounded" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="mdi mdi-dots-vertical"></i>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <button class="dropdown-item" type="button"><i class="mdi mdi-delete"></i> Delete</button>
+                                        <button class="dropdown-item" type="button"><i class="mdi mdi-close"></i> Turn Off</button>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="text-right text-muted pt-1">3d</div>
+                            </span>
+                        </div>
+                        <div class="p-3 d-flex align-items-center border-bottom osahan-post-header">
+                            <div class="dropdown-list-image mr-3">
+                                <img class="rounded-circle" src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="" />
+                            </div>
+                            <div class="font-weight-bold mr-3">
+                                <div class="mb-2"><span class="font-weight-normal">Congratulate Gurdeep Singh Osahan (iamgurdeeposahan)</span> for 5 years at Askbootsrap Pvt.</div>
+                                <button type="button" class="btn btn-outline-success btn-sm">Say congrats</button>
+                            </div>
+                            <span class="ml-auto mb-auto">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-light btn-sm rounded" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="mdi mdi-dots-vertical"></i>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <button class="dropdown-item" type="button"><i class="mdi mdi-delete"></i> Delete</button>
+                                        <button class="dropdown-item" type="button"><i class="mdi mdi-close"></i> Turn Off</button>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="text-right text-muted pt-1">4d</div>
+                            </span>
+                        </div>
+                        <div class="p-3 d-flex align-items-center border-bottom osahan-post-header">
+                            <div class="dropdown-list-image mr-3">
+                                <img class="rounded-circle" src="https://bootdey.com/img/Content/avatar/avatar4.png" alt="" />
+                            </div>
+                            <div class="font-weight-bold mr-3">
+                                <div>
+                                    <span class="font-weight-normal">Congratulate Mnadeep singh (iamgurdeeposahan)</span> for 4 years at Askbootsrap Pvt.
+                                    <div class="small text-success"><i class="fa fa-check-circle"></i> You sent Mandeep a message</div>
+                                </div>
+                            </div>
+                            <span class="ml-auto mb-auto">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-light btn-sm rounded" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="mdi mdi-dots-vertical"></i>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <button class="dropdown-item" type="button"><i class="mdi mdi-delete"></i> Delete</button>
+                                        <button class="dropdown-item" type="button"><i class="mdi mdi-close"></i> Turn Off</button>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="text-right text-muted pt-1">4d</div>
+                            </span>
+                        </div>
+                        <div class="p-3 d-flex align-items-center border-bottom osahan-post-header">
+                            <div class="dropdown-list-image mr-3 d-flex align-items-center bg-success justify-content-center rounded-circle text-white">M</div>
+                            <div class="font-weight-bold mr-3">
+                                <div class="text-truncate">DAILY RUNDOWN: MONDAY</div>
+                                <div class="small">Nunc purus metus, aliquam vitae venenatis sit amet, porta non est.</div>
+                            </div>
+                            <span class="ml-auto mb-auto">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-light btn-sm rounded" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="mdi mdi-dots-vertical"></i>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <button class="dropdown-item" type="button"><i class="mdi mdi-delete"></i> Delete</button>
+                                        <button class="dropdown-item" type="button"><i class="mdi mdi-close"></i> Turn Off</button>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="text-right text-muted pt-1">3d</div>
+                            </span>
+                        </div>
+                        <div class="p-3 d-flex align-items-center border-bottom osahan-post-header">
+                            <div class="dropdown-list-image mr-3"><img class="rounded-circle" src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="" /></div>
+                            <div class="font-weight-bold mr-3">
+                                <div class="text-truncate">DAILY RUNDOWN: SATURDAY</div>
+                                <div class="small">Pellentesque semper ex diam, at tristique ipsum varius sed. Pellentesque non metus ullamcorper</div>
+                            </div>
+                            <span class="ml-auto mb-auto">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-light btn-sm rounded" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="mdi mdi-dots-vertical"></i>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <button class="dropdown-item" type="button"><i class="mdi mdi-delete"></i> Delete</button>
+                                        <button class="dropdown-item" type="button"><i class="mdi mdi-close"></i> Turn Off</button>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="text-right text-muted pt-1">3d</div>
+                            </span>
+                        </div>
+                        <div class="p-3 d-flex align-items-center border-bottom osahan-post-header">
+                            <div class="dropdown-list-image mr-3">
+                                <img class="rounded-circle" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" />
+                            </div>
+                            <div class="font-weight-bold mr-3">
+                                <div class="mb-2"><span class="font-weight-normal">Congratulate Gurdeep Singh Osahan (iamgurdeeposahan)</span> for 5 years at Askbootsrap Pvt.</div>
+                                <button type="button" class="btn btn-outline-success btn-sm">Say congrats</button>
+                            </div>
+                            <span class="ml-auto mb-auto">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-light btn-sm rounded" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="mdi mdi-dots-vertical"></i>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <button class="dropdown-item" type="button"><i class="mdi mdi-delete"></i> Delete</button>
+                                        <button class="dropdown-item" type="button"><i class="mdi mdi-close"></i> Turn Off</button>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="text-right text-muted pt-1">4d</div>
+                            </span>
+                        </div>
+                        <div class="p-3 d-flex align-items-center osahan-post-header">
+                            <div class="dropdown-list-image mr-3">
+                                <img class="rounded-circle" src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="" />
+                            </div>
+                            <div class="font-weight-bold mr-3">
+                                <div>
+                                    <span class="font-weight-normal">Congratulate Mnadeep singh (iamgurdeeposahan)</span> for 4 years at Askbootsrap Pvt.
+                                    <div class="small text-success"><i class="fa fa-check-circle"></i> You sent Mandeep a message</div>
+                                </div>
+                            </div>
+                            <span class="ml-auto mb-auto">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-light btn-sm rounded" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="mdi mdi-dots-vertical"></i>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <button class="dropdown-item" type="button"><i class="mdi mdi-delete"></i> Delete</button>
+                                        <button class="dropdown-item" type="button"><i class="mdi mdi-close"></i> Turn Off</button>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="text-right text-muted pt-1">4d</div>
+                            </span>
+                        </div>
+                    </div>
+                </div> *@
+            </div>
+        </div>
+    </div>
+
+</div>

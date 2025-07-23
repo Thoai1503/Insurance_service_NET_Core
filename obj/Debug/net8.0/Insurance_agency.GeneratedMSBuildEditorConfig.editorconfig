@@ -200,6 +200,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclByb2ZpbGVcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/project_NET/Insurance_agency/Insurance_agency/Views/UserProfile/Notification.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclByb2ZpbGVcTm90aWZpY2F0aW9uLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/project_NET/Insurance_agency/Insurance_agency/Views/UserProfile/PaymentHistory.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclByb2ZpbGVcUGF5bWVudEhpc3RvcnkuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

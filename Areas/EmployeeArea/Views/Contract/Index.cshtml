@@ -78,7 +78,7 @@
                                       
                                         @if (0 < item.left_day && item.left_day < 3)
                                         {
-                                            <button class="btn btn-outline-primary" onclick="sendMail('@item.user.email','Payment reminder','We kindly remind you that your contract payment have id @item.insurance_id is due on March 15. Timely payment is essential to maintain your account in good standing, so we appreciate your prompt attention to this matter. Thank you for your cooperation!')">
+                                            <button class="btn btn-outline-primary" onclick="sendMail('@item.user.email','Payment reminder','We kindly remind you that your contract payment have id @item.insurance_id is due on @item.next_payment_due. Timely payment is essential to maintain your account in good standing, so we appreciate your prompt attention to this matter. Thank you for your cooperation!',@item.user_id)">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell-fill" viewBox="0 0 16 16">
                                                     <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2m.995-14.901a1 1 0 1 0-1.99 0A5 5 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901" />
                                                 </svg>
@@ -108,12 +108,12 @@
                              
     <script>
     
-        function sendMail(email, subject,content) {
+        function sendMail(email, subject,content,  userId=0) {
             alert('Sending email to: ' + email + '\nSubject: ' + subject + '\nContent: ' + content);
             $.ajax({
                 url: '/employeearea/sendmail',
                 type: 'POST',
-                data: { to: email, title: subject, content:content },
+                data: { to: email, title: subject, content:content , userId},
                 success: function (response) {
                     alert('Email sent successfully!');
                 },

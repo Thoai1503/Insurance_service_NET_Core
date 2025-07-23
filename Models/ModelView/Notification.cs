@@ -13,6 +13,7 @@ public partial class Notification
 
     public int status { get; set; } = 0;
 
+
     public int user_id { get; set; } = 0;
 
     public int is_read { get; set; } = 0;

@@ -16,8 +16,10 @@ namespace Insurance_agency.Controllers
             {
                 return RedirectToAction("Index", "Login");
             }
-
+            var notificationCount = NotificationRepository.Instance.GetUnreadNotificationsByUserId(user.id)
+                .Where(n => n.is_read == 0).Count();
             HttpContext.Session.SetInt32("allbanner", 0);
+            ViewBag.NotificationCount = notificationCount;
             return View(user);
         }
         public IActionResult ContractHistory()
@@ -35,6 +37,10 @@ namespace Insurance_agency.Controllers
            DateTime nextDue = contracts.Min(c=>c.next_payment_due);
             var displayDate = nextDue.ToString("dd MMM yyyy");
             ContractView nextDueContract = contracts.Where(c => c.next_payment_due == nextDue).FirstOrDefault();
+            var notificationCount = NotificationRepository.Instance.GetUnreadNotificationsByUserId(user.id)
+    .Where(n => n.is_read == 0).Count();
+        
+            ViewBag.NotificationCount = notificationCount;
             ViewBag.TotalPaid = totalPaid;
              ViewBag.Contracts = contracts;
             ViewBag.Count = contrNum;
@@ -45,6 +51,7 @@ namespace Insurance_agency.Controllers
         }
         public IActionResult PaymentHistory(int contractId)
         {
+            var user = HttpContext.Session.GetObject<User>("user");
             var payment = PaymentRepository.Instance.FindByContractId(contractId).OrderByDescending(c=>c.id).ToHashSet();
             var paymentCount = payment.Count;
  
@@ -61,12 +68,31 @@ namespace Insurance_agency.Controllers
             var displayDate = date.ToString("dd MMM yyyy");
             var password = BCrypt.Net.BCrypt.HashPassword("Thoaivip13");
 
+            var notificationCount = NotificationRepository.Instance.GetUnreadNotificationsByUserId(user.id)
+    .Where(n => n.is_read == 0).Count();
             HttpContext.Session.SetInt32("allbanner", 0);
+            ViewBag.NotificationCount = notificationCount;
             ViewBag.NextDueDate = displayDate;
             ViewBag.Id = contractId;
             ViewBag.RemainTime = remainPayment;
             ViewBag.Contract = contract;
             return View(payment);
+        }
+        public IActionResult Notification()
+        {
+            var user = HttpContext.Session.GetObject<User>("user");
+            if (user == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            var notifications = NotificationRepository.Instance.GetAllNotificationsByUserId(user.id);
+            var notificationCount = NotificationRepository.Instance.GetUnreadNotificationsByUserId(user.id)
+    .Where(n => n.is_read == 0).Count();
+            HttpContext.Session.SetInt32("allbanner", 0);
+            ViewBag.NotificationCount = notificationCount;
+            ViewBag.Notifications = notifications;
+            HttpContext.Session.SetInt32("allbanner", 0);
+            return View(notifications);
         }
     }
 }

@@ -579,9 +579,9 @@ C:\project_NET\Insurance_agency\Insurance_agency\obj\Debug\net8.0\rjsmrazor.dswa
 C:\project_NET\Insurance_agency\Insurance_agency\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
 C:\project_NET\Insurance_agency\Insurance_agency\obj\Debug\net8.0\staticwebassets.build.json.cache
 C:\project_NET\Insurance_agency\Insurance_agency\bin\Debug\net8.0\BCrypt.Net-Core.dll
-C:\project_NET\Insurance_agency\Insurance_agency\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\project_NET\Insurance_agency\Insurance_agency\bin\Debug\net8.0\BouncyCastle.Cryptography.dll
 C:\project_NET\Insurance_agency\Insurance_agency\bin\Debug\net8.0\MailKit.dll
 C:\project_NET\Insurance_agency\Insurance_agency\bin\Debug\net8.0\MimeKit.dll
 C:\project_NET\Insurance_agency\Insurance_agency\bin\Debug\net8.0\System.Security.Cryptography.Pkcs.dll
 C:\project_NET\Insurance_agency\Insurance_agency\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
+C:\project_NET\Insurance_agency\Insurance_agency\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
