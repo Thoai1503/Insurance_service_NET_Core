@@ -3,24 +3,28 @@
 *@
 @{
 	var contract = (Insurance_agency.Models.ModelView.ContractView)ViewBag.contract;
-	var user = Context.Session.GetObject<Insurance_agency.Models.ModelView.User>("user");
 	var employee = new Insurance_agency.Models.ModelView.User();
+	var user = new Insurance_agency.Models.ModelView.User();
+	if (ViewBag.user != null)
+	{
+		user = (Insurance_agency.Models.ModelView.User)ViewBag.user;
+	}
 }
 <form action="/" method="post">
-<div class="row">
+	<div class="row">
 		<div class="col-3">
 			<span>User :</span>
 			<span>@user.full_name</span>
 		</div>
 		<div class="col-3">
-			<a href="@Url.Action()">
+			<a href="">
 				<span>Insurance :</span>
 				@contract.insurance.name
 			</a>
 		</div>
-		
-</div>
-<div class="row">
+
+	</div>
+	<div class="row">
 		<div class="col-3">
 			<span>Start Date :</span>
 			@contract.StartDate
@@ -30,7 +34,7 @@
 			@contract.EndDate
 		</div>
 
-</div>
+	</div>
 	<div class="row">
 		<div class="col-3">
 			<span>Value :</span>

@@ -101,7 +101,7 @@ namespace Insurance_agency.Controllers
             }
             return RedirectToAction("index", "Login");
         }
-        public IActionResult contractInfo(int contractId = 0)
+        public IActionResult ContractInfo(int contractId = 0)
         {
             try
             {
@@ -111,8 +111,14 @@ namespace Insurance_agency.Controllers
                     {
                         return RedirectToAction("index");
                     }
-                    var contract = ContractRepository.Instance.FindById(contractId);
+                    var user = HttpContext.Session.GetObject<User>("user");
+                    ViewBag.user = user;
+                    var contract = ContractRepository.Instance.getById(contractId);
                     ViewBag.contract = contract;
+                }
+                else
+                {
+                    return RedirectToAction("index", "Home");
                 }
                 HttpContext.Session.SetInt32("allbanner", 0);
             }

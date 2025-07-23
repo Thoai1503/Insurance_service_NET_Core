@@ -140,6 +140,28 @@ namespace Insurance_agency.Models.Repository
             var contract = query.FirstOrDefault();
             return contract;
         }
+        public ContractView getById(int id)
+        {
+
+            var query = from c in _context.TblContracts
+                        where c.Id == id
+                        select new ContractView
+                        {
+                            id = c.Id,
+                            user_id = (int)c.UserId,
+                            insurance_id = (int)c.InsuranceId,
+                            StartDate = c.StartDate,
+                            EndDate = c.EndDate,
+                            value_contract = (long)c.ValueContract,
+                            total_paid = (long)c.TotalPaid,
+                            year_paid = (long)c.YearPaid,
+                            number_year_paid = c.NumberYearPaid,
+                            status = (int)c.Status
+                        };
+
+            var contract = query.FirstOrDefault();
+            return contract;
+        }
 
         public HashSet<ContractView> FindByKeywork(string keywork)
         {

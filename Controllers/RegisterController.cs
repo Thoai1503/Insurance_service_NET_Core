@@ -77,6 +77,7 @@ namespace Insurance_agency.Controllers
                                     item.avatar = "no avatar";
                                 }
                                 item.password = Function.MD5Hash(item.password);
+                                item.created_date = DateTime.Now;
                                 var a = UserRepository.Instance.Create(item);
                                 if (a == false)
                                 {
