@@ -36,6 +36,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5BcmVhXFZpZXdzXENvbnRyYWN0XEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/minhp/Desktop/Gitclone/Insurance_agancy_NET_Core/Areas/AdminArea/Views/Customer/Detail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5BcmVhXFZpZXdzXEN1c3RvbWVyXERldGFpbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/minhp/Desktop/Gitclone/Insurance_agancy_NET_Core/Areas/AdminArea/Views/Customer/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5BcmVhXFZpZXdzXEN1c3RvbWVyXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
