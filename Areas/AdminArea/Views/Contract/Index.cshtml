@@ -514,7 +514,7 @@
             <div class="modal-header">
                 <div class="w-100">
                     <h4 class="modal-title text-primary mb-1" id="avatarModalLabel">
-                        <i class="fas fa-users me-2"></i>Chọn nhân viên phụ trách
+                        <i class="fas fa-users me-2"></i>Select the person in charge
                     </h4>
                     <!-- Subtitle sẽ được thêm động bằng JavaScript -->
                 </div>
@@ -527,13 +527,13 @@
 
                     <div class="table-responsive" style="height:300px; overflow:scroll">
                         <h5 class="text-primary mb-3">
-                            <i class="fas fa-list me-2"></i>Danh sách nhân viên
+                            <i class="fas fa-list me-2"></i>Employee list
                         </h5>
                         <table class="table align-middle mb-3 bg-white">
                             <thead class="bg-light">
                                 <tr>
                                     <th>Nhân viên</th>
-                                    <th style="width: 100px;">Hành động</th>
+                                    <th style="width: 100px;">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -556,7 +556,7 @@
                                                 <button type="button"
                                                         class="btn btn-outline-primary btn-sm choose-employee-btn"
                                                         data-employee-id="@item.id">
-                                                    <i class="fas fa-check me-1"></i>Chọn
+                                                    <i class="fas fa-check me-1"></i>Select
                                                 </button>
                                             </td>
                                         </tr>
@@ -568,20 +568,20 @@
 
                     <div class="table-responsive">
                         <h5 class="text-primary mt-3 mb-3">
-                            <i class="fas fa-user-check me-2"></i>Nhân viên được chọn
+                            <i class="fas fa-user-check me-2"></i>Selected employee
                         </h5>
                         <table class="table align-middle mb-0 bg-white">
                             <thead class="bg-light">
                                 <tr>
-                                    <th>Nhân viên</th>
-                                    <th style="width: 100px;">Hành động</th>
+                                    <th>Employee</th>
+                                    <th style="width: 100px;">Action</th>
                                 </tr>
                             </thead>
                             <tbody id="choosed_employee">
                                 <tr>
                                     <td colspan="2" class="text-center text-muted py-4">
                                         <i class="fas fa-user-plus fa-3x mb-3 d-block"></i>
-                                        <p class="mb-0">Vui lòng chọn nhân viên để phân công hợp đồng</p>
+                                        <p class="mb-0">Please select an employee to assign the contract to</p>
                                     </td>
                                 </tr>
                             </tbody>
@@ -591,10 +591,10 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                        <i class="fas fa-times me-1"></i>Hủy
+                        <i class="fas fa-times me-1"></i>Cancel
                     </button>
                     <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-save me-1"></i>Lưu thay đổi
+                        <i class="fas fa-save me-1"></i>Save change
                     </button>
                 </div>
             </form>
@@ -658,7 +658,7 @@
         // Xử lý khi modal đóng - reset title về mặc định
         $('#avatarModal').on('hidden.bs.modal', function (event) {
             var modal = $(this);
-            modal.find('#avatarModalLabel').html('<i class="fas fa-users me-2"></i>Chọn nhân viên phụ trách');
+            modal.find('#avatarModalLabel').html('<i class="fas fa-users me-2"></i>Select the person in charge');
             modal.find('.modal-subtitle').remove();
         });
 
@@ -677,8 +677,8 @@
             var isChanging = currentEmployeeId && currentEmployeeId !== '' && currentEmployeeId !== 'null' && currentEmployeeId != '0';
 
             var actionBadge = isChanging ?
-                '<span class="badge bg-warning ms-2">Thay đổi</span>' :
-                '<span class="badge bg-success ms-2">Mới</span>';
+                '<span class="badge bg-warning ms-2">Change</span>' :
+                '<span class="badge bg-success ms-2">New</span>';
 
             var chosenEmployeeHtml = `
                 <tr data-employee-id="${employeeId}">
@@ -696,7 +696,7 @@
                     </td>
                     <td>
                         <button type="button" class="btn btn-sm btn-outline-danger remove-chosen-btn">
-                            <i class="fas fa-times"></i> Hủy chọn
+                            <i class="fas fa-times"></i> Cancel
                         </button>
                     </td>
                 </tr>
@@ -710,7 +710,7 @@
                 $('input[name="employee_id"]').val(employeeId);
             }
 
-            var message = isChanging ? 'Đã chọn nhân viên thay thế!' : 'Đã chọn nhân viên mới!';
+            var message = isChanging ? 'Replacement staff selected!' : 'New staff selected!';
             showNotification(message, 'success');
         });
 
@@ -768,8 +768,8 @@
             var hasCurrentEmployee = currentEmployeeId && currentEmployeeId !== '' && currentEmployeeId !== 'null' && currentEmployeeId != '0';
 
             var defaultMessage = hasCurrentEmployee ?
-                'Nhân viên hiện tại sẽ được giữ nguyên nếu không chọn nhân viên mới' :
-                'Vui lòng chọn nhân viên để phân công hợp đồng';
+                'Current employees will continue in their positions if no new employees are chosen.' :
+                'Please select an employee to assign the contract to';
 
             var defaultIcon = hasCurrentEmployee ? 'fa-user-check' : 'fa-user-plus';
 

@@ -22,6 +22,7 @@
         public int value { get; set; } = 0;
         public int insurance_type_id { get; set; } = 0;
 
+        public InsuranceTypeView InsuranceTypeView { get; set; } = new InsuranceTypeView();
         public int status { get; set; } = 1;
         public string ex_image {  get; set; }= string.Empty;
     }

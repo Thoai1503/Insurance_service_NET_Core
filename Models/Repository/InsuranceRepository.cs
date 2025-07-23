@@ -65,7 +65,14 @@ namespace Insurance_agency.Models.Repository
                     name = d.Name,
                     description = d.Description,
                     year_max = (int)d.YearMax,
-                    value = d.Value ?? 0,
+                    InsuranceTypeView = new InsuranceTypeView
+                    {
+                        id = (int)d.InsuranceTypeId,
+                        name = d.InsuranceType.Name,
+                        description = d.InsuranceType.Description,
+                       
+                    },
+                        value = d.Value ?? 0,
 
 
 
