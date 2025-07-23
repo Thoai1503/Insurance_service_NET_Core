@@ -3,6 +3,7 @@
 *@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
+    @model Insurance_agency.Models.ModelView.ContractView
     var amount = (long)ViewBag.Amount;
 }
 @section Styles {
@@ -133,8 +134,8 @@
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <div class="d-flex justify-content-between align-items-center">
-                                <span class="text-muted">Insurance Responsibility</span>
-                                <span class="price-green">$71.76</span>
+                                <span class="text-muted">@Model.insurance.name</span>
+    <span class="price-green" >@Model.insurance.value.ToString("N0").Replace(",", ".") VND</span >
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -143,7 +144,7 @@
                     </div>
 
                     <p class="text-muted small mb-3">
-                        Insurance claim and all neccessary dependencies will be submitted to your insurer for the covered portion of this order.
+                       @Model.insurance.description
                     </p>
 
                     <div class="row">

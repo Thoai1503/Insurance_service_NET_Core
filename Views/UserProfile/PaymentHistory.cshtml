@@ -254,25 +254,25 @@
             @switch (percent)
             {
                 case < 20:
-                    <h4 class="small font-weight-bold">Server Migration <span class="float-right">@percent% (@contract.total_paid?.ToString("N0")/@contract.value_contract?.ToString("N0") VND)</span></h4>
+                    <h4 class="small font-weight-bold">Your curent payment process <span class="float-right">@percent% (@contract.total_paid?.ToString("N0")/@contract.value_contract?.ToString("N0") VND)</span></h4>
             <div class="progress mb-4">
                 <div class="progress-bar bg-warning" role="progressbar" style="width: @percent%" aria-valuenow="@percent" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
                     break;
                 case < 40:
-                    <h4 class="small font-weight-bold">sales tracking <span class="float-right">@percent%</span> (@contract.total_paid?.ToString("N0")/@contract.value_contract?.ToString("N0") VND)</h4>
+                    <h4 class="small font-weight-bold">Your curent payment process <span class="float-right">@percent%</span> (@contract.total_paid?.ToString("N0")/@contract.value_contract?.ToString("N0") VND)</h4>
                     <div class="progress mb-4">
                         <div class="progress-bar bg-warning" role="progressbar" style="width: @percent%" aria-valuenow="@percent" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                     break;
                 case < 60:
-                    <h4 class="small font-weight-bold">customer database <span class="float-right">@percent%</span> (@contract.total_paid?.ToString("N0")/@contract.value_contract?.ToString("N0") VND)</h4>
+                    <h4 class="small font-weight-bold">Your curent payment process <span class="float-right">@percent%</span> (@contract.total_paid?.ToString("N0")/@contract.value_contract?.ToString("N0") VND)</h4>
                     <div class="progress mb-4">
                         <div class="progress-bar" role="progressbar" style="width: @percent%" aria-valuenow="@percent" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                     break;
                 case < 80:
-                    <h4 class="small font-weight-bold">payout details <span class="float-right">@percent%</span> (@contract.total_paid?.ToString("N0")/@contract.value_contract?.ToString("N0") VND)</h4>
+                    <h4 class="small font-weight-bold">Your curent payment process <span class="float-right">@percent%</span> (@contract.total_paid?.ToString("N0")/@contract.value_contract?.ToString("N0") VND)</h4>
                     <div class="progress mb-4">
                         <div class="progress-bar bg-info" role="progressbar" style="width: @percent%" aria-valuenow="@percent" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
@@ -312,7 +312,7 @@
             <div class="card h-100 border-start-lg border-start-primary">
                 <div class="card-body">
                     <div class="small text-muted">Current monthly bill</div>
-                    <div class="h3">20.00</div>
+                    <div class="h3">@contract.total_paid?.ToString("N0").Replace(",", ".") VND</div>
                     <a class="text-arrow-icon small" href="#!">
                         Switch to yearly billing
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
@@ -369,13 +369,13 @@
                 <div class="ms-4">
                 <div class="form-outline" data-mdb-input-init>
                     <p>Choose your amount</p>
-                    <input type="text" id="form12" class="form-control" onkeyup="updateAmount(event)" />
+                        <input type="text" id="form12" class="form-control" value="@contract.year_paid?.ToString("N0").Replace(",", ".")" readonly onkeyup="updateAmount(event)" />
                     <label class="form-label" for="form12">VND</label>
                 </div>
                 </div>
                 <div class="ms-4 small">
                     <div class="badge bg-light text-dark me-3">Default</div>
-                    <a id="payment_navigate" href="@Url.Action("Test", "Checkout", new { amount=0, contractId =1 })">Continue to pay</a>
+                    <a id="payment_navigate" href="@Url.Action("Test", "Checkout", new { amount=contract.year_paid, contractId =1 , insurance = contract.insurance})">Continue to pay</a>
                 </div>
             </div>
             @*          <hr> *@

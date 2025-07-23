@@ -140,7 +140,7 @@ namespace Insurance_agency.Controllers
             ViewBag.Message = "Payment was successful!";
             return View();
         }
-        public IActionResult Test(int amount, int contractId)
+        public IActionResult Test(int amount, int contractId, InsuranceView insurance)
         {
             var contract = ContractRepository.Instance.FindById(contractId);
 
@@ -155,7 +155,7 @@ namespace Insurance_agency.Controllers
             HttpContext.Session.SetInt32("allbanner", 0);
             ViewBag.Amount = amount;
             ViewBag.ContractId = contractId;
-            return View();
+            return View(contract);
         }
 
 
