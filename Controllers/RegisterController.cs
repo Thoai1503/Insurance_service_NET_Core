@@ -77,39 +77,40 @@ namespace Insurance_agency.Controllers
                 {
                     if (item != null)
                     {
-                        if (Img != null)
-                            if (HttpContext.Session.GetObject<int>("code") == code)
+
+                        if (HttpContext.Session.GetObject<int>("code") == code)
+                        {
+                            if (Img != null)
                             {
+                                string folder = "Image/Avatar/Customer/";
+                                string name = Img.FileName;
+                                name = name.Replace("-", "");
+                                name = name.Replace(" ", "");
+                                name = name.Replace("_", "");
+                                folder += name;
+                                string fullPathSave = Path.Combine("wwwroot/Content", folder);
+                                item.avatar = name;
+                                using (var fileStream = new FileStream(fullPathSave, FileMode.Create))
                                 {
-                                    string folder = "Image/Avatar/Customer/";
-                                    string name = Img.FileName;
-                                    name = name.Replace("-", "");
-                                    name = name.Replace(" ", "");
-                                    name = name.Replace("_", "");
-                                    folder += name;
-                                    string fullPathSave = Path.Combine("wwwroot/Content", folder);
-                                    item.avatar = name;
-                                    using (var fileStream = new FileStream(fullPathSave, FileMode.Create))
-                                    {
-                                        Img.CopyTo(fileStream);
-                                    }
-                                }
-                                else
-                                {
-                                    item.avatar = "no avatar";
-                                }
-                                item.password = Function.MD5Hash(item.password);
-                                item.created_date = DateTime.Now;
-                                var a = UserRepository.Instance.Create(item);
-                                if (a == false)
-                                {
-                                    return RedirectToAction("Create");
+                                    Img.CopyTo(fileStream);
                                 }
                             }
                             else
                             {
                                 item.avatar = "no avatar";
                             }
+                            item.password = Function.MD5Hash(item.password);
+                            item.created_date = DateTime.Now;
+                            var b = UserRepository.Instance.Create(item);
+                            if (b == false)
+                            {
+                                return RedirectToAction("Create");
+                            }
+                        }
+                        else
+                        {
+                            item.avatar = "no avatar";
+                        }
                         item.password = Function.MD5Hash(item.password);
                         var a = UserRepository.Instance.Create(item);
                         if (a == false)

@@ -61,7 +61,7 @@ namespace Insurance_agency.Controllers
             var remainPayment = contract.number_year_paid - paymentCount;
             //Estimate the next payment year
 
-            string nextDueDate = contract.StartDate?.AddYears(paymentCount).ToString();
+            string nextDueDate = contract.StartDate.AddYears(paymentCount).ToString();
 
             DateTime date = DateTime.ParseExact(nextDueDate, "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
             // Set time to midnight
