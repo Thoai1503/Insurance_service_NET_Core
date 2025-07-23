@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Insurance_agency.Services.SendMail;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Insurance_agency.Areas.AdminArea.Controllers
@@ -85,5 +86,11 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
                 return View();
             }
         }
+        public async Task<ActionResult> SendMail()
+        {
+            var emailService = new EmailService();
+            await emailService.SendEmailAsync("user@gmail.com", "Test", "Hello from Gmail SMTP");
+            return Json(new { message = "Email sent successfully!" });
+        }
     }
-}
+    }

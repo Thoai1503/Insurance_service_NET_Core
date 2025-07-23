@@ -92,6 +92,7 @@ namespace Insurance_agency.Controllers
         }
         public IActionResult InsuranceOverview(string? search, int page = 1)
         {
+           
 
             HttpContext.Session.SetInt32("allbanner", 0);
             var insuranceList = InsuranceRepository.Instance.GetAll().Where(e=>e.status==1).ToHashSet();
@@ -105,6 +106,16 @@ namespace Insurance_agency.Controllers
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToHashSet();
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+             
+                if (!string.IsNullOrEmpty(search))
+                {
+                    insuranceList = InsuranceRepository.Instance.FindByKeywork(search);
+                }
+                return Json(new { message = "AJAX request", insuranceList });
+            }
+
             if (previousPage > 1)
             {
                 ViewBag.PreviousPage = previousPage;

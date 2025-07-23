@@ -53,7 +53,7 @@
 							</svg>
 						</span>
 				</div>
-				<input type="text" class="form-control" id="username" placeholder="Search.." required="" style="border-top-right-radius:7px; border-bottom-right-radius:7px">
+				<input type="text" class="form-control" id="username" placeholder="Search.." onkeyup="handleSearch(event)" required="" style="border-top-right-radius:7px; border-bottom-right-radius:7px">
 				<div class="invalid-feedback" style="width: 100%;">
 					Your username is required.
 				</div>
@@ -61,7 +61,7 @@
 		</div>
     </div>
 	
-		<div class="row g-4 justify-content-center">
+		<div class="row g-4 justify-content-center" id="insurance_list">
 			@if (Model != null)
 			{
 				@* HashSet<Insurance_agency.Models.ModelView.InsuranceView> insurance = Model; *@
@@ -209,3 +209,109 @@
 
 
 <!-- Service End -->
+<script>
+	// Render the original insurance list as a JS array
+	var originalInsuranceList = [];
+	@if (Model != null)
+	{
+				var list = (HashSet<Insurance_agency.Models.ModelView.InsuranceView>)Model;
+				foreach (var item in list)
+				{
+							<text>
+								originalInsuranceList.push({
+									id: '@item.id',
+									name: '@item.name',
+									ex_image: '@item.ex_image'
+								});
+							</text>
+				}
+	}
+
+	function renderInsuranceList(list) {
+		var tbody = $('#insurance_list');
+		tbody.empty();
+		list.forEach(function(ins) {
+
+
+			var row = `<div class="col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.4s" style="visibility: hidden; animation-delay: 0.4s; animation-name: none;">
+						<div class="blog-item">
+							<div class="blog-img">
+								<img src="/Content/Image/Ex/${ins.ex_image}" style="height:200px" class="img-fluid rounded-top w-100" alt="">
+								<div class="blog-categiry py-2 px-4">
+									<span>${ins.name}</span>
+								</div>
+							</div>
+							<div class="blog-content p-4">
+								<div class="blog-comment d-flex justify-content-between mb-3">
+									<div class="small">
+										<span class="fa fa-user text-primary"></span> Martin.C
+									</div>
+									<div class="small">
+										<span class="fa fa-calendar text-primary"></span> ${ins.year_max} Year Max
+									</div>
+									<div class="small">
+										<span class="fa-solid fa-money-check-dollar text-primary" style="font-size:17px;"></span>
+										${parseFloat(ins.value).toLocaleString('vi-VN')} VNĐ
+									</div>
+								</div>
+								<a href="#" class="h4 d-inline-block mb-3">${ins.name}</a>
+								<p class="mb-3">
+									${ins.description}
+								</p>
+								<a href="/home/insurancedetail?id=${ins.id}" class="btn p-0">
+									Read More <i class="fa fa-arrow-right"></i>
+								</a>
+							</div>
+						</div>
+					</div>`;
+			tbody.append(row);
+
+
+		});
+	}
+
+	function handleSearch(event){
+		var value = event.target.value;
+		console.log("Value:" + value);
+		if(value.length > 0){
+			$.ajax({
+				url: '/home/insuranceoverview',
+				type: 'GET',
+				data: { search: value },
+				success: function(data) {
+					// data.insList is expected to be an array
+					renderInsuranceList(data.insuranceList);
+				},
+				error: function(error) {
+					console.error("Error fetching search results:", error);
+				}
+			});
+		} else {
+		
+			// Show the original list
+			renderInsuranceList(originalInsuranceList);
+		}
+	}
+		  function updateStatus(event) {
+
+
+
+					var item = event.target;
+					var checked = $(item).is(":checked");
+					var id = $(item).attr("data-id");
+					$.ajax({
+						method: 'POST',
+						url: "@Url.Action("UpdateActiveStatus")",
+						data: { _id: id, _checked: checked == true ? 1 : 0 }
+					}).done(function (msg) {
+						if (msg.success) {
+							alert("Status updated successfully!");
+						} else {
+							alert("Failed to update status.");
+						}
+					}).fail(function () {
+						alert("Error occurred while updating status.");
+					});
+
+		};
+</script>
