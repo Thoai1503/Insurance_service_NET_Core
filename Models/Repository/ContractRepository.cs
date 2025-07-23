@@ -109,9 +109,62 @@ namespace Insurance_agency.Models.Repository
          
         }
 
-        public HashSet<ContractView> FindByKeywork(string keywork)
+        public HashSet<ContractView> FindByKeywork(string phone)
         {
-            throw new NotImplementedException();
+            var query = from c in _context.TblContracts
+                        join u in _context.TblUsers on c.UserId equals u.Id into userGroup
+                        from u in userGroup.DefaultIfEmpty()
+                        join i in _context.Insurances on c.InsuranceId equals i.Id into insuranceGroup
+                        from i in insuranceGroup.DefaultIfEmpty()
+                        join emp in _context.TblUsers on c.EmployeeId equals emp.Id into employeeGroup
+                        from emp in employeeGroup.DefaultIfEmpty()
+                        select new ContractView
+                        {
+                            id = c.Id,
+                            user_id = (int)c.UserId,
+                            user = new User
+                            {
+                                id = u.Id,
+                                full_name = u.FullName, // Assuming FullName is the correct property
+                                email = u.Email,
+                                phone = u.Phone
+                            },
+                            insurance_id = (int)c.InsuranceId,
+                            insurance = new InsuranceView
+                            {
+                                id = i.Id,
+                                name = i.Name,
+                                description = i.Description,
+                                value = i.Value ?? 0,
+                                year_max = i.YearMax ?? 0,
+                                ex_image = i.ExImage
+                            },
+                            StartDate = c.StartDate,
+                            EndDate = c.EndDate,
+                            value_contract = (long)c.ValueContract,
+                            employee_id = emp != null ? emp.Id : 0, // Handle null case for employee
+                            year_paid = (long)c.YearPaid,
+                            number_year_paid = c.NumberYearPaid,
+                            paymentHistories = c.TblPaymentHistories.Select(ph => new PaymentHistory
+                            {
+                                id = ph.Id,
+                                amount = (long)ph.Amount,
+                                payment_day = (DateTime)ph.PaymentDay,
+                                contract_id = (int)ph.ContractId
+                            }).ToHashSet(),
+                            next_payment_due = c.StartDate.Value.AddYears(c.TblPaymentHistories.Count()),
+                            employee = emp != null ? new User
+                            {
+                                id = emp.Id,
+                                full_name = emp.FullName,
+                                email = emp.Email,
+                                phone = emp.Phone
+                            } : null, // Handle null case for employee
+                            status = c.Status ?? 0
+                        };
+
+            var contracts = query.Where(c => c.user.phone.Contains(phone)).ToHashSet();
+            return contracts; // Ensure a return statement is present for all code paths
         }
 
 
@@ -246,19 +299,83 @@ namespace Insurance_agency.Models.Repository
 
             return contracts;
         }
-        public HashSet<ContractView> GetAll()
+        //public HashSet<ContractView> GetAll()
+        //{
+
+        //    var query  = from c in _context.TblContracts
+        //                join u in _context.TblUsers on c.UserId equals u.Id into userGroup
+        //                from u in userGroup.DefaultIfEmpty()
+        //                join i in _context.Insurances on c.InsuranceId equals i.Id into insuranceGroup
+        //                from i in insuranceGroup.DefaultIfEmpty()
+        //                join emp in _context.TblUsers on c.EmployeeId equals emp.Id into employeeGroup
+        //                from emp in employeeGroup.DefaultIfEmpty()
+                       
+
+        //                 select new ContractView
+        //                {
+        //                    id = c.Id,
+        //                    user_id = (int)c.UserId,
+        //                    user = new User
+        //                    {
+        //                        id = u.Id,
+        //                        full_name = u.FullName, // Assuming FullName is the correct property
+        //                        email = u.Email,
+        //                        phone = u.Phone
+        //                    },
+        //                    insurance_id = (int)c.InsuranceId,
+        //                    insurance = new InsuranceView
+        //                    {
+        //                        id = i.Id,
+        //                        name = i.Name,
+        //                        description = i.Description,
+        //                        value = i.Value??0,
+        //                        year_max = i.YearMax??0,
+        //                        ex_image = i.ExImage
+        //                    },
+        //                    StartDate = c.StartDate,
+        //                    EndDate = c.EndDate,
+        //                    value_contract = (long)c.ValueContract,
+        //                    employee_id = emp != null ? emp.Id : 0, // Handle null case for employee
+        //                    year_paid = (long)c.YearPaid,
+        //                    number_year_paid = c.NumberYearPaid,
+        //                    paymentHistories = c.TblPaymentHistories.Select(ph => new PaymentHistory
+        //                    {
+        //                        id = ph.Id,
+        //                        amount = (long)ph.Amount,
+        //                        payment_day = (DateTime)ph.PaymentDay,
+        //                        contract_id = (int)ph.ContractId
+        //                    }).ToHashSet(),
+        //                    next_payment_due = c.StartDate.Value.AddYears(c.TblPaymentHistories.Count()),
+        //                     employee = emp != null ? new User
+        //                    {
+        //                        id = emp.Id,
+        //                        full_name = emp.FullName,
+        //                        email = emp.Email,
+        //                        phone = emp.Phone
+        //                    } : null, // Handle null case for employee
+        //                    status = c.Status ?? 0
+        //                };
+        //    var contracts = query.ToHashSet();
+
+        //    return contracts;
+
+
+
+        //}
+
+        public async Task< HashSet<ContractView>> GetAll()
         {
 
-            var query  = from c in _context.TblContracts
+            var query = from c in _context.TblContracts
                         join u in _context.TblUsers on c.UserId equals u.Id into userGroup
                         from u in userGroup.DefaultIfEmpty()
                         join i in _context.Insurances on c.InsuranceId equals i.Id into insuranceGroup
                         from i in insuranceGroup.DefaultIfEmpty()
                         join emp in _context.TblUsers on c.EmployeeId equals emp.Id into employeeGroup
                         from emp in employeeGroup.DefaultIfEmpty()
-                       
 
-                         select new ContractView
+
+                        select new ContractView
                         {
                             id = c.Id,
                             user_id = (int)c.UserId,
@@ -275,8 +392,8 @@ namespace Insurance_agency.Models.Repository
                                 id = i.Id,
                                 name = i.Name,
                                 description = i.Description,
-                                value = i.Value??0,
-                                year_max = i.YearMax??0,
+                                value = i.Value ?? 0,
+                                year_max = i.YearMax ?? 0,
                                 ex_image = i.ExImage
                             },
                             StartDate = c.StartDate,
@@ -293,7 +410,7 @@ namespace Insurance_agency.Models.Repository
                                 contract_id = (int)ph.ContractId
                             }).ToHashSet(),
                             next_payment_due = c.StartDate.Value.AddYears(c.TblPaymentHistories.Count()),
-                             employee = emp != null ? new User
+                            employee = emp != null ? new User
                             {
                                 id = emp.Id,
                                 full_name = emp.FullName,
@@ -424,6 +541,11 @@ namespace Insurance_agency.Models.Repository
            
                 return contractViews;
 
+        }
+
+        HashSet<ContractView> IRepository<ContractView>.GetAll()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -157,7 +157,7 @@
                                         <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
                                     </svg>
                                 </span>
-                                <input type="text" class="form-control" placeholder="Search..." aria-label="Username" aria-describedby="basic-addon1" onkeyup="handleSearch(event)">
+                                <input type="text" class="form-control" placeholder="Search by phone..." aria-label="Username" aria-describedby="basic-addon1" onkeyup="handleSearch(event)">
                             </div>
 
                         </div>
@@ -360,7 +360,12 @@
                                             }
                                             else
                                             {
-                                                <button class="btn btn-danger" style="border:30px; width:8px;height:4px" disabled>Not assigned</button>
+                                                <button class="btn btn-danger" style=" border:30px;width:auto;
+                                            height:auto;
+                                            padding:2px 8px;
+                                            font-size: 12px" disabled>
+                                                    Not assigned
+                                                </button>
                                             }
                                         </td>
                                         <td>@(item.status == 1 ? "Active" : "Inactive")</td>
@@ -797,5 +802,224 @@
                 $('.alert').fadeOut();
             }, 3000);
         }
+
+
     });
+
+
+        // Fixed handleSearch function
+    function handleSearch(event) {
+        event.preventDefault();
+        var searchValue = event.target.value.trim();
+
+        if (searchValue.length > 0) {
+            $.ajax({
+                url: '/adminarea/contract',
+                type: 'GET',
+                data: { search: searchValue },
+                success: function(data) {
+                    console.log("Search response:", data);
+
+                    // Transform the server response to match the expected format
+                    if (data.contracts && Array.isArray(data.contracts)) {
+                        var transformedContracts = data.contracts.map(function(contract, index) {
+                            return {
+                                index: index + 2, // Start from 2 to match your original logic
+                                id: contract.id,
+                                insurance_id: contract.insurance_id,
+                                name: contract.insurance ? contract.insurance.name : 'N/A',
+                                user_full_name: contract.user ? contract.user.full_name : 'N/A',
+                                employee_full_name: contract.employee ? contract.employee.full_name : '',
+                                employee_id: contract.employee_id || 0,
+                                user_id: contract.user_id,
+                                status: contract.status,
+                                ex_image: contract.insurance ? contract.insurance.ex_image : ''
+                            };
+                        });
+
+                        renderInsuranceList(transformedContracts);
+                    } else {
+                        console.error("Invalid data format received from server");
+                        renderInsuranceList([]);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error fetching search results:", error);
+                    console.error("Status:", status);
+                    console.error("Response:", xhr.responseText);
+                    renderInsuranceList([]);
+                }
+            });
+        } else {
+            // Show the original list when search is empty
+            renderInsuranceList(originalInsuranceList);
+        }
+    }
+
+    // Improved renderInsuranceList function with better error handling
+    function renderInsuranceList(list) {
+        var tbody = $('#all_contract_list');
+        tbody.empty();
+
+        if (!list || list.length === 0) {
+            tbody.append('<tr><td colspan="7" class="text-center text-muted py-3">No contracts found</td></tr>');
+            return;
+        }
+
+        list.forEach(function(item, index) {
+            try {
+                // Create the employee cell content with null checks
+                var employeeCell = $('<td>');
+                if (item.employee_full_name && item.employee_full_name.trim() !== '') {
+                    employeeCell.append($('<span>').text(item.employee_full_name));
+                } else {
+                    employeeCell.append(
+                        $('<button>')
+                            .addClass('btn btn-danger')
+                            .css({
+                                'border': '30px',
+                                'width': 'auto',
+                                'height': 'auto',
+                                'padding': '2px 8px',
+                                'font-size': '12px'
+                            })
+                            .prop('disabled', true)
+                            .text('Not assigned')
+                    );
+                }
+
+                // Create action buttons
+                var editLink = $('<a>')
+                    .attr('href', '/')
+                    .attr('accesskey', '')
+                    .attr('action', '')
+                    .addClass('me-2')
+                    .html(`
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                            <path d="M15.502 1.94a1.5 1.5 0 0 1 0 2.121l-1.06 1.06-2.121-2.12 1.06-1.06a1.5 1.5 0 0 1 2.121 0zM13.44 4.56l-2.12-2.12L9.22 4.22l2.12 2.12L13.44 4.56zM1 13V3a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2zm11-9H3a1 1 0 0 0-1 .993V13a1 1 0 0 0 .883.993L3 .993h8a1 .993V4z" />
+                        </svg>
+                    `);
+
+                var viewLink = $('<a>')
+                    .attr('href', '/')
+                    .attr('accesskey', '')
+                    .attr('action', '')
+                    .addClass('me-2')
+                    .html(`
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-journal-richtext" viewBox="0 0 16 16">
+                            <path d="M7.5 3.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0m-.861 1.542 1.33.886 1.854-1.855a.25.25 0 0 1 .289-.047L11 4.75V7a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 7v-.5s1.54-1.274 1.639-1.208M5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5" />
+                            <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2" />
+                            <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1z" />
+                        </svg>
+                    `);
+
+                var assignButton = $('<button>')
+                    .addClass('btn btn-outline-primary btn-sm')
+                    .attr({
+                        'data-bs-toggle': 'modal',
+                        'data-id': item.id,
+                        'data-current-employee-id': item.employee_id || 0,
+                        'id': item.user_id,
+                        'data-bs-target': '#avatarModal'
+                    })
+                    .html('<img src="/Content/Image/swap-icon-19.jpg" alt="Assign" style="width:20px;height:20px">');
+
+                // Create the insurance name link with null check
+                var insuranceNameCell = $('<td>');
+                if (item.insurance_id && item.name) {
+                    var insuranceLink = $('<a>')
+                        .attr('href', '/adminarea/insurancemanagement/insurancedetail?id=' + item.insurance_id)
+                        .text(item.name);
+                    insuranceNameCell.append(insuranceLink);
+                } else {
+                    insuranceNameCell.text(item.name || 'N/A');
+                }
+
+                // Create the row with proper error handling
+                var row = $('<tr>').append(
+                    $('<th>').attr('scope', 'row').text(item.index || (index + 1)),
+                    $('<td>').text(item.id || 'N/A'),
+                    insuranceNameCell,
+                    $('<td>').text(item.user_full_name || 'N/A'),
+                    employeeCell,
+                    $('<td>').text(item.status == 1 ? 'Active' : 'Inactive'),
+                    $('<td>').append(editLink, viewLink, assignButton)
+                );
+
+                tbody.append(row);
+            } catch (error) {
+                console.error('Error rendering contract item:', item, error);
+                // Add error row if individual item fails
+                tbody.append(
+                    $('<tr>').append(
+                        $('<td colspan="7" class="text-center text-danger">').text('Error rendering contract ID: ' + (item.id || 'Unknown'))
+                    )
+                );
+            }
+        });
+    }
+
+    // Alternative search function with debounce to prevent too many requests
+    function handleSearchWithDebounce(event) {
+        event.preventDefault();
+        var searchValue = event.target.value.trim();
+
+        // Clear previous timeout
+        if (window.searchTimeout) {
+            clearTimeout(window.searchTimeout);
+        }
+
+        // Set new timeout
+        window.searchTimeout = setTimeout(function() {
+            handleSearch({ target: { value: searchValue } });
+        }, 300); // Wait 300ms after user stops typing
+    }
+
+    // You can also add this enhanced search with loading indicator
+    function handleSearchWithLoader(event) {
+        event.preventDefault();
+        var searchValue = event.target.value.trim();
+        var tbody = $('#all_contract_list');
+
+        if (searchValue.length > 0) {
+            // Show loading indicator
+            tbody.html('<tr><td colspan="7" class="text-center py-3"><div class="spinner-border spinner-border-sm me-2" role="status"></div>Searching...</td></tr>');
+
+            $.ajax({
+                url: '/adminarea/contract',
+                type: 'GET',
+                data: { search: searchValue },
+                success: function(data) {
+                    console.log("Search response:", data);
+
+                    if (data.contracts && Array.isArray(data.contracts)) {
+                        var transformedContracts = data.contracts.map(function(contract, index) {
+                            return {
+                                index: index + 2,
+                                id: contract.id,
+                                insurance_id: contract.insurance_id,
+                                name: contract.insurance ? contract.insurance.name : 'N/A',
+                                user_full_name: contract.user ? contract.user.full_name : 'N/A',
+                                employee_full_name: contract.employee ? contract.employee.full_name : '',
+                                employee_id: contract.employee_id || 0,
+                                user_id: contract.user_id,
+                                status: contract.status,
+                                ex_image: contract.insurance ? contract.insurance.ex_image : ''
+                            };
+                        });
+
+                        renderInsuranceList(transformedContracts);
+                    } else {
+                        renderInsuranceList([]);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error fetching search results:", error);
+                    tbody.html('<tr><td colspan="7" class="text-center text-danger py-3">Error loading search results. Please try again.</td></tr>');
+                }
+            });
+        } else {
+            renderInsuranceList(originalInsuranceList);
+        }
+    }
 </script>

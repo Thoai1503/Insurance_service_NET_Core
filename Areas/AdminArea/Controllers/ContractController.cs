@@ -9,12 +9,22 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
     public class ContractController : Controller
     {
         // GET: ContractController
-        public ActionResult Index()
+        public async Task< ActionResult> Index(string? search)
         {
-            var contracts = ContractRepository.Instance.GetAll();
+            var contracts = await ContractRepository.Instance.GetAll();
             var unassignedContracts = contracts.Where(c=> c.employee_id ==0).OrderByDescending(c=>c.StartDate).ToHashSet();
             var assignedContracts = contracts.Where(c => c.employee_id != 0).ToHashSet();
             var employees = UserRepository.Instance.GetAllEmployeeUser();
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+
+                if (!string.IsNullOrEmpty(search))
+                {
+                    contracts = ContractRepository.Instance.FindByKeywork(search);
+                }
+                return Json(new { message = "AJAX request", contracts });
+            }
+
             ViewBag.UnassignedContracts = unassignedContracts;
             ViewBag.AssignedContracts = assignedContracts;
             ViewBag.Employees = employees;
