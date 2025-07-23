@@ -15,5 +15,13 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
         {
             return View();
         }
+        public IActionResult Detail(int id)
+        {
+            var client = UserRepository.Instance.FindById(id);
+            var contract = ContractRepository.Instance.GetContractsByUserId(id);
+            ViewBag.client = client;
+            ViewBag.contract = contract;
+            return View(client);
+        }
     }
 }
