@@ -1,6 +1,7 @@
 ﻿using Insurance_agency.Helper;
 using Insurance_agency.Models.Entities;
 using Insurance_agency.Models.ModelView;
+using Microsoft.EntityFrameworkCore;
 
 namespace Insurance_agency.Models.Repository
 {
@@ -56,7 +57,9 @@ namespace Insurance_agency.Models.Repository
 
             try
             {
-                var item = _context.Insurances.Where(d => d.Id == id && d.Status ==1).Select(d => new InsuranceView
+                var item = _context.Insurances.Where(d => d.Id == id && d.Status ==1)
+                    .Include(c => c.InsuranceType)
+                    .Select(d => new InsuranceView
                 {
                     id = d.Id,
                     name = d.Name,
