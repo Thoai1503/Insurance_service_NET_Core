@@ -8,22 +8,34 @@
 @section Styles {
 	<style>
 		.custom-caption {
-			position: relative;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
 			background-color: rgba(255, 255, 255, 0.75);
 			padding: 30px;
 			max-width: 400px;
 			border-top: 8px solid #007BFF;
 			color: black;
-			min-height: 200px; /* Tùy chọn: để tránh quá thấp */
+			min-height: 250px;
+			position: absolute;
+			top: 40%;
+			left: 5%;
+			transform: translateY(-50%);
 		}
 
+			.custom-caption h3,
+			.custom-caption p {
+				margin-bottom: 10px;
+			}
+
 		.btn-bottom-left {
-			position: absolute;
-			bottom: 20px;
-			left: 30px;
+			align-self: flex-start;
+			margin-top: auto;
 		}
 	</style>
 }
+
+
 @{
 	var top6 = Model.OrderByDescending(x => x.value).Take(6).ToList();
 }
@@ -57,21 +69,6 @@
 	</button>
 </div>
 
-@section Styles {
-	<style>
-		.custom-caption {
-			position: absolute;
-			top: 50%;
-			left: 5%;
-			transform: translateY(-50%);
-			background-color: rgba(255, 255, 255, 0.75);
-			padding: 30px;
-			max-width: 400px;
-			border-top: 8px solid #007BFF;
-			color: black;
-		}
-	</style>
-}
 
 
 @* <div class="container-fluid bg-breadcrumb-@ViewBag.BannerCss" id="insurance_banner" style="height:600px"> *@
