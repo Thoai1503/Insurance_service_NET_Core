@@ -1,0 +1,76 @@
+﻿﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+	Layout = "~/Views/Shared/_LoginView.cshtml";
+}
+<form action="@Url.Action("RegisterConfirm")" enctype="multipart/form-data" method="post">
+	<div class="row">
+		<div class="col-2">Email</div>
+		<div class="col-3">
+			<input type="email" id="email" name="email" value="" required />
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-2">FullName</div>
+		<div class="col-3">
+			<input type="text" name="full_name" value="" required />
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-2">Password</div>
+		<div class="col-3">
+			<input type="password" name="password" value="" required />
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-2">Phone</div>
+		<div class="col-3">
+			<input type="text" name="phone" value="" />
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-2">Address</div>
+		<div class="col-3">
+			<input type="text" name="address" value="" />
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-2">Active</div>
+		<div class="col-3">
+			<input type="checkbox" name="active" value="1" />
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-2">Avatar</div>
+		<div class="col-3">
+			<input type="file" name="Img" value="" />
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-2">Verifitication Code</div>
+		<div class="col-3">
+			<input type="text" name="code" value="" />
+		</div>
+		<div class="col-3">
+			<button onclick="SendMail()">Send</button>
+		</div>
+	</div>
+	<button class="btn btn-success">Confirm</button>
+</form>
+<script type="text/javascript">
+	function SendMail(){
+		var email = $("#email").val();
+		$.ajax({
+		url:"@Url.Action("SendMail")",
+		type : "POST",
+		contentType:'application/x-www-form-urlencoded',
+		data:{"email":email},
+		success:function (response){
+			if(response.success){
+				alert("success")
+			}
+		}
+	})
+	}
+</script>
