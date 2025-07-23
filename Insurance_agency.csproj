@@ -172,7 +172,6 @@
     <Folder Include="Areas\EmployeeArea\Data\" />
     <Folder Include="Areas\EmployeeArea\Models\" />
     <Folder Include="wwwroot\Content\Admin\vendor\bootstrap\js\" />
-    <Folder Include="wwwroot\Content\Client\img\avatar\" />
   </ItemGroup>
 
 </Project>
