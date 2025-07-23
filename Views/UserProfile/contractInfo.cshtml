@@ -5,6 +5,7 @@
 	var contract = (Insurance_agency.Models.ModelView.ContractView)ViewBag.contract;
 	var employee = new Insurance_agency.Models.ModelView.User();
 	var user = new Insurance_agency.Models.ModelView.User();
+	var insurance = (Insurance_agency.Models.ModelView.InsuranceView)ViewBag.insurance;
 	if (ViewBag.user != null)
 	{
 		user = (Insurance_agency.Models.ModelView.User)ViewBag.user;
@@ -19,7 +20,7 @@
 		<div class="col-3">
 			<a href="">
 				<span>Insurance :</span>
-				@contract.insurance.name
+				@insurance.name
 			</a>
 		</div>
 

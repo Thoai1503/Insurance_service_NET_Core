@@ -113,7 +113,9 @@ namespace Insurance_agency.Controllers
                     }
                     var user = HttpContext.Session.GetObject<User>("user");
                     ViewBag.user = user;
+                    
                     var contract = ContractRepository.Instance.getById(contractId);
+                    ViewBag.insurance = InsuranceRepository.Instance.FindById((int)contract.insurance_id);
                     ViewBag.contract = contract;
                 }
                 else
