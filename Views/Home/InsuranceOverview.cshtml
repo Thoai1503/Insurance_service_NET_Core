@@ -5,29 +5,97 @@
 	var isSearchInsuran = ViewBag.SearchInsurance ?? false;
 	var search = ViewBag.Search ?? "";
 }
+@section Styles {
+	<style>
+		.custom-caption {
+			position: relative;
+			background-color: rgba(255, 255, 255, 0.75);
+			padding: 30px;
+			max-width: 400px;
+			border-top: 8px solid #007BFF;
+			color: black;
+			min-height: 200px; /* Tùy chọn: để tránh quá thấp */
+		}
 
-<div class="container-fluid bg-breadcrumb-@ViewBag.BannerCss" id="insurance_banner" style="height:600px">
-	<div class="col-3" style="background-color: white; margin-left: 30px; padding: 20px; border-top: 8px solid #007BFF; ">
-		<p><strong>Đảm bảo cho những chuyến vận chuyển luôn suôn sẻ cho doanh nghiệp của bạn</strong></p>
-		<h3><strong>Bảo hiểm xe máy</strong></h3>
-		<p><strong><h5 style="color:black">Đảm bảo cho những chuyến vận chuyển luôn suôn sẻ cho doanh nghiệp của bạn</h5></strong></p>
-		<div class="text-end mt-5" style="margin-right:30px">
-			<a class="btn btn-primary rounded-pill py-2 px-4" href="#">Read More</a>
-		</div>
+		.btn-bottom-left {
+			position: absolute;
+			bottom: 20px;
+			left: 30px;
+		}
+	</style>
+}
+@{
+	var top6 = Model.OrderByDescending(x => x.value).Take(6).ToList();
+}
+
+<div id="insuranceCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+	<div class="carousel-inner">
+		@for (int i = 0; i < top6.Count; i++)
+		{
+			var item = top6[i];
+			<div class="carousel-item @(i == 0 ? "active" : "")">
+				<div class="container-fluid position-relative" style="height:600px;">
+					<img src="/Content/Image/Ex/@item.ex_image" class="d-block w-100" style="object-fit:cover; height:100%;" alt="@item.name" />
+
+					<div class="carousel-caption text-start custom-caption">
+						<h3 class="text-dark"><strong>@item.name</strong></h3>
+						<p class="text-dark">@item.description</p>
+						<a class="btn btn-primary rounded-pill py-2 px-4 btn-bottom-left" href="/home/insurancedetail?id=@item.id">Read More</a>
+					</div>
+				</div>
+			</div>
+		}
 	</div>
-	@*<div class="container text-center py-5" style="max-width: 900px">
-            <h4 class="text-white display-4 mb-4 wow fadeInDown"
-                data-wow-delay="0.1s">
-                About Us
-            </h4>
-            <ol class="breadcrumb d-flex justify-content-center mb-0 wow fadeInDown"
-                data-wow-delay="0.3s">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item"><a href="#">Pages</a></li>
-                <li class="breadcrumb-item active text-primary">About</li>
-            </ol>
-        </div>*@
+
+	<button class="carousel-control-prev" type="button" data-bs-target="#insuranceCarousel" data-bs-slide="prev">
+		<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+		<span class="visually-hidden">Previous</span>
+	</button>
+	<button class="carousel-control-next" type="button" data-bs-target="#insuranceCarousel" data-bs-slide="next">
+		<span class="carousel-control-next-icon" aria-hidden="true"></span>
+		<span class="visually-hidden">Next</span>
+	</button>
 </div>
+
+@section Styles {
+	<style>
+		.custom-caption {
+			position: absolute;
+			top: 50%;
+			left: 5%;
+			transform: translateY(-50%);
+			background-color: rgba(255, 255, 255, 0.75);
+			padding: 30px;
+			max-width: 400px;
+			border-top: 8px solid #007BFF;
+			color: black;
+		}
+	</style>
+}
+
+
+@* <div class="container-fluid bg-breadcrumb-@ViewBag.BannerCss" id="insurance_banner" style="height:600px"> *@
+@* 	<div class="col-3" style="background-color: white; margin-left: 30px; padding: 20px; border-top: 8px solid #007BFF; "> *@
+@* 		<p><strong>Đảm bảo cho những chuyến vận chuyển luôn suôn sẻ cho doanh nghiệp của bạn</strong></p> *@
+@* 		<h3><strong>Bảo hiểm xe máy</strong></h3> *@
+@* 		<p><strong><h5 style="color:black">Đảm bảo cho những chuyến vận chuyển luôn suôn sẻ cho doanh nghiệp của bạn</h5></strong></p> *@
+@* 		<div class="text-end mt-5" style="margin-right:30px"> *@
+@* 			<a class="btn btn-primary rounded-pill py-2 px-4" href="#">Read More</a> *@
+@* 		</div> *@
+@* 	</div> *@
+@* 	@*<div class="container text-center py-5" style="max-width: 900px"> *@
+@*             <h4 class="text-white display-4 mb-4 wow fadeInDown" *@
+@*                 data-wow-delay="0.1s"> *@
+@*                 About Us *@
+@*             </h4> *@
+@*             <ol class="breadcrumb d-flex justify-content-center mb-0 wow fadeInDown" *@
+@*                 data-wow-delay="0.3s"> *@
+@*                 <li class="breadcrumb-item"><a href="index.html">Home</a></li> *@
+@*                 <li class="breadcrumb-item"><a href="#">Pages</a></li> *@
+@*                 <li class="breadcrumb-item active text-primary">About</li> *@
+@*             </ol> *@
+@*         </div>*@ 
+@* </div> *@
 
 <div class="container-fluid blog py-5">
 	<div class="container py-5">
