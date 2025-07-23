@@ -3,10 +3,11 @@
 *@
 @{
 
-    Layout = "~/Areas/AdminArea/Views/Shared/_AdminLayout.cshtml";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
     ViewBag.Title = "Employee List";
     ViewData["Title"] = "Employee";
     @model HashSet<Insurance_agency.Models.ModelView.User>;
+
 }
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-fileinput/css/fileinput.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-fileinput/js/fileinput.min.js"></script>
@@ -15,7 +16,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-fileinput/themes/fas/theme.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-fileinput/js/locales/en.js"></script>
 
-<h1>Danh sách nhân viên</h1>
+<h1>Employee List</h1>
 
 @* <table class="table align-middle mb-0 bg-white mt-5">
     <thead class="bg-light">
@@ -28,7 +29,7 @@
         </tr>
     </thead>
     <tbody>
-       
+
         @if (Model != null && Model.Count > 0)
         {
             foreach (var item in Model)
@@ -36,7 +37,13 @@
                 <tr>
                     <td>
                         <div class="d-flex align-items-center">
-                            <img src="https://mdbootstrap.com/img/new/avatars/6.jpg" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
+                            @if (item.avatar != null && item.avatar != string.Empty && !item.avatar.Equals("no avatar"))
+                            {
+                                <img src="~/Content/Image/Avatar/Employee/avatar1.png" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
+                            }
+                            else{
+                                <img src="https://mdbootstrap.com/img/new/avatars/6.jpg" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
+                            }
                             <div class="ms-3">
                                 <p class="fw-bold mb-1">@item.full_name</p>
 
@@ -46,7 +53,7 @@
                     </td>
                     <td>
                         <p class="fw-normal mb-1">@item.address</p>
-                       
+
                     </td>
                     <td>
                         <span class="badge badge-@(item.active == 1 ? "success" : "danger") rounded-pill d-inline">@(item.active==1 ?"Active":"Inactive")</span>
@@ -77,7 +84,7 @@
             border-right: none !important;
         }
 </style>
-<h3 class="mb-5">Danh sách bảo hiểm</h3>
+@* <h3 class="mb-5">Danh sách bảo hiểm</h3> *@
 
 
 
@@ -247,7 +254,7 @@
                                     <label for="inputState">Insurance Type</label>
                                     <select id="inputState" class="form-control" name="insurance_type_id">
                                         <option value="-1" selected>Choose...</option>
-                              @*           @if (Model != null)
+                                        @*           @if (Model != null)
                                         {
                                             var insuranceType = (HashSet<Insurance_agency.Models.ModelView.InsuranceTypeView>)Model;
                                             foreach (var item in insuranceType)
@@ -284,7 +291,7 @@
                                 <div class="col-sm-4 text-center">
                                     <div class="kv-avatar">
                                         <div class="file-loading">
-                                        @*     <input id="avatar-1" name="avatar-1" type="file" accept="image/*" required> *@
+                                            @*     <input id="avatar-1" name="avatar-1" type="file" accept="image/*" required> *@
                                         </div>
                                         <img id="avatar-1" src="/Content/Admin/img/avatar/user.jpg" class="img-fluid img-thumbnail" alt="Your Avatar" style="width:160px">
                                     </div>
@@ -307,7 +314,7 @@
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label for="pwd">Phone<span class="kv-reqd">*</span></label>
-                                                <input type="text" class="form-control" name="phone"  required>
+                                                <input type="text" class="form-control" name="phone" required>
                                             </div>
                                         </div>
                                     </div>
@@ -419,54 +426,54 @@
                         }
                     }
 
-             
+
                 </tbody>
             </table> *@
-                <table class="table align-middle mb-0 bg-white">
-                    <thead class="bg-light">
-                        <tr>
-                            <th>Name</th>
-                            <th>Title</th>
-                            <th>Status</th>
-                            <th>Phone</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+            <table class="table align-middle mb-0 bg-white">
+                <thead class="bg-light">
+                    <tr>
+                        <th>Name</th>
+                        <th>Title</th>
+                        <th>Status</th>
+                        <th>Phone</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
 
-                        @if (Model != null && Model.Count > 0)
+                    @if (Model != null && Model.Count > 0)
+                    {
+                        foreach (var item in Model)
                         {
-                            foreach (var item in Model)
-                            {
-                                <tr>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <img src="/Content/Admin/img/avatar/@item.avatar" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
-                                            <div class="ms-3">
-                                                <p class="fw-bold mb-1">@item.full_name</p>
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img src="/Content/Admin/img/avatar/@item.avatar" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
+                                        <div class="ms-3">
+                                            <p class="fw-bold mb-1">@item.full_name</p>
 
-                                                <p class="text-muted mb-0">@item.email</p>
-                                            </div>
+                                            <p class="text-muted mb-0">@item.email</p>
                                         </div>
-                                    </td>
-                                    <td>
-                                        <p class="fw-normal mb-1">@item.address</p>
+                                    </div>
+                                </td>
+                                <td>
+                                    <p class="fw-normal mb-1">@item.address</p>
 
-                                    </td>
-                                    <td>
-                                        <span class="badge badge-@(item.active == 1 ? "success" : "danger") rounded-pill d-inline">@(item.active == 1 ? "Active" : "Inactive")</span>
-                                    </td>
-                                    <td>@item.phone</td>
-                                    <td>
-                                        <a href="/adminarea/employee/employeedetail?id=@item.id" class="btn btn-link btn-sm btn-rounded">
-                                            Detail
-                                        </a>
-                                    </td>
-                                </tr>
-                            }
+                                </td>
+                                <td>
+                                    <span class="badge badge-@(item.active == 1 ? "success" : "danger") rounded-pill d-inline">@(item.active == 1 ? "Active" : "Inactive")</span>
+                                </td>
+                                <td>@item.phone</td>
+                                <td>
+                                    <a href="/adminarea/employee/employeedetail?id=@item.id" class="btn btn-link btn-sm btn-rounded">
+                                        Detail
+                                    </a>
+                                </td>
+                            </tr>
                         }
-                    </tbody>
-                </table>
+                    }
+                </tbody>
+            </table>
         </div>
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
@@ -482,7 +489,7 @@
                 }
 
 
-         
+
                 <li class="page-item">
                     <a class="page-link" href="#">Next</a>
                 </li>
@@ -517,17 +524,17 @@
     var originalInsuranceList = [];
     @if (ViewBag.item != null)
     {
-                var list = (HashSet<Insurance_agency.Models.ModelView.InsuranceView>)ViewBag.item;
-                foreach (var item in list)
-                {
-                            <text>
-                                originalInsuranceList.push({
-                                    id: '@item.id',
-                                    name: '@item.name',
-                                    ex_image: '@item.ex_image'
-                                });
-                            </text>
-                }
+        var list = (HashSet<Insurance_agency.Models.ModelView.InsuranceView>)ViewBag.item;
+        foreach (var item in list)
+        {
+            <text>
+                                        originalInsuranceList.push({
+                                            id: '@item.id',
+                                            name: '@item.name',
+                                            ex_image: '@item.ex_image'
+                                        });
+            </text>
+        }
     }
 
     function renderInsuranceList(list) {
