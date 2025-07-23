@@ -2,24 +2,25 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-    Layout = "~/Areas/AdminArea/Views/Shared/_AdminLayout.cshtml";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
     @model HashSet<Insurance_agency.Models.ModelView.User>;
+    var id = 0;
 }
-<h1>Danh sách khách hàng</h1>
+<h1>Customer List</h1>
 
 <table class="table align-middle mb-0 bg-white mt-5">
     <thead class="bg-light">
         <tr>
-            <th>Họ tên</th>
+            <th>FullName</th>
             <th>Email</th>
-            <th>Số điện thoại</th>
-            <th>Địa chỉ</th>
-            <th>Trạng thái</th>
-            <th>Hành động</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>Status</th>
+            <th>Function</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
+        @*         <tr>
             <td>
                 <div class="d-flex align-items-center">
                     <img src="https://mdbootstrap.com/img/new/avatars/8.jpg"
@@ -107,7 +108,7 @@
                     Edit
                 </button>
             </td>
-        </tr>
+        </tr> *@
         @if (Model != null && Model.Count > 0)
         {
             foreach (var item in Model)
@@ -118,28 +119,74 @@
                             <img src="https://mdbootstrap.com/img/new/avatars/7.jpg" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
                             <div class="ms-3">
                                 <p class="fw-bold mb-1">@item.full_name</p>
-                                <p class="text-muted mb-0">@item.email</p>
+
                             </div>
                         </div>
                     </td>
                     <td>
+                        <p class="text-muted mb-0">@item.email</p>
+
+                    </td>
+                    <td>
                         <p class="fw-normal mb-1">@item.phone</p>
-                        <p class="text-muted mb-0">@item.auth_id</p>
                     </td>
                     <td>
-                        <span class="badge badge-@(item.active==1 ? "success" : "danger") rounded-pill d-inline">
+                        <p class="text-muted mb-0">@item.address</p>
+                    </td>
+                    <td>
+                        @* <span class="badge badge-@(item.active==1 ? "success" : "danger") rounded-pill d-inline">
                             @(item.active == 1 ? "Active" : "Inactive")
-                        </span>
+                        </span> *@
+                        <form action="/" method="post">
+                            @{
+                                string location = $"cbx{item.id}";
+                                string idcbx = $"cbx{@item.id}";
+                            }
+                            @if (item.active == 1)
+                            {
+
+                                <input type="checkbox" id="@idcbx" onchange="updateStatus(@item.id,@location)" name="active" checked value="1" />
+                            }
+                            else
+                            {
+
+                                <input type="checkbox" id="@idcbx" onchange="updateStatus(@item.id,@location)" name="active" value="0" />
+                            }
+                        </form>
                     </td>
-                    <td>@item.phone</td>
-                    <td>@item.auth_id</td>
                     <td>
-                        <button type="button" class="btn btn-link btn-sm btn-rounded">
-                            Edit
-                        </button>
+                        <a href="@Url.Action("Detail","Customer",new{id=item.id})" type="button" class="btn btn-link btn-sm btn-rounded">
+                            Detail
+                        </a>
                     </td>
                 </tr>
-    }
+            }
         }
     </tbody>
 </table>
+<script type="text/javascript">
+    function updateStatus(id,cbxLocation){
+        // var cbx =  $(cbxLocation).val();
+        var cbx = $(cbxLocation).is(":checked");
+        var active=null;
+        if(cbx){
+            active =1;
+        }
+        else{
+            active =0;
+        }
+        alert(active);
+        $.ajax({
+        url:"@Url.Action("UpdateStatus")",
+        type : "POST",
+        contentType:'application/x-www-form-urlencoded',
+        data:{"id":id,"active":active},
+        success:function (response){
+            if(response.success){
+                window.location("~/adminarea/customer");
+            }
+        }
+    })
+    }
+</script>
+
