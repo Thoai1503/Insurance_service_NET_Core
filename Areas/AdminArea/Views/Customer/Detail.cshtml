@@ -3,6 +3,7 @@
 *@
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Customer";
     var contracts = (HashSet<Insurance_agency.Models.ModelView.ContractView>)ViewBag.contract;
     var user = (Insurance_agency.Models.ModelView.User)ViewBag.client;
 }
@@ -36,8 +37,7 @@
     <div class="col-md-6">
         <h3>User Information</h3>
         <p><strong>Status:</strong> @(Model.active == 1 ? "Active" : "Banned")</p>
-        <p><strong>Created Date:</strong> 05/25/2025 </p>
-        <p><strong>Updated Date:</strong> 05/25/2025</p>
+        <p><strong>Created Date:</strong> @Model.create_date </p>
 
         <p><strong>Note:</strong> Have @contracts.Count Contracts</p>
 
@@ -82,7 +82,12 @@
                         <td>@(contract.active ? "Đang hoạt động" : "Đã kết thúc")</td> *@
                         <td>@contract.StartDate</td>
                         <td>@contract.EndDate</td>
-                        <td>Active</td>
+                        @if(contract.status==1){
+                            <td>Active</td>
+                        }
+                        else{
+                            <td>Stopped</td>
+                        }
                     </tr>
                 }
             }
