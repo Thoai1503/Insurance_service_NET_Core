@@ -156,6 +156,7 @@ namespace Insurance_agency.Models.Repository
                 address = u.Address,
                 active =(int) u.Active,
                 created_date = u.CreatedDate,
+                avatar = u.Avatar
 
 
             }).ToHashSet();
