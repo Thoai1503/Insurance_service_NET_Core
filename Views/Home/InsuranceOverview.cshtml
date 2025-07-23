@@ -5,94 +5,29 @@
 	var isSearchInsuran = ViewBag.SearchInsurance ?? false;
 	var search = ViewBag.Search ?? "";
 }
-@section Styles {
-	<style>
-		.custom-caption {
-			display: flex;
-			flex-direction: column;
-			justify-content: space-between;
-			background-color: rgba(255, 255, 255, 0.75);
-			padding: 30px;
-			max-width: 400px;
-			border-top: 8px solid #007BFF;
-			color: black;
-			min-height: 250px;
-			position: absolute;
-			top: 40%;
-			left: 5%;
-			transform: translateY(-50%);
-		}
 
-			.custom-caption h3,
-			.custom-caption p {
-				margin-bottom: 10px;
-			}
-
-		.btn-bottom-left {
-			align-self: flex-start;
-			margin-top: auto;
-		}
-	</style>
-}
-
-
-@{
-	var top6 = Model.OrderByDescending(x => x.value).Take(6).ToList();
-}
-
-<div id="insuranceCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
-	<div class="carousel-inner">
-		@for (int i = 0; i < top6.Count; i++)
-		{
-			var item = top6[i];
-			<div class="carousel-item @(i == 0 ? "active" : "")">
-				<div class="container-fluid position-relative" style="height:600px;">
-					<img src="/Content/Image/Ex/@item.ex_image" class="d-block w-100" style="object-fit:cover; height:100%;" alt="@item.name" />
-
-					<div class="carousel-caption text-start custom-caption">
-						<h3 class="text-dark"><strong>@item.name</strong></h3>
-						<p class="text-dark">@item.description</p>
-						<a class="btn btn-primary rounded-pill py-2 px-4 btn-bottom-left" href="/home/insurancedetail?id=@item.id">Read More</a>
-					</div>
-				</div>
-			</div>
-		}
+<div class="container-fluid bg-breadcrumb-@ViewBag.BannerCss" id="insurance_banner" style="height:600px">
+	<div class="col-3" style="background-color: white; margin-left: 30px; padding: 20px; border-top: 8px solid #007BFF; ">
+		<p><strong>Đảm bảo cho những chuyến vận chuyển luôn suôn sẻ cho doanh nghiệp của bạn</strong></p>
+		<h3><strong>Bảo hiểm xe máy</strong></h3>
+		<p><strong><h5 style="color:black">Đảm bảo cho những chuyến vận chuyển luôn suôn sẻ cho doanh nghiệp của bạn</h5></strong></p>
+		<div class="text-end mt-5" style="margin-right:30px">
+			<a class="btn btn-primary rounded-pill py-2 px-4" href="#">Read More</a>
+		</div>
 	</div>
-
-	<button class="carousel-control-prev" type="button" data-bs-target="#insuranceCarousel" data-bs-slide="prev">
-		<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-		<span class="visually-hidden">Previous</span>
-	</button>
-	<button class="carousel-control-next" type="button" data-bs-target="#insuranceCarousel" data-bs-slide="next">
-		<span class="carousel-control-next-icon" aria-hidden="true"></span>
-		<span class="visually-hidden">Next</span>
-	</button>
+	@*<div class="container text-center py-5" style="max-width: 900px">
+            <h4 class="text-white display-4 mb-4 wow fadeInDown"
+                data-wow-delay="0.1s">
+                About Us
+            </h4>
+            <ol class="breadcrumb d-flex justify-content-center mb-0 wow fadeInDown"
+                data-wow-delay="0.3s">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                <li class="breadcrumb-item active text-primary">About</li>
+            </ol>
+        </div>*@
 </div>
-
-
-
-@* <div class="container-fluid bg-breadcrumb-@ViewBag.BannerCss" id="insurance_banner" style="height:600px"> *@
-@* 	<div class="col-3" style="background-color: white; margin-left: 30px; padding: 20px; border-top: 8px solid #007BFF; "> *@
-@* 		<p><strong>Đảm bảo cho những chuyến vận chuyển luôn suôn sẻ cho doanh nghiệp của bạn</strong></p> *@
-@* 		<h3><strong>Bảo hiểm xe máy</strong></h3> *@
-@* 		<p><strong><h5 style="color:black">Đảm bảo cho những chuyến vận chuyển luôn suôn sẻ cho doanh nghiệp của bạn</h5></strong></p> *@
-@* 		<div class="text-end mt-5" style="margin-right:30px"> *@
-@* 			<a class="btn btn-primary rounded-pill py-2 px-4" href="#">Read More</a> *@
-@* 		</div> *@
-@* 	</div> *@
-@* 	@*<div class="container text-center py-5" style="max-width: 900px"> *@
-@*             <h4 class="text-white display-4 mb-4 wow fadeInDown" *@
-@*                 data-wow-delay="0.1s"> *@
-@*                 About Us *@
-@*             </h4> *@
-@*             <ol class="breadcrumb d-flex justify-content-center mb-0 wow fadeInDown" *@
-@*                 data-wow-delay="0.3s"> *@
-@*                 <li class="breadcrumb-item"><a href="index.html">Home</a></li> *@
-@*                 <li class="breadcrumb-item"><a href="#">Pages</a></li> *@
-@*                 <li class="breadcrumb-item active text-primary">About</li> *@
-@*             </ol> *@
-@*         </div>*@ 
-@* </div> *@
 
 <div class="container-fluid blog py-5">
 	<div class="container py-5">
@@ -109,23 +44,23 @@
 		<div class="row">
 			<div class="col-sm-9"></div>
 			<div class="col-sm-3 mb-5 justify-content-end">
-			
-			<div class="input-group ">
-				<div class="input-group-prepend">
+
+				<div class="input-group ">
+					<div class="input-group-prepend">
 						<span class="input-group-text" style="border-top-right-radius:0px; border-bottom-right-radius:0px;border-top-left-radius:7px; border-bottom-left-radius:7px">
 							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="28" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
 								<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
 							</svg>
 						</span>
-				</div>
-				<input type="text" class="form-control" id="username" placeholder="Search.." onkeyup="handleSearch(event)" required="" style="border-top-right-radius:7px; border-bottom-right-radius:7px">
-				<div class="invalid-feedback" style="width: 100%;">
-					Your username is required.
+					</div>
+					<input type="text" class="form-control" id="username" placeholder="Search.." onkeyup="handleSearch(event)" required="" style="border-top-right-radius:7px; border-bottom-right-radius:7px">
+					<div class="invalid-feedback" style="width: 100%;">
+						Your username is required.
+					</div>
 				</div>
 			</div>
 		</div>
-    </div>
-	
+
 		<div class="row g-4 justify-content-center" id="insurance_list">
 			@if (Model != null)
 			{
@@ -175,30 +110,31 @@
 						<span class="sr-only">Previous</span>
 					</a>
 				</li>
-				@if(ViewBag.TotalPages > 0)
-				{  
+				@if (ViewBag.TotalPages > 0)
+				{
 
-					@if (ViewBag.PreviousPage>1)
+					@if (ViewBag.PreviousPage > 1)
 					{
-						for (int i = ViewBag.PreviousPage; i <= ViewBag.PreviousPage+4; i++)
+						for (int i = ViewBag.PreviousPage; i <= ViewBag.PreviousPage + 4; i++)
 						{
 
-                            <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
-                                <a class="page-link" href="/home/insuranceoverview?page=@i">@i</a>
-                            </li>
-                        }
+							<li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+								<a class="page-link" href="/home/insuranceoverview?page=@i">@i</a>
+							</li>
+						}
 					}
-					else{
-					for (int i = 1; i <= 5; i++)
+					else
 					{
-						<li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
-							<a class="page-link" href="/home/insuranceoverview?page=@i">@i</a>
-						</li>
+						for (int i = 1; i <= 5; i++)
+						{
+							<li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+								<a class="page-link" href="/home/insuranceoverview?page=@i">@i</a>
+							</li>
+						}
 					}
-					}
-                }
+				}
 
-		
+
 				<li class="page-item">
 					<a class="page-link" href="#" aria-label="Next">
 						<span aria-hidden="true">&raquo;</span>
@@ -208,7 +144,7 @@
 			</ul>
 		</nav>
 	</div>
-	
+
 </div>
 
 
@@ -279,17 +215,17 @@
 	var originalInsuranceList = [];
 	@if (Model != null)
 	{
-				var list = (HashSet<Insurance_agency.Models.ModelView.InsuranceView>)Model;
-				foreach (var item in list)
-				{
-							<text>
-								originalInsuranceList.push({
-									id: '@item.id',
-									name: '@item.name',
-									ex_image: '@item.ex_image'
-								});
-							</text>
-				}
+					var list = (HashSet<Insurance_agency.Models.ModelView.InsuranceView>)Model;
+					foreach (var item in list)
+					{
+									<text>
+										originalInsuranceList.push({
+											id: '@item.id',
+											name: '@item.name',
+											ex_image: '@item.ex_image'
+										});
+									</text>
+					}
 	}
 
 	function renderInsuranceList(list) {
@@ -352,7 +288,7 @@
 				}
 			});
 		} else {
-		
+
 			// Show the original list
 			renderInsuranceList(originalInsuranceList);
 		}
