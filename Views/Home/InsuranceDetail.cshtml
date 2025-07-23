@@ -17,8 +17,8 @@
 <div class="container-fluid bg-breadcrumb-@(ViewBag.BannerCss ?? "")" id="insurance_banner" style="height:600px">
     <div class="col-3" style="background-color: white; margin-left: 30px; padding: 20px; border-top: 8px solid #007BFF; ">
         <p><strong>Đảm bảo cho những chuyến vận chuyển luôn suôn sẻ cho doanh nghiệp của bạn</strong></p>
-        <h3><strong>Bảo hiểm xe máy</strong></h3>
-        <p><strong><h5 style="color:black">Đảm bảo cho những chuyến vận chuyển luôn suôn sẻ cho doanh nghiệp của bạn</h5></strong></p>
+        <h3><strong>@insurance.name</strong></h3>
+        <p><strong><h5 style="color:black">@insurance.description</h5></strong></p>
         <div class="text-end mt-5" style="margin-right:30px">
             <a class="btn btn-primary rounded-pill py-2 px-4" href="#">Read More</a>
         </div>
@@ -39,7 +39,7 @@
 
 <div class="container">
     <div class="container mt-5">
-        <h1 class="text-center text-primary mb-4">Chi tiết bảo hiểm: @insurance.name</h1>
+        <h1 class="text-center text-primary mb-4">Insurance Info: @insurance.name</h1>
         <h3 class="text-center text-primary mb-4">@insurance.description</h3>
     </div>
 
@@ -49,14 +49,14 @@
     <div class="text-end mb-4">
         @{
             if(ViewBag.user!=null){
-                <a class="btn btn-primary rounded-pill py-2 px-4" href="@Url.Action("Index", "Checkout", new { id = insurance.id })">Mua bảo hiểm</a>
+                <a class="btn btn-primary rounded-pill py-2 px-4" href="@Url.Action("Index", "Checkout", new { id = insurance.id })">Create a Contract</a>
             }
             else{
-                <a class="btn btn-primary rounded-pill py-2 px-4" href="@Url.Action("index","Login")">Mua bảo hiểm</a>
+                <a class="btn btn-primary rounded-pill py-2 px-4" href="@Url.Action("index","Login")">Create a Contract</a>
             }
         }
     </div>
-    <h2 class="text-center text-primary mb-4">Các chính sách bảo hiểm</h2>
+    <h2 class="text-center text-primary mb-4">All Policies</h2>
 
 
 
@@ -76,10 +76,10 @@
                         @Html.Raw(policy.description)
                     </div>
                     <div class="policy-actions d-none align-items-start">
-                        <button class="btn btn-sm btn-warning me-1" title="Chỉnh sửa">
+                        <button class="btn btn-sm btn-warning me-1" title="Edit">
                             <i class="bi bi-pencil-fill"></i>
                         </button>
-                        <button class="btn btn-sm btn-danger" title="Xoá">
+                        <button class="btn btn-sm btn-danger" title="Delete">
                             <i class="bi bi-trash-fill"></i>
                         </button>
                     </div>
@@ -133,106 +133,5 @@
                 </div>
             }
         }
-
-
-        <div class="col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
-            <div class="blog-item">
-                <div class="blog-img">
-                    <img src="/Content/Client/img/blog-1.png" class="img-fluid rounded-top w-100" alt="">
-                    <div class="blog-categiry py-2 px-4">
-                        <span>Business</span>
-                    </div>
-                </div>
-                <div class="blog-content p-4">
-                    <div class="blog-comment d-flex justify-content-between mb-3">
-                        <div class="small">
-                            <span class="fa fa-user text-primary"></span> Martin.C
-                        </div>
-                        <div class="small">
-                            <span class="fa fa-calendar text-primary"></span> 30 Dec
-                            2025
-                        </div>
-                        <div class="small">
-                            <span class="fa fa-comment-alt text-primary"></span> 6
-                            Comments
-                        </div>
-                    </div>
-                    <a href="#" class="h4 d-inline-block mb-3">Which allows you to pay down insurance bills</a>
-                    <p class="mb-3">
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eius
-                        libero soluta impedit eligendi? Quibusdam, laudantium.
-                    </p>
-                    <a href="#" class="btn p-0">
-                        Read More <i class="fa fa-arrow-right"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
-            <div class="blog-item">
-                <div class="blog-img">
-                    <img src="/Content/Client/img/blog-1.png" class="img-fluid rounded-top w-100" alt="">
-                    <div class="blog-categiry py-2 px-4">
-                        <span>Business</span>
-                    </div>
-                </div>
-                <div class="blog-content p-4">
-                    <div class="blog-comment d-flex justify-content-between mb-3">
-                        <div class="small">
-                            <span class="fa fa-user text-primary"></span> Martin.C
-                        </div>
-                        <div class="small">
-                            <span class="fa fa-calendar text-primary"></span> 30 Dec
-                            2025
-                        </div>
-                        <div class="small">
-                            <span class="fa fa-comment-alt text-primary"></span> 6
-                            Comments
-                        </div>
-                    </div>
-                    <a href="#" class="h4 d-inline-block mb-3">Which allows you to pay down insurance bills</a>
-                    <p class="mb-3">
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eius
-                        libero soluta impedit eligendi? Quibusdam, laudantium.
-                    </p>
-                    <a href="#" class="btn p-0">
-                        Read More <i class="fa fa-arrow-right"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
-            <div class="blog-item">
-                <div class="blog-img">
-                    <img src="/Content/Client/img/blog-1.png" class="img-fluid rounded-top w-100" alt="">
-                    <div class="blog-categiry py-2 px-4">
-                        <span>Business</span>
-                    </div>
-                </div>
-                <div class="blog-content p-4">
-                    <div class="blog-comment d-flex justify-content-between mb-3">
-                        <div class="small">
-                            <span class="fa fa-user text-primary"></span> Martin.C
-                        </div>
-                        <div class="small">
-                            <span class="fa fa-calendar text-primary"></span> 30 Dec
-                            2025
-                        </div>
-                        <div class="small">
-                            <span class="fa fa-comment-alt text-primary"></span> 6
-                            Comments
-                        </div>
-                    </div>
-                    <a href="#" class="h4 d-inline-block mb-3">Which allows you to pay down insurance bills</a>
-                    <p class="mb-3">
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eius
-                        libero soluta impedit eligendi? Quibusdam, laudantium.
-                    </p>
-                    <a href="#" class="btn p-0">
-                        Read More <i class="fa fa-arrow-right"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
     </div>
 </div>

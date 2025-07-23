@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Net.Mail;
 using System.Net;
+using Azure;
 
 namespace Insurance_agency.Controllers
 {
@@ -44,10 +45,32 @@ namespace Insurance_agency.Controllers
                     ex.ToString());
             }
         }
+        public bool checkEmail(string email)
+        {
+            try
+            {
+                if (UserRepository.Instance.checkEmail(email))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return true;
+        }
         public IActionResult Register(IFormFile Img, User item, int code = 0)
         {
             try
             {
+                if (checkEmail(item.email))
+                {
+                    return RedirectToAction("Register");
+                }
                 if (code != 0)
                 {
                     if (item != null)

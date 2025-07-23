@@ -168,6 +168,23 @@ namespace Insurance_agency.Models.Repository
             }
             return false;
         }
+        public bool checkEmail(string email)
+        {
+            try
+            {
+                if (email != null)
+                {
+                    var result = _context.TblUsers.Any(d=>d.Email == email);
+                    return result;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return true;
+        }
         public bool Delete(int id)
         {
             throw new NotImplementedException();

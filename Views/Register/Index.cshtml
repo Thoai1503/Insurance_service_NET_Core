@@ -54,21 +54,36 @@
 
 <p id="timer"></p>
 <script type="text/javascript">
+
 	document.addEventListener("DOMContentLoaded",function(){
 		 document.getElementById("myButton").addEventListener("click", function () {
 			button.disabled= true;
 		var email = $("#email").val();
 		$.ajax({
-		url:"@Url.Action("SendMail")",
-		type : "POST",
-		contentType:'application/x-www-form-urlencoded',
-		data:{"email":email},
-		success:function (response){
+			 url:"@Url.Action("checkEmail")",
+			 type : "POST",
+			 contentType:'application/x-www-form-urlencoded',
+			 data:{"email":email},
+			 success:function (response){
+			if(response==true){
+				alert("Email Already Exist, Please Change to Another Email")
+			}
+			else{
+		$.ajax({
+		    url:"@Url.Action("SendMail")",
+		    type : "POST",
+		    contentType:'application/x-www-form-urlencoded',
+		    data:{"email":email},
+		    success:function (response){
 			if(response.success){
 				alert("success")
 			}
 		}
 	})
+			}
+		}
+			})
+		
 	updateCountdown();
 	const timer = setInterval(updateCountdown, 1000);
 		});
@@ -87,4 +102,22 @@
 		}
 	}
 
+</script>
+<script type="text/javascript">
+	document.addEventListener("DOMContentLoaded",function(){
+		document.getElementById("email").addEventListener("change",function(){
+			var email = $("#email").val();
+			$.ajax({
+			 url:"@Url.Action("checkEmail")",
+		     type : "POST",
+		     contentType:'application/x-www-form-urlencoded',
+		     data:{"email":email},
+		     success:function (response){
+			if(response==true){
+				alert("Email Already Exist")
+			}
+		}
+			})
+		})
+	})
 </script>
