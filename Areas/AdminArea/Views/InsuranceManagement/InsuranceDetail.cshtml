@@ -3,7 +3,16 @@
 *@
 @{
     @model HashSet<Insurance_agency.Models.ModelView.Policy>
-    Layout = "~/Areas/AdminArea/Views/Shared/_AdminLayout.cshtml";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Insurance Details=";
+    Insurance_agency.Models.ModelView.InsuranceTypeView type = new Insurance_agency.Models.ModelView.InsuranceTypeView();
+    var insurance = new Insurance_agency.Models.ModelView.InsuranceView();
+    if(ViewBag.insurance!=null){
+        insurance = (Insurance_agency.Models.ModelView.InsuranceView)ViewBag.insurance;
+    }
+    if (ViewBag.type != null){
+        type = (Insurance_agency.Models.ModelView.InsuranceTypeView)ViewBag.type;
+    }
 }
 
 <style>
@@ -26,8 +35,6 @@
     }
   
 </style>
-@{
-    var insurance = (Insurance_agency.Models.ModelView.InsuranceView)ViewBag.insurance;
 
 }
 
@@ -37,13 +44,13 @@
 <div class="col-xl-3 col-md-6 mb-4">
     <div class="card border-left-primary shadow h-100 py-2">
         <div class="card-body">
-                <h5 class="text-primary"><strong>Insurance id:</strong> #BHNT02483</h5>
-<p class="text-primary">Insurance Type: @insurance.InsuranceTypeView.name</p>
+<h5 class="text-primary">Insurance Id: #BHNT02483</h5>
+<p class="text-primary">Insurance Type: @type.name</p>
         </div>
     </div>
 </div>
 
-    <div class="col-xl-3 col-md-6 mb-4">
+    @* <div class="col-xl-3 col-md-6 mb-4">
         <div class="card border-left-success shadow h-100 py-2">
             <div class="card-body">
                 <h5 class="text-success">Created date: 01/01/2023</h5>
@@ -51,7 +58,7 @@
             </div>
         </div>
 
-        </div>
+        </div> *@
 </div>
 
 <br />
@@ -181,10 +188,10 @@
                 </div>
                 <div class="policy-actions d-none align-items-start">
                     <button  class="btn btn-sm btn-warning me-1" title="Chỉnh sửa" onclick="edit(@policy.id)">
-                       Sửa
+                       Edit
                     </button>
                     <button href="/adminarea/policymanagement/delete?id=@policy.id" class="btn btn-sm btn-danger" onclick="deleteContent(@policy.id)" title="Xoá">
-                       Xoá
+                       Delete
                     </button>  
                 </div>
             </div>
@@ -256,8 +263,8 @@
         })
         .then(response => {
             if (response.ok) {
-                console.log("Nội dung đã được xoá thành công");
-                alert("Nội dung đã được xoá thành công");
+                console.log("Content has been deleted successfully");
+                alert("Content has been deleted successfully");
                 // Xử lý phản hồi từ máy chủ nếu cần
               //  location.reload(); // Tải lại trang để cập nhật danh sách chính sách
                 document.querySelector(`button[onclick="deleteContent(${id})"]`).closest('.policy-item').remove();
@@ -265,7 +272,7 @@
 
 
             } else {
-                console.error("Lỗi khi xoá nội dung:", response.statusText);
+                console.error("Error when delete content:", response.statusText);
             }
         })
     }
@@ -274,7 +281,7 @@
         //chèn nội dung của item đó vào trình soạn thảo
         var item = document.getElementById(`policy_${id}`);
         var content = item.querySelector('.policy-content').innerHTML;
-        alert("Nội dung: "+content);
+        alert("Content: "+content);
         // Đặt nội dung vào trình soạn thảo
         tinymce.get('default-editor').setContent(content);
         // Đổi màu nền của item thành màu lúc hover
@@ -283,10 +290,10 @@
         var editButton = item.querySelector('.btn-warning');
           editButton.classList.remove('btn-warning');
         editButton.classList.add('btn-primary');
-        editButton.textContent = 'Bỏ sửa';
+        editButton.textContent = 'Cancel Update';
         editButton.setAttribute('onclick', `cancelEdit(${id})`);
          // Đổi nút submit thành cập nhật
-         document.getElementById('submit_btn').textContent = 'Cập nhật';
+         document.getElementById('submit_btn').textContent = 'Updated';
          //thêm sự kiện updateContent(id) cho nút này
             document.getElementById('submit_btn').setAttribute('onclick', `updateContent(${id})`);
 

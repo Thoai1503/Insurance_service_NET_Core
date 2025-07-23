@@ -65,7 +65,7 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
                 {
                     user.avatar = "user.jpg";
                 }
-                var result = UserRepository.Instance.Update(user);
+                var result = UserRepository.Instance.Update1(user);
                 if (result)
                 {
                     return RedirectToAction("Index");

@@ -106,7 +106,7 @@ namespace Insurance_agency.Models.Repository
 
 
             return contracts;
-         
+
         }
 
         public HashSet<ContractView> FindByKeywork(string phone)
@@ -165,6 +165,35 @@ namespace Insurance_agency.Models.Repository
 
             var contracts = query.Where(c => c.user.phone.Contains(phone)).ToHashSet();
             return contracts; // Ensure a return statement is present for all code paths
+            var contract = query.FirstOrDefault();
+            return contract;
+        }
+        public ContractView getById(int id)
+        {
+
+            var query = from c in _context.TblContracts
+                        where c.Id == id
+                        select new ContractView
+                        {
+                            id = c.Id,
+                            user_id = (int)c.UserId,
+                            insurance_id = (int)c.InsuranceId,
+                            StartDate = c.StartDate,
+                            EndDate = c.EndDate,
+                            value_contract = (long)c.ValueContract,
+                            total_paid = (long)c.TotalPaid,
+                            year_paid = (long)c.YearPaid,
+                            number_year_paid = c.NumberYearPaid,
+                            status = (int)c.Status
+                        };
+
+            var contract = query.FirstOrDefault();
+            return contract;
+        }
+
+        public HashSet<ContractView> FindByKeywork(string keywork)
+        {
+            throw new NotImplementedException();
         }
 
 
@@ -246,6 +275,44 @@ namespace Insurance_agency.Models.Repository
                     next_payment_due = c.StartDate.Value.AddYears(c.TblPaymentHistories.Count()),
                     status = c.Status ?? 0
                 }).ToHashSet();
+            return contracts;
+        }
+        public HashSet<ContractView> GetAll()
+        {
+
+            var contracts = new HashSet<ContractView>();
+            contracts = _context.TblContracts
+            .Select(c => new ContractView
+            {
+                id = c.Id,
+                user_id = (int)c.UserId,
+                user = new User
+                {
+                    id = c.User.Id,
+                    full_name = c.User.FullName, // Assuming FullName is the correct property
+                    email = c.User.Email,
+                    phone = c.User.Phone
+                },
+                insurance_id = (int)c.InsuranceId,
+                insurance = new InsuranceView
+                {
+                    id = c.Insurance.Id,
+                    name = c.Insurance.Name,
+                    description = c.Insurance.Description,
+                    value = c.Insurance.Value ?? 0,
+                    year_max = c.Insurance.YearMax ?? 0,
+                    ex_image = c.Insurance.ExImage
+                },
+                StartDate = c.StartDate,
+                EndDate = c.EndDate,
+                value_contract = (long)c.ValueContract,
+                employee_id = c.EmployeeId ?? 0,
+
+
+                year_paid = (long)c.YearPaid,
+                number_year_paid = c.NumberYearPaid,
+                status = c.Status ?? 0
+            }).ToHashSet();
             //var query = from c in _context.TblContracts
             //            where c.UserId == userId
             //            join u in _context.TblUsers on c.UserId equals u.Id into userGroup
@@ -309,7 +376,7 @@ namespace Insurance_agency.Models.Repository
         //                from i in insuranceGroup.DefaultIfEmpty()
         //                join emp in _context.TblUsers on c.EmployeeId equals emp.Id into employeeGroup
         //                from emp in employeeGroup.DefaultIfEmpty()
-                       
+
 
         //                 select new ContractView
         //                {
@@ -363,7 +430,7 @@ namespace Insurance_agency.Models.Repository
 
         //}
 
-        public async Task< HashSet<ContractView>> GetAll()
+        public async Task<HashSet<ContractView>> GetAll()
         {
 
             var query = from c in _context.TblContracts
@@ -449,9 +516,9 @@ namespace Insurance_agency.Models.Repository
         {
             var contracts = _context.TblContracts
                 .Where(c => c.EmployeeId == employeeId)
-                
+
                 .Include(c => c.TblLoans)
-                .Include(c => c.User)   
+                .Include(c => c.User)
                 .Include(c => c.TblPaymentHistories)
 
                 .Select(c => new ContractView
@@ -465,7 +532,7 @@ namespace Insurance_agency.Models.Repository
                         email = c.User.Email,
                         phone = c.User.Phone
                     },
-                   
+
                     insurance_id = (int)c.InsuranceId,
                     insurance = new InsuranceView
                     {
@@ -489,18 +556,18 @@ namespace Insurance_agency.Models.Repository
                     }).ToHashSet(),
 
                     next_payment_due = c.StartDate.Value.AddYears(c.TblPaymentHistories.Count()),
-                    left_day =(double) ((c.StartDate.Value.AddYears(c.TblPaymentHistories.Count()))- DateTime.Now).TotalDays,
+                    left_day = (double)((c.StartDate.Value.AddYears(c.TblPaymentHistories.Count())) - DateTime.Now).TotalDays,
                     year_paid = (long)c.YearPaid,
                     number_year_paid = c.NumberYearPaid,
                     status = c.Status ?? 0
                 }).ToHashSet();
-            
-            
-            
-            
+
+
+
+
             return contracts;
         }
-        public async Task< HashSet<ContractView>>Test()
+        public async Task<HashSet<ContractView>> Test()
         {
             var contracts = await _context.TblContracts
      .Include(c => c.TblLoans)
@@ -521,7 +588,7 @@ namespace Insurance_agency.Models.Repository
                     phone = c.User.Phone
                 },
                 insurance_id = (int)c.InsuranceId,
-            
+
                 StartDate = c.StartDate,
                 EndDate = c.EndDate,
                 value_contract = (long)c.ValueContract,
@@ -538,8 +605,8 @@ namespace Insurance_agency.Models.Repository
                     contract_id = (int)ph.ContractId
                 }).ToHashSet()
             }).ToHashSet();
-           
-                return contractViews;
+
+            return contractViews;
 
         }
 

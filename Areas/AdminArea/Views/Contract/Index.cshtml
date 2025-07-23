@@ -2,11 +2,14 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-    Layout = "~/Areas/AdminArea/Views/Shared/_AdminLayout.cshtml";
-    @model  HashSet<Insurance_agency.Models.ModelView.ContractView>
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Contract";
+@model  HashSet<Insurance_agency.Models.ModelView.ContractView>
+    var customer = (HashSet<Insurance_agency.Models.ModelView.User>)ViewBag.customer;
+    var insurance = (HashSet<Insurance_agency.Models.ModelView.InsuranceView>)ViewBag.Insurance;
 }
 
-<h2 class="mb-5">Danh sách hợp đồng</h2>
+<h2 class="mb-5">Contract List</h2>
 
 
 <style>
@@ -139,7 +142,7 @@
                             <path d="M0 4a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v4a.5.5 0 0 1-1 0V7H1v5a1 1 0 0 0 1 1h5.5a.5.5 0 0 1 0 1H2a2 2 0 0 1-2-2zm1 2h13V4a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1z" />
                             <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0m-3.5-2a.5.5 0 0 0-.5.5v1h-1a.5.5 0 0 0 0 1h1v1a.5.5 0 0 0 1 0v-1h1a.5.5 0 0 0 0-1h-1v-1a.5.5 0 0 0-.5-.5" />
                         </svg>
-                        Create new service
+                        Create Contract
                     </h6>
                 </button>
             </li>
@@ -224,44 +227,52 @@
             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                 <div class="container-fluid">
                     <div class="container-fluid py-2">
-                        <h4 class="text-primary">New insurance</h4>
+                        <h4 class="text-primary">New Contract</h4>
                         <form class="" action="@Url.Action("CreateConfirm")" method="post" enctype="multipart/form-data">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group mb-3">
-                                        <label for="inputEmail4">Name</label>
-                                        <input type="text" class="form-control" id="inputEmail4" placeholder="name" name="name">
+                                        <label for="inputcustomer">Customer</label>
+                                        <select name="user_id" class="form-control" id="inputcustomer">
+											<option>Select Customer</option>
+                                            @foreach(var item in customer){
+                                                <option value="@item.id">@item.full_name</option>
+                                            }
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group mb-3">
-                                        <label for="inputPassword4">Value (VND)</label>
-                                        <input type="number" class="form-control" id="inputPassword4" name="value" placeholder="Type the value (VND)">
+                                        <label for="inputinsurance">Insurance</label>
+                                        <select name="insurance_id" class="form-control" id="inputinsurance">
+                                            <option>Select Insurance</option>
+                                            @foreach (var item in insurance)
+                                            {
+                                                <option value="@item.id">@item.name</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label for="inputValue">Value (VND)</label>
+                                        <input type="number" class="form-control" id="inputValue" name="value_contract" placeholder="Type the value (VND)">
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group mb-3">
-                                        <label for="inputCity">Description</label>
+                                        <label for="startDate">Start Date</label>
 
-                                        <textarea class="form-control" name="decription" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                        <input type="date" name="StartDate" id="startDate" class="form-control" />
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <div class="form-group mb-3">
-                                        <label for="inputState">Insurance Type</label>
-                                        <select id="inputState" class="form-control" name="insurance_type_id">
-                                            <option selected>Choose...</option>
+                                        <label for="inputCity">Contract Year</label>
 
-                                     
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="form-group mb-3">
-                                        <label for="inputZip">Year max</label>
-                                        <input type="number" class="form-control" max="50" name="year_max" id="inputZip">
+                                        <input type="number" class="form-control" name="number_year_paid" />
                                     </div>
                                 </div>
                             </div>
@@ -274,14 +285,8 @@
                                 </div>
                             </div> *@
                             <div class="row">
-                                <div class="col-md-12 mb-3">
-                                    <label for="formFile" class="form-label">Default file input example</label>
-                                    <input class="form-control" type="file" name="Img" id="eximage" />
-                                </div>
                             </div>
-                            <div class="row">
-                            </div>
-                            <button type="submit" class="btn btn-success">Add new item</button>
+                            <button type="submit" class="btn btn-success">Add new Contract</button>
                         </form>
                     </div>
                 </div>
@@ -312,7 +317,7 @@
 </script>
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Insurance List - All services</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Contract List</h6>
     </div>
     <div class="card-body">
         <nav>
@@ -532,7 +537,7 @@
                         <table class="table align-middle mb-3 bg-white">
                             <thead class="bg-light">
                                 <tr>
-                                    <th>Nhân viên</th>
+                                    <th>Employee</th>
                                     <th style="width: 100px;">Action</th>
                                 </tr>
                             </thead>

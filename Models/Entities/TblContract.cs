@@ -11,9 +11,9 @@ public partial class TblContract
 
     public int? InsuranceId { get; set; }
 
-    public DateTime? StartDate { get; set; }
+    public DateTime StartDate { get; set; }
 
-    public DateTime? EndDate { get; set; }
+    public DateTime EndDate { get; set; }
 
     public decimal? ValueContract { get; set; }
 

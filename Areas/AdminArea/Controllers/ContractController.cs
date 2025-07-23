@@ -9,10 +9,12 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
     public class ContractController : Controller
     {
         // GET: ContractController
-        public async Task< ActionResult> Index(string? search)
+        public async Task<ActionResult> Index(string? search)
         {
-            var contracts = await ContractRepository.Instance.GetAll();
-            var unassignedContracts = contracts.Where(c=> c.employee_id ==0).OrderByDescending(c=>c.StartDate).ToHashSet();
+            var user = HttpContext.Session.GetObject<User>("user");
+            var contracts = ContractRepository.Instance.GetAll();
+            var customer = UserRepository.Instance.GetCustomerUser();
+            var unassignedContracts = contracts.Where(c => c.employee_id == 0).OrderByDescending(c => c.StartDate).ToHashSet();
             var assignedContracts = contracts.Where(c => c.employee_id != 0).ToHashSet();
             var employees = UserRepository.Instance.GetAllEmployeeUser();
             if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
@@ -25,14 +27,16 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
                 return Json(new { message = "AJAX request", contracts });
             }
 
+            ViewBag.customer = customer;
             ViewBag.UnassignedContracts = unassignedContracts;
             ViewBag.AssignedContracts = assignedContracts;
             ViewBag.Employees = employees;
+            ViewBag.Insurance = InsuranceRepository.Instance.GetAll();
             return View(contracts);
         }
 
         // GET: ContractController/Details/5
-   
+
         // GET: ContractController/Create
         public ActionResult Create()
         {
@@ -41,17 +45,29 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
 
         // POST: ContractController/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult CreateConfirm(ContractView contract)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+
+                if (contract == null)
+                {
+                    return RedirectToAction("index");
+                }
+                var user = HttpContext.Session.GetObject<User>("user");
+                contract.employee_id = user.id;
+                contract.EndDate = contract.StartDate.AddYears((int)contract.number_year_paid);
+                contract.total_paid = 0;
+                contract.status = 1;
+                contract.year_paid = (contract.value_contract / contract.number_year_paid) / 10;
+                var con = ContractRepository.Instance.Create(contract);
+
             }
             catch
             {
                 return View();
             }
+            return RedirectToAction("index");
         }
 
         // GET: ContractController/Edit/5
@@ -108,7 +124,7 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
 
                     // Update the employee_id in the contract
                     var result = ContractRepository.Instance.Update(contract);
-                    var unCompletedHistory = AssignHistoryRepository.Instance.FindUnCompletedHistory(contract_id,current_employee);
+                    var unCompletedHistory = AssignHistoryRepository.Instance.FindUnCompletedHistory(contract_id, current_employee);
                     if (unCompletedHistory != null)
                     {
                         // Update the end date of the uncompleted history
@@ -121,7 +137,7 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
                         }
                     }
 
-                    if (result && unCompletedHistory!=null)
+                    if (result && unCompletedHistory != null)
                     {
                         // Create an AssignHistoryView record
                         var assignHistory = new AssignHistoryView
@@ -170,7 +186,7 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
                             return RedirectToAction("Index", "Contract", new { id = employee_id });
                         }
                     }
-                    
+
                     else
                     {
                         ViewBag.Error = "Failed to update contract.";

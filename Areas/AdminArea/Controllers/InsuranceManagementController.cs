@@ -9,25 +9,26 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
     [Area("AdminArea")]
     public class InsuranceManagementController : Controller
     {
-        
-        public async Task<IActionResult> Index(int page = 1, int pageSize = 6,int insurance_type_id = -1, int sort_by =-1)
+
+        public async Task<IActionResult> Index(int page = 1, int pageSize = 6, int insurance_type_id = -1, int sort_by = -1)
         {
             var insurancetype = await InsuranceTypeRepository.Instance.GetAll();
             var item = InsuranceRepository.Instance.GetAll();
-   
+            var user = HttpContext.Session.GetObject<User>("user");
+            ViewBag.user = user;
 
             if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
             {
                 var insList = new HashSet<InsuranceView>();
                 var search = Request.Query["keyword"];
-               if(search.Count > 0)
+                if (search.Count > 0)
                 {
                     insList = InsuranceRepository.Instance.FindByKeywork(search);
                 }
-                return Json(new { message = "AJAX request được xử lý",insList });
+                return Json(new { message = "AJAX request được xử lý", insList });
             }
 
-            if( insurance_type_id > 0)
+            if (insurance_type_id > 0)
             {
                 item = item.Where(d => d.insurance_type_id == insurance_type_id).ToHashSet();
             }
@@ -39,7 +40,7 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
             {
                 item = item.OrderByDescending(d => d.name).ToHashSet();
             }
-         
+
 
             if (Request.Query.ContainsKey("page"))
             {
@@ -56,7 +57,7 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
 
 
 
-          
+
             return View(insurancetype);
         }
         public ActionResult Create()
@@ -66,7 +67,7 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult CreateConfirm(IFormFile Img,InsuranceView item)
+        public ActionResult CreateConfirm(IFormFile Img, InsuranceView item)
         {
             try
             {
@@ -78,20 +79,21 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
                     name = name.Replace(" ", "");
                     name = name.Replace("_", "");
                     folder += name;
-                    string fullPathSave = Path.Combine("wwwroot/Content",folder);
+                    string fullPathSave = Path.Combine("wwwroot/Content", folder);
                     item.ex_image = name;
                     item.description = item.description ?? string.Empty;
                     using (var fileStream = new FileStream(fullPathSave, FileMode.Create))
                     {
                         Img.CopyTo(fileStream);
                     }
-                    
-                    
+
+
                 }
                 if (InsuranceRepository.Instance.Create(item))
                 {
                     return RedirectToAction("Index");
-                };
+                }
+                ;
 
             }
             catch (Exception ex)
@@ -104,12 +106,12 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
             var item = PolicyRepository.Instance.GetAllByInsuranceId(id);
             var insurance = InsuranceRepository.Instance.FindById(id);
 
-          //  ViewBag.item = item;
-                ViewBag.insuranceId = id;
+            //  ViewBag.item = item;
+            ViewBag.insuranceId = id;
             ViewBag.insurance = insurance;
             return View(item);
-          
-         
+
+
         }
         public ActionResult InsuranceEdit(int id)
         {
@@ -126,41 +128,42 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
             {
                 if (item != null && Img != null)
                 {
-                    string OldImg =data.ex_image;
+                    string OldImg = data.ex_image;
                     string folder = "Image/Ex/";
                     string name = Img.FileName;
                     name = name.Replace("-", "");
                     name = name.Replace(" ", "");
                     name = name.Replace("_", "");
-                    string fullPathSave = Path.Combine("wwwroot/Content", folder+name);
+                    string fullPathSave = Path.Combine("wwwroot/Content", folder + name);
                     string oldPathSave = string.Empty;
                     if (OldImg != null && OldImg != string.Empty)
                     {
-                       oldPathSave= Path.Combine("wwwroot/Content", folder + OldImg);
+                        oldPathSave = Path.Combine("wwwroot/Content", folder + OldImg);
                     }
                     item.ex_image = name;
                     item.description = item.description ?? string.Empty;
-                    if (!Path.Exists(fullPathSave)) 
+                    if (!Path.Exists(fullPathSave))
                     {
                         if (Img.FileName != OldImg)
                         {
-                            if (oldPathSave!=string.Empty)
+                            if (oldPathSave != string.Empty)
                             {
                                 System.IO.File.Delete(oldPathSave);
                             }
                             using (var fileStream = new FileStream(fullPathSave, FileMode.Create))
-                            { 
+                            {
                                 Img.CopyTo(fileStream);
                             }
                         }
                     }
-                    
-                    
+
+
                 }
                 if (InsuranceRepository.Instance.Update(item))
                 {
                     return RedirectToAction("Index");
-                };
+                }
+                ;
 
             }
             catch (Exception ex)
@@ -188,13 +191,13 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
             }
             return RedirectToAction("Index");
         }
-        public ActionResult UpdateActiveStatus(int _id , int _checked)
+        public ActionResult UpdateActiveStatus(int _id, int _checked)
         {
 
-         
+
             var result = InsuranceRepository.Instance.Active(_id, _checked);
-         
-            return Json(new {success = result});
+
+            return Json(new { success = result });
         }
 
     }

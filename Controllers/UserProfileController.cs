@@ -32,17 +32,17 @@ namespace Insurance_agency.Controllers
             }
             var totalAmount = 0;
             var contracts = ContractRepository.Instance.GetContractsByUserId(user.id);
-          var totalPaid = contracts.Sum(c => c.total_paid);
+            var totalPaid = contracts.Sum(c => c.total_paid);
             var contrNum = contracts.Count();
-           DateTime nextDue = contracts.Min(c=>c.next_payment_due);
+            DateTime nextDue = contracts.Min(c => c.next_payment_due);
             var displayDate = nextDue.ToString("dd MMM yyyy");
             ContractView nextDueContract = contracts.Where(c => c.next_payment_due == nextDue).FirstOrDefault();
             var notificationCount = NotificationRepository.Instance.GetUnreadNotificationsByUserId(user.id)
     .Where(n => n.is_read == 0).Count();
-        
+
             ViewBag.NotificationCount = notificationCount;
             ViewBag.TotalPaid = totalPaid;
-             ViewBag.Contracts = contracts;
+            ViewBag.Contracts = contracts;
             ViewBag.Count = contrNum;
             ViewBag.NextDue = displayDate;
             ViewBag.NextDueContract = nextDueContract;
@@ -52,19 +52,19 @@ namespace Insurance_agency.Controllers
         public IActionResult PaymentHistory(int contractId)
         {
             var user = HttpContext.Session.GetObject<User>("user");
-            var payment = PaymentRepository.Instance.FindByContractId(contractId).OrderByDescending(c=>c.id).ToHashSet();
+            var payment = PaymentRepository.Instance.FindByContractId(contractId).OrderByDescending(c => c.id).ToHashSet();
             var paymentCount = payment.Count;
- 
+
 
             var contract = ContractRepository.Instance.FindById(contractId);
 
             var remainPayment = contract.number_year_paid - paymentCount;
             //Estimate the next payment year
-       
+
             string nextDueDate = contract.StartDate?.AddYears(paymentCount).ToString();
 
             DateTime date = DateTime.ParseExact(nextDueDate, "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
-          // Set time to midnight
+            // Set time to midnight
             var displayDate = date.ToString("dd MMM yyyy");
             var password = BCrypt.Net.BCrypt.HashPassword("Thoaivip13");
 
@@ -93,6 +93,49 @@ namespace Insurance_agency.Controllers
             ViewBag.Notifications = notifications;
             HttpContext.Session.SetInt32("allbanner", 0);
             return View(notifications);
+        }
+        public IActionResult LogOut()
+        {
+            try
+            {
+                if (HttpContext.Session.GetObject<User>("user") != null)
+                {
+                    HttpContext.Session.Remove("user");
+                }
+
+            }
+            catch (Exception ex)
+            {
+            }
+            return RedirectToAction("index", "Login");
+        }
+        public IActionResult ContractInfo(int contractId = 0)
+        {
+            try
+            {
+                if (HttpContext.Session.GetObject<User>("user") != null)
+                {
+                    if (contractId == 0)
+                    {
+                        return RedirectToAction("index");
+                    }
+                    var user = HttpContext.Session.GetObject<User>("user");
+                    ViewBag.user = user;
+
+                    var contract = ContractRepository.Instance.getById(contractId);
+                    ViewBag.insurance = InsuranceRepository.Instance.FindById((int)contract.insurance_id);
+                    ViewBag.contract = contract;
+                }
+                else
+                {
+                    return RedirectToAction("index", "Home");
+                }
+                HttpContext.Session.SetInt32("allbanner", 0);
+            }
+            catch (Exception ex)
+            {
+            }
+            return View();
         }
     }
 }
