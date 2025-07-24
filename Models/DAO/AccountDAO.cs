@@ -1,4 +1,5 @@
-﻿using Insurance_agency.Models.Entities;
+﻿using Insurance_agency.Helper;
+using Insurance_agency.Models.Entities;
 using Insurance_agency.Models.ModelView;
 using System;
 using System.Collections.Generic;
@@ -61,7 +62,9 @@ namespace Insurance_agency.Models.DAO
             try
             {
                 var en = new InsuranceContext();
-                var res = en.TblUsers.FirstOrDefault(InsuranceContext => InsuranceContext.Email == username && InsuranceContext.Password == password);
+                var res = en.TblUsers.FirstOrDefault(
+                    InsuranceContext => InsuranceContext.Email == username && InsuranceContext.Password == password
+                    ||InsuranceContext.Email==username&&InsuranceContext.Password == Function.MD5Hash(password));
                 if (res != null)
                 {
                     return new User
