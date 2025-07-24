@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Insurance_agency.Models.Entities;
+using System;
 using System.Collections.Generic;
 
 namespace Insurance_agency.Models.ModelView;
@@ -21,7 +22,9 @@ public partial class Notification
 
     public int is_read { get; set; } = 0;
 
-  //  public virtual TblNotificationType? NotificationType { get; set; }
+    public User employee { get; set; } = null!;
 
- //   public virtual TblUser User { get; set; } = null!;
+    //  public virtual TblNotificationType? NotificationType { get; set; }
+
+    public virtual TblUser User { get; set; } = null!;
 }

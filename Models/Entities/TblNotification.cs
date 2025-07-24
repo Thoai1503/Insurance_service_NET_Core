@@ -9,7 +9,7 @@ public partial class TblNotification
 
     public string? Detail { get; set; }
 
-    public int? From { get; set; }
+    public int From { get; set; }
 
     public int? NotificationTypeId { get; set; }
 
