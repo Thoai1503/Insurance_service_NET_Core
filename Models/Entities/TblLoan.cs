@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Insurance_agency.Models.Entity;
+namespace Insurance_agency.Models.Entities;
 
 public partial class TblLoan
 {

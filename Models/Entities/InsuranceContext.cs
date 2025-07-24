@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace Insurance_agency.Models.Entity;
+namespace Insurance_agency.Models.Entities;
 
 public partial class InsuranceContext : DbContext
 {

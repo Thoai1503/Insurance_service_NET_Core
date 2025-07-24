@@ -55,58 +55,51 @@ namespace Insurance_agency.Models.Repository
         public ContractView FindById(int id)
         {
             var contracts = _context.TblContracts
-               .Where(c => c.Id == id)
-
-               .Include(c => c.TblLoans)
-               .Include(c => c.User)
-               .Include(c => c.TblPaymentHistories)
-
-               .Select(c => new ContractView
-               {
-                   id = c.Id,
-                   user_id = (int)c.UserId,
-                   user = new User
-                   {
-                       id = c.User.Id,
-                       full_name = c.User.FullName, // Assuming FullName is the correct property
-                       email = c.User.Email,
-                       phone = c.User.Phone
-                   },
-
-                   insurance_id = (int)c.InsuranceId,
-                   insurance = new InsuranceView
-                   {
-                       id = c.Insurance.Id,
-                       name = c.Insurance.Name,
-                       description = c.Insurance.Description,
-                       value = c.Insurance.Value ?? 0,
-                       year_max = c.Insurance.YearMax ?? 0,
-                       ex_image = c.Insurance.ExImage
-                   },
-                   StartDate = c.StartDate,
-                   EndDate = c.EndDate,
-                   value_contract = (long)c.ValueContract,
-                   employee_id = c.EmployeeId ?? 0,
-                   paymentHistories = c.TblPaymentHistories.Select(ph => new PaymentHistory
-                   {
-                       id = ph.Id,
-                       amount = (long)ph.Amount,
-                       payment_day = (DateTime)ph.PaymentDay,
-                       contract_id = (int)ph.ContractId
-                   }).ToHashSet(),
-                   total_paid = (long)c.TotalPaid,
-
-                   next_payment_due = c.StartDate.AddYears(c.TblPaymentHistories.Count()),
-                   left_day = (double)((c.StartDate.AddYears(c.TblPaymentHistories.Count())) - DateTime.Now).TotalDays,
-                   year_paid = (long)c.YearPaid,
-                   number_year_paid = c.NumberYearPaid,
-                   status = c.Status ?? 0
-               }).FirstOrDefault();
-
-
+                .Where(c => c.Id == id)
+                .Include(c => c.TblLoans)
+                .Include(c => c.User)
+                .Include(c => c.TblPaymentHistories)
+                .Select(c => new ContractView
+                {
+                    id = c.Id,
+                    user_id = (int)c.UserId,
+                    user = new User
+                    {
+                        id = c.User.Id,
+                        full_name = c.User.FullName, // Assuming FullName is the correct property
+                        email = c.User.Email,
+                        phone = c.User.Phone
+                    },
+                    insurance_id = (int)c.InsuranceId,
+                    insurance = new InsuranceView
+                    {
+                        id = c.Insurance.Id,
+                        name = c.Insurance.Name,
+                        description = c.Insurance.Description,
+                        value = c.Insurance.Value ?? 0,
+                        year_max = c.Insurance.YearMax ?? 0,
+                        ex_image = c.Insurance.ExImage
+                    },
+                    StartDate = (DateTime)c.StartDate,
+                    EndDate = (DateTime)c.EndDate,
+                    value_contract = (long)c.ValueContract,
+                    employee_id = c.EmployeeId ?? 0,
+                    paymentHistories = c.TblPaymentHistories.Select(ph => new PaymentHistory
+                    {
+                        id = ph.Id,
+                        amount = (long)ph.Amount,
+                        payment_day = (DateTime)ph.PaymentDay,
+                        contract_id = (int)ph.ContractId
+                    }).ToHashSet(),
+                    total_paid = (long)c.TotalPaid,
+                    next_payment_due = c.StartDate.HasValue ? c.StartDate.Value.AddYears(c.TblPaymentHistories.Count) : DateTime.MinValue,
+                    left_day = c.StartDate.HasValue ? (c.StartDate.Value.AddYears(c.TblPaymentHistories.Count) - DateTime.Now).TotalDays : 0,
+                    year_paid = (long)c.YearPaid,
+                    number_year_paid = c.NumberYearPaid,
+                    status = c.Status ?? 0
+                }).FirstOrDefault();
 
             return contracts;
-
         }
 
         public HashSet<ContractView> FindByKeywork(string phone)
@@ -139,8 +132,8 @@ namespace Insurance_agency.Models.Repository
                                 year_max = i.YearMax ?? 0,
                                 ex_image = i.ExImage
                             },
-                            StartDate = c.StartDate,
-                            EndDate = c.EndDate,
+                            StartDate = (DateTime)c.StartDate,
+                            EndDate = (DateTime)c.EndDate,
                             value_contract = (long)c.ValueContract,
                             employee_id = emp != null ? emp.Id : 0, // Handle null case for employee
                             year_paid = (long)c.YearPaid,
@@ -152,7 +145,7 @@ namespace Insurance_agency.Models.Repository
                                 payment_day = (DateTime)ph.PaymentDay,
                                 contract_id = (int)ph.ContractId
                             }).ToHashSet(),
-                            next_payment_due = c.StartDate.AddYears(c.TblPaymentHistories.Count()),
+                            next_payment_due = c.StartDate.Value.AddYears(c.TblPaymentHistories.Count()),
                             employee = emp != null ? new User
                             {
                                 id = emp.Id,
@@ -176,8 +169,8 @@ namespace Insurance_agency.Models.Repository
                             id = c.Id,
                             user_id = (int)c.UserId,
                             insurance_id = (int)c.InsuranceId,
-                            StartDate = c.StartDate,
-                            EndDate = c.EndDate,
+                            StartDate = (DateTime)c.StartDate,
+                            EndDate = (DateTime)c.EndDate,
                             value_contract = (long)c.ValueContract,
                             total_paid = (long)c.TotalPaid,
                             year_paid = (long)c.YearPaid,
@@ -221,8 +214,8 @@ namespace Insurance_agency.Models.Repository
                     id = c.Id,
                     user_id = (int)c.UserId,
                     insurance_id = (int)c.InsuranceId,
-                    StartDate = c.StartDate,
-                    EndDate = c.EndDate,
+                    StartDate = (DateTime)c.StartDate,
+                    EndDate = (DateTime)c.EndDate,
                     value_contract = (long)c.ValueContract,
                     year_paid = (long)c.YearPaid,
                     employee_id = c.EmployeeId ?? 0,
@@ -240,8 +233,8 @@ namespace Insurance_agency.Models.Repository
         id = c.Id,
         user_id = (int)c.UserId,
         insurance_id = (int)c.InsuranceId,
-        StartDate = c.StartDate,
-        EndDate = c.EndDate,
+        StartDate = (DateTime)c.StartDate,
+        EndDate = (DateTime)c.EndDate,
         value_contract = (long)c.ValueContract,
         year_paid = (long)c.YearPaid,
         number_year_paid = c.NumberYearPaid,
@@ -259,14 +252,14 @@ namespace Insurance_agency.Models.Repository
                     id = c.Id,
                     user_id = (int)c.UserId,
                     insurance_id = (int)c.InsuranceId,
-                    StartDate = c.StartDate,
-                    EndDate = c.EndDate,
+                    StartDate = (DateTime)c.StartDate,
+                    EndDate = (DateTime)c.EndDate,
                     value_contract = (long)c.ValueContract,
                     employee_id = (int)c.EmployeeId,
                     year_paid = (long)c.YearPaid,
                     total_paid = (long)c.TotalPaid,
                     number_year_paid = c.NumberYearPaid,
-                    next_payment_due = c.StartDate.AddYears(c.TblPaymentHistories.Count()),
+                    next_payment_due = c.StartDate.Value.AddYears(c.TblPaymentHistories.Count()),
                     status = c.Status ?? 0
                 }).ToHashSet();
             return contracts;
@@ -304,8 +297,8 @@ namespace Insurance_agency.Models.Repository
                                 year_max = i.YearMax ?? 0,
                                 ex_image = i.ExImage
                             },
-                            StartDate = c.StartDate,
-                            EndDate = c.EndDate,
+                            StartDate = (DateTime)c.StartDate,
+                            EndDate = (DateTime)c.EndDate,
                             value_contract = (long)c.ValueContract,
                             employee_id = emp != null ? emp.Id : 0, // Handle null case for employee
                             year_paid = (long)c.YearPaid,
@@ -317,7 +310,7 @@ namespace Insurance_agency.Models.Repository
                                 payment_day = (DateTime)ph.PaymentDay,
                                 contract_id = (int)ph.ContractId
                             }).ToHashSet(),
-                            next_payment_due = c.StartDate.AddYears(c.TblPaymentHistories.Count()),
+                            next_payment_due = c.StartDate.Value.AddYears(c.TblPaymentHistories.Count()),
                             employee = emp != null ? new User
                             {
                                 id = emp.Id,
@@ -511,8 +504,8 @@ namespace Insurance_agency.Models.Repository
                         year_max = c.Insurance.YearMax ?? 0,
                         ex_image = c.Insurance.ExImage
                     },
-                    StartDate = c.StartDate,
-                    EndDate = c.EndDate,
+                    StartDate = (DateTime)c.StartDate,
+                    EndDate = (DateTime)c.EndDate,
                     value_contract = (long)c.ValueContract,
                     employee_id = c.EmployeeId ?? 0,
                     paymentHistories = c.TblPaymentHistories.Select(ph => new PaymentHistory
@@ -523,8 +516,8 @@ namespace Insurance_agency.Models.Repository
                         contract_id = (int)ph.ContractId
                     }).ToHashSet(),
 
-                    next_payment_due = c.StartDate.AddYears(c.TblPaymentHistories.Count()),
-                    left_day = (double)((c.StartDate.AddYears(c.TblPaymentHistories.Count())) - DateTime.Now).TotalDays,
+                    next_payment_due = c.StartDate.Value.AddYears(c.TblPaymentHistories.Count()),
+                    left_day = (double)((c.StartDate.Value.AddYears(c.TblPaymentHistories.Count())) - DateTime.Now).TotalDays,
                     year_paid = (long)c.YearPaid,
                     number_year_paid = c.NumberYearPaid,
                     status = c.Status ?? 0
@@ -557,8 +550,8 @@ namespace Insurance_agency.Models.Repository
                 },
                 insurance_id = (int)c.InsuranceId,
 
-                StartDate = c.StartDate,
-                EndDate = c.EndDate,
+                StartDate = (DateTime)c.StartDate,
+                EndDate = (DateTime)c.EndDate,
                 value_contract = (long)c.ValueContract,
                 employee_id = c.EmployeeId ?? 0,
                 year_paid = (long)c.YearPaid,

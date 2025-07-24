@@ -13,6 +13,9 @@ public partial class Notification
 
     public int status { get; set; } = 0;
 
+    public int from { get; set; } = 0;
+    public int to { get; set; } = 0;
+
 
     public int user_id { get; set; } = 0;
 
