@@ -85,7 +85,7 @@ namespace Insurance_agency.Controllers
             {
                 return RedirectToAction("Index", "Login");
             }
-            var notifications = NotificationRepository.Instance.GetAllNotificationsByUserId(user.id);
+            var notifications = NotificationRepository.Instance.GetAllNotificationsByUserId(user.id).OrderByDescending(c=>c.id).ToHashSet();
             var notificationCount = NotificationRepository.Instance.GetUnreadNotificationsByUserId(user.id)
     .Where(n => n.is_read == 0).Count();
             HttpContext.Session.SetInt32("allbanner", 0);
@@ -136,6 +136,21 @@ namespace Insurance_agency.Controllers
             {
             }
             return View();
+        }
+        public IActionResult isreadupdate(int notificationId)
+        {
+           
+               //     var notiId = Request.Query["notificationId"];
+            var notification = NotificationRepository.Instance.FindById(notificationId);
+                    if (notification != null )
+                    {
+                        notification.is_read = 1;
+                     var result=   NotificationRepository.Instance.UpdateNotification(notification);
+
+                return Json(new { success = result, message = "Notification updated successfully." });
+            }
+                    return Json(new { success = false, message = "Notification not found." });
+
         }
     }
 }

@@ -225,6 +225,176 @@
         transform: scale(1.1);
         transition: transform 0.2s ease;
     }
+
+    .dropdown-list-image {
+        position: relative;
+        height: 2.5rem;
+        width: 2.5rem;
+    }
+
+        .dropdown-list-image img {
+            height: 2.5rem;
+            width: 2.5rem;
+        }
+
+    .avatar-info-dropdown {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        background: white;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        padding: 15px;
+        min-width: 250px;
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        margin-top: 10px;
+    }
+
+    .dropdown-list-image:hover .avatar-info-dropdown {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(0);
+    }
+
+    /* Arrow pointer */
+    .avatar-info-dropdown::before {
+        content: '';
+        position: absolute;
+        top: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 0;
+        border-left: 8px solid transparent;
+        border-right: 8px solid transparent;
+        border-bottom: 8px solid white;
+    }
+
+    .avatar-info-dropdown::after {
+        content: '';
+        position: absolute;
+        top: -9px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 0;
+        border-left: 9px solid transparent;
+        border-right: 9px solid transparent;
+        border-bottom: 9px solid #e0e0e0;
+    }
+
+    /* Dropdown content styles */
+    .dropdown-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 12px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .dropdown-avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin-right: 12px;
+        border: 2px solid #e0e0e0;
+    }
+
+    .dropdown-user-info h6 {
+        margin: 0;
+        font-weight: 600;
+        color: #333;
+        font-size: 14px;
+    }
+
+    .dropdown-user-info .user-role {
+        color: #666;
+        font-size: 12px;
+        margin: 2px 0 0 0;
+    }
+
+    .dropdown-details {
+        font-size: 13px;
+        line-height: 1.4;
+    }
+
+    .detail-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+        padding: 4px 0;
+    }
+
+    .detail-label {
+        color: #666;
+        font-weight: 500;
+    }
+
+    .detail-value {
+        color: #333;
+        font-weight: 400;
+        max-width: 120px;
+        text-align: right;
+        word-break: break-word;
+    }
+
+    .dropdown-actions {
+        margin-top: 12px;
+        padding-top: 12px;
+        border-top: 1px solid #f0f0f0;
+        display: flex;
+        gap: 8px;
+    }
+
+    .dropdown-btn {
+        flex: 1;
+        padding: 6px 12px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        background: white;
+        color: #333;
+        font-size: 12px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+        .dropdown-btn:hover {
+            background: #f8f9fa;
+            border-color: #0061f2;
+            color: #0061f2;
+        }
+
+        .dropdown-btn.primary {
+            background: #0061f2;
+            color: white;
+            border-color: #0061f2;
+        }
+
+            .dropdown-btn.primary:hover {
+                background: #0056d3;
+            }
+
+    /* Responsive */
+@@media (max-width: 768px) {
+        .avatar-info-dropdown
+
+    {
+        min-width: 200px;
+        left: 0;
+        transform: none;
+    }
+
+    .avatar-info-dropdown::before,
+    .avatar-info-dropdown::after {
+        left: 30px;
+    }
+
+    }
 </style>
 
 @if (Model != null)
@@ -338,10 +508,48 @@
                         {
                             foreach (var item in Model)
                             {
-                                <div class="p-3 d-flex align-items-center bg-light border-bottom osahan-post-header">
+                                <div id="notification_@item.id" class="p-3 d-flex align-items-center osahan-post-header @(item.is_read == 1 ? "" : "bg-light border-bottom")" onclick="isReadUpdate(@item.id)">
                                     <div class="dropdown-list-image mr-3">
                                         <img class="rounded-circle" src="/Content/Admin/img/avatar/@item.employee?.avatar" alt="" />
+
+                                        <!-- Dropdown thông tin -->
+                                        <div class="avatar-info-dropdown">
+                                            <div class="dropdown-header">
+                                                <img class="dropdown-avatar" src="/Content/Admin/img/avatar/@item.employee?.avatar" alt="" />
+                                                <div class="dropdown-user-info">
+                                                    <h6>@(item.employee?.full_name ?? "Unknown User")</h6>
+                                                    <p class="user-role">Employee</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="dropdown-details">
+                                                <div class="detail-item">
+                                                    <span class="detail-label">Email:</span>
+                                                    <span class="detail-value">@(item.employee?.email ?? "N/A")</span>
+                                                </div>
+                                                <div class="detail-item">
+                                                    <span class="detail-label">Department:</span>
+                                                    <span class="detail-value">N/A</span>
+                                                </div>
+                                                <div class="detail-item">
+                                                    <span class="detail-label">Phone:</span>
+                                                    <span class="detail-value">@(item.employee?.phone ?? "N/A")</span>
+                                                </div>
+                                                <div class="detail-item">
+                                                    <span class="detail-label">Status:</span>
+                                                    <span class="detail-value">
+                                                        <span class="badge badge-success">Active</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            <div class="dropdown-actions">
+                                                <button class="dropdown-btn" onclick="viewProfile(@item.employee?.id)">View Profile</button>
+                                                <button class="dropdown-btn primary" onclick="sendMessage(@item.employee?.id)">Message</button>
+                                            </div>
+                                        </div>
                                     </div>
+
                                     <div class="font-weight-bold mr-3">
                                         <div class="mb-2">@(item.detail.Length > 100 ? item.detail.Substring(0, 100) + "..." : item.detail)</div>
                                         <button type="button" class="btn btn-outline-success btn-sm">View Jobs</button>
@@ -548,3 +756,41 @@
     </div>
 
 </div>
+<script>
+    function viewProfile(userId) {
+        if (userId) {
+            window.open(`/userprofile/${userId}`, '_blank');
+        }
+    }
+
+    function sendMessage(userId) {
+        if (userId) {
+            window.location.href = `/messages/compose/${userId}`;
+        }
+    }
+       function isReadUpdate(notificationId) {
+        //alert(notificationId);
+        if (notificationId) {
+            $.ajax({
+                url: '/userprofile/isreadupdate',
+                type: 'POST',
+                data: { notificationId: notificationId }, // Send as form data
+                // Remove contentType to let jQuery handle it automatically
+                success: function (data) {
+                    if (data.success) {
+                      //  alert('Notification marked as read successfully.');
+                        const notificationElement = document.getElementById(`notification_${notificationId}`);
+                        if (notificationElement) {
+                            notificationElement.classList.remove('bg-light', 'border-bottom');
+                        }
+                    } else {
+                        console.error('Error updating notification:', data.message);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error:', error);
+                }
+            });
+        }
+    }
+</script>

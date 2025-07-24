@@ -81,7 +81,7 @@ namespace Insurance_agency.Models.Repository
                 id = notification.Id,
                 detail = notification.Detail ?? string.Empty,
                 notification_type_id = notification.NotificationTypeId ?? 0,
-                from = notification.From ,
+                from = notification.From,
                 to = notification.To,
                 is_read = notification.IsRead ?? 0
             };
@@ -139,6 +139,26 @@ namespace Insurance_agency.Models.Repository
             var notifications = query.ToList().ToHashSet();
 
             return notifications;
+        }
+        public bool UpdateNotification(Notification nt)
+        {
+
+            try
+            {
+                var notification = _context.TblNotifications.Find(nt.id);
+                if (notification == null)
+                {
+                    return false; // Notification not found
+                }
+                notification.IsRead = nt.is_read;
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (ex) as needed
+                return false;
+            }
         }
     }
 }
