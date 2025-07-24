@@ -30,7 +30,7 @@ namespace Insurance_agency.Models.DAO
             {
                 string url = absoluteUrl;
                 var en = new InsuranceContext();
-                var res = en.TblAuthorizations.Any(c => c.AuthenId == id_authen &&  url.Contains(c.Url));
+                var res = en.TblAuthorizations.Any(c => c.AuthenId == id_authen &&  url.Contains(c.Url)||id_authen==3&&url.Contains("/adminarea"));
                 return res;
             }
             catch (Exception ex)

@@ -29,6 +29,8 @@ namespace Insurance_agency.Controllers
                 {
                     case 1:
                         return RedirectToAction("Dashboard", "AdminArea", new { member });
+                    case 3:
+                        return RedirectToAction("Dashboard", "AdminArea", new { member });
                     case 4:
                         return RedirectToAction("Index", "Home", new { member });
 
