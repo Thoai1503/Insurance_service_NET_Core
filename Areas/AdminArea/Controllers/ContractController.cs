@@ -12,7 +12,7 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
         public async Task<ActionResult> Index(string? search)
         {
             var user = HttpContext.Session.GetObject<User>("user");
-            var contracts = ContractRepository.Instance.GetAll();
+            var contracts =await ContractRepository.Instance.GetAll();
             var customer = UserRepository.Instance.GetCustomerUser();
             var unassignedContracts = contracts.Where(c => c.employee_id == 0).OrderByDescending(c => c.StartDate).ToHashSet();
             var assignedContracts = contracts.Where(c => c.employee_id != 0).ToHashSet();
