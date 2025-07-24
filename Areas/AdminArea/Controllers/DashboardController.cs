@@ -9,9 +9,9 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
     public class DashboardController : Controller
     {
         // GET: DashboardController
-        public ActionResult Index()
+        public async Task< ActionResult> Index()
         {
-            ViewBag.data = ContractRepository.Instance.GetAll();
+            ViewBag.data = await ContractRepository.Instance.GetAll();
             ViewBag.customer = UserRepository.Instance.GetCustomerUser();
             return View();
         }
