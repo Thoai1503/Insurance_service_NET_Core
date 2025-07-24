@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Insurance_agency.Models.Entities;
+namespace Insurance_agency.Models.Entity;
 
 public partial class TblNotification
 {
@@ -9,12 +9,13 @@ public partial class TblNotification
 
     public string? Detail { get; set; }
 
+    public int? From { get; set; }
+
     public int? NotificationTypeId { get; set; }
 
-
-    public int UserId { get; set; }
+    public int To { get; set; }
 
     public int? IsRead { get; set; }
 
-    public virtual TblContract User { get; set; } = null!;
+    public virtual TblUser ToNavigation { get; set; } = null!;
 }

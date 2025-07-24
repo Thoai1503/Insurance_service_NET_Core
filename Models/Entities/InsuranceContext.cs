@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace Insurance_agency.Models.Entities;
+namespace Insurance_agency.Models.Entity;
 
 public partial class InsuranceContext : DbContext
 {
@@ -236,19 +236,16 @@ public partial class InsuranceContext : DbContext
             entity.ToTable("tbl_notification");
 
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Detail)
-                .HasMaxLength(10)
-                .IsFixedLength()
-                .HasColumnName("detail");
+            entity.Property(e => e.Detail).HasColumnName("detail");
+            entity.Property(e => e.From).HasColumnName("from");
             entity.Property(e => e.IsRead).HasColumnName("is_read");
             entity.Property(e => e.NotificationTypeId).HasColumnName("notification_type_id");
+            entity.Property(e => e.To).HasColumnName("to");
 
-            entity.Property(e => e.UserId).HasColumnName("user_id");
-
-            entity.HasOne(d => d.User).WithMany(p => p.TblNotifications)
-                .HasForeignKey(d => d.UserId)
+            entity.HasOne(d => d.ToNavigation).WithMany(p => p.TblNotifications)
+                .HasForeignKey(d => d.To)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_tbl_notification_tbl_contract");
+                .HasConstraintName("FK_tbl_notification_tbl_user1");
         });
 
         modelBuilder.Entity<TblPaymentHistory>(entity =>

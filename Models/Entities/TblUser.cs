@@ -28,4 +28,6 @@ public partial class TblUser
     public virtual TblAuthentication? Auth { get; set; }
 
     public virtual ICollection<TblContract> TblContracts { get; set; } = new List<TblContract>();
+
+    public virtual ICollection<TblNotification> TblNotifications { get; set; } = new List<TblNotification>();
 }
