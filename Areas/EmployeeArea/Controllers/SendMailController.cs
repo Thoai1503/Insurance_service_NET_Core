@@ -8,9 +8,9 @@ namespace Insurance_agency.Areas.EmployeeArea.Controllers
     [Area("EmployeeArea")]
     public class SendMailController : Controller
     {
-        public async Task<ActionResult> Index(string to,string title, string content, int userId =0)
+        public async Task<ActionResult> Index(int from,string email,string title, string content, int to=0)
         {
-            if(userId != 0)
+            if(to != 0)
             {
                 var emailService = new EmailService();
                 await emailService.SendEmailAsync("vothoai1503@gmail.com", title, content);
@@ -19,7 +19,10 @@ namespace Insurance_agency.Areas.EmployeeArea.Controllers
                     detail = content,
                     notification_type_id = 0, // Assuming 1 is the ID for email notifications
                     status = 0, // Assuming 0 means pending or new
-                    user_id = userId,
+
+                   
+                    from = (int)from, // Assuming 'from' is the sender's email
+                    to = to, // Assuming 'to' is the recipient's email
                     is_read = 0 // Assuming 0 means unread
                 };
                 var result = NotificationRepository.Instance.Create(notification);
@@ -32,7 +35,7 @@ namespace Insurance_agency.Areas.EmployeeArea.Controllers
             else
             {
                 var emailService = new EmailService();
-                await emailService.SendEmailAsync(to, title, content);
+                await emailService.SendEmailAsync(email, title, content);
 
                 return Json(new { message = "Email sent successfully!" });
             }

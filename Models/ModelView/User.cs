@@ -6,7 +6,7 @@ namespace Insurance_agency.Models.ModelView;
 
 public partial class User
 {
-    public int id { get; set; }
+    public int id { get; set; }=0;
 
     public string full_name { get; set; }
 
