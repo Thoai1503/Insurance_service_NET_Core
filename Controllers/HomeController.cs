@@ -78,14 +78,14 @@ namespace Insurance_agency.Controllers
             if (!ModelState.IsValid) return View(pageModel);
             var selectName = _context.Insurances.Where(i => model.SelectInsuranceId.Contains(i.Id)).Select(i => i.Name).ToList();
             string body = $@"
-                <h2>Thông tin liên hệ từ khách hàng</h2>
-                <p><strong>Tên:</strong> {model.Name}</p>
+                <h2>Contact from customer</h2>
+                <p><strong>Name:</strong> {model.Name}</p>
                 <p><strong>Email:</strong> {model.Email}</p>
-                <p><strong>Điện thoại:</strong> {model.Phone}</p>
-                <p><strong>Dự án:</strong> {model.Project}</p>
-                <p><strong>Chủ đề:</strong> {model.Subject}</p>
-                <p><strong>Bảo hiểm đã chọn:</strong> {string.Join(", ", selectName)}</p>
-                <p><strong>Nội dung:</strong><br/>{model.Message}</p>";
+                <p><strong>Phone:</strong> {model.Phone}</p>
+                <p><strong>Project:</strong> {model.Project}</p>
+                <p><strong>Topic :</strong> {model.Subject}</p>
+                <p><strong>Choosen Insurance:</strong> {string.Join(", ", selectName)}</p>
+                <p><strong>Content:</strong><br/>{model.Message}</p>";
             try
             {
                 var smtp = _configuration.GetSection("SMTP");
@@ -105,12 +105,12 @@ namespace Insurance_agency.Controllers
                 };
                 mail.To.Add(smtp["UserName"]);
                 await client.SendMailAsync(mail);
-                TempData["Success"] = "Đã gửi thành công";
+                TempData["Success"] = "Sent Success";
                 return RedirectToAction("Contact");
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("", "Lỗi gởi email: " + ex.Message);
+                ModelState.AddModelError("", "Error Send Email: " + ex.Message);
                 return View(pageModel);
             }
         }
