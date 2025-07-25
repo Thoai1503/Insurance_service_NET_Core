@@ -342,7 +342,24 @@
                                     <td>@item.EndDate.ToString("MM/dd/yyyy")</td>
                                     <td>@item.total_paid?.ToString("N0") VND</td>
                                     <td>@item.value_contract?.ToString("N0") VND</td>
-                                    <td><span class="badge @(item.status == 1 ? "bg-success" : "bg-light text-dark")">@(item.status == 1 ? "Pending" : "Paid")</span></td>
+                                    <td>
+                                        @if (item.status == 0)
+                                        {
+                                            <span class="badge bg-warning">Pending</span>
+                                        }
+                                        else if (item.status == 1)
+                                        {
+                                            <span class="badge bg-info">In payment process</span>
+                                        }
+                                        else if (item.status == 2)
+                                        {
+                                            <span class="badge bg-success">Completed</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-secondary">Unknown</span>
+                                        }
+                                    </td>
                                     <td>
                                         <a href="/userprofile/paymenthistory?contractId=@item.id">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-list" viewBox="0 0 16 16">

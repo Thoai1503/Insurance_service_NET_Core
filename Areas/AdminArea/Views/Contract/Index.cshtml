@@ -336,7 +336,7 @@
                                     <tr>
                                         <th scope="row">@index</th>
                                         <td>@item.id</td>
-                                        <td><a href="/adminarea/insurancemanagement/insurancedetail?id=@item.insurance_id">@item.insurance.name</a></td>
+                                        <td><a href="/adminarea/insurancemanagement/insurancedetail/@item.insurance_id">@item.insurance.name</a></td>
                                         <td>@item.user.full_name</td>
                                         <td>
                                             @if (item.employee != null)
@@ -374,8 +374,8 @@
 
                                         <td>
 
-                                     
-                                            <a href="/" accesskey="" action="">
+
+                                                <a href="/adminarea/contract/detail/@item.id" accesskey="" action="">
 
 
                                            
@@ -455,8 +455,8 @@
                                             </td>
                                         <td>
 
-                                        
-                                            <a href="/" accesskey="" action="">
+
+                                                <a href="/adminarea/contract/detail/id=@item.id" accesskey="" action="">
 
 
 

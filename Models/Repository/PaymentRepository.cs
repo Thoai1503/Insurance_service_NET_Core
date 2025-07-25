@@ -119,5 +119,27 @@ namespace Insurance_agency.Models.Repository
 
             }
         }
+        public HashSet<PaymentHistory> GetByContractId(int contractId)
+        {
+            try
+            {
+                var payments = _context.TblPaymentHistories
+                    .Where(x => x.ContractId == contractId)
+                    .Select(c => new PaymentHistory
+                    {
+                        id = c.Id,
+                        contract_id = (int)c.ContractId,
+                        amount = (long)c.Amount,
+                        payment_day = (DateTime)c.PaymentDay,
+                        status = (int)c.Status,
+                    }).ToHashSet();
+                return payments;
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (ex) as needed
+                return new HashSet<PaymentHistory>();
+            }
+        }
     }
 }

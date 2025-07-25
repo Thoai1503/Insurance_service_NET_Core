@@ -83,7 +83,9 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
         // GET: ContractController/Edit/5
         public ActionResult Detail(int id)
         {
+            var paymentHistories = PaymentRepository.Instance.GetByContractId(id);
             var contract = ContractRepository.Instance.FindById(id);
+            ViewBag.PaymentHistories = paymentHistories;
             return View(contract);
         }
 
