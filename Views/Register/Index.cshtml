@@ -52,16 +52,22 @@
 								<input type="text" name="address" class="form-control form-control-user" required placeholder="Address" value="" />
 							</div>
 							<div class="row">
-								<div class="col-2">Avatar</div>
+								<div class="col-11">Avatar</div>
 								<div class="col-3">
 									<input class="form-control" type="file" name="Img" value="" />
 								</div>
+								<div class="col-5 d-inline">
+									<div class="form-group border-0 d-inline">
+										<input type="text" name="code" required placeholder="Verifitication Code" class="form-control d-inline" value=""/>
+										
+									</div>
+								</div>
+								<div class="col-4">
+									<button class="btn btn-primary" onclick="SendMail()">Send Code</button>
+								</div>
 							</div>
 							<div class="form-group">
-								<div class="form-control border-0">
-									<input type="text" name="code" required placeholder="Verifitication Code" value="" />
-										<button onclick="SendMail()">Send</button>
-								</div>
+								
 									
 							</div>
 							<input type="hidden" name="active" value="1" />
