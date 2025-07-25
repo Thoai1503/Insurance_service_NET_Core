@@ -2,6 +2,7 @@ using Insurance_agency.Services.SendMail;
 using Insurance_agency.Models.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Insurance_agency.Models.ModelView;
 
 namespace Insurance_agency.Areas.AdminArea.Controllers
 {
@@ -13,6 +14,14 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
         {
             ViewBag.data = await ContractRepository.Instance.GetAll();
             ViewBag.customer = UserRepository.Instance.GetCustomerUser();
+            ViewBag.unassign = ContractRepository.Instance.GetInassignContracts().Count;
+            List<long> earning = new List<long>();
+            for (int i = 5; i >= 0; i--)
+            {
+                int Date = DateTime.Now.Month;
+                earning.Add(PaymentRepository.Instance.GetEarning(Date-i));
+            }
+            ViewBag.earning = earning;
             return View();
         }
 

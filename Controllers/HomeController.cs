@@ -23,10 +23,14 @@ namespace Insurance_agency.Controllers
         }
 
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
          // Assuming you have an extension method to set objects in session
-
+            ViewBag.insurance = InsuranceRepository.Instance.GetAll();
+            ViewBag.policy = PolicyRepository.Instance.GetAll().Count;
+            ViewBag.employee = UserRepository.Instance.GetAllEmployeeUser().Count;
+            var contract = await ContractRepository.Instance.GetAll();
+            ViewBag.contract = contract.Count;
             return View();
         }
 

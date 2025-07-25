@@ -264,6 +264,7 @@ namespace Insurance_agency.Models.Repository
                 }).ToHashSet();
             return contracts;
         }
+
         public async Task<HashSet<ContractView>> GetAll()
         {
 

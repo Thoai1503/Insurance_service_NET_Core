@@ -46,7 +46,30 @@ namespace Insurance_agency.Models.Repository
             }
 
         }
-
+        public long GetEarning(int month)
+        {
+           long result = 0;
+            try
+            {
+                if (month <= 12)
+                {
+                    var item = _context.TblPaymentHistories.Where(d => (d.PaymentDay.Month == month))
+                        .Select(d=>new PaymentHistory
+                        {
+                            id = d.Id,
+                            amount = (int)d.Amount,
+                        }).ToHashSet();
+                    foreach(var c in item)
+                    {
+                        result += c.amount;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return result;
+        }
         public bool Delete(int id)
         {
             throw new NotImplementedException();
