@@ -174,4 +174,11 @@
     <Folder Include="wwwroot\Content\Admin\vendor\bootstrap\js\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="wwwroot\Content\Client\img\avatar\user.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
