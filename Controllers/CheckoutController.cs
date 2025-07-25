@@ -52,6 +52,7 @@ namespace Insurance_agency.Controllers
                 if (contract != null)
                 {
                     contract.total_paid = (long)contract.year_paid / (long)contract.number_year_paid;
+                    contract.status = 0; // Assuming 1 means active or in progress
                     // Save the contract to the database or perform any necessary actions
                     //         contract.total_paid = response.
 
@@ -97,8 +98,16 @@ namespace Insurance_agency.Controllers
                     // Update total paid amount in the contract
                     contractNextPayment.total_paid = (long)(contractNextPayment.total_paid + amount);
                     var success = ContractRepository.Instance.Update(contractNextPayment);
+                    var contractId = contractNextPayment.id;
+                    var cntr= ContractRepository.Instance.FindById(contractId);
+                    if(cntr.total_paid ==cntr.value_contract)
+                        {
+                        cntr.status = 2; // Assuming 2 means completed
+                        ContractRepository.Instance.Update(cntr);
+                    }
+
                     // Save the payment history (payment_histoy table)
-                    
+
                     PaymentHistory paymentHistory = new PaymentHistory
                     {
                         contract_id = contractNextPayment.id,

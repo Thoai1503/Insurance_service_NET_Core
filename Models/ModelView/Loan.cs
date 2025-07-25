@@ -15,5 +15,6 @@ public partial class Loan
 
     public int? Status { get; set; }
 
-  
+    public virtual ContractView? Contract { get; set; }
+
 }

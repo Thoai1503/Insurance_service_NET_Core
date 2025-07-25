@@ -21,7 +21,7 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
             // If the user is not an admin, filter contracts by employee_id
             if (user.auth_id!=1)
             {
-                 contracts = ContractRepository.Instance.GetByEmployeeId(18);
+                 contracts = ContractRepository.Instance.GetByEmployeeId(user.id);
 
             }
             if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
@@ -176,6 +176,7 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
                 // If the contract is not assigned to any employee, assign it to the new employee
                 else
                 {
+                    contract.status = 1;
                     contract.employee_id = employee_id;
                     var result = ContractRepository.Instance.Update(contract);
                     if (result)

@@ -3,69 +3,138 @@
 *@
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    @model HashSet<Insurance_agency.Models.ModelView.Loan>;
 }
-
 <h2 class="mb-5">Loan request List</h2>
-</<br />
-
-<table class="table">
-    <thead class="thead-dark">
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@@mdo</td>
-        </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@@fat</td>
-        </tr>
-        <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@@twitter</td>
-        </tr>
-    </tbody>
-</table>
-
+<br />
 <table class="table">
     <thead class="thead-light">
         <tr>
             <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
+            <th scope="col">Contract ID</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Status</th>
+            <th scope="col">Action</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@@mdo</td>
-        </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@@fat</td>
-        </tr>
-        <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@@twitter</td>
-        </tr>
+        @if (Model != null && Model.Count > 0)
+        {
+            int i = 1;
+            foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">@i</th>
+                    <td>@item.Contract.id</td>
+                    <td>@item.LoanAmount?.ToString("N0") VND</td>
+                    <td>
+                        @if (item.Status == 0)
+                        {
+                            <span class="badge badge-warning">Pending approval</span>
+                        }
+                        else if (item.Status == 1)
+                        {
+                            <span class="badge badge-success">Approved</span>
+                        }
+                        else if (item.Status == 2)
+                        {
+                            <span class="badge badge-danger">Refused</span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-secondary">Unknown</span>
+                        }
+                    </td>
+                    <td>
+                        @if (item.Status == 0)
+                        {
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-success btn-sm" onclick="approveLoan(@item.Id)">
+                                    <i class="fas fa-check"></i> Duyệt
+                                </button>
+                                <button type="button" class="btn btn-danger btn-sm" onclick="rejectLoan(@item.Id)">
+                                    <i class="fas fa-times"></i> Từ chối
+                                </button>
+                            </div>
+                        }
+                        else
+                        {
+                            <span class="text-muted">-</span>
+                        }
+                    </td>
+                </tr>
+                i++;
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5" class="text-center">No loan requests found.</td>
+            </tr>
+        }
     </tbody>
 </table>
+
+<script>
+    function approveLoan(loanId) {
+        if (confirm('Bạn có chắc chắn muốn duyệt khoản vay này?')) {
+            // Gửi AJAX request để approve loan
+            $.ajax({
+                url: '@Url.Action("ApproveLoan", "Loan")', // Thay đổi controller name cho phù hợp
+                type: 'POST',
+                data: { id: loanId },
+                success: function(result) {
+                    if (result.success) {
+                        alert('Khoản vay đã được duyệt thành công!');
+                        location.reload(); // Reload trang để cập nhật status
+                    } else {
+                        alert('Có lỗi xảy ra: ' + result.message);
+                    }
+                },
+                error: function() {
+                    alert('Có lỗi xảy ra khi xử lý yêu cầu!');
+                }
+            });
+        }
+    }
+
+    function rejectLoan(loanId) {
+        if (confirm('Bạn có chắc chắn muốn từ chối khoản vay này?')) {
+            // Gửi AJAX request để reject loan
+            $.ajax({
+                url: '@Url.Action("RejectLoan", "Loan")', // Thay đổi controller name cho phù hợp
+                type: 'POST',
+                data: { id: loanId },
+                success: function(result) {
+                    if (result.success) {
+                        alert('Khoản vay đã bị từ chối!');
+                        //ajax request for send mail
+
+                       
+                        // $.ajax({
+                        //     url: '@Url.Action("Index", "SendMail")', Thay đổi controller name cho phù hợp
+                        //     type: 'POST',
+                        //     data: { id: loanId },
+                        //     success: function(mailResult) {
+                        //         if (mailResult.success) {
+                        //             alert('Email thông báo đã được gửi thành công!');
+                        //         } else {
+                        //             alert('Có lỗi xảy ra khi gửi email: ' + mailResult.message);
+                        //         }
+                        //     },
+                        //     error: function() {
+                        //         alert('Có lỗi xảy ra khi gửi email!');
+                        //     }
+                        // });
+                        location.reload(); // Reload trang để cập nhật status
+                    } else {
+                        alert('Có lỗi xảy ra: ' + result.message);
+                    }
+                },
+                error: function() {
+                    alert('Có lỗi xảy ra khi xử lý yêu cầu!');
+                }
+            });
+        }
+    }
+</script>

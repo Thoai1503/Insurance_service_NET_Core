@@ -45,5 +45,6 @@ namespace Insurance_agency.Controllers
             // LoanRepository.Instance.Add(loanRequest);
           
         }
+
     }
 }

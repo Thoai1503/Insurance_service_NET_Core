@@ -352,19 +352,29 @@
                                                     Not assigned
                                                 </button>
                                             }
-                                        </td>
-                                        <td>@(item.status == 1 ? "Active" : "Inactive")</td>
+                                            </td>
+                                            <td>
+                                                @if (item.status == 0)
+                                                {
+                                                    <span class="badge bg-warning">Pending</span>
+                                                }
+                                                else if (item.status == 1)
+                                                {
+                                                    <span class="badge bg-info">In payment process</span>
+                                                }
+                                                else if (item.status == 2)
+                                                {
+                                                    <span class="badge bg-success">Completed</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge bg-secondary">Unknown</span>
+                                                }
+                                            </td>
+
                                         <td>
 
-                                            <a href="/"accesskey="" action=""       >
-                                            
-                                              
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                                                        <path d="M15.502 1.94a1.5 1.5 0 0 1 0 2.121l-1.06 1.06-2.121-2.12 1.06-1.06a1.5 1.5 0 0 1 2.121 0zM13.44 4.56l-2.12-2.12L9.22 4.22l2.12 2.12L13.44 4.56zM1 13V3a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2zm11-9H3a1 1 0 0 0-1 .993V13a1 1 0 0 0 .883.993L3 .993h8a1 .993V4z" />
-                                                    </svg>
-                                              
-                                               
-                                            </a>
+                                     
                                             <a href="/" accesskey="" action="">
 
 
@@ -425,18 +435,27 @@
                                         <td>@item.insurance.name</td>
                                         <td>@item.user.full_name</td>
                                         <td>@(item.employee != null ? item.employee.full_name : "Not assigned")</td>
-                                        <td>@(item.status == 1 ? "Active" : "Inactive")</td>
+                                            <td>
+                                                @if (item.status == 0)
+                                                {
+                                                    <span class="badge bg-warning">Pending</span>
+                                                }
+                                                else if (item.status == 1)
+                                                {
+                                                    <span class="badge bg-info">In payment process</span>
+                                                }
+                                                else if (item.status == 2)
+                                                {
+                                                    <span class="badge bg-success">Completed</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge bg-secondary">Unknown</span>
+                                                }
+                                            </td>
                                         <td>
 
-                                            <a href="/" accesskey="" action="">
-
-
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                                                    <path d="M15.502 1.94a1.5 1.5 0 0 1 0 2.121l-1.06 1.06-2.121-2.12 1.06-1.06a1.5 1.5 0 0 1 2.121 0zM13.44 4.56l-2.12-2.12L9.22 4.22l2.12 2.12L13.44 4.56zM1 13V3a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2zm11-9H3a1 1 0 0 0-1 .993V13a1 1 0 0 0 .883.993L3 .993h8a1 .993V4z" />
-                                                </svg>
-
-
-                                            </a>
+                                        
                                             <a href="/" accesskey="" action="">
 
 
