@@ -17,15 +17,25 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
             var unassignedContracts = contracts.Where(c => c.employee_id == 0).OrderByDescending(c => c.StartDate).ToHashSet();
             var assignedContracts = contracts.Where(c => c.employee_id != 0).ToHashSet();
             var employees = UserRepository.Instance.GetAllEmployeeUser();
+
+            // If the user is not an admin, filter contracts by employee_id
+            if (user.auth_id!=1)
+            {
+                 contracts = ContractRepository.Instance.GetByEmployeeId(18);
+
+            }
             if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
             {
 
                 if (!string.IsNullOrEmpty(search))
                 {
                     contracts = ContractRepository.Instance.FindByKeywork(search);
+
+
                 }
                 return Json(new { message = "AJAX request", contracts });
             }
+
 
             ViewBag.customer = customer;
             ViewBag.UnassignedContracts = unassignedContracts;

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Insurance_agency.Models.Repository;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Insurance_agency.Controllers
 {
@@ -8,9 +9,10 @@ namespace Insurance_agency.Controllers
         {
             return View();
         }
-        public IActionResult RequestForm()
+        public IActionResult RequestForm(int contractId)
         {
-            return View();
+            var contract = ContractRepository.Instance.FindById(contractId);
+            return View(contract);
         }
     }
 }
