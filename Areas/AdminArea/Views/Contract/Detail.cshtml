@@ -1134,15 +1134,15 @@
 								<div>
 									<ul class="list-unstyled  spaced">
 										<li>
-											<i class="ace-icon fa fa-caret-right green"></i>Street, City
+											<i class="ace-icon fa fa-caret-right green"></i>@contract.user.full_name
 										</li>
 
 										<li>
-											<i class="ace-icon fa fa-caret-right green"></i>Zip Code
+                                            <i class="ace-icon fa fa-caret-right green"></i>@contract.user.phone
 										</li>
 
 										<li>
-											<i class="ace-icon fa fa-caret-right green"></i>State, Country
+                                            <i class="ace-icon fa fa-caret-right green"></i>@contract.user.address
 										</li>
 
 										<li class="divider"></li>
@@ -1180,8 +1180,8 @@
 										<td class="hidden-xs">
                                             @contract.insurance.description
 										</td>
-										<td class="hidden-480"> --- </td>
-										<td>$10</td>
+										<td class="hidden-480">@contract.year_paid?.ToString("N0") </td>
+										<td>@contract.value_contract?.ToString("N0")</td>
 									</tr>
 
 									@* <tr>
@@ -1222,7 +1222,7 @@
 							<div class="col-sm-5 pull-right">
 								<h4 class="pull-right">
 									Total amount :
-									<span class="red">$395</span>
+                                    <span class="red">@contract.year_paid?.ToString("N0") VND</span>
 								</h4>
 							</div>
 							<div class="col-sm-7 pull-left"> Extra Information </div>
