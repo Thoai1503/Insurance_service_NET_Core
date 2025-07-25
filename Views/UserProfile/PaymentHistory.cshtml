@@ -375,7 +375,7 @@
                 </div>
                 <div class="ms-4 small">
                     <div class="badge bg-light text-dark me-3">Default</div>
-                    <a id="payment_navigate" href="@Url.Action("Test", "Checkout", new { amount=contract.year_paid, contractId =1 , insurance = contract.insurance})">Continue to pay</a>
+                    <a id="payment_navigate" href="@Url.Action("Test", "Checkout", new { amount=contract.year_paid, contractId =contract.id , insurance = contract.insurance})">Continue to pay</a>
                 </div>
             </div>
             @*          <hr> *@
