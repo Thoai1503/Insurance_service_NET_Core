@@ -21,6 +21,7 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
                 int Date = DateTime.Now.Month;
                 earning.Add(PaymentRepository.Instance.GetEarning(Date-i));
             }
+            ViewBag.monthearn = PaymentRepository.Instance.GetEarning(DateTime.Now.Month);
             ViewBag.earning = earning;
             return View();
         }

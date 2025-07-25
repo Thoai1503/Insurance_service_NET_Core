@@ -15,6 +15,7 @@ namespace Insurance_agency.Controllers
     {
         public IActionResult Index()
         {
+            ViewBag.Title = "Register";
             HttpContext.Session.SetInt32("allbanner", 0);
             return View();
         }

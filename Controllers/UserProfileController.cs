@@ -137,6 +137,20 @@ namespace Insurance_agency.Controllers
             }
             return View();
         }
+        public IActionResult updateProfile(User user)
+        {
+            try
+            {
+                if (user != null)
+                {
+                   var a= UserRepository.Instance.Update1(user);
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return RedirectToAction("index");
+        }
         public IActionResult isreadupdate(int notificationId)
         {
            

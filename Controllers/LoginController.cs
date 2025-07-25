@@ -9,6 +9,7 @@ namespace Insurance_agency.Controllers
     {
         public IActionResult Index()
         {
+            ViewBag.Title = "Login";
            return View();
         }
         public ActionResult Acc_check()
