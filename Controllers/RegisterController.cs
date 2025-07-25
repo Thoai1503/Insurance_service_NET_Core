@@ -70,6 +70,7 @@ namespace Insurance_agency.Controllers
         {
             try
             {
+                var c = 0;
                 if (checkEmail(item.email))
                 {
                     return RedirectToAction("Register");
@@ -79,21 +80,35 @@ namespace Insurance_agency.Controllers
                     if (item != null)
                     {
 
-                        if (HttpContext.Session.GetObject<int>("code") == code)
+                        if (int.TryParse(HttpContext.Session.GetObject<string>("code"),out c))
                         {
-                            if (Img != null)
+                            if (c == code)
                             {
-                                string folder = "Image/Avatar/Customer/";
-                                string name = Img.FileName;
-                                name = name.Replace("-", "");
-                                name = name.Replace(" ", "");
-                                name = name.Replace("_", "");
-                                folder += name;
-                                string fullPathSave = Path.Combine("wwwroot/Content", folder);
-                                item.avatar = name;
-                                using (var fileStream = new FileStream(fullPathSave, FileMode.Create))
+                                if (Img != null)
                                 {
-                                    Img.CopyTo(fileStream);
+                                    string folder = "Client/img/avatar/";
+                                    string name = Img.FileName;
+                                    name = name.Replace("-", "");
+                                    name = name.Replace(" ", "");
+                                    name = name.Replace("_", "");
+                                    folder += name;
+                                    string fullPathSave = Path.Combine("wwwroot/Content", folder);
+                                    item.avatar = name;
+                                    using (var fileStream = new FileStream(fullPathSave, FileMode.Create))
+                                    {
+                                        Img.CopyTo(fileStream);
+                                    }
+                                }
+                                else
+                                {
+                                    item.avatar = "no avatar";
+                                }
+                                item.password = Function.MD5Hash(item.password);
+                                item.created_date = DateTime.Now;
+                                var b = UserRepository.Instance.Create(item);
+                                if (b == false)
+                                {
+                                    return RedirectToAction("Create");
                                 }
                             }
                             else
@@ -101,22 +116,11 @@ namespace Insurance_agency.Controllers
                                 item.avatar = "no avatar";
                             }
                             item.password = Function.MD5Hash(item.password);
-                            item.created_date = DateTime.Now;
-                            var b = UserRepository.Instance.Create(item);
-                            if (b == false)
+                            var a = UserRepository.Instance.Create(item);
+                            if (a == false)
                             {
                                 return RedirectToAction("Create");
                             }
-                        }
-                        else
-                        {
-                            item.avatar = "no avatar";
-                        }
-                        item.password = Function.MD5Hash(item.password);
-                        var a = UserRepository.Instance.Create(item);
-                        if (a == false)
-                        {
-                            return RedirectToAction("Create");
                         }
                     }
                 }
