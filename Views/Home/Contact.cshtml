@@ -1,5 +1,10 @@
-﻿@{
+﻿@model Insurance_agency.Models.ModelView.ContactPageView
+@{
     ViewBag.Title = "Contact";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if(TempData["Success"] != null){
+    <div class="alert alert-success">@TempData["Success"]</div>
 }
 <div class="container-fluid contact bg-light py-5">
     <div class="container py-5">
@@ -31,11 +36,11 @@
                         <a class="text-primary fw-bold"
                            href="https://htmlcodex.com/contact-form">Download Now</a>.
                     </p>
-                    <form>
+                    <form asp-action="Contact" method="post">
                         <div class="row g-3">
                             <div class="col-lg-12 col-xl-6">
                                 <div class="form-floating">
-                                    <input type="text"
+                                    <input asp-for="Contact.Name" type="text"
                                            class="form-control border-0"
                                            id="name"
                                            placeholder="Your Name" />
@@ -44,7 +49,7 @@
                             </div>
                             <div class="col-lg-12 col-xl-6">
                                 <div class="form-floating">
-                                    <input type="email"
+                                    <input asp-for="Contact.Email" type="email"
                                            class="form-control border-0"
                                            id="email"
                                            placeholder="Your Email" />
@@ -53,7 +58,7 @@
                             </div>
                             <div class="col-lg-12 col-xl-6">
                                 <div class="form-floating">
-                                    <input type="phone"
+                                    <input asp-for="Contact.Phone" type="phone"
                                            class="form-control border-0"
                                            id="phone"
                                            placeholder="Phone" />
@@ -62,7 +67,7 @@
                             </div>
                             <div class="col-lg-12 col-xl-6">
                                 <div class="form-floating">
-                                    <input type="text"
+                                    <input asp-for="Contact.Project" type="text"
                                            class="form-control border-0"
                                            id="project"
                                            placeholder="Project" />
@@ -71,22 +76,19 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-floating">
-                                    <select class="form-control border-0"
-                                            id="subject"
-                                            style="background-color: white">
-                                        <option value="-1">Chọn màu sắc</option>
-                                        <option value="1">Red</option>
-                                        <option value="2">Blue</option>
-                                        <option value="6">Green</option>
-                                        <option value="3">Black</option>
-                                        <option value="4">White</option>
+                                    <select asp-for="Contact.SelectInsuranceId" id="insuranceSelect" name="SelectedInsuranceIds" class="form-control border-0" multiple="multiple" style="width: 100%; background-color: white">
+                                        @foreach (var item in Model.Insurance.OrderBy(i => i.name))
+                                        {
+                                            <option value="@item.id">@item.name</option>
+                                        }
                                     </select>
-                                    <label for="subject">Subject</label>
+
+                                    @* <label for="subject">Subject</label> *@
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-floating">
-                                    <input type="text"
+                                    <input asp-for="Contact.Subject" type="text"
                                            class="form-control border-0"
                                            id="subject"
                                            placeholder="Subject" />
@@ -95,7 +97,7 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-floating">
-                                    <textarea class="form-control border-0"
+                                    <textarea asp-for="Contact.Message" class="form-control border-0"
                                               placeholder="Leave a message here"
                                               id="message"
                                               style="height: 120px"></textarea>
@@ -177,3 +179,14 @@
         </div>
     </div>
 </div>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#insuranceSelect').select2({
+                placeholder: "Choose Insurances",
+                allowClear: true
+            });
+        });
+    </script>
+
+}
