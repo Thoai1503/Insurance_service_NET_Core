@@ -9,7 +9,7 @@ public partial class TblPaymentHistory
 
     public int? ContractId { get; set; }
 
-    public DateTime? PaymentDay { get; set; }
+    public DateTime PaymentDay { get; set; }
 
     public long? Amount { get; set; }
 

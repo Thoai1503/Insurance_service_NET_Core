@@ -78,7 +78,7 @@
                 </div>
             </div>
             <h4 class="mb-3">Loan request</h4>
-            <form class="needs-validation" novalidate="" action="/">
+            <form class="needs-validation" novalidate="" action="/loan/makerequest?contractId=@Model.id">
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="firstName">Max value you can request (VND)</label>
@@ -89,7 +89,7 @@
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="lastName">Type your amount request</label>
-                        <input type="text" class="form-control" id="lastName" placeholder="VND.." onkeyup="updateAmount(event)"  max="@(Model.value_contract * 70 / 100)" required >
+                        <input type="text" class="form-control" id="lastName" name="amount" placeholder="VND.." onkeyup="updateAmount(event)"  max="@(Model.value_contract * 70 / 100)" required >
                         <div class="invalid-feedback">
                             Valid last name is required.
                         </div>
