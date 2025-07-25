@@ -88,6 +88,7 @@
                         </div>
                     </div>
                     <div class="col-md-6 mb-3">
+                        <input type="hidden" name="contractId" value="@Model.id" />
                         <label for="lastName">Type your amount request</label>
                         <input type="text" class="form-control" id="lastName" name="amount" placeholder="VND.." onkeyup="updateAmount(event)"  max="@(Model.value_contract * 70 / 100)" required >
                         <div class="invalid-feedback">
