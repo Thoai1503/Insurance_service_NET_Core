@@ -145,21 +145,3 @@
 	}
 
 </script>
-<script type="text/javascript">
-	document.addEventListener("DOMContentLoaded",function(){
-		document.getElementById("email").addEventListener("change",function(){
-			var email = $("#email").val();
-			$.ajax({
-			 url:"@Url.Action("checkEmail")",
-			 type : "POST",
-			 contentType:'application/x-www-form-urlencoded',
-			 data:{"email":email},
-			 success:function (response){
-			if(response==true){
-				alert("Email Already Exist")
-			}
-		}
-			})
-		})
-	})
-</script>
