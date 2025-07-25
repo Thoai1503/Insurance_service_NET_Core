@@ -5,6 +5,8 @@ using Insurance_agency.Models.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using System.Net;
+using System.Net.Mail;
 
 namespace Insurance_agency.Controllers
 {
@@ -12,20 +14,22 @@ namespace Insurance_agency.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private InsuranceContext _context;
+        private readonly IConfiguration _configuration;
 
         // Constructor injection for ILogger4
         // and InsuranceContext
         // to enable logging and database access
-        public HomeController(InsuranceContext context, ILogger<HomeController> logger)
+        public HomeController(InsuranceContext context, ILogger<HomeController> logger, IConfiguration configuration)
         {
             _context = context;
             _logger = logger;
+            _configuration = configuration;
         }
 
 
         public async Task<IActionResult> Index()
         {
-         // Assuming you have an extension method to set objects in session
+            // Assuming you have an extension method to set objects in session
             ViewBag.insurance = InsuranceRepository.Instance.GetAll();
             ViewBag.policy = PolicyRepository.Instance.GetAll().Count;
             ViewBag.employee = UserRepository.Instance.GetAllEmployeeUser().Count;
@@ -44,11 +48,71 @@ namespace Insurance_agency.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-        public ActionResult Contact()
+        [HttpGet]
+        public IActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            var model = new ContactPageView
+            {
+                Insurance = _context.Insurances
+                    .Select(x => new InsuranceView
+                    {
+                        id = x.Id,
+                        name = x.Name
+                    }).ToList(),
+                Contact = new ContactEmail()
+            };
 
-            return View();
+            return View(model);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Contact(ContactPageView pageModel)
+        {
+            var model = pageModel.Contact;
+            ViewBag.Message = "Your contact page.";
+            pageModel.Insurance = _context.Insurances.Select(x => new InsuranceView
+            {
+                id = x.Id,
+                name = x.Name,
+            }).ToList();
+            if (!ModelState.IsValid) return View(pageModel);
+            var selectName = _context.Insurances.Where(i => model.SelectInsuranceId.Contains(i.Id)).Select(i => i.Name).ToList();
+            string body = $@"
+                <h2>Thông tin liên hệ từ khách hàng</h2>
+                <p><strong>Tên:</strong> {model.Name}</p>
+                <p><strong>Email:</strong> {model.Email}</p>
+                <p><strong>Điện thoại:</strong> {model.Phone}</p>
+                <p><strong>Dự án:</strong> {model.Project}</p>
+                <p><strong>Chủ đề:</strong> {model.Subject}</p>
+                <p><strong>Bảo hiểm đã chọn:</strong> {string.Join(", ", selectName)}</p>
+                <p><strong>Nội dung:</strong><br/>{model.Message}</p>";
+            try
+            {
+                var smtp = _configuration.GetSection("SMTP");
+                var client = new SmtpClient
+                {
+                    Host = smtp["Host"],
+                    Port = int.Parse(smtp["Port"]),
+                    EnableSsl = bool.Parse(smtp["EnableSSL"]),
+                    Credentials = new NetworkCredential(smtp["UserName"], smtp["Password"])
+                };
+                var mail = new MailMessage
+                {
+                    From = new MailAddress(smtp["UserName"], "Website Contact"),
+                    Subject = model.Subject ?? "Lieen hệ từ website",
+                    Body = body,
+                    IsBodyHtml = true
+                };
+                mail.To.Add(smtp["UserName"]);
+                await client.SendMailAsync(mail);
+                TempData["Success"] = "Đã gửi thành công";
+                return RedirectToAction("Contact");
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Lỗi gởi email: " + ex.Message);
+                return View(pageModel);
+            }
         }
         public IActionResult Services()
         {
@@ -96,12 +160,12 @@ namespace Insurance_agency.Controllers
         }
         public IActionResult InsuranceOverview(string? search, int page = 1)
         {
-           
+
 
             HttpContext.Session.SetInt32("allbanner", 0);
-            var insuranceList = InsuranceRepository.Instance.GetAll().Where(e=>e.status==1).ToHashSet();
+            var insuranceList = InsuranceRepository.Instance.GetAll().Where(e => e.status == 1).ToHashSet();
             int pageSize = 9;
-            int previousPage = page-2;
+            int previousPage = page - 2;
             int nextPage = page + 2;
             int firstPage = 1;
             var totalItems = insuranceList.Count;
@@ -112,7 +176,7 @@ namespace Insurance_agency.Controllers
                 .ToHashSet();
             if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
             {
-             
+
                 if (!string.IsNullOrEmpty(search))
                 {
                     insuranceList = InsuranceRepository.Instance.FindByKeywork(search);
@@ -128,13 +192,13 @@ namespace Insurance_agency.Controllers
             {
                 ViewBag.PreviousPage = 1;
             }
-                ViewBag.TotalPages = 5;
+            ViewBag.TotalPages = 5;
 
             ViewBag.ttPages = totalPages;
             ViewBag.CurrentPage = page;
-      
+
             ViewBag.Search = search;
-           
+
             ViewBag.BannerCss = "motobike";
             return View(insuranceList);
         }
@@ -155,4 +219,3 @@ namespace Insurance_agency.Controllers
         }
     }
 }
-    
