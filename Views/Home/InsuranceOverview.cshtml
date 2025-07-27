@@ -102,46 +102,107 @@
 			}
 
 		</div>
+		<!-- Pagination Navigation -->
 		<nav aria-label="Page navigation example" style="margin-top:50px">
-			<ul class="pagination">
-				<li class="page-item">
-					<a class="page-link" href="#" aria-label="Previous">
-						<span aria-hidden="true">&laquo;</span>
-						<span class="sr-only">Previous</span>
-					</a>
-				</li>
-				@if (ViewBag.TotalPages > 0)
-				{
-
-					@if (ViewBag.PreviousPage > 1)
+			<ul class="pagination justify-content-center">
+				<!-- Previous Button -->
+				<li class="page-item @(!ViewBag.HasPreviousPage ? "disabled" : "")">
+					@if (ViewBag.HasPreviousPage)
 					{
-						for (int i = ViewBag.PreviousPage; i <= ViewBag.PreviousPage + 4; i++)
-						{
-
-							<li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
-								<a class="page-link" href="/home/insuranceoverview?page=@i">@i</a>
-							</li>
-						}
+						<a class="page-link" href="@GeneratePaginationUrl(ViewBag.PreviousPage)" aria-label="Previous">
+							<span aria-hidden="true">&laquo;</span>
+							<span class="sr-only">Previous</span>
+						</a>
 					}
 					else
 					{
-						for (int i = 1; i <= 5; i++)
-						{
-							<li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
-								<a class="page-link" href="/home/insuranceoverview?page=@i">@i</a>
-							</li>
-						}
+						<span class="page-link" aria-label="Previous">
+							<span aria-hidden="true">&laquo;</span>
+							<span class="sr-only">Previous</span>
+						</span>
+					}
+				</li>
+
+				<!-- First page link (if not in visible range) -->
+				@if (ViewBag.StartPage > 1)
+				{
+					<li class="page-item">
+						<a class="page-link" href="@GeneratePaginationUrl(1)">1</a>
+					</li>
+					@if (ViewBag.StartPage > 2)
+					{
+						<li class="page-item disabled">
+							<span class="page-link">...</span>
+						</li>
 					}
 				}
 
+				<!-- Page number links -->
+				@for (int i = ViewBag.StartPage; i <= ViewBag.EndPage; i++)
+				{
+					<li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+						@if (i == ViewBag.CurrentPage)
+						{
+							<span class="page-link">@i</span>
+						}
+						else
+						{
+							<a class="page-link" href="@GeneratePaginationUrl(i)">@i</a>
+						}
+					</li>
+				}
 
-				<li class="page-item">
-					<a class="page-link" href="#" aria-label="Next">
-						<span aria-hidden="true">&raquo;</span>
-						<span class="sr-only">Next</span>
-					</a>
+				<!-- Last page link (if not in visible range) -->
+				@if (ViewBag.EndPage < ViewBag.TotalPages)
+				{
+					@if (ViewBag.EndPage < ViewBag.TotalPages - 1)
+					{
+						<li class="page-item disabled">
+							<span class="page-link">...</span>
+						</li>
+					}
+					<li class="page-item">
+						<a class="page-link" href="@GeneratePaginationUrl(ViewBag.TotalPages)">@ViewBag.TotalPages</a>
+					</li>
+				}
+
+				<!-- Next Button -->
+				<li class="page-item @(!ViewBag.HasNextPage ? "disabled" : "")">
+					@if (ViewBag.HasNextPage)
+					{
+						<a class="page-link" href="@GeneratePaginationUrl(ViewBag.NextPage)" aria-label="Next">
+							<span aria-hidden="true">&raquo;</span>
+							<span class="sr-only">Next</span>
+						</a>
+					}
+					else
+					{
+						<span class="page-link" aria-label="Next">
+							<span aria-hidden="true">&raquo;</span>
+							<span class="sr-only">Next</span>
+						</span>
+					}
 				</li>
 			</ul>
+			@functions {
+				string GeneratePaginationUrl(int pageNumber)
+				{
+					var parameters = new List<string>();
+					parameters.Add($"page={pageNumber}");
+
+					if (ViewBag.InsuranceTypeId != null && ViewBag.InsuranceTypeId > 0)
+					{
+						parameters.Add($"id={ViewBag.InsuranceTypeId}");
+					}
+
+					if (!string.IsNullOrEmpty(ViewBag.Search as string))
+					{
+						parameters.Add($"search={Uri.EscapeDataString(ViewBag.Search)}");
+					}
+
+					return $"/home/insuranceoverview?{string.Join("&", parameters)}";
+				}
+			}
 		</nav>
 	</div>
 
@@ -215,26 +276,30 @@
 	var originalInsuranceList = [];
 	@if (Model != null)
 	{
-					var list = (HashSet<Insurance_agency.Models.ModelView.InsuranceView>)Model;
-					foreach (var item in list)
-					{
-									<text>
-										originalInsuranceList.push({
-											id: '@item.id',
-											name: '@item.name',
-											ex_image: '@item.ex_image'
-										});
-									</text>
-					}
+						var list = (HashSet<Insurance_agency.Models.ModelView.InsuranceView>)Model;
+						foreach (var item in list)
+						{
+											<text>
+												originalInsuranceList.push({
+													id: '@item.id',
+													name: '@item.name',
+													ex_image: '@item.ex_image'
+												});
+											</text>
+						}
 	}
 
 	function renderInsuranceList(list) {
 		var tbody = $('#insurance_list');
 		tbody.empty();
+
+		if (list.length === 0) {
+			tbody.append('<div class="col-12 text-center"><p>No insurance found matching your search.</p></div>');
+			return;
+		}
+
 		list.forEach(function(ins) {
-
-
-			var row = `<div class="col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.4s" style="visibility: hidden; animation-delay: 0.4s; animation-name: none;">
+			var row = `<div class="col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.4s" style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp;">
 						<div class="blog-item">
 							<div class="blog-img">
 								<img src="/Content/Image/Ex/${ins.ex_image}" style="height:200px" class="img-fluid rounded-top w-100" alt="">
@@ -266,53 +331,131 @@
 						</div>
 					</div>`;
 			tbody.append(row);
-
-
 		});
 	}
 
-	function handleSearch(event){
+	function updatePagination(pagination, searchValue = '') {
+		var paginationNav = $('nav[aria-label="Page navigation example"]');
+		if (!pagination || pagination.totalPages <= 1) {
+			paginationNav.hide();
+			return;
+		}
+
+		paginationNav.show();
+		var ul = paginationNav.find('ul.pagination');
+		ul.empty();
+
+		// Previous button
+		var prevDisabled = !pagination.hasPreviousPage ? 'disabled' : '';
+		var prevLink = pagination.hasPreviousPage ?
+			`<a class="page-link" href="#" onclick="loadPage(${pagination.previousPage}, '${searchValue}')" aria-label="Previous">` :
+			`<span class="page-link" aria-label="Previous">`;
+
+		ul.append(`
+			<li class="page-item ${prevDisabled}">
+				${prevLink}
+					<span aria-hidden="true">&laquo;</span>
+					<span class="sr-only">Previous</span>
+				${pagination.hasPreviousPage ? '</a>' : '</span>'}
+			</li>
+		`);
+
+		// First page link (if not in visible range)
+		if (pagination.startPage > 1) {
+			ul.append(`<li class="page-item"><a class="page-link" href="#" onclick="loadPage(1, '${searchValue}')">1</a></li>`);
+			if (pagination.startPage > 2) {
+				ul.append('<li class="page-item disabled"><span class="page-link">...</span></li>');
+			}
+		}
+
+		// Page number links
+		for (let i = pagination.startPage; i <= pagination.endPage; i++) {
+			var isActive = i === pagination.currentPage ? 'active' : '';
+			var link = i === pagination.currentPage ?
+				`<span class="page-link">${i}</span>` :
+				`<a class="page-link" href="#" onclick="loadPage(${i}, '${searchValue}')">${i}</a>`;
+
+			ul.append(`<li class="page-item ${isActive}">${link}</li>`);
+		}
+
+		// Last page link (if not in visible range)
+		if (pagination.endPage < pagination.totalPages) {
+			if (pagination.endPage < pagination.totalPages - 1) {
+				ul.append('<li class="page-item disabled"><span class="page-link">...</span></li>');
+			}
+			ul.append(`<li class="page-item"><a class="page-link" href="#" onclick="loadPage(${pagination.totalPages}, '${searchValue}')">${pagination.totalPages}</a></li>`);
+		}
+
+		// Next button
+		var nextDisabled = !pagination.hasNextPage ? 'disabled' : '';
+		var nextLink = pagination.hasNextPage ?
+			`<a class="page-link" href="#" onclick="loadPage(${pagination.nextPage}, '${searchValue}')" aria-label="Next">` :
+			`<span class="page-link" aria-label="Next">`;
+
+		ul.append(`
+			<li class="page-item ${nextDisabled}">
+				${nextLink}
+					<span aria-hidden="true">&raquo;</span>
+					<span class="sr-only">Next</span>
+				${pagination.hasNextPage ? '</a>' : '</span>'}
+			</li>
+		`);
+	}
+
+	function loadPage(pageNumber, searchValue = '') {
+		var data = { page: pageNumber };
+		if (searchValue) {
+			data.search = searchValue;
+		}
+
+		// Add insurance type ID if it exists
+		var insuranceTypeId = @(ViewBag.InsuranceTypeId ?? 0);
+		if (insuranceTypeId > 0) {
+			data.id = insuranceTypeId;
+		}
+
+		$.ajax({
+			url: '/home/insuranceoverview',
+			type: 'GET',
+			data: data,
+			success: function(response) {
+				renderInsuranceList(response.insuranceList);
+				updatePagination(response.pagination, searchValue);
+			},
+			error: function(error) {
+				console.error("Error fetching page results:", error);
+			}
+		});
+	}
+
+	function handleSearch(event) {
 		var value = event.target.value;
 		console.log("Value:" + value);
-		if(value.length > 0){
-			$.ajax({
-				url: '/home/insuranceoverview',
-				type: 'GET',
-				data: { search: value },
-				success: function(data) {
-					// data.insList is expected to be an array
-					renderInsuranceList(data.insuranceList);
-				},
-				error: function(error) {
-					console.error("Error fetching search results:", error);
-				}
-			});
-		} else {
 
-			// Show the original list
-			renderInsuranceList(originalInsuranceList);
+		if (value.length > 0) {
+			loadPage(1, value); // Always start from page 1 when searching
+		} else {
+			// Show the original paginated list
+			location.reload(); // Reload to show original pagination
 		}
 	}
-		  function updateStatus(event) {
 
-
-
-					var item = event.target;
-					var checked = $(item).is(":checked");
-					var id = $(item).attr("data-id");
-					$.ajax({
-						method: 'POST',
-						url: "@Url.Action("UpdateActiveStatus")",
-						data: { _id: id, _checked: checked == true ? 1 : 0 }
-					}).done(function (msg) {
-						if (msg.success) {
-							alert("Status updated successfully!");
-						} else {
-							alert("Failed to update status.");
-						}
-					}).fail(function () {
-						alert("Error occurred while updating status.");
-					});
-
-		};
+	function updateStatus(event) {
+		var item = event.target;
+		var checked = $(item).is(":checked");
+		var id = $(item).attr("data-id");
+		$.ajax({
+			method: 'POST',
+			url: "@Url.Action("UpdateActiveStatus")",
+			data: { _id: id, _checked: checked == true ? 1 : 0 }
+		}).done(function (msg) {
+			if (msg.success) {
+				alert("Status updated successfully!");
+			} else {
+				alert("Failed to update status.");
+			}
+		}).fail(function () {
+			alert("Error occurred while updating status.");
+		});
+	}
 </script>

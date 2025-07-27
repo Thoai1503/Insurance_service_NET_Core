@@ -158,49 +158,86 @@ namespace Insurance_agency.Controllers
             ViewBag.Message = "Your insurance page.";
             return View();
         }
-        public IActionResult InsuranceOverview(string? search, int page = 1)
+        public IActionResult InsuranceOverview(string? search, int page = 1, int id = 0)
         {
-
-
             HttpContext.Session.SetInt32("allbanner", 0);
             var insuranceList = InsuranceRepository.Instance.GetAll().Where(e => e.status == 1).ToHashSet();
-            int pageSize = 9;
-            int previousPage = page - 2;
-            int nextPage = page + 2;
-            int firstPage = 1;
+
+            // Filter by insurance type if specified
+            if (id > 0)
+            {
+                insuranceList = insuranceList.Where(i => i.insurance_type_id == id).ToHashSet();
+                ViewBag.InsuranceTypeId = id;
+            }
+
+            // Apply search filter if provided
+            if (!string.IsNullOrEmpty(search))
+            {
+                insuranceList = InsuranceRepository.Instance.FindByKeywork(search);
+                ViewBag.Search = search;
+            }
+
+            // Pagination constants
+            const int pageSize = 9;
+            const int maxVisiblePages = 5;
             var totalItems = insuranceList.Count;
-            int totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
-            insuranceList = insuranceList
+            var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+
+            // Ensure page is within valid range
+            page = Math.Max(1, Math.Min(page, totalPages));
+
+            // Get paginated data
+            var paginatedList = insuranceList
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToHashSet();
+
+            // Calculate pagination display range
+            var startPage = Math.Max(1, page - (maxVisiblePages / 2));
+            var endPage = Math.Min(totalPages, startPage + maxVisiblePages - 1);
+
+            // Adjust start page if we're near the end
+            if (endPage - startPage + 1 < maxVisiblePages)
+            {
+                startPage = Math.Max(1, endPage - maxVisiblePages + 1);
+            }
+
+            // Set ViewBag properties for pagination
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = totalPages;
+            ViewBag.StartPage = startPage;
+            ViewBag.EndPage = endPage;
+            ViewBag.HasPreviousPage = page > 1;
+            ViewBag.HasNextPage = page < totalPages;
+            ViewBag.PreviousPage = Math.Max(1, page - 1);
+            ViewBag.NextPage = Math.Min(totalPages, page + 1);
+            ViewBag.Search = search;
+            ViewBag.InsuranceTypeId = id;
+            ViewBag.BannerCss = "motobike";
+
+            // Handle AJAX search requests - MOVED AFTER pagination logic
             if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
             {
-
-                if (!string.IsNullOrEmpty(search))
+                return Json(new
                 {
-                    insuranceList = InsuranceRepository.Instance.FindByKeywork(search);
-                }
-                return Json(new { message = "AJAX request", insuranceList });
+                    message = "AJAX request",
+                    insuranceList = paginatedList,
+                    pagination = new
+                    {
+                        currentPage = page,
+                        totalPages = totalPages,
+                        startPage = startPage,
+                        endPage = endPage,
+                        hasPreviousPage = page > 1,
+                        hasNextPage = page < totalPages,
+                        previousPage = Math.Max(1, page - 1),
+                        nextPage = Math.Min(totalPages, page + 1),
+                        totalItems = totalItems
+                    }
+                });
             }
 
-            if (previousPage > 1)
-            {
-                ViewBag.PreviousPage = previousPage;
-            }
-            else
-            {
-                ViewBag.PreviousPage = 1;
-            }
-            ViewBag.TotalPages = 5;
-
-            ViewBag.ttPages = totalPages;
-            ViewBag.CurrentPage = page;
-
-            ViewBag.Search = search;
-
-            ViewBag.BannerCss = "motobike";
-            return View(insuranceList);
+            return View(paginatedList);
         }
         public IActionResult InsuranceDetail(int id)
         {
