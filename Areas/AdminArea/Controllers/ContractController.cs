@@ -64,13 +64,20 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
                 {
                     return RedirectToAction("index");
                 }
-                var user = HttpContext.Session.GetObject<User>("user");
-                contract.employee_id = user.id;
-                contract.EndDate = contract.StartDate.AddYears((int)contract.number_year_paid);
-                contract.total_paid = 0;
-                contract.status = 1;
-                contract.year_paid = (contract.value_contract / contract.number_year_paid) / 10;
-                var con = ContractRepository.Instance.Create(contract);
+                if (contract.value_contract>0)
+                {
+                    var user = HttpContext.Session.GetObject<User>("user");
+                    contract.employee_id = user.id;
+                    contract.EndDate = contract.StartDate.AddYears((int)contract.number_year_paid);
+                    contract.total_paid = 0;
+                    contract.status = 1;
+                    contract.year_paid = (contract.value_contract / contract.number_year_paid) / 10;
+                    var con = ContractRepository.Instance.Create(contract);
+                }
+                else
+                {
+                    return RedirectToAction("index");
+                }
 
             }
             catch

@@ -48,7 +48,7 @@
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                 Contract 
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">@contract.Count</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"><a href="@Url.Action("index","Contract")" class="text-white text-decoration-none text-gray-800">@contract.Count</a></div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -67,7 +67,7 @@
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                 Total Customer
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">@customer.Count</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"><a href="@Url.Action("index","Customer")" class="text-gray-800 text-decoration-none">@customer.Count</a></div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-user fa-2x text-gray-300"></i>
@@ -86,7 +86,7 @@
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                @b Earning
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">@monthearn.ToString("N0") VND</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"><a class="text-gray-800 text-decoration-none" href="@Url.Action("index","PaymentHistory")">@monthearn.ToString("N0") VND</a></div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>

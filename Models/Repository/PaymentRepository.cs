@@ -85,11 +85,88 @@ namespace Insurance_agency.Models.Repository
             throw new NotImplementedException();
         }
 
-        public HashSet<PaymentHistory> GetAll()
+        public HashSet<PaymentHistory> GetAll(int month =0)
         {
-            throw new NotImplementedException();
-        }
+            try
+            {
+                var query = from p in _context.TblPaymentHistories
+                            join c in _context.TblContracts on p.ContractId equals c.Id
+                            join u in _context.TblUsers on c.UserId equals u.Id
+                            select new PaymentHistory
+                            {
+                                id = p.Id,
+                                amount = (int)p.Amount,
+                                contract_id = (int)p.ContractId,
+                                payment_day = p.PaymentDay,
+                                Contract = new ContractView
+                                {
+                                    id = c.Id,
+                                    user_id = (int)c.UserId,
+                                    user = new User
+                                    {
+                                        full_name = u.FullName
+                                    }
+                                },
+                                status = (int)p.Status,
+                            };
+                var item = new HashSet<PaymentHistory>();
+                if(month == 0)
+                {
+                     item = query.ToHashSet();
+                }
+                else if(month >0&&month < 12)
+                {
+                    item =query.Where(d=>d.payment_day.Month == month).ToHashSet();
+                }
+                return item;
+            }
+            catch (Exception ex)
+            {
 
+            }
+            return new HashSet<PaymentHistory>();
+        }
+        public HashSet<PaymentHistory> Paging(int month =0,int page = 1,int pageSize = 10)
+        {
+            try
+            {
+                var query = from p in _context.TblPaymentHistories
+                            join c in _context.TblContracts on p.ContractId equals c.Id
+                            join u in _context.TblUsers on c.UserId equals u.Id
+                            select new PaymentHistory
+                            {
+                                id = p.Id,
+                                amount = (int)p.Amount,
+                                contract_id = (int)p.ContractId,
+                                payment_day = p.PaymentDay,
+                                Contract = new ContractView
+                                {
+                                    id = c.Id,
+                                    user_id = (int)c.UserId,
+                                    user = new User
+                                    {
+                                        full_name = u.FullName
+                                    }
+                                },
+                                status = (int)p.Status,
+                            };
+                var item = new HashSet<PaymentHistory>();
+                if (month == 0)
+                {
+                    item = query.Skip((page-1)*pageSize).Take(pageSize).ToHashSet();
+                }
+                else if (month > 0 && month < 12)
+                {
+                    item = query.Where(d => d.payment_day.Month == month).Skip((page - 1) * pageSize).Take(pageSize).ToHashSet();
+                }
+                return item;
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return new HashSet<PaymentHistory>();
+        }
         public bool Update(PaymentHistory entity)
         {
             throw new NotImplementedException();
@@ -140,6 +217,11 @@ namespace Insurance_agency.Models.Repository
                 // Log the exception (ex) as needed
                 return new HashSet<PaymentHistory>();
             }
+        }
+
+        public HashSet<PaymentHistory> GetAll()
+        {
+            throw new NotImplementedException();
         }
     }
 }

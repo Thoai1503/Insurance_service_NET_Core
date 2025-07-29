@@ -51,7 +51,6 @@ namespace Insurance_agency.Models.Repository
         }
 
 
-
         public InsuranceView FindById(int id)
         {
 

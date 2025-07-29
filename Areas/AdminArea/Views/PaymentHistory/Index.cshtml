@@ -1,0 +1,133 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+	Layout = "~/Views/Shared/_AdminLayout.cshtml";
+	ViewData["Title"] = "Payment History";
+	var payment = new HashSet<Insurance_agency.Models.ModelView.PaymentHistory>();
+	var month = (int)ViewBag.month;
+	if (ViewBag.payment != null)
+	{
+		payment = (HashSet<Insurance_agency.Models.ModelView.PaymentHistory>)ViewBag.payment;
+	}
+	var allpayment = (HashSet<Insurance_agency.Models.ModelView.PaymentHistory>)ViewBag.allpayment;
+	int page = ViewBag.page;
+	int allpage = allpayment.Count / 10;
+	int pageSize = 10;
+	if(allpage<((float)allpayment.Count/10)){
+		allpage++;
+	}
+}
+
+<form action="@Url.Action("index","PaymentHistory")">
+	<div class="row">
+		<div class="col-3">
+			<select class="form-control" name="month">
+				<option value="value">Select Month</option>
+				@for (int i = 1; i <= 12; i++)
+				{
+					var a = string.Empty;
+					switch (i)
+					{
+						case 1: a = "January"; break;
+						case 2: a = "February"; break;
+						case 3: a = "March"; break;
+						case 4: a = "April"; break;
+						case 5: a = "May"; break;
+						case 6: a = "July"; break;
+						case 7: a = "June"; break;
+						case 8: a = "August"; break;
+						case 9: a = "September"; break;
+						case 10: a = "October"; break;
+						case 11: a = "November"; break;
+						case 12: a = "December"; break;
+					}
+					if (i == month)
+					{
+						<option selected value="@i">@a</option>
+					}
+					else
+					{
+						<option value="@i">@a</option>
+					}
+				}
+			</select>
+
+		</div>
+		<div class="col-1">
+			<button class="btn btn-outline-secondary form-control" type="submit">
+				Filter
+			</button>
+		</div>
+	</div>
+</form>
+<table class="table align-middle mb-0 bg-white mt-5">
+	<thead class="bg-light">
+		<tr>
+			<th>Payment From</th>
+			<th>Paid Date</th>
+			<th>Paid Amount</th>
+			<th>Jump To Contract</th>
+		</tr>
+	</thead>
+	<tbody>
+		@if (payment != null && payment.Count > 0)
+		{
+			foreach (var item in payment)
+			{
+				<tr>
+					<td>
+						<div class="d-flex align-items-center">
+							<div class="ms-3">
+								<p class="fw-bold mb-1">@item.Contract.user.full_name</p>
+
+							</div>
+						</div>
+					</td>
+					<td>
+						<p class="text-muted mb-0">@item.payment_day</p>
+
+					</td>
+					<td>
+						<p class="fw-normal mb-1">@item.amount</p>
+					</td>
+					<td>
+						<a href="@Url.Action("Detail","Contract",new{id=item.contract_id})" class="text-muted mb-0 btn btn-outline-primary"><i class="fa fa-eye"></i></a>
+					</td>
+				</tr>
+			}
+		}
+		else
+		{
+			<tr>
+				<td></td>
+				<td colspan="2" class="text-center"><h2>No Payment !</h2></td>
+			</tr>
+		}
+	</tbody>
+</table>
+<nav aria-label="Page navigation example">
+	<ul class="pagination justify-content-center">
+		@{
+			if(page>1){
+				<li class="page-item disabled">
+					<a class="page-link" href="@Url.Action("index",new{month=month,page=page-1}) tabindex="-1">Previous</a>
+				</li>
+			}
+			if (allpage != null && allpage > 0)
+			{
+				for (int i = 1; i <= allpage; i++)
+				{
+					<li class="page-item @(i ==page ? "active" : "")"><a class="page-link" href="@Url.Action("index",new{month=month,page=i})">@i</a></li>
+				}
+			}
+			@if (page < allpage)
+			{
+				<li class="page-item">
+					<a class="page-link" href="@Url.Action("index",new{month=month,page=page+1})">Next</a>
+				</li>
+			}
+		}
+	</ul>
+</nav>
+

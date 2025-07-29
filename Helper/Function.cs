@@ -1,5 +1,6 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Insurance_agency.Helper
 {
@@ -39,6 +40,26 @@ namespace Insurance_agency.Helper
 
 
             return b;
+        }
+        public static string getMonth(DateTime date)
+        {
+            var a = string.Empty;
+            switch (date.Month)
+            {
+                case 1: a = "Jan"; break;
+                case 2: a = "Feb"; break;
+                case 3: a = "Mar"; break;
+                case 4: a = "Apr"; break;
+                case 5: a = "May"; break;
+                case 6: a = "Jun"; break;
+                case 7: a = "Jul"; break;
+                case 8: a = "Aug"; break;
+                case 9: a = "Sep"; break;
+                case 10: a = "Oct"; break;
+                case 11: a = "Nov"; break;
+                case 12: a = "Dec"; break;
+            }
+            return a;
         }
     }
 }
