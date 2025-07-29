@@ -5,11 +5,17 @@
 	Layout = "~/Views/Shared/_AdminLayout.cshtml";
 	ViewData["Title"] = "Payment History";
 	var payment = new HashSet<Insurance_agency.Models.ModelView.PaymentHistory>();
+	var client = new HashSet<Insurance_agency.Models.ModelView.User>();
 	var month = (int)ViewBag.month;
 	if (ViewBag.payment != null)
 	{
 		payment = (HashSet<Insurance_agency.Models.ModelView.PaymentHistory>)ViewBag.payment;
 	}
+	if (ViewBag.client != null)
+	{
+		client = (HashSet<Insurance_agency.Models.ModelView.User>)ViewBag.client;
+	}
+	var clientId = (int)ViewBag.clientId;
 	var allpayment = (HashSet<Insurance_agency.Models.ModelView.PaymentHistory>)ViewBag.allpayment;
 	int page = ViewBag.page;
 	int allpage = allpayment.Count / 10;
@@ -54,6 +60,21 @@
 			</select>
 
 		</div>
+		<div class="col-3">
+			<select class="form-control" name="client">
+				<option value="value">Select Customer</option>
+				@foreach (var item in client)
+				{
+					if(item.id==clientId){
+						<option selected value="@item.id">@item.full_name</option>
+					}
+					else{
+						<option value="@item.id">@item.full_name</option>
+					}
+				}
+			</select>
+
+		</div>
 		<div class="col-1">
 			<button class="btn btn-outline-secondary form-control" type="submit">
 				Filter
@@ -79,7 +100,7 @@
 					<td>
 						<div class="d-flex align-items-center">
 							<div class="ms-3">
-								<p class="fw-bold mb-1">@item.Contract.user.full_name</p>
+								<a href="@Url.Action("Detail","Customer",new{id=item.Contract.user_id})" class="fw-bold mb-1 text-muted">@item.Contract.user.full_name</a>
 
 							</div>
 						</div>

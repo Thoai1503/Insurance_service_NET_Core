@@ -48,18 +48,18 @@ namespace Insurance_agency.Models.Repository
         }
         public long GetEarning(int month)
         {
-           long result = 0;
+            long result = 0;
             try
             {
                 if (month <= 12)
                 {
                     var item = _context.TblPaymentHistories.Where(d => (d.PaymentDay.Month == month))
-                        .Select(d=>new PaymentHistory
+                        .Select(d => new PaymentHistory
                         {
                             id = d.Id,
                             amount = (int)d.Amount,
                         }).ToHashSet();
-                    foreach(var c in item)
+                    foreach (var c in item)
                     {
                         result += c.amount;
                     }
@@ -85,38 +85,95 @@ namespace Insurance_agency.Models.Repository
             throw new NotImplementedException();
         }
 
-        public HashSet<PaymentHistory> GetAll(int month =0)
+        public HashSet<PaymentHistory> GetAll(int month = 0, int client = 0)
         {
             try
             {
-                var query = from p in _context.TblPaymentHistories
-                            join c in _context.TblContracts on p.ContractId equals c.Id
-                            join u in _context.TblUsers on c.UserId equals u.Id
-                            select new PaymentHistory
-                            {
-                                id = p.Id,
-                                amount = (int)p.Amount,
-                                contract_id = (int)p.ContractId,
-                                payment_day = p.PaymentDay,
-                                Contract = new ContractView
-                                {
-                                    id = c.Id,
-                                    user_id = (int)c.UserId,
-                                    user = new User
-                                    {
-                                        full_name = u.FullName
-                                    }
-                                },
-                                status = (int)p.Status,
-                            };
                 var item = new HashSet<PaymentHistory>();
-                if(month == 0)
+                if (client == 0)
                 {
-                     item = query.ToHashSet();
+                    var query = from p in _context.TblPaymentHistories
+                                join c in _context.TblContracts on p.ContractId equals c.Id
+                                join u in _context.TblUsers on c.UserId equals u.Id
+                                select new PaymentHistory
+                                {
+                                    id = p.Id,
+                                    amount = (int)p.Amount,
+                                    contract_id = (int)p.ContractId,
+                                    payment_day = p.PaymentDay,
+                                    Contract = new ContractView
+                                    {
+                                        id = c.Id,
+                                        user_id = (int)c.UserId,
+                                        user = new User
+                                        {
+                                            full_name = u.FullName
+                                        }
+                                    },
+                                    status = (int)p.Status,
+                                };
+                    if (month == 0)
+                    {
+                        item = query.ToHashSet();
+                    }
+                    else if (month > 0 && month < 12)
+                    {
+                        item = query.Where(d => d.payment_day.Month == month).ToHashSet();
+                    }
                 }
-                else if(month >0&&month < 12)
+                else
                 {
-                    item =query.Where(d=>d.payment_day.Month == month).ToHashSet();
+                    if (month == 0)
+                    {
+                        var query = from p in _context.TblPaymentHistories
+                                    join c in _context.TblContracts on p.ContractId equals c.Id
+                                    join u in _context.TblUsers on c.UserId equals u.Id
+                                    where u.Id == client
+                                    select new PaymentHistory
+                                    {
+                                        id = p.Id,
+                                        amount = (int)p.Amount,
+                                        contract_id = (int)p.ContractId,
+                                        payment_day = p.PaymentDay,
+                                        Contract = new ContractView
+                                        {
+                                            id = c.Id,
+                                            user_id = (int)c.UserId,
+                                            user = new User
+                                            {
+                                                full_name = u.FullName
+                                            }
+                                        },
+                                        status = (int)p.Status,
+                                    };
+                        item = query.ToHashSet();
+                    }
+                    else
+                    {
+                        var query = from p in _context.TblPaymentHistories
+                                    join c in _context.TblContracts on p.ContractId equals c.Id
+                                    join u in _context.TblUsers on c.UserId equals u.Id
+                                    where p.PaymentDay.Month == month &&u.Id==client
+                                    select new PaymentHistory
+                                    {
+                                        id = p.Id,
+                                        amount = (int)p.Amount,
+                                        contract_id = (int)p.ContractId,
+                                        payment_day = p.PaymentDay,
+                                        Contract = new ContractView
+                                        {
+                                            id = c.Id,
+                                            user_id = (int)c.UserId,
+                                            user = new User
+                                            {
+                                                full_name = u.FullName
+                                            }
+                                        },
+                                        status = (int)p.Status,
+                                    };
+                        item = query.ToHashSet();
+                    }
+
                 }
                 return item;
             }
@@ -126,38 +183,95 @@ namespace Insurance_agency.Models.Repository
             }
             return new HashSet<PaymentHistory>();
         }
-        public HashSet<PaymentHistory> Paging(int month =0,int page = 1,int pageSize = 10)
+        public HashSet<PaymentHistory> Paging(int month = 0, int page = 1, int pageSize = 10, int client = 0)
         {
             try
             {
-                var query = from p in _context.TblPaymentHistories
-                            join c in _context.TblContracts on p.ContractId equals c.Id
-                            join u in _context.TblUsers on c.UserId equals u.Id
-                            select new PaymentHistory
-                            {
-                                id = p.Id,
-                                amount = (int)p.Amount,
-                                contract_id = (int)p.ContractId,
-                                payment_day = p.PaymentDay,
-                                Contract = new ContractView
-                                {
-                                    id = c.Id,
-                                    user_id = (int)c.UserId,
-                                    user = new User
-                                    {
-                                        full_name = u.FullName
-                                    }
-                                },
-                                status = (int)p.Status,
-                            };
                 var item = new HashSet<PaymentHistory>();
-                if (month == 0)
+                if (client == 0)
                 {
-                    item = query.Skip((page-1)*pageSize).Take(pageSize).ToHashSet();
+                    var query = from p in _context.TblPaymentHistories
+                                join c in _context.TblContracts on p.ContractId equals c.Id
+                                join u in _context.TblUsers on c.UserId equals u.Id
+                                select new PaymentHistory
+                                {
+                                    id = p.Id,
+                                    amount = (int)p.Amount,
+                                    contract_id = (int)p.ContractId,
+                                    payment_day = p.PaymentDay,
+                                    Contract = new ContractView
+                                    {
+                                        id = c.Id,
+                                        user_id = (int)c.UserId,
+                                        user = new User
+                                        {
+                                            full_name = u.FullName
+                                        }
+                                    },
+                                    status = (int)p.Status,
+                                };
+                    if (month == 0)
+                    {
+                        item = query.Skip((page - 1) * pageSize).Take(pageSize).ToHashSet();
+                    }
+                    else if (month > 0 && month < 12)
+                    {
+                        item = query.Where(d => d.payment_day.Month == month).Skip((page - 1) * pageSize).Take(pageSize).ToHashSet();
+                    }
                 }
-                else if (month > 0 && month < 12)
+                else
                 {
-                    item = query.Where(d => d.payment_day.Month == month).Skip((page - 1) * pageSize).Take(pageSize).ToHashSet();
+
+                    if (month == 0)
+                    {
+                        var query = from p in _context.TblPaymentHistories
+                                    join c in _context.TblContracts on p.ContractId equals c.Id
+                                    join u in _context.TblUsers on c.UserId equals u.Id
+                                    where u.Id == client
+                                    select new PaymentHistory
+                                    {
+                                        id = p.Id,
+                                        amount = (int)p.Amount,
+                                        contract_id = (int)p.ContractId,
+                                        payment_day = p.PaymentDay,
+                                        Contract = new ContractView
+                                        {
+                                            id = c.Id,
+                                            user_id = (int)c.UserId,
+                                            user = new User
+                                            {
+                                                full_name = u.FullName
+                                            }
+                                        },
+                                        status = (int)p.Status,
+                                    };
+                        item = query.Skip((page - 1) * pageSize).Take(pageSize).ToHashSet();
+                    }
+                    else if (month > 0 && month < 12)
+                    {
+                        var query = from p in _context.TblPaymentHistories
+                                    join c in _context.TblContracts on p.ContractId equals c.Id
+                                    join u in _context.TblUsers on c.UserId equals u.Id
+                                    where u.Id == client && p.PaymentDay.Month == month
+                                    select new PaymentHistory
+                                    {
+                                        id = p.Id,
+                                        amount = (int)p.Amount,
+                                        contract_id = (int)p.ContractId,
+                                        payment_day = p.PaymentDay,
+                                        Contract = new ContractView
+                                        {
+                                            id = c.Id,
+                                            user_id = (int)c.UserId,
+                                            user = new User
+                                            {
+                                                full_name = u.FullName
+                                            }
+                                        },
+                                        status = (int)p.Status,
+                                    };
+                        item = query.Skip((page - 1) * pageSize).Take(pageSize).ToHashSet();
+                    }
                 }
                 return item;
             }
@@ -182,9 +296,9 @@ namespace Insurance_agency.Models.Repository
                     {
                         id = c.Id,
                         contract_id = (int)c.ContractId,
-                        amount = (long) c.Amount,
-                        payment_day =(DateTime) c.PaymentDay,
-                        
+                        amount = (long)c.Amount,
+                        payment_day = (DateTime)c.PaymentDay,
+
                         status = (int)c.Status,
                     }).ToHashSet();
                 return payments;
