@@ -101,7 +101,7 @@ namespace Insurance_agency.Controllers
                                 }
                                 else
                                 {
-                                    item.avatar = "no avatar";
+                                    item.avatar = "user.jpg";
                                 }
                                 item.password = Function.MD5Hash(item.password);
                                 item.created_date = DateTime.Now;
@@ -113,7 +113,7 @@ namespace Insurance_agency.Controllers
                             }
                             else
                             {
-                                item.avatar = "no avatar";
+                                item.avatar = "user.jpg";
                             }
                             item.password = Function.MD5Hash(item.password);
                             var a = UserRepository.Instance.Create(item);

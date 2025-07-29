@@ -116,8 +116,12 @@
 				<div id="collapsePage" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 
-						<a class="collapse-item" href="/adminarea/employee">Employee</a>
-						<a class="collapse-item" href="/adminarea/customer">Customer</a>
+					
+						@if (user.auth_id == 1)
+						{
+							<a class="collapse-item" href="/adminarea/employee">Employee</a>
+							<a class="collapse-item" href="/adminarea/customer">Customer</a>
+						}
 						<a class="collapse-item" href="/adminarea/insurancemanagement">Insurance</a>
 						<a class="collapse-item" href="/adminarea/contract">Contract</a>
 

@@ -111,7 +111,15 @@ namespace Insurance_agency.Models.Repository
                      
                         id = loan.Contract.Id,
                         user_id = loan.Contract.UserId,
-                        employee_id= (int)loan.Contract.EmployeeId,
+                        user = new User
+                        {
+                            id = loan.Contract.User.Id,
+                            email = loan.Contract.User.Email,
+                            full_name = loan.Contract.User.FullName,
+                            phone = loan.Contract.User.Phone,
+                            address = loan.Contract.User.Address
+                        },
+                        employee_id = (int)loan.Contract.EmployeeId,
                         StartDate =(DateTime) loan.Contract.StartDate,
                         EndDate = (DateTime)loan.Contract.EndDate,
                         year_paid = (int)loan.Contract.YearPaid,
@@ -159,7 +167,15 @@ namespace Insurance_agency.Models.Repository
                     {
                         id = loan.Contract.Id,
                         user_id = loan.Contract.UserId,
-                        employee_id= (int)loan.Contract.EmployeeId,
+                        user = new User
+                        {
+                            id = loan.Contract.User.Id,
+                            email = loan.Contract.User.Email,
+                            full_name = loan.Contract.User.FullName,
+                            phone = loan.Contract.User.Phone,
+                            address = loan.Contract.User.Address
+                        },
+                        employee_id = (int)loan.Contract.EmployeeId,
                         StartDate =(DateTime) loan.Contract.StartDate,
                         EndDate = (DateTime)loan.Contract.EndDate,
                         year_paid = (int)loan.Contract.YearPaid,

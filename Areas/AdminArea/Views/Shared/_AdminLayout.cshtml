@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Insurance_agency
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -111,9 +113,16 @@
 				</a>
 				<div id="collapsePage" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
+						   @{
+                                var user = HttpContextAccessor.HttpContext.Session.GetObject<Insurance_agency.Models.ModelView.User>("user");
 
-						<a class="collapse-item" href="/adminarea/employee">Employee</a>
-						<a class="collapse-item" href="/adminarea/customer">Customer</a>
+                            }
+							@if(user.auth_id==1)
+							{
+							<a class="collapse-item" href="/adminarea/employee">Employee</a>
+							<a class="collapse-item" href="/adminarea/customer">Customer</a>
+                        }
+
 						<a class="collapse-item" href="/adminarea/insurancemanagement">Insurance</a>
 						<a class="collapse-item" href="/adminarea/contract">Contract</a>
 
