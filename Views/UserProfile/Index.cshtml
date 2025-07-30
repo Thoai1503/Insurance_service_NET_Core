@@ -170,12 +170,15 @@
 					}
 					else
 					{
-						<img class="img-account-profile rounded-circle mb-2" src="@Url.Content("~/Content/Admin")/img/avatar/@Model.avatar" alt="">
+						<img class="img-account-profile rounded-circle mb-2" src="@Url.Content("~/Content/Client")/img/avatar/@Model.avatar" alt="">
 					}
-					<!-- Profile picture help block-->
-					<div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
-					<!-- Profile picture upload button-->
-					<button class="btn btn-primary" type="button">Upload new image</button>
+					<form action="@Url.Action("ChangeAvatar")" method="post" enctype="multipart/form-data">
+						<!-- Profile picture help block-->
+						<input type="file" name="Img" class="btn btn-success text-muted mb-4"></input>
+						<input type="hidden" value="@Model.id" name="id"/>
+						<!-- Profile picture upload button-->
+						<button class="btn btn-primary" type="submit">Change Avatar</button>
+					</form>
 				</div>
 			</div>
 		</div>

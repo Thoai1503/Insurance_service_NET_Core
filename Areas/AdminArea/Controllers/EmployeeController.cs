@@ -7,9 +7,17 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
     [Area("AdminArea")]
     public class EmployeeController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Index(int page =1)
         {
-            var employees = UserRepository.Instance.GetAllEmployeeUser();
+            var employees = UserRepository.Instance.GetAllEmployeeUser(page);
+            var all = UserRepository.Instance.GetAllEmployeeUser();
+            int total = all.Count()/10;
+            if (total < ((float)all.Count() / 10))
+            {
+                total++;
+            }
+            ViewBag.TotalPages = total;
+            ViewBag.CurrentPage = page;
             return View(employees);
         }
         public IActionResult Create(IFormFile Img, User usr)

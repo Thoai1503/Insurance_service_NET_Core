@@ -137,17 +137,63 @@ namespace Insurance_agency.Controllers
             }
             return View();
         }
-        public IActionResult updateProfile(User user)
+        public IActionResult updateProfile(User user, IFormFile Img)
         {
             try
             {
                 if (user != null)
                 {
+                    if (Img != null)
+                    {
+                        if (Img != null)
+                        {
+                            string folder = "Client/img/avatar/";
+                            string name = Img.FileName;
+                            name = name.Replace("-", "");
+                            name = name.Replace(" ", "");
+                            name = name.Replace("_", "");
+                            folder += name;
+                            string fullPathSave = Path.Combine("wwwroot/Content", folder);
+                            user.avatar = name;
+                            using (var fileStream = new FileStream(fullPathSave, FileMode.Create))
+                            {
+                                Img.CopyTo(fileStream);
+                            }
+                        }
+                    }
                    var a= UserRepository.Instance.Update1(user);
                 }
             }
             catch (Exception ex)
             {
+            }
+            return RedirectToAction("index");
+        }
+        public IActionResult changeAvatar(IFormFile Img,User user)
+        {
+            try
+            {
+                if (Img != null)
+                {
+                    string folder = "Client/img/avatar/";
+                    string name = Img.FileName;
+                    name = name.Replace("-", "");
+                    name = name.Replace(" ", "");
+                    name = name.Replace("_", "");
+                    folder += name;
+                    string fullPathSave = Path.Combine("wwwroot/Content", folder);
+                    user.avatar = name;
+                    using (var fileStream = new FileStream(fullPathSave, FileMode.Create))
+                    {
+                        Img.CopyTo(fileStream);
+                    }
+                }
+                var a = UserRepository.Instance.Update1(user);
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
             return RedirectToAction("index");
         }

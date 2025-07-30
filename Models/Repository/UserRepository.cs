@@ -96,8 +96,14 @@ namespace Insurance_agency.Models.Repository
                     {
                         //user.FullName = entity.full_name;
                         //user.Email = entity.email;
-                        user.Phone = entity.phone;
-                        user.Address = entity.address;
+                        if (entity.phone != null)
+                        {
+                            user.Phone = entity.phone;
+                        }
+                        if (entity.address != null)
+                        {
+                            user.Address = entity.address;
+                        }
                         //user.AuthId = entity.auth_id;
                         if(entity.avatar != "user.jpg")
                         {
@@ -191,20 +197,39 @@ namespace Insurance_agency.Models.Repository
             }
             return user;
         }
-        public HashSet<User> GetAllEmployeeUser()
+        public HashSet<User> GetAllEmployeeUser(int page =0,int pageSize=10)
         {
-            var user = _context.TblUsers.Where(u => u.AuthId == 3).Select(u => new User
+            var user = new HashSet<User>();
+            if (page > 0)
             {
-                id = u.Id,
-                full_name = u.FullName,
-                email = u.Email,
-                phone = u.Phone,
-                auth_id = (int)u.AuthId,
-                address = u.Address,
-                avatar = u.Avatar,
-                created_date = u.CreatedDate,
-                active = (int)u.Active
-            }).ToHashSet();
+                user = _context.TblUsers.Where(u => u.AuthId == 3).Skip((page - 1) * pageSize).Take(pageSize).Select(u => new User
+                {
+                    id = u.Id,
+                    full_name = u.FullName,
+                    email = u.Email,
+                    phone = u.Phone,
+                    auth_id = (int)u.AuthId,
+                    address = u.Address,
+                    avatar = u.Avatar,
+                    created_date = u.CreatedDate,
+                    active = (int)u.Active
+                }).ToHashSet();
+            }
+            else
+            {
+                user = _context.TblUsers.Where(u => u.AuthId == 3).Select(u => new User
+                {
+                    id = u.Id,
+                    full_name = u.FullName,
+                    email = u.Email,
+                    phone = u.Phone,
+                    auth_id = (int)u.AuthId,
+                    address = u.Address,
+                    avatar = u.Avatar,
+                    created_date = u.CreatedDate,
+                    active = (int)u.Active
+                }).ToHashSet();
+            }
             if (user == null)
             {
                 throw new Exception("No employee user found.");
