@@ -24,6 +24,4 @@ public partial class Insurance
     public virtual TblInsuranceType? InsuranceType { get; set; }
 
     public virtual ICollection<TblContract> TblContracts { get; set; } = new List<TblContract>();
-
-    public virtual ICollection<TblPolicy> TblPolicies { get; set; } = new List<TblPolicy>();
 }

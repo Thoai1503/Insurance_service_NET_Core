@@ -286,10 +286,6 @@ public partial class InsuranceContext : DbContext
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
                 .HasColumnName("name");
-
-            entity.HasOne(d => d.Insurance).WithMany(p => p.TblPolicies)
-                .HasForeignKey(d => d.InsuranceId)
-                .HasConstraintName("FK_tbl_policy_insurance");
         });
 
         modelBuilder.Entity<TblSubsidiary>(entity =>

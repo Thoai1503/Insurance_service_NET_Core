@@ -182,7 +182,7 @@
                     </p>
 
                     <!-- Payment Cards -->
-                    <div class="payment-card selected" onclick="selectCard(this)">
+    <!-- <div class="payment-card selected" onclick="selectCard(this)" >
                         <div class="d-flex align-items-center">
                             <div class="card-icon visa-icon"></div>
                             <div class="flex-grow-1">
@@ -192,9 +192,9 @@
                                 **** 5436
                             </div>
                         </div>
-                    </div>
+    </div > -->
 
-                    <div class="payment-card" onclick="selectCard(this)">
+    <div class="payment-card selected"" onclick="selectCard(this)">
                         <div class="d-flex align-items-center">
                             <div class="card-icon ">
                               <img src="/Content/Client/img/vnpay/VNPAY_id-sVSMjm2_0.png" style="width:50px" / >
@@ -229,12 +229,12 @@
 
                     <div class="row mb-2">
                         <div class="col-8">contracted Price</div>
-                        <div class="col-4 text-end">$186.86</div>
+    <div class="col-4 text-end" >@Model.value_contract?.ToString("N0") VND</div >
                     </div>
 
                     <div class="row mb-2">
                         <div class="col-8">Amount Deductible</div>
-                        <div class="col-4 text-end">$0.0</div>
+    <div class="col-4 text-end" >@amount.ToString("N0") VND</div >
                     </div>
 
                     <div class="row mb-2">
@@ -254,22 +254,22 @@
 
                     <div class="row mb-2">
                         <div class="col-8">Maximum out-of-pocket<br><span class="text-muted small">on insurance policy</span></div>
-                        <div class="col-4 text-end">$40.00</div>
+                        <div class="col-4 text-end">$0.00</div>
                     </div>
 
     <div class="row mb-2 total-row" >
                         <div class="col-8">Insurance Responsibility</div>
-                        <div class="col-4 text-end">$71.76</div>
+    <div class="col-4 text-end" > $0.00</div >
                     </div>
 
                     <div class="row mb-2">
                         <div class="col-8">Patient Balance</div>
-                        <div class="col-4 text-end">$13.24</div>
+    <div class="col-4 text-end" > $0.00</div >
                     </div>
 
                     <div class="row total-row">
                         <div class="col-8">Total</div>
-                        <div class="col-4 text-end">$85.00</div>
+    <div class="col-4 text-end" >@amount.ToString("N0") VND</div >
                     </div>
                 </div>
             </div>

@@ -14,34 +14,34 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
         {
             _context = new InsuranceContext();
         }
-        public IActionResult Index(string? search,bool searchInsurance = false, int page = 1, int pageSize = 10)
-        {
-            var pageRes = PolicyRepository.Instance.PaginationSearch(search,searchInsurance,page,pageSize);
-            var poliWithInsurance = pageRes.Items.Select(p =>
-            {
-                var insurance = _context.Insurances
-                .Where(i => i.Id == p.insurance_id).Select(i => i.Name)
-                .FirstOrDefault() ?? "";
-                return new
-                {
-                    p.id,
-                    p.name,
-                    p.description,
-                    p.age_max,
-                    p.age_min,
-                    p.active,
-                    insurance_name = insurance
-                };
-            }).ToList();
-            ViewBag.Policies = poliWithInsurance;
-            ViewBag.TotalItem = pageRes.TotalItem;
-            ViewBag.PageNumber = pageRes.PageNumber;
-            ViewBag.PageSize = pageRes.PageSize;
-            ViewBag.Search = search;
-            ViewBag.SearchInsurance = searchInsurance;
-            ViewBag.Insurance = _context.Insurances.ToList();
-            return View();
-        }
+        //public IActionResult Index(string? search,bool searchInsurance = false, int page = 1, int pageSize = 10)
+        //{
+        //  //  var pageRes = PolicyRepository.Instance.PaginationSearch(search,searchInsurance,page,pageSize);
+        //    var poliWithInsurance = pageRes.Items.Select(p =>
+        //    {
+        //        var insurance = _context.Insurances
+        //        .Where(i => i.Id == p.insurance_id).Select(i => i.Name)
+        //        .FirstOrDefault() ?? "";
+        //        return new
+        //        {
+        //            p.id,
+        //            p.name,
+        //            p.description,
+        //            p.age_max,
+        //            p.age_min,
+        //            p.active,
+        //            insurance_name = insurance
+        //        };
+        //    }).ToList();
+        //    ViewBag.Policies = poliWithInsurance;
+        //    ViewBag.TotalItem = pageRes.TotalItem;
+        //    ViewBag.PageNumber = pageRes.PageNumber;
+        //    ViewBag.PageSize = pageRes.PageSize;
+        //    ViewBag.Search = search;
+        //    ViewBag.SearchInsurance = searchInsurance;
+        //    ViewBag.Insurance = _context.Insurances.ToList();
+        //    return View();
+        //}
         [HttpPost]
         public IActionResult Create(Policy en)
         {

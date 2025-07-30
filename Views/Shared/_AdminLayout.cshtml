@@ -76,7 +76,7 @@
 	<div id="wrapper">
 
 		<!-- Sidebar -->
-		<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+		<ul class="navbar-nav @(user.auth_id == 1 ? "bg-gradient-primary" : "bg-gradient-info") sidebar sidebar-dark accordion" id="accordionSidebar">
 
 			<!-- Sidebar - Brand -->
 			<a class="sidebar-brand d-flex align-items-center justify-content-center" href="/adminarea/dashboard">
@@ -93,7 +93,7 @@
 			<li class="nav-item active">
 				<a class="nav-link" href="/adminarea/dashboard">
 					<i class="fas fa-fw fa-tachometer-alt"></i>
-					<span>Dashboard</span>
+					<span>@(user.auth_id == 1 ? "Dashboard" : "Employee Dashboard")</span>
 				</a>
 			</li>
 

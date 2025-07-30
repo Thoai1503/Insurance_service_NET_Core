@@ -311,7 +311,7 @@
             <!-- Billing card 1-->
             <div class="card h-100 border-start-lg border-start-primary">
                 <div class="card-body">
-                    <div class="small text-muted">Current monthly bill</div>
+                    <div class="small text-muted">Current total</div>
                     <div class="h3">@contract.total_paid?.ToString("N0").Replace(",", ".") VND</div>
                     <a class="text-arrow-icon small" href="#!">
                         Switch to yearly billing
@@ -360,9 +360,9 @@
             <!-- Payment method 1-->
             <div class="d-flex align-items-center justify-content-between px-4">
                 <div class="d-flex align-items-center">
-                    <i class="fab fa-cc-visa fa-2x cc-color-visa"></i>
+                    <img src="/Content/Client/img/vnpay/VNPAY_id-sVSMjm2_0.png" style="width:50px" />
                     <div class="ms-4">
-                        <div class="small">Visa ending in 1234</div>
+                        <div class="small">VNPay ending in 1234</div>
                         <div class="text-xs text-muted">Expires 04/2024</div>
                     </div>
                 </div>

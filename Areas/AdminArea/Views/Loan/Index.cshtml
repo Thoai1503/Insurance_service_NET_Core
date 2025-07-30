@@ -55,10 +55,10 @@
                         {
                             <div class="btn-group" role="group">
                                 <button type="button" class="btn btn-success btn-sm" onclick="approveLoan(@item.Id)">
-                                    <i class="fas fa-check"></i> Duyệt
+                                    <i class="fas fa-check"></i> Approve
                                 </button>
                                 <button type="button" class="btn btn-danger btn-sm" onclick="rejectLoan(@item.Id)">
-                                    <i class="fas fa-times"></i> Từ chối
+                                    <i class="fas fa-times"></i> Reject
                                 </button>
                             </div>
                         }
@@ -82,7 +82,7 @@
 
 <script>
     function approveLoan(loanId) {
-        if (confirm('Bạn có chắc chắn muốn duyệt khoản vay này?')) {
+        if (confirm('Are you sure you want to approve this loan?')) {
             // Gửi AJAX request để approve loan
             $.ajax({
                 url: '@Url.Action("ApproveLoan", "Loan")', // Thay đổi controller name cho phù hợp
@@ -90,7 +90,7 @@
                 data: { id: loanId },
                 success: function(result) {
                     if (result.success) {
-                        alert('Khoản vay đã được duyệt thành công!');
+                        alert('Loan approved successfully!');
                         location.reload(); // Reload trang để cập nhật status
                     } else {
                         alert('Có lỗi xảy ra: ' + result.message);
@@ -104,7 +104,7 @@
     }
 
     function rejectLoan(loanId) {
-        if (confirm('Bạn có chắc chắn muốn từ chối khoản vay này?')) {
+        if (confirm('Are you sure you want to decline this loan?')) {
             // Gửi AJAX request để reject loan
             $.ajax({
                 url: '@Url.Action("RejectLoan", "Loan")', // Thay đổi controller name cho phù hợp
@@ -112,7 +112,7 @@
                 data: { id: loanId },
                 success: function(result) {
                     if (result.success) {
-                        alert('Khoản vay đã bị từ chối!');
+                        alert('Loan has been rejected!');
                         //ajax request for send mail
 
                        

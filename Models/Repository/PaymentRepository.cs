@@ -53,7 +53,7 @@ namespace Insurance_agency.Models.Repository
             {
                 if (month <= 12)
                 {
-                    var item = _context.TblPaymentHistories.Where(d => (d.PaymentDay.Month == month))
+                    var item = _context.TblPaymentHistories.Where(d => (d.PaymentDay.Value.Month == month))
                         .Select(d=>new PaymentHistory
                         {
                             id = d.Id,

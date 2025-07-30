@@ -34,7 +34,7 @@ namespace Insurance_agency.Controllers
             var contracts = ContractRepository.Instance.GetContractsByUserId(user.id);
             var totalPaid = contracts.Sum(c => c.total_paid);
             var contrNum = contracts.Count();
-            DateTime nextDue = contracts.Min(c => c.next_payment_due);
+            DateTime nextDue = contracts.Count>0? contracts.Min(c => c.next_payment_due):DateTime.Now;
             var displayDate = nextDue.ToString("dd MMM yyyy");
             ContractView nextDueContract = contracts.Where(c => c.next_payment_due == nextDue).FirstOrDefault();
             var notificationCount = NotificationRepository.Instance.GetUnreadNotificationsByUserId(user.id)

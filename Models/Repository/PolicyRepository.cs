@@ -75,7 +75,7 @@ namespace Insurance_agency.Models.Repository
         {
             try
             {
-                var poli = _context.TblPolicies.Include(p => p.Insurance).FirstOrDefault(p => p.Id == id);
+                var poli = _context.TblPolicies.FirstOrDefault(p => p.Id == id);
                 if (poli == null) return null;
                 return new Policy
                 {
@@ -115,26 +115,7 @@ namespace Insurance_agency.Models.Repository
                 return new HashSet<Policy>();
             }
         }
-        public HashSet<Policy> GetAll()
-        {
-            try
-            {
-                return _context.TblPolicies.Include(p => p.Insurance).Select(p => new Policy
-                {
-                    id = p.Id,
-                    name = p.Name ?? string.Empty,
-                    description = p.Description ?? string.Empty,
-                    active = p.Active ?? 0,
-                    age_min = p.AgeMin ?? 0,
-                    age_max = p.AgeMax ?? 0,
-                    insurance_id = p.InsuranceId ?? 0,
-                }).ToHashSet();
-            }
-            catch
-            {
-                return new HashSet<Policy>();
-            }
-        }
+
 
         public bool Update(Policy entity)
         {
@@ -178,31 +159,31 @@ namespace Insurance_agency.Models.Repository
                 return new HashSet<Policy>();
             }
         }
-        public HashSet<Policy> FindByNameInsurance(string keyword)
-        {
-            try
-            {
-                return _context.TblPolicies
-                    .Include(p => p.Insurance)
-                    .Where(p => p.Insurance != null && p.Insurance.Name.Contains(keyword))
-                    .Select(p => new Policy
-                    {
-                        id = p.Id,
-                        name = p.Name ?? string.Empty,
-                        description = p.Description ?? string.Empty,
-                        active = p.Active ?? 0,
-                        age_max = p.AgeMax ?? 0,
-                        age_min = p.AgeMin ?? 0,
-                    }).ToHashSet();
-                ;
+        //public HashSet<Policy> FindByNameInsurance(string keyword)
+        //{
+        //    try
+        //    {
+        //        return _context.TblPolicies
+        //            .Include(p => p.Insurance)
+        //            .Where(p => p.Insurance != null && p.Insurance.Name.Contains(keyword))
+        //            .Select(p => new Policy
+        //            {
+        //                id = p.Id,
+        //                name = p.Name ?? string.Empty,
+        //                description = p.Description ?? string.Empty,
+        //                active = p.Active ?? 0,
+        //                age_max = p.AgeMax ?? 0,
+        //                age_min = p.AgeMin ?? 0,
+        //            }).ToHashSet();
+        //        ;
 
-            }
-            catch
-            {
-                return new HashSet<Policy>();
-            }
+        //    }
+        //    catch
+        //    {
+        //        return new HashSet<Policy>();
+        //    }
 
-        }
+        //}
         public bool ToggleActive(int id, int active)
         {
             try
@@ -218,43 +199,48 @@ namespace Insurance_agency.Models.Repository
                 return false;
             }
         }
-        public PaginationSearch<Policy> PaginationSearch(string? keyword, bool searchInsurance, int pageNumber, int pageSize)
+
+        public HashSet<Policy> GetAll()
         {
-            try
-            {
-                var query = _context.TblPolicies.Include(p => p.Insurance).AsQueryable();
-                if (!string.IsNullOrWhiteSpace(keyword))
-                {
-                    string lower = keyword.ToLower();
-                    query = searchInsurance ? query.Where(p => p.Insurance != null && p.Insurance.Name.ToLower().Contains(lower)) :
-                        query.Where(p => p.Name != null && p.Name.ToLower().Contains(keyword));
-                }
-                int totalItem = query.Count();
-                var policy = query.OrderBy(p => p.Id)
-                    .Skip((pageNumber - 1) * pageSize).Take(pageSize).Select(p => new Policy
-                    {
-                        id = p.Id,
-                        name = p.Name ?? string.Empty,
-                        description = p.Description ?? string.Empty,
-                        active = p.Active ?? 0,
-                        age_max = p.AgeMax ?? 0,
-                        age_min = p.AgeMin ?? 0,
-                        insurance_id = p.InsuranceId ?? 0,
-                    }).ToList();
-                return new PaginationSearch<Policy>
-                {
-                    TotalItem = totalItem,
-                    PageNumber = pageNumber,
-                    PageSize = pageSize,
-                    SearchKeyword = keyword,
-                    Items = policy
-                };
-            }
-            catch
-            {
-                return new PaginationSearch<Policy>();
-            }
+            throw new NotImplementedException();
         }
+        //public PaginationSearch<Policy> PaginationSearch(string? keyword, bool searchInsurance, int pageNumber, int pageSize)
+        //{
+        //    try
+        //    {
+        //        var query = _context.TblPolicies.Include(p => p.Insurance).AsQueryable();
+        //        if (!string.IsNullOrWhiteSpace(keyword))
+        //        {
+        //            string lower = keyword.ToLower();
+        //            query = searchInsurance ? query.Where(p => p.Insurance != null && p.Insurance.Name.ToLower().Contains(lower)) :
+        //                query.Where(p => p.Name != null && p.Name.ToLower().Contains(keyword));
+        //        }
+        //        int totalItem = query.Count();
+        //        var policy = query.OrderBy(p => p.Id)
+        //            .Skip((pageNumber - 1) * pageSize).Take(pageSize).Select(p => new Policy
+        //            {
+        //                id = p.Id,
+        //                name = p.Name ?? string.Empty,
+        //                description = p.Description ?? string.Empty,
+        //                active = p.Active ?? 0,
+        //                age_max = p.AgeMax ?? 0,
+        //                age_min = p.AgeMin ?? 0,
+        //                insurance_id = p.InsuranceId ?? 0,
+        //            }).ToList();
+        //        return new PaginationSearch<Policy>
+        //        {
+        //            TotalItem = totalItem,
+        //            PageNumber = pageNumber,
+        //            PageSize = pageSize,
+        //            SearchKeyword = keyword,
+        //            Items = policy
+        //        };
+        //    }
+        //    catch
+        //    {
+        //        return new PaginationSearch<Policy>();
+        //    }
+        //}
     }
 }
 

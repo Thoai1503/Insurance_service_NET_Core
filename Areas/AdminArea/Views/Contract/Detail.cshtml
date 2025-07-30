@@ -1108,18 +1108,7 @@
 											<i class="ace-icon fa fa-caret-right blue"></i>Insurance Id: #BHNT(@contract.insurance_id)
 										</li>
 
-										<li>
-											<i class="ace-icon fa fa-caret-right blue"></i>
-											Phone:
-											<b class="red">111-111-111</b>
-										</li>
-
-										<li class="divider"></li>
-
-										<li>
-											<i class="ace-icon fa fa-caret-right blue"></i>
-											Payment Info
-										</li>
+									
 									</ul>
 								</div>
 							</div><!-- /.col -->
@@ -1145,7 +1134,7 @@
                                             <i class="ace-icon fa fa-caret-right green"></i>@contract.user.address
 										</li>
 
-										<li class="divider"></li>
+                                        <li class="divider">@contract.user.email</li>
 
 										<li>
 											<i class="ace-icon fa fa-caret-right green"></i>
@@ -1165,7 +1154,7 @@
 										<th class="center">#</th>
 										<th>Product</th>
 										<th class="hidden-xs">Description</th>
-										<th class="hidden-480">Discount</th>
+										<th class="hidden-480">Premium Pay</th>
 										<th>Total</th>
 									</tr>
 								</thead>
@@ -1221,8 +1210,8 @@
 						<div class="row">
 							<div class="col-sm-5 pull-right">
 								<h4 class="pull-right">
-									Total amount :
-                                    <span class="red">@contract.year_paid?.ToString("N0") VND</span>
+									Total Value :
+                                    <span class="red">@contract.value_contract?.ToString("N0") VND</span>
 								</h4>
 							</div>
 							<div class="col-sm-7 pull-left"> Extra Information </div>

@@ -20,7 +20,7 @@ namespace Insurance_agency.Controllers
             var contract = ContractRepository.Instance.FindById(contractId);
             if (contract == null)
             {
-                return NotFound();
+                return NotFound();  
             }
             // Assuming you have a method to create a loan request
             var loanRequest = new Loan

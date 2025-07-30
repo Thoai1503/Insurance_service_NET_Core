@@ -18,6 +18,4 @@ public partial class TblPolicy
     public int? AgeMax { get; set; }
 
     public int? Active { get; set; }
-
-    public virtual Insurance? Insurance { get; set; }
 }
