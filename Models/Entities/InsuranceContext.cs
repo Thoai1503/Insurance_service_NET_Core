@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
@@ -40,10 +40,6 @@ public partial class InsuranceContext : DbContext
     public virtual DbSet<TblSubsidiary> TblSubsidiaries { get; set; }
 
     public virtual DbSet<TblUser> TblUsers { get; set; }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("workstation id=Insurance3.mssql.somee.com;packet size=4096;user id=Thoai123_SQLLogin_1;pwd=5748x63qmi;data source=Insurance3.mssql.somee.com;persist security info=False;initial catalog=Insurance3;TrustServerCertificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

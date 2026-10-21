@@ -4,6 +4,9 @@ obj/
 *.user
 *.suo
 *.cache
+.env
+.env.*
+!.env.example
 obj/Debug/net8.0/apphost.exe
 obj/Debug/net8.0/Insurance_agency.AssemblyInfo.cs
 obj/Debug/net8.0/Insurance_agency.AssemblyInfoInputs.cache

@@ -97,7 +97,7 @@ namespace Insurance_agency.Libraries
         }
         public string CreateRequestUrl(string baseUrl, string vnpHashSecret)
         {
-            var data = new StringBuilder();
+            var data = new StringBuilder(); 
 
             foreach (var (key, value) in _requestData.Where(kv => !string.IsNullOrEmpty(kv.Value)))
             {
@@ -108,7 +108,7 @@ namespace Insurance_agency.Libraries
 
             baseUrl += "?" + querystring;
             var signData = querystring;
-            if (signData.Length > 0)
+            if (signData.Length > 0)    
             {
                 signData = signData.Remove(data.Length - 1, 1);
             }

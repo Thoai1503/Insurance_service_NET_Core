@@ -15,6 +15,7 @@ namespace Insurance_agency
         public async Task InvokeAsync(HttpContext context)
         {
             // Mặc định display = 1
+            Console.WriteLine("Middleware executed");
             context.Session.SetInt32("display", 1);
             context.Session.SetInt32("allbanner", 1);
 

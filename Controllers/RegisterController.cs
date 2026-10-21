@@ -13,6 +13,13 @@ namespace Insurance_agency.Controllers
 {
     public class RegisterController : Controller
     {
+        private readonly IConfiguration _configuration;
+
+        public RegisterController(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         public IActionResult Index()
         {
             ViewBag.Title = "Register";
@@ -25,7 +32,11 @@ namespace Insurance_agency.Controllers
             string to = email;
             string code = Function.GenerateCode();
             HttpContext.Session.SetObject("code", code);
-            string from = "minhphat1612@gmail.com";
+            var smtpSettings = _configuration.GetRequiredSection("RegistrationSMTP");
+            var from = smtpSettings["UserName"]
+                ?? throw new InvalidOperationException("Missing required configuration 'RegistrationSMTP:UserName'.");
+            var password = smtpSettings["Password"]
+                ?? throw new InvalidOperationException("Missing required configuration 'RegistrationSMTP:Password'.");
             MailMessage message = new MailMessage(from, to);
             message.Subject = "Verification Code";
             message.Body = @"" + code;
@@ -33,12 +44,13 @@ namespace Insurance_agency.Controllers
             {
                 using (SmtpClient smtp = new SmtpClient())
                 {
-                    smtp.Host = "smtp.gmail.com";
-                    smtp.EnableSsl = true;
+                    smtp.Host = smtpSettings["Host"]
+                        ?? throw new InvalidOperationException("Missing required configuration 'RegistrationSMTP:Host'.");
+                    smtp.EnableSsl = smtpSettings.GetValue<bool>("EnableSSL");
                     smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-                    NetworkCredential NetworkCred = new NetworkCredential(from, "xhhe ikpv aazx osjq");
+                    NetworkCredential NetworkCred = new NetworkCredential(from, password);
                     smtp.Credentials = NetworkCred;
-                    smtp.Port = 587;
+                    smtp.Port = smtpSettings.GetValue<int>("Port");
                     smtp.Send(message);
                 }
             }

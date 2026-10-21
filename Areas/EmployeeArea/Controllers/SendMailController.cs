@@ -2,17 +2,25 @@
 using Insurance_agency.Models.Repository;
 using Insurance_agency.Services.SendMail;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace Insurance_agency.Areas.EmployeeArea.Controllers
 {
     [Area("EmployeeArea")]
     public class SendMailController : Controller
     {
+        private readonly IConfiguration _configuration;
+
+        public SendMailController(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         public async Task<ActionResult> Index(int from,string email,string title, string content, int to=0)
         {
             if(to != 0)
             {
-                var emailService = new EmailService();
+                var emailService = new EmailService(_configuration);
                 await emailService.SendEmailAsync("vothoai1503@gmail.com", title, content);
                 Notification notification = new Notification
                 {
@@ -34,7 +42,7 @@ namespace Insurance_agency.Areas.EmployeeArea.Controllers
             }
             else
             {
-                var emailService = new EmailService();
+                var emailService = new EmailService(_configuration);
                 await emailService.SendEmailAsync(email, title, content);
 
                 return Json(new { message = "Email sent successfully!" });

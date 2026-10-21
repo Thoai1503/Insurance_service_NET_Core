@@ -30,15 +30,23 @@ git clone https://github.com/Thoai1503/Insurance_agancy_NET_Core.git
 cd Insurance_agancy_NET_Core
 ```
 
-### 3. Configure the Database
+### 3. Configure local secrets
 
-- Open the `appsettings.json` file
-- Update the connection string to match your SQL Server configuration:
+Copy `.env.example` to `.env` and fill in your database connection string, VNPay
+credentials, and SMTP credentials. The `.env` file is ignored by Git and loaded
+when the application starts. Do not commit it; configure these values as
+environment variables in deployed environments.
 
-```json
-"ConnectionStrings": {
-  "DefaultConnection": "Server=YOUR_SERVER;Database=YOUR_DATABASE;User Id=YOUR_USER;Password=YOUR_PASSWORD;Trusted_Connection=False;MultipleActiveResultSets=true"
-}
+On Windows PowerShell:
+
+```powershell
+Copy-Item .env.example .env
+```
+
+On other shells:
+
+```bash
+cp .env.example .env
 ```
 
 ### 4. Restore and build the project

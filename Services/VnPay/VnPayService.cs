@@ -26,6 +26,8 @@ namespace Insurance_agency.Services.VnPay
             pay.AddRequestData("vnp_Amount", ((int)model.Amount * 100).ToString());
             pay.AddRequestData("vnp_CreateDate", timeNow.ToString("yyyyMMddHHmmss"));
             pay.AddRequestData("vnp_CurrCode", _configuration["Vnpay:CurrCode"]);
+            //pay.AddRequestData("vnp_BankCode", _configuration["Vnpay:BankCode"]);
+            //pay.AddRequestData("vnp_Issuer", _configuration["Vnpay:Issuer"]);
             pay.AddRequestData("vnp_IpAddr", pay.GetIpAddress(context));
             pay.AddRequestData("vnp_Locale", _configuration["Vnpay:Locale"]);
             pay.AddRequestData("vnp_OrderInfo", $"{model.Name} {model.OrderDescription} {model.Amount}");

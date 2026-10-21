@@ -153,6 +153,7 @@
 
   <ItemGroup>
     <PackageReference Include="BCrypt.Net-Core" Version="1.6.0" />
+    <PackageReference Include="DotNetEnv" Version="3.1.1" />
     <PackageReference Include="MailKit" Version="4.13.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.6">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -163,7 +164,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.23" />
   </ItemGroup>
 
   <ItemGroup>
@@ -171,6 +172,10 @@
     <Folder Include="Areas\AdminArea\Models\" />
     <Folder Include="Areas\EmployeeArea\Data\" />
     <Folder Include="Areas\EmployeeArea\Models\" />
+    <Folder Include="Areas\SellerArea\Controllers\" />
+    <Folder Include="Areas\SellerArea\Data\" />
+    <Folder Include="Areas\SellerArea\Models\" />
+    <Folder Include="Areas\SellerArea\Views\" />
     <Folder Include="wwwroot\Content\Admin\vendor\bootstrap\js\" />
   </ItemGroup>
 

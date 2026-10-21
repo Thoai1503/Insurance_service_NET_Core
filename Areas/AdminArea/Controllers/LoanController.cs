@@ -1,6 +1,7 @@
 ﻿using Insurance_agency.Models.ModelView;
 using Insurance_agency.Models.Repository;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace Insurance_agency.Areas.AdminArea.Controllers
 {
@@ -8,10 +9,10 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
     public class LoanController : Controller
     {
         SendMailController sendMailController;
-        public LoanController()
+        public LoanController(IConfiguration configuration)
         {
             // Constructor logic if needed
-            sendMailController = new SendMailController();
+            sendMailController = new SendMailController(configuration);
         }
         public IActionResult Index()
         {

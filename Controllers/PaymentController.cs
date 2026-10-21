@@ -17,7 +17,7 @@ namespace Insurance_agency.Controllers
         public IActionResult CreatePaymentUrlVnpay(PaymentInformationModel model,ContractView ctr)
         {
             var url = _vnPayService.CreatePaymentUrl(model, HttpContext);
-
+            Console.WriteLine(url);
             return Redirect(url);
         }
 

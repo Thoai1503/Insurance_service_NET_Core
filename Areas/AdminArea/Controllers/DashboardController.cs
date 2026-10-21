@@ -3,12 +3,20 @@ using Insurance_agency.Models.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Insurance_agency.Models.ModelView;
+using Microsoft.Extensions.Configuration;
 
 namespace Insurance_agency.Areas.AdminArea.Controllers
 {
     [Area("AdminArea")]
     public class DashboardController : Controller
     {
+        private readonly IConfiguration _configuration;
+
+        public DashboardController(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         // GET: DashboardController
         public async Task< ActionResult> Index()
         {
@@ -101,7 +109,7 @@ namespace Insurance_agency.Areas.AdminArea.Controllers
         }
         public async Task<ActionResult> SendMail()
         {
-            var emailService = new EmailService();
+            var emailService = new EmailService(_configuration);
             await emailService.SendEmailAsync("user@gmail.com", "Test", "Hello from Gmail SMTP");
             return Json(new { message = "Email sent successfully!" });
         }

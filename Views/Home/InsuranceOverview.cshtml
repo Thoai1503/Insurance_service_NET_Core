@@ -40,6 +40,7 @@
 				itaque quis facere, numquam, ad culpa deserunt sint dolorem autem
 				obcaecati, ipsam mollitia hic.
 			</p>
+			<h3>Search: @search</h3>
 		</div>
 		<div class="row">
 			<div class="col-sm-9"></div>
@@ -419,6 +420,7 @@
 			type: 'GET',
 			data: data,
 			success: function(response) {
+				//alert(@ViewBag.Search);
 				renderInsuranceList(response.insuranceList);
 				updatePagination(response.pagination, searchValue);
 			},

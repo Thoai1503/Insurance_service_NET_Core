@@ -9,11 +9,11 @@ namespace Insurance_agency.Controllers
     public class CheckoutController : Controller
     {
         private readonly IVnPayService _vnPayService;
-        public CheckoutController(IVnPayService vnPayService)
-        {
+            public CheckoutController(IVnPayService vnPayService)
+            {
 
-            _vnPayService = vnPayService;
-        }
+                _vnPayService = vnPayService;
+            }
         public IActionResult Index(int id)
        {
 
@@ -44,9 +44,12 @@ namespace Insurance_agency.Controllers
         }
         [HttpGet]
         public IActionResult PaymentCallbackVnpay()
+
         {
+            Console.WriteLine("Query:" + Request.Query);
             var response = _vnPayService.PaymentExecute(Request.Query);
-            if(response.Success)
+           // Console.WriteLine("Response:" + JsonSerializer.Serialize(response));
+            if (response.Success)
             {
                 var contract = HttpContext.Session.GetObject<ContractView>("contract");
                 if (contract != null)

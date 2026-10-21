@@ -9,11 +9,11 @@ namespace Insurance_agency.Controllers
         {
             return View();
         }
-        public IActionResult List()
-        {
-            var insuranceTypes = InsuranceTypeRepository.Instance.GetAll();
+        //public IActionResult List()
+        //{
+        //    var insuranceTypes = InsuranceTypeRepository.Instance.GetAll();
 
-            return PartialView("_InsuranceList",insuranceTypes);
-        }
+        //    return PartialView("_InsuranceList",insuranceTypes);
+        //}
     }
 }

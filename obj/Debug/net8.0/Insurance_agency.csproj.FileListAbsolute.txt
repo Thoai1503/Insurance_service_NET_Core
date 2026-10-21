@@ -355,7 +355,6 @@ C:\project_NET\Insurance_agency\Insurance_agency\bin\Debug\net8.0\Microsoft.Visu
 C:\project_NET\Insurance_agency\Insurance_agency\bin\Debug\net8.0\Microsoft.VisualStudio.Web.CodeGeneration.Templating.dll
 C:\project_NET\Insurance_agency\Insurance_agency\bin\Debug\net8.0\Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll
 C:\project_NET\Insurance_agency\Insurance_agency\bin\Debug\net8.0\Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll
-C:\project_NET\Insurance_agency\Insurance_agency\bin\Debug\net8.0\Microsoft.Win32.SystemEvents.dll
 C:\project_NET\Insurance_agency\Insurance_agency\bin\Debug\net8.0\Mono.TextTemplating.dll
 C:\project_NET\Insurance_agency\Insurance_agency\bin\Debug\net8.0\Newtonsoft.Json.dll
 C:\project_NET\Insurance_agency\Insurance_agency\bin\Debug\net8.0\NuGet.Common.dll
@@ -376,7 +375,6 @@ C:\project_NET\Insurance_agency\Insurance_agency\bin\Debug\net8.0\System.Composi
 C:\project_NET\Insurance_agency\Insurance_agency\bin\Debug\net8.0\System.Composition.TypedParts.dll
 C:\project_NET\Insurance_agency\Insurance_agency\bin\Debug\net8.0\System.Configuration.ConfigurationManager.dll
 C:\project_NET\Insurance_agency\Insurance_agency\bin\Debug\net8.0\System.Diagnostics.DiagnosticSource.dll
-C:\project_NET\Insurance_agency\Insurance_agency\bin\Debug\net8.0\System.Drawing.Common.dll
 C:\project_NET\Insurance_agency\Insurance_agency\bin\Debug\net8.0\System.Formats.Asn1.dll
 C:\project_NET\Insurance_agency\Insurance_agency\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
 C:\project_NET\Insurance_agency\Insurance_agency\bin\Debug\net8.0\System.IO.Pipelines.dll
@@ -384,10 +382,8 @@ C:\project_NET\Insurance_agency\Insurance_agency\bin\Debug\net8.0\System.Memory.
 C:\project_NET\Insurance_agency\Insurance_agency\bin\Debug\net8.0\System.Reflection.MetadataLoadContext.dll
 C:\project_NET\Insurance_agency\Insurance_agency\bin\Debug\net8.0\System.Runtime.Caching.dll
 C:\project_NET\Insurance_agency\Insurance_agency\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
-C:\project_NET\Insurance_agency\Insurance_agency\bin\Debug\net8.0\System.Security.Permissions.dll
 C:\project_NET\Insurance_agency\Insurance_agency\bin\Debug\net8.0\System.Text.Encodings.Web.dll
 C:\project_NET\Insurance_agency\Insurance_agency\bin\Debug\net8.0\System.Text.Json.dll
-C:\project_NET\Insurance_agency\Insurance_agency\bin\Debug\net8.0\System.Windows.Extensions.dll
 C:\project_NET\Insurance_agency\Insurance_agency\bin\Debug\net8.0\af\Humanizer.resources.dll
 C:\project_NET\Insurance_agency\Insurance_agency\bin\Debug\net8.0\ar\Humanizer.resources.dll
 C:\project_NET\Insurance_agency\Insurance_agency\bin\Debug\net8.0\az\Humanizer.resources.dll
@@ -546,12 +542,8 @@ C:\project_NET\Insurance_agency\Insurance_agency\bin\Debug\net8.0\runtimes\win-a
 C:\project_NET\Insurance_agency\Insurance_agency\bin\Debug\net8.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
 C:\project_NET\Insurance_agency\Insurance_agency\bin\Debug\net8.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
 C:\project_NET\Insurance_agency\Insurance_agency\bin\Debug\net8.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
-C:\project_NET\Insurance_agency\Insurance_agency\bin\Debug\net8.0\runtimes\win\lib\net7.0\Microsoft.Win32.SystemEvents.dll
-C:\project_NET\Insurance_agency\Insurance_agency\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Drawing.Common.dll
 C:\project_NET\Insurance_agency\Insurance_agency\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
-C:\project_NET\Insurance_agency\Insurance_agency\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Security.Cryptography.ProtectedData.dll
 C:\project_NET\Insurance_agency\Insurance_agency\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
-C:\project_NET\Insurance_agency\Insurance_agency\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Windows.Extensions.dll
 C:\project_NET\Insurance_agency\Insurance_agency\obj\Debug\net8.0\Insurance_agency.csproj.AssemblyReference.cache
 C:\project_NET\Insurance_agency\Insurance_agency\obj\Debug\net8.0\Insurance_agency.GeneratedMSBuildEditorConfig.editorconfig
 C:\project_NET\Insurance_agency\Insurance_agency\obj\Debug\net8.0\Insurance_agency.AssemblyInfoInputs.cache
@@ -881,4 +873,6 @@ C:\Users\minhp\Desktop\Gitclone\Insurance_agancy_NET_Core\obj\Debug\net8.0\stati
 C:\Users\minhp\Desktop\Gitclone\Insurance_agancy_NET_Core\obj\Debug\net8.0\Insuranc.11D17CCC.Up2Date
 C:\Users\minhp\Desktop\Gitclone\Insurance_agancy_NET_Core\obj\Debug\net8.0\Insurance_agency.genruntimeconfig.cache
 C:\Users\minhp\Desktop\Gitclone\Insurance_agancy_NET_Core\obj\Debug\net8.0\ref\Insurance_agency.dll
-C:\project_NET\Insurance_agency\Insurance_agency\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+C:\project_NET\Insurance_agency\Insurance_agency\obj\Debug\net8.0\swae.build.ex.cache
+C:\project_NET\Insurance_agency\Insurance_agency\bin\Debug\net8.0\DotNetEnv.dll
+C:\project_NET\Insurance_agency\Insurance_agency\bin\Debug\net8.0\Sprache.dll
