@@ -276,6 +276,13 @@ public partial class InsuranceContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("payment_day");
             entity.Property(e => e.Status).HasColumnName("status");
+            entity.Property(e => e.VnpayTransactionRef)
+                .HasMaxLength(32)
+                .IsUnicode(false)
+                .HasColumnName("vnpay_transaction_ref");
+            entity.HasIndex(e => e.VnpayTransactionRef)
+                .IsUnique()
+                .HasFilter("[vnpay_transaction_ref] IS NOT NULL");
 
             entity.HasOne(d => d.Contract).WithMany(p => p.TblPaymentHistories)
                 .HasForeignKey(d => d.ContractId)

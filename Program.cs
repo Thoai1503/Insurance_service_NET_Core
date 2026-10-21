@@ -28,6 +28,8 @@ builder.Services.AddHttpContextAccessor();
 
 // Add payment gateway service
 builder.Services.AddScoped<IVnPayService, VnPayService>();
+builder.Services.AddScoped<CheckoutRepository>();
+builder.Services.AddScoped<CheckoutService>();
 var app = builder.Build();
 if (builder.Configuration.GetValue<bool>("SeedAccounts:Enabled"))
 {

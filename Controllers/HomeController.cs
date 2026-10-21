@@ -241,8 +241,13 @@ namespace Insurance_agency.Controllers
         }
         public IActionResult InsuranceDetail(int id)
         {
+            Console.WriteLine("Insurance ID: " + id);
             var insurance = InsuranceRepository.Instance.FindById(id);
-
+            Console.WriteLine("Insurance: " + insurance);
+            if (insurance == null)
+            {
+                return NotFound();
+            }
 
             var relatedinsurance = InsuranceRepository.Instance.FindByInsuranceTypeId(insurance.insurance_type_id).Take(3).ToHashSet();
             var item = PolicyRepository.Instance.GetAllByInsuranceId(id);

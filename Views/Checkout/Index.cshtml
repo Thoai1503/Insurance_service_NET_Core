@@ -2,7 +2,9 @@
     ViewBag.Title = "DemoForm";
     Layout = "~/Views/Shared/_Layout.cshtml";
     @model Insurance_agency.Models.ModelView.InsuranceView;
-    var premiumPaid =(Model.value / Model.year_max);
+    var premiumPaid = Model.year_max > 0
+        ? (long)Math.Ceiling((decimal)Model.value / Model.year_max)
+        : 0;
     var user = Context.Session.GetObject<Insurance_agency.Models.ModelView.User>("user");
 
 }
@@ -60,7 +62,8 @@
         </div>
         <div class="col-md-8 order-md-1">
             <h4 class="mb-3">Billing address</h4>
-            <form class="needs-validation" novalidate="" action="/payment/CreatePaymentUrlVnpay">
+            <form class="needs-validation" novalidate="" action="/payment/CreatePaymentUrlVnpay" method="post">
+                @Html.AntiForgeryToken()
 
                 <div class="mb-3">
                     <label for="username">Username</label>
@@ -131,12 +134,6 @@
                             Security code required
                         </div>
                     </div>
-                </div>
-                <div>
-                    <input type="hidden"  name="Name" value="ThoaiVipPro" />
-                    <input type="hidden"  name="Amount" value="@premiumPaid" />
-                    <input type="hidden"  name="OrderDescription" value="Thanh toan hoa don hop dong" />
-                    <input type="hidden"  name="OrderType" value="other" />
                 </div>
                 <hr class="mb-4">
                 <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>

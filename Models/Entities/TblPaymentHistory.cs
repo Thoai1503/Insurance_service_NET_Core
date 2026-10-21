@@ -15,5 +15,7 @@ public partial class TblPaymentHistory
 
     public int? Status { get; set; }
 
+    public string? VnpayTransactionRef { get; set; }
+
     public virtual TblContract? Contract { get; set; }
 }

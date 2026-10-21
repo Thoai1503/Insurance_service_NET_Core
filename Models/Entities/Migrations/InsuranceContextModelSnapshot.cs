@@ -392,10 +392,20 @@ namespace Insurance_agency.Models.Entities.Migrations
                         .HasColumnType("int")
                         .HasColumnName("status");
 
+                    b.Property<string>("VnpayTransactionRef")
+                        .HasMaxLength(32)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(32)")
+                        .HasColumnName("vnpay_transaction_ref");
+
                     b.HasKey("Id")
                         .HasName("PK_PaymentHistory");
 
                     b.HasIndex("ContractId");
+
+                    b.HasIndex("VnpayTransactionRef")
+                        .IsUnique()
+                        .HasFilter("[vnpay_transaction_ref] IS NOT NULL");
 
                     b.ToTable("tbl_payment_history", (string)null);
                 });

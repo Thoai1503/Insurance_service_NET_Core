@@ -63,6 +63,9 @@ If you don't have the database yet, run the migration command (if migrations are
 ```bash
 dotnet ef database update
 ```
+
+The latest migration adds a unique VNPay order reference to payment history.
+Apply pending migrations before using checkout/payment callbacks.
 > If there are no migrations yet, create the first migration:
 >
 > ```bash

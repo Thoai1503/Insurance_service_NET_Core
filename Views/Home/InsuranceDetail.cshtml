@@ -4,6 +4,9 @@
 @{
     @model HashSet<Insurance_agency.Models.ModelView.Policy>
     var insurance = (Insurance_agency.Models.ModelView.InsuranceView)ViewBag.Insurance;
+    var annualPayment = insurance.year_max > 0
+        ? (int?)(insurance.value / insurance.year_max)
+        : null;
 }
 @* <!-- Font Awesome -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
@@ -98,7 +101,9 @@
 
                             <div class="row no-gutters align-items-center">
                                 <div class="col-auto">
-                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"> @((insurance.value / insurance.year_max).ToString("N0"))</div>
+                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                                        @(annualPayment.HasValue ? annualPayment.Value.ToString("N0") : "Chưa xác định")
+                                    </div>
                                 </div>
                                 <div class="col">
                                     <div class="progress progress-sm mr-2">

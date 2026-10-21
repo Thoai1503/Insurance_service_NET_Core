@@ -54,42 +54,25 @@ namespace Insurance_agency.Models.Repository
 
         public InsuranceView FindById(int id)
         {
-
-            try
-            {
-                var item = _context.Insurances.Where(d => d.Id == id && d.Status ==1)
-                    .Include(c => c.InsuranceType)
-                    .Select(d => new InsuranceView
+            return _context.Insurances
+                .Where(d => d.Id == id && d.Status == 1)
+                .Select(d => new InsuranceView
                 {
                     id = d.Id,
-                    name = d.Name,
-                    description = d.Description,
-                    year_max = (int)d.YearMax,
+                    name = d.Name ?? string.Empty,
+                    description = d.Description ?? string.Empty,
+                    year_max = d.YearMax ?? 0,
                     InsuranceTypeView = new InsuranceTypeView
                     {
-                        id = (int)d.InsuranceTypeId,
-                        name = d.InsuranceType.Name,
-                        description = d.InsuranceType.Description,
-                       
+                        id = d.InsuranceTypeId ?? 0,
+                        name = d.InsuranceType != null ? d.InsuranceType.Name : string.Empty,
+                        description = d.InsuranceType != null ? d.InsuranceType.Description : null
                     },
-                        value = d.Value ?? 0,
-
-
-
-                    insurance_type_id = (int)d.InsuranceTypeId,
-
-                    ex_image = d.ExImage
-                }).FirstOrDefault();
-                if (item != null)
-                {
-                    return item;
-                }
-            }
-            catch (Exception ex)
-            {
-
-            }
-            return null;
+                    value = d.Value ?? 0,
+                    insurance_type_id = d.InsuranceTypeId ?? 0,
+                    ex_image = d.ExImage ?? string.Empty
+                })
+                .FirstOrDefault();
         }
         public bool Active(int id, int active_status = 0)
         {

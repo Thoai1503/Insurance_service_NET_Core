@@ -23,29 +23,38 @@ namespace Insurance_agency.Libraries
                     vnPay.AddResponseData(key, value);
                 }
             }
-            var orderId = Convert.ToInt64(vnPay.GetResponseData("vnp_TxnRef"));
-            var vnPayTranId = Convert.ToInt64(vnPay.GetResponseData("vnp_TransactionNo"));
-            var vnpResponseCode = vnPay.GetResponseData("vnp_ResponseCode");
             var vnpSecureHash =
                 collection.FirstOrDefault(k => k.Key == "vnp_SecureHash").Value; //hash của dữ liệu trả về
-            var orderInfo = vnPay.GetResponseData("vnp_OrderInfo");
             var checkSignature =
                 vnPay.ValidateSignature(vnpSecureHash, hashSecret); //check Signature
-            if (!checkSignature)
+            if (!checkSignature ||
+                !long.TryParse(vnPay.GetResponseData("vnp_Amount"), out var amountInMinorUnits) ||
+                amountInMinorUnits < 0)
                 return new PaymentResponseModel()
                 {
                     Success = false
                 };
+
+            var orderId = vnPay.GetResponseData("vnp_TxnRef");
+            var vnPayTranId = vnPay.GetResponseData("vnp_TransactionNo");
+            var vnpResponseCode = vnPay.GetResponseData("vnp_ResponseCode");
+            if (string.IsNullOrWhiteSpace(orderId) || string.IsNullOrWhiteSpace(vnPayTranId) ||
+                amountInMinorUnits % 100 != 0)
+            {
+                return new PaymentResponseModel { Success = false };
+            }
+
             return new PaymentResponseModel()
             {
-                Success = true,
+                Success = vnpResponseCode == "00",
                 PaymentMethod = "VnPay",
-                OrderDescription = orderInfo,
-                OrderId = orderId.ToString(),
-                PaymentId = vnPayTranId.ToString(),
-                TransactionId = vnPayTranId.ToString(),
+                OrderDescription = vnPay.GetResponseData("vnp_OrderInfo"),
+                OrderId = orderId,
+                PaymentId = vnPayTranId,
+                TransactionId = vnPayTranId,
                 Token = vnpSecureHash,
-                VnPayResponseCode = vnpResponseCode
+                VnPayResponseCode = vnpResponseCode,
+                Amount = amountInMinorUnits / 100
             };
         }
         public string GetIpAddress(HttpContext context)
