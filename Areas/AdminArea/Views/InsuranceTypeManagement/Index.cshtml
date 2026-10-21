@@ -1,0 +1,130 @@
+@model Insurance_agency.Models.ModelView.InsuranceTypeCreateViewModel
+@using Insurance_agency.Models.Entities
+@{
+    Layout = "~/Areas/AdminArea/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Master data - Loại bảo hiểm";
+    var insuranceTypes = ViewBag.InsuranceTypes as List<TblInsuranceType> ?? new List<TblInsuranceType>();
+    var parentTypes = ViewBag.ParentTypes as List<TblInsuranceType> ?? new List<TblInsuranceType>();
+}
+
+<div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <div>
+            <h1 class="h3 mb-1 text-gray-800">Master data</h1>
+            <p class="mb-0 text-muted">Quản lý danh mục loại bảo hiểm.</p>
+        </div>
+    </div>
+
+    @if (TempData["SuccessMessage"] is string successMessage)
+    {
+        <div class="alert alert-success" role="alert">@successMessage</div>
+    }
+
+    <div class="row">
+        <div class="col-xl-4 col-lg-5 mb-4">
+            <div class="card shadow">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Tạo loại bảo hiểm</h6>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Create" method="post">
+                        @Html.AntiForgeryToken()
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <div class="form-group">
+                            <label asp-for="Name"></label>
+                            <input asp-for="Name" class="form-control" maxlength="50" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Description"></label>
+                            <textarea asp-for="Description" class="form-control" rows="3" maxlength="200"></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="ParentId"></label>
+                            <select asp-for="ParentId" class="form-control">
+                                <option value="0">Danh mục gốc</option>
+                                @foreach (var parent in parentTypes)
+                                {
+                                    <option value="@parent.Id">@parent.Name</option>
+                                }
+                            </select>
+                            <span asp-validation-for="ParentId" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="ImageClassCss"></label>
+                            <input asp-for="ImageClassCss" class="form-control" maxlength="100" />
+                            <span asp-validation-for="ImageClassCss" class="text-danger"></span>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-plus mr-1"></i> Tạo loại bảo hiểm
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-8 col-lg-7 mb-4">
+            <div class="card shadow">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Danh sách loại bảo hiểm</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Tên loại</th>
+                                    <th>Mô tả</th>
+                                    <th>Loại cha</th>
+                                    <th>Trạng thái</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (insuranceTypes.Count == 0)
+                                {
+                                    <tr>
+                                        <td colspan="4" class="text-center text-muted">Chưa có loại bảo hiểm nào.</td>
+                                    </tr>
+                                }
+                                else
+                                {
+                                    @foreach (var type in insuranceTypes)
+                                    {
+                                        var parentName = type.ParentId == 0
+                                            ? "Danh mục gốc"
+                                            : insuranceTypes.FirstOrDefault(parent => parent.Id == type.ParentId)?.Name ?? "Không xác định";
+                                        <tr>
+                                            <td>@type.Name</td>
+                                            <td>@(string.IsNullOrWhiteSpace(type.Description) ? "—" : type.Description)</td>
+                                            <td>@parentName</td>
+                                            <td>
+                                                @if (type.Active == 1)
+                                                {
+                                                    <span class="badge badge-success">Đang hoạt động</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge badge-secondary">Ngừng hoạt động</span>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

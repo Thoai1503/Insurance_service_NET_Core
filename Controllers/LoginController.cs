@@ -17,11 +17,14 @@ namespace Insurance_agency.Controllers
            
             string username = Request.Form["username"];
             string password = Request.Form["password"];
+            Console.WriteLine(username);
+            Console.WriteLine(password);
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
                 return RedirectToAction("Index", new { username, password });
             }
             User member = MiddleWareRepository.Instance.CheckLogin(username, password);
+            Console.WriteLine(member);
             if (member != null)
             {
                 HttpContext.Session.SetObject("user", member);

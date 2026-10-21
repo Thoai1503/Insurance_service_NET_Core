@@ -2,6 +2,7 @@
 using Insurance_agency.Models.Entities;
 using Insurance_agency.Models.ModelView;
 using Insurance_agency.Models.Repository;
+using Insurance_agency.Services;
 using Insurance_agency.Services.VnPay;
 using Microsoft.EntityFrameworkCore;
 
@@ -28,6 +29,11 @@ builder.Services.AddHttpContextAccessor();
 // Add payment gateway service
 builder.Services.AddScoped<IVnPayService, VnPayService>();
 var app = builder.Build();
+if (builder.Configuration.GetValue<bool>("SeedAccounts:Enabled"))
+{
+    await AccountSeeder.SeedAsync(app.Services, builder.Configuration);
+}
+
 app.UseStaticFiles();
 app.UseSession();
 // Configure the HTTP request pipeline.

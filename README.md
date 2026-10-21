@@ -70,7 +70,25 @@ dotnet ef database update
 > dotnet ef database update
 > ```
 
-### 6. Run the application
+### 6. Seed the initial admin and user accounts (optional)
+
+Add the following entries to your local `.env` file to create the requested
+accounts when the application starts:
+
+```dotenv
+SeedAccounts__Enabled=true
+SeedAccounts__AdminPassword=choose-a-strong-admin-password
+SeedAccounts__UserPassword=choose-a-strong-user-password
+```
+
+The seeder creates `admin@gmail.com` (`Admin Vo`, role ID 1) and
+`user1@gmail.com` (`User 1`, role ID 4), plus missing role and basic route
+authorization records. Existing accounts are not overwritten. Passwords are
+hashed using the application's current MD5 login format; do not reuse these
+passwords elsewhere. The database migration must be applied before starting
+the application with seeding enabled.
+
+### 7. Run the application
 
 ```bash
 dotnet run
